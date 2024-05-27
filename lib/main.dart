@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/application/bloc/main/main_screen.dart';
 import 'package:flutter_application_1/application/core/ui_kit/color_scheme.dart';
-import 'package:flutter_application_1/application/features/character/character_screen.dart';
-import 'package:flutter_application_1/application/features/main_screen.dart/main_screen.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
@@ -15,11 +14,6 @@ final _router = GoRouter(
       path: '/',
       name: 'main',
       builder: (context, state) => const MainScreen(),
-    ),
-    GoRoute(
-      path: '/character',
-      name: 'character',
-      builder: (context, state) => const CharacterScreen(),
     ),
   ],
 );

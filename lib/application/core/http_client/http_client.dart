@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/core/http_client/interfaces/i_http_client.dart';
 
-class RikHttpClient implements IRikHttpClient {
+class HttpClient implements IRikHttpClient {
   final Dio client;
 
-  RikHttpClient(this.client);
+  HttpClient(this.client);
 
   @override
   void addInterceptor(Interceptor interceptor) {
