@@ -23,13 +23,16 @@ mixin _$Race {
   String get name => throw _privateConstructorUsedError;
   String get slug => throw _privateConstructorUsedError;
   String get desc => throw _privateConstructorUsedError;
+  @JsonKey(name: 'asi_desc')
   String get asiDesc => throw _privateConstructorUsedError;
   List<Asi> get asi => throw _privateConstructorUsedError;
   String get age => throw _privateConstructorUsedError;
   String get alignment => throw _privateConstructorUsedError;
   String get size => throw _privateConstructorUsedError;
+  @JsonKey(name: 'size_raw')
   String get sizeRaw => throw _privateConstructorUsedError;
   Map<String, int> get speed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'speed_desc')
   String get speedDesc => throw _privateConstructorUsedError;
   String get languages => throw _privateConstructorUsedError;
   String get vision => throw _privateConstructorUsedError;
@@ -50,14 +53,14 @@ abstract class $RaceCopyWith<$Res> {
       {String name,
       String slug,
       String desc,
-      String asiDesc,
+      @JsonKey(name: 'asi_desc') String asiDesc,
       List<Asi> asi,
       String age,
       String alignment,
       String size,
-      String sizeRaw,
+      @JsonKey(name: 'size_raw') String sizeRaw,
       Map<String, int> speed,
-      String speedDesc,
+      @JsonKey(name: 'speed_desc') String speedDesc,
       String languages,
       String vision,
       String traits,
@@ -169,14 +172,14 @@ abstract class _$$RaceImplCopyWith<$Res> implements $RaceCopyWith<$Res> {
       {String name,
       String slug,
       String desc,
-      String asiDesc,
+      @JsonKey(name: 'asi_desc') String asiDesc,
       List<Asi> asi,
       String age,
       String alignment,
       String size,
-      String sizeRaw,
+      @JsonKey(name: 'size_raw') String sizeRaw,
       Map<String, int> speed,
-      String speedDesc,
+      @JsonKey(name: 'speed_desc') String speedDesc,
       String languages,
       String vision,
       String traits,
@@ -281,14 +284,14 @@ class _$RaceImpl implements _Race {
       {required this.name,
       required this.slug,
       required this.desc,
-      required this.asiDesc,
+      @JsonKey(name: 'asi_desc') required this.asiDesc,
       required final List<Asi> asi,
       required this.age,
       required this.alignment,
       required this.size,
-      required this.sizeRaw,
+      @JsonKey(name: 'size_raw') required this.sizeRaw,
       required final Map<String, int> speed,
-      required this.speedDesc,
+      @JsonKey(name: 'speed_desc') required this.speedDesc,
       required this.languages,
       required this.vision,
       required this.traits,
@@ -307,6 +310,7 @@ class _$RaceImpl implements _Race {
   @override
   final String desc;
   @override
+  @JsonKey(name: 'asi_desc')
   final String asiDesc;
   final List<Asi> _asi;
   @override
@@ -323,6 +327,7 @@ class _$RaceImpl implements _Race {
   @override
   final String size;
   @override
+  @JsonKey(name: 'size_raw')
   final String sizeRaw;
   final Map<String, int> _speed;
   @override
@@ -333,6 +338,7 @@ class _$RaceImpl implements _Race {
   }
 
   @override
+  @JsonKey(name: 'speed_desc')
   final String speedDesc;
   @override
   final String languages;
@@ -417,14 +423,14 @@ abstract class _Race implements Race {
       {required final String name,
       required final String slug,
       required final String desc,
-      required final String asiDesc,
+      @JsonKey(name: 'asi_desc') required final String asiDesc,
       required final List<Asi> asi,
       required final String age,
       required final String alignment,
       required final String size,
-      required final String sizeRaw,
+      @JsonKey(name: 'size_raw') required final String sizeRaw,
       required final Map<String, int> speed,
-      required final String speedDesc,
+      @JsonKey(name: 'speed_desc') required final String speedDesc,
       required final String languages,
       required final String vision,
       required final String traits,
@@ -439,6 +445,7 @@ abstract class _Race implements Race {
   @override
   String get desc;
   @override
+  @JsonKey(name: 'asi_desc')
   String get asiDesc;
   @override
   List<Asi> get asi;
@@ -449,10 +456,12 @@ abstract class _Race implements Race {
   @override
   String get size;
   @override
+  @JsonKey(name: 'size_raw')
   String get sizeRaw;
   @override
   Map<String, int> get speed;
   @override
+  @JsonKey(name: 'speed_desc')
   String get speedDesc;
   @override
   String get languages;

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-abstract class IRikHttpClient {
+abstract class IHttpClient {
   void addInterceptor(Interceptor interceptor);
 
   Future<T?> delete<T>(

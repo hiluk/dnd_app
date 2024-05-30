@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:flutter_application_1/application/core/utils/typedefs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,14 +12,14 @@ class Race with _$Race {
     required String name,
     required String slug,
     required String desc,
-    required String asiDesc,
+    @JsonKey(name: 'asi_desc') required String asiDesc,
     required List<Asi> asi,
     required String age,
     required String alignment,
     required String size,
-    required String sizeRaw,
+    @JsonKey(name: 'size_raw') required String sizeRaw,
     required Speed speed,
-    required String speedDesc,
+    @JsonKey(name: 'speed_desc') required String speedDesc,
     required String languages,
     required String vision,
     required String traits,
