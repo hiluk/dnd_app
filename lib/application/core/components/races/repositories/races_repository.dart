@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter_application_1/application/core/features/races/models/race_model.dart';
+import 'package:flutter_application_1/application/core/components/races/models/race_model.dart';
 import 'package:flutter_application_1/application/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/application/core/utils/interfaces/i_repository.dart';
 

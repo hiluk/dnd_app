@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/application/core/features/classes/models/class_model.dart';
+import 'package:flutter_application_1/application/core/components/classes/models/class_model.dart';
 import 'package:flutter_application_1/application/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/application/core/utils/interfaces/i_repository.dart';
 
@@ -11,9 +11,9 @@ class ClassesRepository implements IRepository {
   @override
   Future<List<Class>> fetch() async {
     final data = await httpClient.get('classes');
-    final racesRawList = data["results"] as List<dynamic>;
+    final classesRawList = data["results"] as List<dynamic>;
 
-    return racesRawList
+    return classesRawList
         .map(
           (json) => Class.fromJson(json),
         )
