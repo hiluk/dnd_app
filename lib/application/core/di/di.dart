@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/application/core/features/classes/models/class_model.dart';
+import 'package:flutter_application_1/application/core/features/classes/repositories/classes_repository.dart';
 import 'package:flutter_application_1/application/core/features/races/models/race_model.dart';
 import 'package:flutter_application_1/application/core/features/races/repositories/races_repository.dart';
 import 'package:flutter_application_1/application/core/http_client/http_client.dart';
@@ -15,6 +17,12 @@ void registerDependencies() {
 
   locator.registerSingletonAsync<List<Race>>(() async {
     return RacesRepository(
+      locator.get<AppHttpClient>(),
+    ).fetch();
+  });
+
+  locator.registerSingletonAsync<List<Class>>(() async {
+    return ClassesRepository(
       locator.get<AppHttpClient>(),
     ).fetch();
   });

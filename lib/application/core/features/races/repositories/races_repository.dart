@@ -14,12 +14,10 @@ class RacesRepository implements IRepository {
     final data = await httpClient.get('races');
     final racesRawList = data["results"] as List<dynamic>;
 
-    final races = racesRawList
+    return racesRawList
         .map(
           (raceJson) => Race.fromJson(raceJson),
         )
         .toList();
-
-    return races;
   }
 }
