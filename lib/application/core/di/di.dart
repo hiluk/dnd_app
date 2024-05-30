@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/application/core/components/backgrounds/models/background_model.dart';
-import 'package:flutter_application_1/application/core/components/backgrounds/repositories/backgrounds_repository.dart';
-import 'package:flutter_application_1/application/core/components/classes/models/class_model.dart';
-import 'package:flutter_application_1/application/core/components/classes/repositories/classes_repository.dart';
-import 'package:flutter_application_1/application/core/components/races/models/race_model.dart';
-import 'package:flutter_application_1/application/core/components/races/repositories/races_repository.dart';
+import 'package:flutter_application_1/application/core/api/backgrounds/models/background_model.dart';
+import 'package:flutter_application_1/application/core/api/backgrounds/repositories/backgrounds_repository.dart';
+import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
+import 'package:flutter_application_1/application/core/api/classes/repositories/classes_repository.dart';
+import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
+import 'package:flutter_application_1/application/core/api/races/repositories/races_repository.dart';
 import 'package:flutter_application_1/application/core/http_client/http_client.dart';
 import 'package:get_it/get_it.dart';
 

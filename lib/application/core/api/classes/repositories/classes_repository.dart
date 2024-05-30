@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/application/core/components/classes/models/class_model.dart';
+import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/application/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/application/core/utils/interfaces/i_repository.dart';
 

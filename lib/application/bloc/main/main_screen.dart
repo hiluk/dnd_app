@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/core/components/backgrounds/models/background_model.dart';
+import 'package:flutter_application_1/application/core/api/backgrounds/models/background_model.dart';
 import 'package:flutter_application_1/application/core/di/di.dart';
 
 class MainScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:flutter_application_1/application/core/components/classes/models/archetype_model.dart';
+import 'package:flutter_application_1/application/core/api/classes/models/archetype_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'class_model.freezed.dart';
