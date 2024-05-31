@@ -2,11 +2,11 @@ import 'package:flutter_application_1/application/core/api/armor/models/armor_mo
 import 'package:flutter_application_1/application/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/application/core/utils/interfaces/i_repository.dart';
 
-class BackgroundsRepository implements IRepository {
+class ArmorRepository implements IRepository {
   @override
   final IHttpClient httpClient;
 
-  const BackgroundsRepository(this.httpClient);
+  const ArmorRepository(this.httpClient);
 
   @override
   Future<List<Armor>> fetch() async {
