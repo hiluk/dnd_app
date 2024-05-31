@@ -11,9 +11,9 @@ class WeaponsRepository implements IRepository {
   @override
   Future<List<Weapon>> fetch() async {
     final data = await httpClient.get('weapons');
-    final racesRawList = data["results"] as List<dynamic>;
+    final weaponsRawList = data["results"] as List<dynamic>;
 
-    return racesRawList
+    return weaponsRawList
         .map(
           (json) => Weapon.fromJson(json),
         )
