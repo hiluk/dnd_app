@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/bloc/main/main_screen.dart';
+import 'package:flutter_application_1/application/character/presentation/character_selection_view.dart';
 import 'package:flutter_application_1/application/core/api/armor/models/armor_model.dart';
 import 'package:flutter_application_1/application/core/api/armor/repositories/armor_repository.dart';
 import 'package:flutter_application_1/application/core/api/backgrounds/models/background_model.dart';
@@ -14,6 +14,7 @@ import 'package:flutter_application_1/application/core/api/races/repositories/ra
 import 'package:flutter_application_1/application/core/api/weapons/models/weapon_model.dart';
 import 'package:flutter_application_1/application/core/api/weapons/repository/weapons_repository.dart';
 import 'package:flutter_application_1/application/core/http_client/http_client.dart';
+import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,6 +36,13 @@ void registerDependencies() {
           path: '/',
           name: 'main',
           builder: (context, state) => const MainScreen(),
+          routes: [
+            GoRoute(
+              path: CharacterSelectionView.path,
+              name: CharacterSelectionView.routeName,
+              builder: (context, state) => const CharacterSelectionView(),
+            ),
+          ],
         ),
       ],
     ),
