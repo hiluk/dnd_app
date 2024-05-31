@@ -13,6 +13,7 @@ import 'package:flutter_application_1/application/core/api/races/models/race_mod
 import 'package:flutter_application_1/application/core/api/races/repositories/races_repository.dart';
 import 'package:flutter_application_1/application/core/api/weapons/models/weapon_model.dart';
 import 'package:flutter_application_1/application/core/api/weapons/repository/weapons_repository.dart';
+import 'package:flutter_application_1/application/core/database/app_database.dart';
 import 'package:flutter_application_1/application/core/http_client/http_client.dart';
 import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:get_it/get_it.dart';
@@ -21,6 +22,10 @@ import 'package:go_router/go_router.dart';
 GetIt locator = GetIt.instance;
 
 void registerDependencies() {
+  locator.registerSingleton<AppDatabase>(
+    AppDatabase(),
+  );
+
   locator.registerSingleton<AppHttpClient>(
     AppHttpClient(
       Dio(

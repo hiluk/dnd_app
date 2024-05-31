@@ -3,6 +3,8 @@ import 'package:flutter_application_1/application/core/di/di.dart';
 import 'package:go_router/go_router.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   registerDependencies();
   await locator.allReady();
 
