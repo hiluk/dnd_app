@@ -3,6 +3,8 @@ import 'package:flutter_application_1/application/character/presentation/widgets
 import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/application/core/di/di.dart';
 
+// TODO: Сделать конвертеры для полей, чтобы красиво выглядел текст.
+
 class RacesListView extends StatefulWidget {
   const RacesListView({
     super.key,
@@ -54,9 +56,7 @@ class _RacesListViewState extends State<RacesListView> {
       selectedRace = null;
     } else {
       for (final race in races) {
-        if (race.name == raceName) {
-          selectedRace = race;
-        }
+        race.name == raceName ? selectedRace = race : null;
       }
     }
     setState(() {});

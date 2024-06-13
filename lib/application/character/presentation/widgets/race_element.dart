@@ -50,6 +50,7 @@ class RaceElement extends StatelessWidget {
                           ),
                         ],
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
                               flex: 1,
