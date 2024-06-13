@@ -5,7 +5,7 @@ import 'package:flutter_application_1/application/core/api/races/models/race_mod
 class RaceElement extends StatelessWidget {
   final Race race;
   final bool isExpanded;
-  final Function(String?) onSelect;
+  final Function(String) onSelect;
   const RaceElement({
     super.key,
     required this.race,
@@ -18,11 +18,12 @@ class RaceElement extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final notExpandedHeight = size.height * 0.07;
     final expandedHeight = size.height * 0.5;
+    const duration = Duration(milliseconds: 400);
 
     return GestureDetector(
       onTap: () => onSelect(race.name),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
+        duration: duration,
         color: Colors.transparent,
         height: isExpanded ? expandedHeight : notExpandedHeight,
         child: Padding(
@@ -40,12 +41,12 @@ class RaceElement extends StatelessWidget {
                   ? Flexible(
                       flex: 1,
                       child: Animate(
-                        delay: const Duration(milliseconds: 500),
+                        delay: duration,
                         effects: const [
                           FadeEffect(
                             begin: 0,
                             end: 1,
-                            duration: Duration(milliseconds: 500),
+                            duration: duration,
                           ),
                         ],
                         child: Column(

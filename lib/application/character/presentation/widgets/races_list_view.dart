@@ -13,12 +13,11 @@ class RacesListView extends StatefulWidget {
 }
 
 class _RacesListViewState extends State<RacesListView> {
-  late String? selectedRaceName;
+  late Race? selectedRace;
+  late List<Race> races;
 
   @override
   Widget build(BuildContext context) {
-    final races = locator.get<List<Race>>();
-
     return ListView.separated(
       itemCount: races.length,
       separatorBuilder: (context, index) => Divider(
@@ -28,7 +27,7 @@ class _RacesListViewState extends State<RacesListView> {
       itemBuilder: (context, index) {
         return RaceElement(
           race: races[index],
-          isExpanded: selectedRaceName?.contains(races[index].name) ?? false,
+          isExpanded: isSelected(races[index].name),
           onSelect: (raceName) => selectRace(raceName),
         );
       },
@@ -37,18 +36,31 @@ class _RacesListViewState extends State<RacesListView> {
 
   @override
   void initState() {
-    selectedRaceName = null;
+    races = locator.get<List<Race>>();
+    selectedRace = null;
     super.initState();
   }
 
-  void selectRace(String? raceName) {
-    if (selectedRaceName != null) {
-      selectedRaceName = null;
-    }
+  bool isSelected(String name) {
+    return selectedRace?.name != null &&
+            selectedRace!.name.contains(name) &&
+            selectedRace!.name.length == name.length
+        ? true
+        : false;
+  }
 
-    setState(() {
-      selectedRaceName = raceName;
-    });
-    debugPrint('Selected race: $selectedRaceName');
+  void selectRace(String raceName) {
+    if (isSelected(raceName)) {
+      selectedRace = null;
+    } else {
+      for (final race in races) {
+        if (race.name == raceName) {
+          selectedRace = race;
+        }
+      }
+    }
+    setState(() {});
+
+    debugPrint('Selected race: ${selectedRace?.name}');
   }
 }
