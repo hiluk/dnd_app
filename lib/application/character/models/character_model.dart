@@ -20,4 +20,22 @@ class Character with _$Character {
 
   factory Character.fromJson(Map<String, dynamic> json) =>
       _$CharacterFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "race": race.name,
+      "charClass": charClass.name,
+      "strength": attributes.strength,
+      "dexterity": attributes.dexterity,
+      "agility": attributes.agility,
+      "constitution": attributes.constitution,
+      "willpower": attributes.willpower,
+      "intellect": attributes.intellect,
+      "charisma": attributes.charisma,
+      "perception": attributes.perception,
+      "feats": feats.map((e) => e.name),
+      "weapon": weapon,
+    };
+  }
 }
