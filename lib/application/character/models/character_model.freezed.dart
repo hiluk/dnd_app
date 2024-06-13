@@ -20,6 +20,8 @@ Character _$CharacterFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Character {
+  String get name => throw _privateConstructorUsedError;
+  int get level => throw _privateConstructorUsedError;
   Race get race => throw _privateConstructorUsedError;
   Class get charClass => throw _privateConstructorUsedError;
   Attributes get attributes => throw _privateConstructorUsedError;
@@ -38,7 +40,9 @@ abstract class $CharacterCopyWith<$Res> {
       _$CharacterCopyWithImpl<$Res, Character>;
   @useResult
   $Res call(
-      {Race race,
+      {String name,
+      int level,
+      Race race,
       Class charClass,
       Attributes attributes,
       List<Feat> feats,
@@ -63,6 +67,8 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
+    Object? level = null,
     Object? race = null,
     Object? charClass = null,
     Object? attributes = null,
@@ -70,6 +76,14 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? weapon = null,
   }) {
     return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
       race: null == race
           ? _value.race
           : race // ignore: cast_nullable_to_non_nullable
@@ -135,7 +149,9 @@ abstract class _$$CharacterImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Race race,
+      {String name,
+      int level,
+      Race race,
       Class charClass,
       Attributes attributes,
       List<Feat> feats,
@@ -162,6 +178,8 @@ class __$$CharacterImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
+    Object? level = null,
     Object? race = null,
     Object? charClass = null,
     Object? attributes = null,
@@ -169,6 +187,14 @@ class __$$CharacterImplCopyWithImpl<$Res>
     Object? weapon = null,
   }) {
     return _then(_$CharacterImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
       race: null == race
           ? _value.race
           : race // ignore: cast_nullable_to_non_nullable
@@ -197,7 +223,9 @@ class __$$CharacterImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CharacterImpl implements _Character {
   _$CharacterImpl(
-      {required this.race,
+      {required this.name,
+      required this.level,
+      required this.race,
       required this.charClass,
       required this.attributes,
       final List<Feat> feats = const [],
@@ -207,6 +235,10 @@ class _$CharacterImpl implements _Character {
   factory _$CharacterImpl.fromJson(Map<String, dynamic> json) =>
       _$$CharacterImplFromJson(json);
 
+  @override
+  final String name;
+  @override
+  final int level;
   @override
   final Race race;
   @override
@@ -227,7 +259,7 @@ class _$CharacterImpl implements _Character {
 
   @override
   String toString() {
-    return 'Character(race: $race, charClass: $charClass, attributes: $attributes, feats: $feats, weapon: $weapon)';
+    return 'Character(name: $name, level: $level, race: $race, charClass: $charClass, attributes: $attributes, feats: $feats, weapon: $weapon)';
   }
 
   @override
@@ -235,6 +267,8 @@ class _$CharacterImpl implements _Character {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CharacterImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.level, level) || other.level == level) &&
             (identical(other.race, race) || other.race == race) &&
             (identical(other.charClass, charClass) ||
                 other.charClass == charClass) &&
@@ -246,8 +280,8 @@ class _$CharacterImpl implements _Character {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, race, charClass, attributes,
-      const DeepCollectionEquality().hash(_feats), weapon);
+  int get hashCode => Object.hash(runtimeType, name, level, race, charClass,
+      attributes, const DeepCollectionEquality().hash(_feats), weapon);
 
   @JsonKey(ignore: true)
   @override
@@ -265,7 +299,9 @@ class _$CharacterImpl implements _Character {
 
 abstract class _Character implements Character {
   factory _Character(
-      {required final Race race,
+      {required final String name,
+      required final int level,
+      required final Race race,
       required final Class charClass,
       required final Attributes attributes,
       final List<Feat> feats,
@@ -274,6 +310,10 @@ abstract class _Character implements Character {
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$CharacterImpl.fromJson;
 
+  @override
+  String get name;
+  @override
+  int get level;
   @override
   Race get race;
   @override

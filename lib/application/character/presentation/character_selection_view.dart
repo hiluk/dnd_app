@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
+import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/core/ui_kit/widgets/slide_button.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class CharacterSelectionView extends StatefulWidget {
@@ -21,7 +23,7 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: SlideButton(
-        onTap: () {},
+        onTap: () => context.pushNamed(CharacterCreationScreen.routeName),
       ),
       body: SafeArea(
           child: CustomScrollView(
@@ -48,7 +50,7 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
                             .toList(),
                       )
                     : const Center(
-                        child: Text('Пусто'),
+                        child: Text('Empty'),
                       );
               },
             ),

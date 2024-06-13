@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_view.dart';
 import 'package:flutter_application_1/application/core/api/armor/models/armor_model.dart';
 import 'package:flutter_application_1/application/core/api/armor/repositories/armor_repository.dart';
@@ -31,6 +32,7 @@ void registerDependencies() {
 
   locator.registerSingleton<GoRouter>(
     GoRouter(
+      debugLogDiagnostics: true,
       routes: [
         GoRoute(
           path: '/',
@@ -40,6 +42,13 @@ void registerDependencies() {
             GoRoute(
               path: CharacterSelectionView.path,
               name: CharacterSelectionView.routeName,
+              routes: [
+                GoRoute(
+                  path: CharacterCreationScreen.routePath,
+                  name: CharacterCreationScreen.routePath,
+                  builder: (context, state) => const CharacterCreationScreen(),
+                )
+              ],
               builder: (context, state) => const CharacterSelectionView(),
             ),
           ],

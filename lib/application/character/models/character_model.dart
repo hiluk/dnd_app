@@ -11,6 +11,8 @@ part 'character_model.g.dart';
 @freezed
 class Character with _$Character {
   factory Character({
+    required String name,
+    required int level,
     required Race race,
     required Class charClass,
     required Attributes attributes,

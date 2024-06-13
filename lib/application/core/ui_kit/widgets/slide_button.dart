@@ -12,7 +12,7 @@ class SlideButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(30),
       child: Animate(
         delay: const Duration(milliseconds: 500),
