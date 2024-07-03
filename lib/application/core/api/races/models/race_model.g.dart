@@ -8,37 +8,29 @@ part of 'race_model.dart';
 
 _$RaceImpl _$$RaceImplFromJson(Map<String, dynamic> json) => _$RaceImpl(
       name: json['name'] as String,
-      slug: json['slug'] as String,
-      desc: json['desc'] as String,
-      asiDesc: json['asi_desc'] as String,
-      asi: json['asi'] as List<dynamic>,
+      description: json['description'] as String,
+      asi: (json['asi'] as List<dynamic>)
+          .map((e) => Asi.fromJson(e as Map<String, dynamic>))
+          .toList(),
       age: json['age'] as String,
-      alignment: json['alignment'] as String,
       size: json['size'] as String,
-      sizeRaw: json['size_raw'] as String,
-      speed: Map<String, int>.from(json['speed'] as Map),
-      speedDesc: json['speed_desc'] as String,
-      languages: json['languages'] as String,
+      speed: (json['speed'] as List<dynamic>)
+          .map((e) => Speed.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      language: json['language'] as String,
       vision: json['vision'] as String,
       traits: json['traits'] as String,
-      subraces: json['subraces'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$$RaceImplToJson(_$RaceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'slug': instance.slug,
-      'desc': instance.desc,
-      'asi_desc': instance.asiDesc,
+      'description': instance.description,
       'asi': instance.asi,
       'age': instance.age,
-      'alignment': instance.alignment,
       'size': instance.size,
-      'size_raw': instance.sizeRaw,
       'speed': instance.speed,
-      'speed_desc': instance.speedDesc,
-      'languages': instance.languages,
+      'language': instance.language,
       'vision': instance.vision,
       'traits': instance.traits,
-      'subraces': instance.subraces,
     };

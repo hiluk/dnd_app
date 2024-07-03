@@ -54,11 +54,11 @@ class RaceElement extends StatelessWidget {
                           children: [
                             Flexible(
                               flex: 1,
-                              child: Text(race.desc),
+                              child: Text(race.description),
                             ),
                             Flexible(
                               flex: 1,
-                              child: Text(race.languages),
+                              child: Text(race.language),
                             ),
                           ],
                         ),

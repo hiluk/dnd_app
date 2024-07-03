@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'asi_model.dart';
+part of 'speed_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AsiImpl _$$AsiImplFromJson(Map<String, dynamic> json) => _$AsiImpl(
-      stat: json['stat'] as String,
+_$SpeedImpl _$$SpeedImplFromJson(Map<String, dynamic> json) => _$SpeedImpl(
+      type: json['type'] as String,
       value: json['value'] as int,
     );
 
-Map<String, dynamic> _$$AsiImplToJson(_$AsiImpl instance) => <String, dynamic>{
-      'stat': instance.stat,
+Map<String, dynamic> _$$SpeedImplToJson(_$SpeedImpl instance) =>
+    <String, dynamic>{
+      'type': instance.type,
       'value': instance.value,
     };

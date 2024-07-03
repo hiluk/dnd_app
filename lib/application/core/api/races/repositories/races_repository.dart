@@ -11,8 +11,9 @@ class RacesRepository implements IRepository {
 
   @override
   Future<List<Race>> fetch() async {
-    final data = await httpClient.get('races');
-    final racesRawList = data["results"] as List<dynamic>;
+    final data = await httpClient.get('/api/v1/race/GetAllRaces');
+    print(data.toString());
+    final racesRawList = data as List<dynamic>;
 
     return racesRawList
         .map(

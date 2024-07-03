@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'asi_model.dart';
+part of 'speed_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,31 +14,32 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Asi _$AsiFromJson(Map<String, dynamic> json) {
-  return _Asi.fromJson(json);
+Speed _$SpeedFromJson(Map<String, dynamic> json) {
+  return _Speed.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Asi {
-  String get stat => throw _privateConstructorUsedError;
+mixin _$Speed {
+  String get type => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AsiCopyWith<Asi> get copyWith => throw _privateConstructorUsedError;
+  $SpeedCopyWith<Speed> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AsiCopyWith<$Res> {
-  factory $AsiCopyWith(Asi value, $Res Function(Asi) then) =
-      _$AsiCopyWithImpl<$Res, Asi>;
+abstract class $SpeedCopyWith<$Res> {
+  factory $SpeedCopyWith(Speed value, $Res Function(Speed) then) =
+      _$SpeedCopyWithImpl<$Res, Speed>;
   @useResult
-  $Res call({String stat, int value});
+  $Res call({String type, int value});
 }
 
 /// @nodoc
-class _$AsiCopyWithImpl<$Res, $Val extends Asi> implements $AsiCopyWith<$Res> {
-  _$AsiCopyWithImpl(this._value, this._then);
+class _$SpeedCopyWithImpl<$Res, $Val extends Speed>
+    implements $SpeedCopyWith<$Res> {
+  _$SpeedCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -48,13 +49,13 @@ class _$AsiCopyWithImpl<$Res, $Val extends Asi> implements $AsiCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stat = null,
+    Object? type = null,
     Object? value = null,
   }) {
     return _then(_value.copyWith(
-      stat: null == stat
-          ? _value.stat
-          : stat // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       value: null == value
           ? _value.value
@@ -65,30 +66,33 @@ class _$AsiCopyWithImpl<$Res, $Val extends Asi> implements $AsiCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$AsiImplCopyWith<$Res> implements $AsiCopyWith<$Res> {
-  factory _$$AsiImplCopyWith(_$AsiImpl value, $Res Function(_$AsiImpl) then) =
-      __$$AsiImplCopyWithImpl<$Res>;
+abstract class _$$SpeedImplCopyWith<$Res> implements $SpeedCopyWith<$Res> {
+  factory _$$SpeedImplCopyWith(
+          _$SpeedImpl value, $Res Function(_$SpeedImpl) then) =
+      __$$SpeedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String stat, int value});
+  $Res call({String type, int value});
 }
 
 /// @nodoc
-class __$$AsiImplCopyWithImpl<$Res> extends _$AsiCopyWithImpl<$Res, _$AsiImpl>
-    implements _$$AsiImplCopyWith<$Res> {
-  __$$AsiImplCopyWithImpl(_$AsiImpl _value, $Res Function(_$AsiImpl) _then)
+class __$$SpeedImplCopyWithImpl<$Res>
+    extends _$SpeedCopyWithImpl<$Res, _$SpeedImpl>
+    implements _$$SpeedImplCopyWith<$Res> {
+  __$$SpeedImplCopyWithImpl(
+      _$SpeedImpl _value, $Res Function(_$SpeedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stat = null,
+    Object? type = null,
     Object? value = null,
   }) {
-    return _then(_$AsiImpl(
-      stat: null == stat
-          ? _value.stat
-          : stat // ignore: cast_nullable_to_non_nullable
+    return _then(_$SpeedImpl(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       value: null == value
           ? _value.value
@@ -100,61 +104,61 @@ class __$$AsiImplCopyWithImpl<$Res> extends _$AsiCopyWithImpl<$Res, _$AsiImpl>
 
 /// @nodoc
 @JsonSerializable()
-class _$AsiImpl implements _Asi {
-  _$AsiImpl({required this.stat, required this.value});
+class _$SpeedImpl implements _Speed {
+  _$SpeedImpl({required this.type, required this.value});
 
-  factory _$AsiImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AsiImplFromJson(json);
+  factory _$SpeedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SpeedImplFromJson(json);
 
   @override
-  final String stat;
+  final String type;
   @override
   final int value;
 
   @override
   String toString() {
-    return 'Asi(stat: $stat, value: $value)';
+    return 'Speed(type: $type, value: $value)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AsiImpl &&
-            (identical(other.stat, stat) || other.stat == stat) &&
+            other is _$SpeedImpl &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, stat, value);
+  int get hashCode => Object.hash(runtimeType, type, value);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AsiImplCopyWith<_$AsiImpl> get copyWith =>
-      __$$AsiImplCopyWithImpl<_$AsiImpl>(this, _$identity);
+  _$$SpeedImplCopyWith<_$SpeedImpl> get copyWith =>
+      __$$SpeedImplCopyWithImpl<_$SpeedImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AsiImplToJson(
+    return _$$SpeedImplToJson(
       this,
     );
   }
 }
 
-abstract class _Asi implements Asi {
-  factory _Asi({required final String stat, required final int value}) =
-      _$AsiImpl;
+abstract class _Speed implements Speed {
+  factory _Speed({required final String type, required final int value}) =
+      _$SpeedImpl;
 
-  factory _Asi.fromJson(Map<String, dynamic> json) = _$AsiImpl.fromJson;
+  factory _Speed.fromJson(Map<String, dynamic> json) = _$SpeedImpl.fromJson;
 
   @override
-  String get stat;
+  String get type;
   @override
   int get value;
   @override
   @JsonKey(ignore: true)
-  _$$AsiImplCopyWith<_$AsiImpl> get copyWith =>
+  _$$SpeedImplCopyWith<_$SpeedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

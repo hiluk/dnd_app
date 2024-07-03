@@ -6,7 +6,7 @@ part 'asi_model.g.dart';
 @freezed
 class Asi with _$Asi {
   factory Asi({
-    required String title,
+    required String stat,
     required int value,
   }) = _Asi;
 

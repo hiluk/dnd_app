@@ -21,23 +21,14 @@ Race _$RaceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Race {
   String get name => throw _privateConstructorUsedError;
-  String get slug => throw _privateConstructorUsedError;
-  String get desc => throw _privateConstructorUsedError;
-  @JsonKey(name: 'asi_desc')
-  String get asiDesc => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   List<Asi> get asi => throw _privateConstructorUsedError;
   String get age => throw _privateConstructorUsedError;
-  String get alignment => throw _privateConstructorUsedError;
   String get size => throw _privateConstructorUsedError;
-  @JsonKey(name: 'size_raw')
-  String get sizeRaw => throw _privateConstructorUsedError;
-  Map<String, int> get speed => throw _privateConstructorUsedError;
-  @JsonKey(name: 'speed_desc')
-  String get speedDesc => throw _privateConstructorUsedError;
-  String get languages => throw _privateConstructorUsedError;
+  List<Speed> get speed => throw _privateConstructorUsedError;
+  String get language => throw _privateConstructorUsedError;
   String get vision => throw _privateConstructorUsedError;
   String get traits => throw _privateConstructorUsedError;
-  List<dynamic> get subraces => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,20 +42,14 @@ abstract class $RaceCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String slug,
-      String desc,
-      @JsonKey(name: 'asi_desc') String asiDesc,
+      String description,
       List<Asi> asi,
       String age,
-      String alignment,
       String size,
-      @JsonKey(name: 'size_raw') String sizeRaw,
-      Map<String, int> speed,
-      @JsonKey(name: 'speed_desc') String speedDesc,
-      String languages,
+      List<Speed> speed,
+      String language,
       String vision,
-      String traits,
-      List<dynamic> subraces});
+      String traits});
 }
 
 /// @nodoc
@@ -81,37 +66,23 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
   @override
   $Res call({
     Object? name = null,
-    Object? slug = null,
-    Object? desc = null,
-    Object? asiDesc = null,
+    Object? description = null,
     Object? asi = null,
     Object? age = null,
-    Object? alignment = null,
     Object? size = null,
-    Object? sizeRaw = null,
     Object? speed = null,
-    Object? speedDesc = null,
-    Object? languages = null,
+    Object? language = null,
     Object? vision = null,
     Object? traits = null,
-    Object? subraces = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
-      desc: null == desc
-          ? _value.desc
-          : desc // ignore: cast_nullable_to_non_nullable
-              as String,
-      asiDesc: null == asiDesc
-          ? _value.asiDesc
-          : asiDesc // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       asi: null == asi
           ? _value.asi
@@ -121,29 +92,17 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
               as String,
-      alignment: null == alignment
-          ? _value.alignment
-          : alignment // ignore: cast_nullable_to_non_nullable
-              as String,
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as String,
-      sizeRaw: null == sizeRaw
-          ? _value.sizeRaw
-          : sizeRaw // ignore: cast_nullable_to_non_nullable
-              as String,
       speed: null == speed
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>,
-      speedDesc: null == speedDesc
-          ? _value.speedDesc
-          : speedDesc // ignore: cast_nullable_to_non_nullable
-              as String,
-      languages: null == languages
-          ? _value.languages
-          : languages // ignore: cast_nullable_to_non_nullable
+              as List<Speed>,
+      language: null == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
               as String,
       vision: null == vision
           ? _value.vision
@@ -153,10 +112,6 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
           ? _value.traits
           : traits // ignore: cast_nullable_to_non_nullable
               as String,
-      subraces: null == subraces
-          ? _value.subraces
-          : subraces // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
     ) as $Val);
   }
 }
@@ -170,20 +125,14 @@ abstract class _$$RaceImplCopyWith<$Res> implements $RaceCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String slug,
-      String desc,
-      @JsonKey(name: 'asi_desc') String asiDesc,
+      String description,
       List<Asi> asi,
       String age,
-      String alignment,
       String size,
-      @JsonKey(name: 'size_raw') String sizeRaw,
-      Map<String, int> speed,
-      @JsonKey(name: 'speed_desc') String speedDesc,
-      String languages,
+      List<Speed> speed,
+      String language,
       String vision,
-      String traits,
-      List<dynamic> subraces});
+      String traits});
 }
 
 /// @nodoc
@@ -197,37 +146,23 @@ class __$$RaceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? slug = null,
-    Object? desc = null,
-    Object? asiDesc = null,
+    Object? description = null,
     Object? asi = null,
     Object? age = null,
-    Object? alignment = null,
     Object? size = null,
-    Object? sizeRaw = null,
     Object? speed = null,
-    Object? speedDesc = null,
-    Object? languages = null,
+    Object? language = null,
     Object? vision = null,
     Object? traits = null,
-    Object? subraces = null,
   }) {
     return _then(_$RaceImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
-      desc: null == desc
-          ? _value.desc
-          : desc // ignore: cast_nullable_to_non_nullable
-              as String,
-      asiDesc: null == asiDesc
-          ? _value.asiDesc
-          : asiDesc // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       asi: null == asi
           ? _value._asi
@@ -237,29 +172,17 @@ class __$$RaceImplCopyWithImpl<$Res>
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
               as String,
-      alignment: null == alignment
-          ? _value.alignment
-          : alignment // ignore: cast_nullable_to_non_nullable
-              as String,
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as String,
-      sizeRaw: null == sizeRaw
-          ? _value.sizeRaw
-          : sizeRaw // ignore: cast_nullable_to_non_nullable
-              as String,
       speed: null == speed
           ? _value._speed
           : speed // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>,
-      speedDesc: null == speedDesc
-          ? _value.speedDesc
-          : speedDesc // ignore: cast_nullable_to_non_nullable
-              as String,
-      languages: null == languages
-          ? _value.languages
-          : languages // ignore: cast_nullable_to_non_nullable
+              as List<Speed>,
+      language: null == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
               as String,
       vision: null == vision
           ? _value.vision
@@ -269,10 +192,6 @@ class __$$RaceImplCopyWithImpl<$Res>
           ? _value.traits
           : traits // ignore: cast_nullable_to_non_nullable
               as String,
-      subraces: null == subraces
-          ? _value._subraces
-          : subraces // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
     ));
   }
 }
@@ -282,23 +201,16 @@ class __$$RaceImplCopyWithImpl<$Res>
 class _$RaceImpl implements _Race {
   _$RaceImpl(
       {required this.name,
-      required this.slug,
-      required this.desc,
-      @JsonKey(name: 'asi_desc') required this.asiDesc,
+      required this.description,
       required final List<Asi> asi,
       required this.age,
-      required this.alignment,
       required this.size,
-      @JsonKey(name: 'size_raw') required this.sizeRaw,
-      required final Map<String, int> speed,
-      @JsonKey(name: 'speed_desc') required this.speedDesc,
-      required this.languages,
+      required final List<Speed> speed,
+      required this.language,
       required this.vision,
-      required this.traits,
-      required final List<dynamic> subraces})
+      required this.traits})
       : _asi = asi,
-        _speed = speed,
-        _subraces = subraces;
+        _speed = speed;
 
   factory _$RaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$RaceImplFromJson(json);
@@ -306,12 +218,7 @@ class _$RaceImpl implements _Race {
   @override
   final String name;
   @override
-  final String slug;
-  @override
-  final String desc;
-  @override
-  @JsonKey(name: 'asi_desc')
-  final String asiDesc;
+  final String description;
   final List<Asi> _asi;
   @override
   List<Asi> get asi {
@@ -323,40 +230,25 @@ class _$RaceImpl implements _Race {
   @override
   final String age;
   @override
-  final String alignment;
-  @override
   final String size;
+  final List<Speed> _speed;
   @override
-  @JsonKey(name: 'size_raw')
-  final String sizeRaw;
-  final Map<String, int> _speed;
-  @override
-  Map<String, int> get speed {
-    if (_speed is EqualUnmodifiableMapView) return _speed;
+  List<Speed> get speed {
+    if (_speed is EqualUnmodifiableListView) return _speed;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_speed);
+    return EqualUnmodifiableListView(_speed);
   }
 
   @override
-  @JsonKey(name: 'speed_desc')
-  final String speedDesc;
-  @override
-  final String languages;
+  final String language;
   @override
   final String vision;
   @override
   final String traits;
-  final List<dynamic> _subraces;
-  @override
-  List<dynamic> get subraces {
-    if (_subraces is EqualUnmodifiableListView) return _subraces;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_subraces);
-  }
 
   @override
   String toString() {
-    return 'Race(name: $name, slug: $slug, desc: $desc, asiDesc: $asiDesc, asi: $asi, age: $age, alignment: $alignment, size: $size, sizeRaw: $sizeRaw, speed: $speed, speedDesc: $speedDesc, languages: $languages, vision: $vision, traits: $traits, subraces: $subraces)';
+    return 'Race(name: $name, description: $description, asi: $asi, age: $age, size: $size, speed: $speed, language: $language, vision: $vision, traits: $traits)';
   }
 
   @override
@@ -365,23 +257,16 @@ class _$RaceImpl implements _Race {
         (other.runtimeType == runtimeType &&
             other is _$RaceImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.slug, slug) || other.slug == slug) &&
-            (identical(other.desc, desc) || other.desc == desc) &&
-            (identical(other.asiDesc, asiDesc) || other.asiDesc == asiDesc) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality().equals(other._asi, _asi) &&
             (identical(other.age, age) || other.age == age) &&
-            (identical(other.alignment, alignment) ||
-                other.alignment == alignment) &&
             (identical(other.size, size) || other.size == size) &&
-            (identical(other.sizeRaw, sizeRaw) || other.sizeRaw == sizeRaw) &&
             const DeepCollectionEquality().equals(other._speed, _speed) &&
-            (identical(other.speedDesc, speedDesc) ||
-                other.speedDesc == speedDesc) &&
-            (identical(other.languages, languages) ||
-                other.languages == languages) &&
+            (identical(other.language, language) ||
+                other.language == language) &&
             (identical(other.vision, vision) || other.vision == vision) &&
-            (identical(other.traits, traits) || other.traits == traits) &&
-            const DeepCollectionEquality().equals(other._subraces, _subraces));
+            (identical(other.traits, traits) || other.traits == traits));
   }
 
   @JsonKey(ignore: true)
@@ -389,20 +274,14 @@ class _$RaceImpl implements _Race {
   int get hashCode => Object.hash(
       runtimeType,
       name,
-      slug,
-      desc,
-      asiDesc,
+      description,
       const DeepCollectionEquality().hash(_asi),
       age,
-      alignment,
       size,
-      sizeRaw,
       const DeepCollectionEquality().hash(_speed),
-      speedDesc,
-      languages,
+      language,
       vision,
-      traits,
-      const DeepCollectionEquality().hash(_subraces));
+      traits);
 
   @JsonKey(ignore: true)
   @override
@@ -421,56 +300,35 @@ class _$RaceImpl implements _Race {
 abstract class _Race implements Race {
   factory _Race(
       {required final String name,
-      required final String slug,
-      required final String desc,
-      @JsonKey(name: 'asi_desc') required final String asiDesc,
+      required final String description,
       required final List<Asi> asi,
       required final String age,
-      required final String alignment,
       required final String size,
-      @JsonKey(name: 'size_raw') required final String sizeRaw,
-      required final Map<String, int> speed,
-      @JsonKey(name: 'speed_desc') required final String speedDesc,
-      required final String languages,
+      required final List<Speed> speed,
+      required final String language,
       required final String vision,
-      required final String traits,
-      required final List<dynamic> subraces}) = _$RaceImpl;
+      required final String traits}) = _$RaceImpl;
 
   factory _Race.fromJson(Map<String, dynamic> json) = _$RaceImpl.fromJson;
 
   @override
   String get name;
   @override
-  String get slug;
-  @override
-  String get desc;
-  @override
-  @JsonKey(name: 'asi_desc')
-  String get asiDesc;
+  String get description;
   @override
   List<Asi> get asi;
   @override
   String get age;
   @override
-  String get alignment;
-  @override
   String get size;
   @override
-  @JsonKey(name: 'size_raw')
-  String get sizeRaw;
+  List<Speed> get speed;
   @override
-  Map<String, int> get speed;
-  @override
-  @JsonKey(name: 'speed_desc')
-  String get speedDesc;
-  @override
-  String get languages;
+  String get language;
   @override
   String get vision;
   @override
   String get traits;
-  @override
-  List<dynamic> get subraces;
   @override
   @JsonKey(ignore: true)
   _$$RaceImplCopyWith<_$RaceImpl> get copyWith =>
