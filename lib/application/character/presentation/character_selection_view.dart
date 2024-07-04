@@ -20,13 +20,13 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
       floatingActionButton: SlideButton(
         onTap: () => context.pushNamed(CharacterCreationScreen.routeName),
       ),
-      body: SafeArea(
+      body: const SafeArea(
           child: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             centerTitle: true,
             title: Text(
-              'Characters list',
+              'Список персонажей',
             ),
           ),
           SliverFillRemaining(

@@ -3,8 +3,6 @@ import 'package:flutter_application_1/application/character/presentation/widgets
 import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/application/core/di/di.dart';
 
-// TODO: Сделать конвертеры для полей, чтобы красиво выглядел текст.
-
 class RacesListView extends StatefulWidget {
   const RacesListView({
     super.key,
@@ -20,17 +18,21 @@ class _RacesListViewState extends State<RacesListView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: races.length,
-      separatorBuilder: (context, index) => Divider(
-        height: 0,
-        color: Colors.grey.withOpacity(0.7),
-      ),
       itemBuilder: (context, index) {
-        return RaceElement(
-          race: races[index],
-          isExpanded: isSelected(races[index].name),
-          onSelect: (raceName) => selectRace(raceName),
+        return Column(
+          children: [
+            RaceElement(
+              race: races[index],
+              isExpanded: isSelected(races[index].name),
+              onSelect: (raceName) => selectRace(raceName),
+            ),
+            Divider(
+              height: 0,
+              color: Colors.grey.withOpacity(0.7),
+            ),
+          ],
         );
       },
     );

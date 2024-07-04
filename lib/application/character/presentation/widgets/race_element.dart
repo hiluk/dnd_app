@@ -49,18 +49,40 @@ class RaceElement extends StatelessWidget {
                             duration: duration,
                           ),
                         ],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              child: Text(race.description),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Text(race.language),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: PageView(
+                            children: [
+                              Text(race.description),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Язык: ${race.language}'),
+                                  const SizedBox(height: 10),
+                                  Text('Размеры: ${race.size}'),
+                                  const SizedBox(height: 10),
+                                  Text('Характеристики: ${race.traits}'),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Скорость: '),
+                                      const SizedBox(width: 5),
+                                      Column(
+                                        children: race.speed
+                                            .map(
+                                              (e) =>
+                                                  Text("${e.type} ${e.value}"),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )

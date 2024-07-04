@@ -13,7 +13,7 @@ class CharacterCreationScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text('Character creation'),
+              title: Text('Выбор расы'),
               centerTitle: true,
             ),
             SliverFillRemaining(

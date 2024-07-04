@@ -38,7 +38,7 @@ class SlideButton extends StatelessWidget {
           ),
           child: const Center(
             child: Text(
-              'Create new character',
+              'Создать персонажа',
               style: TextStyle(
                 fontSize: 17,
                 color: Colors.black,
