@@ -51,37 +51,40 @@ class RaceElement extends StatelessWidget {
                         ],
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: PageView(
-                            children: [
-                              Text(race.description),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Язык: ${race.language}'),
-                                  const SizedBox(height: 10),
-                                  Text('Размеры: ${race.size}'),
-                                  const SizedBox(height: 10),
-                                  Text('Характеристики: ${race.traits}'),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text('Скорость: '),
-                                      const SizedBox(width: 5),
-                                      Column(
-                                        children: race.speed
-                                            .map(
-                                              (e) =>
-                                                  Text("${e.type} ${e.value}"),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                          child: SizedBox(
+                            height: size.height * 0.5,
+                            child: PageView(
+                              children: [
+                                Text(race.description),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Язык: ${race.language}'),
+                                    const SizedBox(height: 10),
+                                    Text('Размеры: ${race.size}'),
+                                    const SizedBox(height: 10),
+                                    Text('Характеристики: ${race.traits}'),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('Скорость: '),
+                                        const SizedBox(width: 5),
+                                        Column(
+                                          children: race.speed
+                                              .map(
+                                                (e) => Text(
+                                                    "${e.type} ${e.value}"),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

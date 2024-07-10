@@ -21,30 +21,17 @@ Class _$ClassFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Class {
   String get name => throw _privateConstructorUsedError;
-  String get slug => throw _privateConstructorUsedError;
-  String get desc => throw _privateConstructorUsedError;
-  @JsonKey(name: 'hit_dice')
+  String get description => throw _privateConstructorUsedError;
   String get hitDice => throw _privateConstructorUsedError;
-  @JsonKey(name: 'hp_at_1st_level')
-  String get hpAtFirstLevel => throw _privateConstructorUsedError;
-  @JsonKey(name: 'hp_at_higher_levels')
+  String get hpAt1stLevel => throw _privateConstructorUsedError;
   String get hpAtHigherLevels => throw _privateConstructorUsedError;
-  @JsonKey(name: 'prof_armor')
   String get profArmor => throw _privateConstructorUsedError;
-  @JsonKey(name: 'prof_weapons')
   String get profWeapon => throw _privateConstructorUsedError;
-  @JsonKey(name: 'prof_tools')
-  String get profTools => throw _privateConstructorUsedError;
-  @JsonKey(name: 'prof_saving_throws')
+  String get profTool => throw _privateConstructorUsedError;
   String get profSavingThrows => throw _privateConstructorUsedError;
-  @JsonKey(name: 'prof_skills')
   String get profSkills => throw _privateConstructorUsedError;
   String get equipment => throw _privateConstructorUsedError;
-  List<Archetype> get archetypes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'spellcasting_ability')
-  String get spellcastingAbility => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subtypes_name')
-  String get subtypesName => throw _privateConstructorUsedError;
+  String get spellCastingAbility => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,20 +45,17 @@ abstract class $ClassCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String slug,
-      String desc,
-      @JsonKey(name: 'hit_dice') String hitDice,
-      @JsonKey(name: 'hp_at_1st_level') String hpAtFirstLevel,
-      @JsonKey(name: 'hp_at_higher_levels') String hpAtHigherLevels,
-      @JsonKey(name: 'prof_armor') String profArmor,
-      @JsonKey(name: 'prof_weapons') String profWeapon,
-      @JsonKey(name: 'prof_tools') String profTools,
-      @JsonKey(name: 'prof_saving_throws') String profSavingThrows,
-      @JsonKey(name: 'prof_skills') String profSkills,
+      String description,
+      String hitDice,
+      String hpAt1stLevel,
+      String hpAtHigherLevels,
+      String profArmor,
+      String profWeapon,
+      String profTool,
+      String profSavingThrows,
+      String profSkills,
       String equipment,
-      List<Archetype> archetypes,
-      @JsonKey(name: 'spellcasting_ability') String spellcastingAbility,
-      @JsonKey(name: 'subtypes_name') String subtypesName});
+      String spellCastingAbility});
 }
 
 /// @nodoc
@@ -88,41 +72,34 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
   @override
   $Res call({
     Object? name = null,
-    Object? slug = null,
-    Object? desc = null,
+    Object? description = null,
     Object? hitDice = null,
-    Object? hpAtFirstLevel = null,
+    Object? hpAt1stLevel = null,
     Object? hpAtHigherLevels = null,
     Object? profArmor = null,
     Object? profWeapon = null,
-    Object? profTools = null,
+    Object? profTool = null,
     Object? profSavingThrows = null,
     Object? profSkills = null,
     Object? equipment = null,
-    Object? archetypes = null,
-    Object? spellcastingAbility = null,
-    Object? subtypesName = null,
+    Object? spellCastingAbility = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
-      desc: null == desc
-          ? _value.desc
-          : desc // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       hitDice: null == hitDice
           ? _value.hitDice
           : hitDice // ignore: cast_nullable_to_non_nullable
               as String,
-      hpAtFirstLevel: null == hpAtFirstLevel
-          ? _value.hpAtFirstLevel
-          : hpAtFirstLevel // ignore: cast_nullable_to_non_nullable
+      hpAt1stLevel: null == hpAt1stLevel
+          ? _value.hpAt1stLevel
+          : hpAt1stLevel // ignore: cast_nullable_to_non_nullable
               as String,
       hpAtHigherLevels: null == hpAtHigherLevels
           ? _value.hpAtHigherLevels
@@ -136,9 +113,9 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
           ? _value.profWeapon
           : profWeapon // ignore: cast_nullable_to_non_nullable
               as String,
-      profTools: null == profTools
-          ? _value.profTools
-          : profTools // ignore: cast_nullable_to_non_nullable
+      profTool: null == profTool
+          ? _value.profTool
+          : profTool // ignore: cast_nullable_to_non_nullable
               as String,
       profSavingThrows: null == profSavingThrows
           ? _value.profSavingThrows
@@ -152,17 +129,9 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
               as String,
-      archetypes: null == archetypes
-          ? _value.archetypes
-          : archetypes // ignore: cast_nullable_to_non_nullable
-              as List<Archetype>,
-      spellcastingAbility: null == spellcastingAbility
-          ? _value.spellcastingAbility
-          : spellcastingAbility // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtypesName: null == subtypesName
-          ? _value.subtypesName
-          : subtypesName // ignore: cast_nullable_to_non_nullable
+      spellCastingAbility: null == spellCastingAbility
+          ? _value.spellCastingAbility
+          : spellCastingAbility // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -177,20 +146,17 @@ abstract class _$$ClassImplCopyWith<$Res> implements $ClassCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String slug,
-      String desc,
-      @JsonKey(name: 'hit_dice') String hitDice,
-      @JsonKey(name: 'hp_at_1st_level') String hpAtFirstLevel,
-      @JsonKey(name: 'hp_at_higher_levels') String hpAtHigherLevels,
-      @JsonKey(name: 'prof_armor') String profArmor,
-      @JsonKey(name: 'prof_weapons') String profWeapon,
-      @JsonKey(name: 'prof_tools') String profTools,
-      @JsonKey(name: 'prof_saving_throws') String profSavingThrows,
-      @JsonKey(name: 'prof_skills') String profSkills,
+      String description,
+      String hitDice,
+      String hpAt1stLevel,
+      String hpAtHigherLevels,
+      String profArmor,
+      String profWeapon,
+      String profTool,
+      String profSavingThrows,
+      String profSkills,
       String equipment,
-      List<Archetype> archetypes,
-      @JsonKey(name: 'spellcasting_ability') String spellcastingAbility,
-      @JsonKey(name: 'subtypes_name') String subtypesName});
+      String spellCastingAbility});
 }
 
 /// @nodoc
@@ -205,41 +171,34 @@ class __$$ClassImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? slug = null,
-    Object? desc = null,
+    Object? description = null,
     Object? hitDice = null,
-    Object? hpAtFirstLevel = null,
+    Object? hpAt1stLevel = null,
     Object? hpAtHigherLevels = null,
     Object? profArmor = null,
     Object? profWeapon = null,
-    Object? profTools = null,
+    Object? profTool = null,
     Object? profSavingThrows = null,
     Object? profSkills = null,
     Object? equipment = null,
-    Object? archetypes = null,
-    Object? spellcastingAbility = null,
-    Object? subtypesName = null,
+    Object? spellCastingAbility = null,
   }) {
     return _then(_$ClassImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
-      desc: null == desc
-          ? _value.desc
-          : desc // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       hitDice: null == hitDice
           ? _value.hitDice
           : hitDice // ignore: cast_nullable_to_non_nullable
               as String,
-      hpAtFirstLevel: null == hpAtFirstLevel
-          ? _value.hpAtFirstLevel
-          : hpAtFirstLevel // ignore: cast_nullable_to_non_nullable
+      hpAt1stLevel: null == hpAt1stLevel
+          ? _value.hpAt1stLevel
+          : hpAt1stLevel // ignore: cast_nullable_to_non_nullable
               as String,
       hpAtHigherLevels: null == hpAtHigherLevels
           ? _value.hpAtHigherLevels
@@ -253,9 +212,9 @@ class __$$ClassImplCopyWithImpl<$Res>
           ? _value.profWeapon
           : profWeapon // ignore: cast_nullable_to_non_nullable
               as String,
-      profTools: null == profTools
-          ? _value.profTools
-          : profTools // ignore: cast_nullable_to_non_nullable
+      profTool: null == profTool
+          ? _value.profTool
+          : profTool // ignore: cast_nullable_to_non_nullable
               as String,
       profSavingThrows: null == profSavingThrows
           ? _value.profSavingThrows
@@ -269,17 +228,9 @@ class __$$ClassImplCopyWithImpl<$Res>
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
               as String,
-      archetypes: null == archetypes
-          ? _value._archetypes
-          : archetypes // ignore: cast_nullable_to_non_nullable
-              as List<Archetype>,
-      spellcastingAbility: null == spellcastingAbility
-          ? _value.spellcastingAbility
-          : spellcastingAbility // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtypesName: null == subtypesName
-          ? _value.subtypesName
-          : subtypesName // ignore: cast_nullable_to_non_nullable
+      spellCastingAbility: null == spellCastingAbility
+          ? _value.spellCastingAbility
+          : spellCastingAbility // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -290,21 +241,17 @@ class __$$ClassImplCopyWithImpl<$Res>
 class _$ClassImpl implements _Class {
   _$ClassImpl(
       {required this.name,
-      required this.slug,
-      required this.desc,
-      @JsonKey(name: 'hit_dice') required this.hitDice,
-      @JsonKey(name: 'hp_at_1st_level') required this.hpAtFirstLevel,
-      @JsonKey(name: 'hp_at_higher_levels') required this.hpAtHigherLevels,
-      @JsonKey(name: 'prof_armor') required this.profArmor,
-      @JsonKey(name: 'prof_weapons') required this.profWeapon,
-      @JsonKey(name: 'prof_tools') required this.profTools,
-      @JsonKey(name: 'prof_saving_throws') required this.profSavingThrows,
-      @JsonKey(name: 'prof_skills') required this.profSkills,
+      required this.description,
+      required this.hitDice,
+      required this.hpAt1stLevel,
+      required this.hpAtHigherLevels,
+      required this.profArmor,
+      required this.profWeapon,
+      required this.profTool,
+      required this.profSavingThrows,
+      required this.profSkills,
       required this.equipment,
-      required final List<Archetype> archetypes,
-      @JsonKey(name: 'spellcasting_ability') required this.spellcastingAbility,
-      @JsonKey(name: 'subtypes_name') required this.subtypesName})
-      : _archetypes = archetypes;
+      required this.spellCastingAbility});
 
   factory _$ClassImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassImplFromJson(json);
@@ -312,53 +259,31 @@ class _$ClassImpl implements _Class {
   @override
   final String name;
   @override
-  final String slug;
+  final String description;
   @override
-  final String desc;
-  @override
-  @JsonKey(name: 'hit_dice')
   final String hitDice;
   @override
-  @JsonKey(name: 'hp_at_1st_level')
-  final String hpAtFirstLevel;
+  final String hpAt1stLevel;
   @override
-  @JsonKey(name: 'hp_at_higher_levels')
   final String hpAtHigherLevels;
   @override
-  @JsonKey(name: 'prof_armor')
   final String profArmor;
   @override
-  @JsonKey(name: 'prof_weapons')
   final String profWeapon;
   @override
-  @JsonKey(name: 'prof_tools')
-  final String profTools;
+  final String profTool;
   @override
-  @JsonKey(name: 'prof_saving_throws')
   final String profSavingThrows;
   @override
-  @JsonKey(name: 'prof_skills')
   final String profSkills;
   @override
   final String equipment;
-  final List<Archetype> _archetypes;
   @override
-  List<Archetype> get archetypes {
-    if (_archetypes is EqualUnmodifiableListView) return _archetypes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_archetypes);
-  }
-
-  @override
-  @JsonKey(name: 'spellcasting_ability')
-  final String spellcastingAbility;
-  @override
-  @JsonKey(name: 'subtypes_name')
-  final String subtypesName;
+  final String spellCastingAbility;
 
   @override
   String toString() {
-    return 'Class(name: $name, slug: $slug, desc: $desc, hitDice: $hitDice, hpAtFirstLevel: $hpAtFirstLevel, hpAtHigherLevels: $hpAtHigherLevels, profArmor: $profArmor, profWeapon: $profWeapon, profTools: $profTools, profSavingThrows: $profSavingThrows, profSkills: $profSkills, equipment: $equipment, archetypes: $archetypes, spellcastingAbility: $spellcastingAbility, subtypesName: $subtypesName)';
+    return 'Class(name: $name, description: $description, hitDice: $hitDice, hpAt1stLevel: $hpAt1stLevel, hpAtHigherLevels: $hpAtHigherLevels, profArmor: $profArmor, profWeapon: $profWeapon, profTool: $profTool, profSavingThrows: $profSavingThrows, profSkills: $profSkills, equipment: $equipment, spellCastingAbility: $spellCastingAbility)';
   }
 
   @override
@@ -367,31 +292,27 @@ class _$ClassImpl implements _Class {
         (other.runtimeType == runtimeType &&
             other is _$ClassImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.slug, slug) || other.slug == slug) &&
-            (identical(other.desc, desc) || other.desc == desc) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.hitDice, hitDice) || other.hitDice == hitDice) &&
-            (identical(other.hpAtFirstLevel, hpAtFirstLevel) ||
-                other.hpAtFirstLevel == hpAtFirstLevel) &&
+            (identical(other.hpAt1stLevel, hpAt1stLevel) ||
+                other.hpAt1stLevel == hpAt1stLevel) &&
             (identical(other.hpAtHigherLevels, hpAtHigherLevels) ||
                 other.hpAtHigherLevels == hpAtHigherLevels) &&
             (identical(other.profArmor, profArmor) ||
                 other.profArmor == profArmor) &&
             (identical(other.profWeapon, profWeapon) ||
                 other.profWeapon == profWeapon) &&
-            (identical(other.profTools, profTools) ||
-                other.profTools == profTools) &&
+            (identical(other.profTool, profTool) ||
+                other.profTool == profTool) &&
             (identical(other.profSavingThrows, profSavingThrows) ||
                 other.profSavingThrows == profSavingThrows) &&
             (identical(other.profSkills, profSkills) ||
                 other.profSkills == profSkills) &&
             (identical(other.equipment, equipment) ||
                 other.equipment == equipment) &&
-            const DeepCollectionEquality()
-                .equals(other._archetypes, _archetypes) &&
-            (identical(other.spellcastingAbility, spellcastingAbility) ||
-                other.spellcastingAbility == spellcastingAbility) &&
-            (identical(other.subtypesName, subtypesName) ||
-                other.subtypesName == subtypesName));
+            (identical(other.spellCastingAbility, spellCastingAbility) ||
+                other.spellCastingAbility == spellCastingAbility));
   }
 
   @JsonKey(ignore: true)
@@ -399,20 +320,17 @@ class _$ClassImpl implements _Class {
   int get hashCode => Object.hash(
       runtimeType,
       name,
-      slug,
-      desc,
+      description,
       hitDice,
-      hpAtFirstLevel,
+      hpAt1stLevel,
       hpAtHigherLevels,
       profArmor,
       profWeapon,
-      profTools,
+      profTool,
       profSavingThrows,
       profSkills,
       equipment,
-      const DeepCollectionEquality().hash(_archetypes),
-      spellcastingAbility,
-      subtypesName);
+      spellCastingAbility);
 
   @JsonKey(ignore: true)
   @override
@@ -431,67 +349,44 @@ class _$ClassImpl implements _Class {
 abstract class _Class implements Class {
   factory _Class(
       {required final String name,
-      required final String slug,
-      required final String desc,
-      @JsonKey(name: 'hit_dice') required final String hitDice,
-      @JsonKey(name: 'hp_at_1st_level') required final String hpAtFirstLevel,
-      @JsonKey(name: 'hp_at_higher_levels')
+      required final String description,
+      required final String hitDice,
+      required final String hpAt1stLevel,
       required final String hpAtHigherLevels,
-      @JsonKey(name: 'prof_armor') required final String profArmor,
-      @JsonKey(name: 'prof_weapons') required final String profWeapon,
-      @JsonKey(name: 'prof_tools') required final String profTools,
-      @JsonKey(name: 'prof_saving_throws')
+      required final String profArmor,
+      required final String profWeapon,
+      required final String profTool,
       required final String profSavingThrows,
-      @JsonKey(name: 'prof_skills') required final String profSkills,
+      required final String profSkills,
       required final String equipment,
-      required final List<Archetype> archetypes,
-      @JsonKey(name: 'spellcasting_ability')
-      required final String spellcastingAbility,
-      @JsonKey(name: 'subtypes_name')
-      required final String subtypesName}) = _$ClassImpl;
+      required final String spellCastingAbility}) = _$ClassImpl;
 
   factory _Class.fromJson(Map<String, dynamic> json) = _$ClassImpl.fromJson;
 
   @override
   String get name;
   @override
-  String get slug;
+  String get description;
   @override
-  String get desc;
-  @override
-  @JsonKey(name: 'hit_dice')
   String get hitDice;
   @override
-  @JsonKey(name: 'hp_at_1st_level')
-  String get hpAtFirstLevel;
+  String get hpAt1stLevel;
   @override
-  @JsonKey(name: 'hp_at_higher_levels')
   String get hpAtHigherLevels;
   @override
-  @JsonKey(name: 'prof_armor')
   String get profArmor;
   @override
-  @JsonKey(name: 'prof_weapons')
   String get profWeapon;
   @override
-  @JsonKey(name: 'prof_tools')
-  String get profTools;
+  String get profTool;
   @override
-  @JsonKey(name: 'prof_saving_throws')
   String get profSavingThrows;
   @override
-  @JsonKey(name: 'prof_skills')
   String get profSkills;
   @override
   String get equipment;
   @override
-  List<Archetype> get archetypes;
-  @override
-  @JsonKey(name: 'spellcasting_ability')
-  String get spellcastingAbility;
-  @override
-  @JsonKey(name: 'subtypes_name')
-  String get subtypesName;
+  String get spellCastingAbility;
   @override
   @JsonKey(ignore: true)
   _$$ClassImplCopyWith<_$ClassImpl> get copyWith =>

@@ -12,9 +12,8 @@ class RacesRepository implements IRepository {
   @override
   Future<List<Race>> fetch() async {
     final data = await httpClient.get('/races');
-    final racesRawList = data as List<dynamic>;
 
-    return racesRawList
+    return (data as List)
         .map(
           (raceJson) => Race.fromJson(raceJson),
         )

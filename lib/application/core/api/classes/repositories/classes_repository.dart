@@ -10,8 +10,8 @@ class ClassesRepository implements IRepository {
 
   @override
   Future<List<Class>> fetch() async {
-    final data = await httpClient.get('classes');
-    final classesRawList = data["results"] as List<dynamic>;
+    final data = await httpClient.get('/classes');
+    final classesRawList = data as List<dynamic>;
 
     return classesRawList
         .map(

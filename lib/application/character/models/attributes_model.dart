@@ -10,10 +10,8 @@ class Attributes with _$Attributes {
     @Default(0) int dexterity,
     @Default(0) int agility,
     @Default(0) int constitution,
-    @Default(0) int willpower,
-    @Default(0) int intellect,
+    @Default(0) int intelligence,
     @Default(0) int charisma,
-    @Default(0) int perception,
   }) = _Attributes;
 
   factory Attributes.fromJson(Map<String, dynamic> json) =>

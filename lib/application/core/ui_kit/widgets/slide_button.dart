@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import 'custom_button.dart';
+
 class SlideButton extends StatelessWidget {
   final VoidCallback onTap;
   const SlideButton({
@@ -10,7 +12,6 @@ class SlideButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(30),
@@ -29,23 +30,7 @@ class SlideButton extends StatelessWidget {
             duration: Duration(milliseconds: 700),
           ),
         ],
-        child: Container(
-          height: size.height * 0.06,
-          width: size.width * 0.5,
-          decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: const Center(
-            child: Text(
-              'Создать персонажа',
-              style: TextStyle(
-                fontSize: 17,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
+        child: const CustomButton(title: "Создать персонажа"),
       ),
     );
   }

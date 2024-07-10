@@ -12,10 +12,8 @@ _$AttributesImpl _$$AttributesImplFromJson(Map<String, dynamic> json) =>
       dexterity: json['dexterity'] as int? ?? 0,
       agility: json['agility'] as int? ?? 0,
       constitution: json['constitution'] as int? ?? 0,
-      willpower: json['willpower'] as int? ?? 0,
-      intellect: json['intellect'] as int? ?? 0,
+      intelligence: json['intelligence'] as int? ?? 0,
       charisma: json['charisma'] as int? ?? 0,
-      perception: json['perception'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$AttributesImplToJson(_$AttributesImpl instance) =>
@@ -24,8 +22,6 @@ Map<String, dynamic> _$$AttributesImplToJson(_$AttributesImpl instance) =>
       'dexterity': instance.dexterity,
       'agility': instance.agility,
       'constitution': instance.constitution,
-      'willpower': instance.willpower,
-      'intellect': instance.intellect,
+      'intelligence': instance.intelligence,
       'charisma': instance.charisma,
-      'perception': instance.perception,
     };

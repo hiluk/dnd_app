@@ -24,10 +24,8 @@ mixin _$Attributes {
   int get dexterity => throw _privateConstructorUsedError;
   int get agility => throw _privateConstructorUsedError;
   int get constitution => throw _privateConstructorUsedError;
-  int get willpower => throw _privateConstructorUsedError;
-  int get intellect => throw _privateConstructorUsedError;
+  int get intelligence => throw _privateConstructorUsedError;
   int get charisma => throw _privateConstructorUsedError;
-  int get perception => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,10 +44,8 @@ abstract class $AttributesCopyWith<$Res> {
       int dexterity,
       int agility,
       int constitution,
-      int willpower,
-      int intellect,
-      int charisma,
-      int perception});
+      int intelligence,
+      int charisma});
 }
 
 /// @nodoc
@@ -69,10 +65,8 @@ class _$AttributesCopyWithImpl<$Res, $Val extends Attributes>
     Object? dexterity = null,
     Object? agility = null,
     Object? constitution = null,
-    Object? willpower = null,
-    Object? intellect = null,
+    Object? intelligence = null,
     Object? charisma = null,
-    Object? perception = null,
   }) {
     return _then(_value.copyWith(
       strength: null == strength
@@ -91,21 +85,13 @@ class _$AttributesCopyWithImpl<$Res, $Val extends Attributes>
           ? _value.constitution
           : constitution // ignore: cast_nullable_to_non_nullable
               as int,
-      willpower: null == willpower
-          ? _value.willpower
-          : willpower // ignore: cast_nullable_to_non_nullable
-              as int,
-      intellect: null == intellect
-          ? _value.intellect
-          : intellect // ignore: cast_nullable_to_non_nullable
+      intelligence: null == intelligence
+          ? _value.intelligence
+          : intelligence // ignore: cast_nullable_to_non_nullable
               as int,
       charisma: null == charisma
           ? _value.charisma
           : charisma // ignore: cast_nullable_to_non_nullable
-              as int,
-      perception: null == perception
-          ? _value.perception
-          : perception // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -124,10 +110,8 @@ abstract class _$$AttributesImplCopyWith<$Res>
       int dexterity,
       int agility,
       int constitution,
-      int willpower,
-      int intellect,
-      int charisma,
-      int perception});
+      int intelligence,
+      int charisma});
 }
 
 /// @nodoc
@@ -145,10 +129,8 @@ class __$$AttributesImplCopyWithImpl<$Res>
     Object? dexterity = null,
     Object? agility = null,
     Object? constitution = null,
-    Object? willpower = null,
-    Object? intellect = null,
+    Object? intelligence = null,
     Object? charisma = null,
-    Object? perception = null,
   }) {
     return _then(_$AttributesImpl(
       strength: null == strength
@@ -167,21 +149,13 @@ class __$$AttributesImplCopyWithImpl<$Res>
           ? _value.constitution
           : constitution // ignore: cast_nullable_to_non_nullable
               as int,
-      willpower: null == willpower
-          ? _value.willpower
-          : willpower // ignore: cast_nullable_to_non_nullable
-              as int,
-      intellect: null == intellect
-          ? _value.intellect
-          : intellect // ignore: cast_nullable_to_non_nullable
+      intelligence: null == intelligence
+          ? _value.intelligence
+          : intelligence // ignore: cast_nullable_to_non_nullable
               as int,
       charisma: null == charisma
           ? _value.charisma
           : charisma // ignore: cast_nullable_to_non_nullable
-              as int,
-      perception: null == perception
-          ? _value.perception
-          : perception // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -195,10 +169,8 @@ class _$AttributesImpl implements _Attributes {
       this.dexterity = 0,
       this.agility = 0,
       this.constitution = 0,
-      this.willpower = 0,
-      this.intellect = 0,
-      this.charisma = 0,
-      this.perception = 0});
+      this.intelligence = 0,
+      this.charisma = 0});
 
   factory _$AttributesImpl.fromJson(Map<String, dynamic> json) =>
       _$$AttributesImplFromJson(json);
@@ -217,20 +189,14 @@ class _$AttributesImpl implements _Attributes {
   final int constitution;
   @override
   @JsonKey()
-  final int willpower;
-  @override
-  @JsonKey()
-  final int intellect;
+  final int intelligence;
   @override
   @JsonKey()
   final int charisma;
-  @override
-  @JsonKey()
-  final int perception;
 
   @override
   String toString() {
-    return 'Attributes(strength: $strength, dexterity: $dexterity, agility: $agility, constitution: $constitution, willpower: $willpower, intellect: $intellect, charisma: $charisma, perception: $perception)';
+    return 'Attributes(strength: $strength, dexterity: $dexterity, agility: $agility, constitution: $constitution, intelligence: $intelligence, charisma: $charisma)';
   }
 
   @override
@@ -245,20 +211,16 @@ class _$AttributesImpl implements _Attributes {
             (identical(other.agility, agility) || other.agility == agility) &&
             (identical(other.constitution, constitution) ||
                 other.constitution == constitution) &&
-            (identical(other.willpower, willpower) ||
-                other.willpower == willpower) &&
-            (identical(other.intellect, intellect) ||
-                other.intellect == intellect) &&
+            (identical(other.intelligence, intelligence) ||
+                other.intelligence == intelligence) &&
             (identical(other.charisma, charisma) ||
-                other.charisma == charisma) &&
-            (identical(other.perception, perception) ||
-                other.perception == perception));
+                other.charisma == charisma));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, strength, dexterity, agility,
-      constitution, willpower, intellect, charisma, perception);
+      constitution, intelligence, charisma);
 
   @JsonKey(ignore: true)
   @override
@@ -280,10 +242,8 @@ abstract class _Attributes implements Attributes {
       final int dexterity,
       final int agility,
       final int constitution,
-      final int willpower,
-      final int intellect,
-      final int charisma,
-      final int perception}) = _$AttributesImpl;
+      final int intelligence,
+      final int charisma}) = _$AttributesImpl;
 
   factory _Attributes.fromJson(Map<String, dynamic> json) =
       _$AttributesImpl.fromJson;
@@ -297,13 +257,9 @@ abstract class _Attributes implements Attributes {
   @override
   int get constitution;
   @override
-  int get willpower;
-  @override
-  int get intellect;
+  int get intelligence;
   @override
   int get charisma;
-  @override
-  int get perception;
   @override
   @JsonKey(ignore: true)
   _$$AttributesImplCopyWith<_$AttributesImpl> get copyWith =>
