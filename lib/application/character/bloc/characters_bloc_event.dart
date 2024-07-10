@@ -1,5 +1,5 @@
-sealed class CharactersBlocState {}
+sealed class CharactersBlocEvent {}
 
-class CharactersStateError extends CharactersBlocState {}
+class CharactersBlocEventFetch extends CharactersBlocEvent {}
 
-class CharactersStateLoading extends CharactersBlocState {}
+class CharactersBlocEventRefresh extends CharactersBlocEvent {}

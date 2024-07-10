@@ -8,7 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   registerDependencies();
-  await locator.allReady();
+  await di.allReady();
 
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MainApp());
@@ -20,9 +20,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: locator.get<ThemeData>(),
+      theme: di.get<ThemeData>(),
       debugShowCheckedModeBanner: false,
-      routerConfig: locator.get<GoRouter>(),
+      routerConfig: di.get<GoRouter>(),
     );
   }
 }

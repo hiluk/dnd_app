@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_view.dart';
+import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/application/core/api/classes/repositories/classes_repository.dart';
 import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
@@ -11,10 +12,10 @@ import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-GetIt locator = GetIt.instance;
+GetIt di = GetIt.instance;
 
 void registerDependencies() {
-  locator.registerSingleton<AppHttpClient>(
+  di.registerSingleton<AppHttpClient>(
     AppHttpClient(
       Dio(
         BaseOptions(baseUrl: 'http://10.0.2.2:5009'),
@@ -22,7 +23,7 @@ void registerDependencies() {
     ),
   );
 
-  locator.registerSingleton<GoRouter>(
+  di.registerSingleton<GoRouter>(
     GoRouter(
       debugLogDiagnostics: true,
       routes: [
@@ -49,7 +50,7 @@ void registerDependencies() {
     ),
   );
 
-  locator.registerSingleton<ThemeData>(
+  di.registerSingleton<ThemeData>(
     ThemeData(
       fontFamily: 'Vinque',
       colorScheme: const ColorScheme.dark().copyWith(
@@ -58,11 +59,17 @@ void registerDependencies() {
     ),
   );
 
-  locator.registerSingletonAsync<List<Race>>(
+  di.registerSingletonAsync<List<Race>>(
     () async {
       return await RacesRepository(
-        locator.get<AppHttpClient>(),
+        di.get<AppHttpClient>(),
       ).fetch();
+    },
+  );
+
+  di.registerSingletonAsync<CharactersRepository>(
+    () async {
+      return CharactersRepository(di.get<AppHttpClient>());
     },
   );
 
@@ -90,9 +97,9 @@ void registerDependencies() {
   //   },
   // );
 
-  locator.registerSingletonAsync<List<Class>>(() async {
+  di.registerSingletonAsync<List<Class>>(() async {
     return await ClassesRepository(
-      locator.get<AppHttpClient>(),
+      di.get<AppHttpClient>(),
     ).fetch();
   });
 

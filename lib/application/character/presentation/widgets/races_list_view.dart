@@ -40,7 +40,7 @@ class _RacesListViewState extends State<RacesListView> {
 
   @override
   void initState() {
-    races = locator.get<List<Race>>();
+    races = di.get<List<Race>>();
     selectedRace = null;
     super.initState();
   }

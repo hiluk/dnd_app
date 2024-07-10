@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/application/character/bloc/characters_bloc.dart';
+import 'package:flutter_application_1/application/character/bloc/characters_bloc_state.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
+import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
+import 'package:flutter_application_1/application/core/di/di.dart';
 import 'package:flutter_application_1/application/core/ui_kit/widgets/slide_button.dart';
+import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
 
 class CharacterSelectionView extends StatefulWidget {
@@ -20,21 +25,32 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
       floatingActionButton: SlideButton(
         onTap: () => context.pushNamed(CharacterCreationScreen.routeName),
       ),
-      body: const SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            title: Text(
-              'Список персонажей',
-            ),
-          ),
-          SliverFillRemaining(
-            fillOverscroll: true,
-            child: SizedBox.shrink(),
-          ),
-        ],
-      )),
+      body: BlocProvider<CharactersBloc>(
+        create: (_) => CharactersBloc(
+            charactersRepository: di.get<CharactersRepository>()),
+        child: BlocBuilder<CharactersBloc, CharactersBlocState>(
+          builder: (context, state) {
+            return switch (state) {
+              CharactersBlocStateLoading _ => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              CharactersBlocStateError state => Center(
+                  child: Text(state.error),
+                ),
+              CharactersBlocStateLoaded state => state.characters.isEmpty
+                  ? const Center(
+                      child: Text('Нет персонажей'),
+                    )
+                  : ListView.builder(
+                      itemCount: state.characters.length,
+                      itemBuilder: (context, index) {
+                        return Text(state.characters[index].name ?? '');
+                      },
+                    )
+            };
+          },
+        ),
+      ),
     );
   }
 
