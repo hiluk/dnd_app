@@ -22,7 +22,9 @@ Character _$CharacterFromJson(Map<String, dynamic> json) {
 mixin _$Character {
   String get name => throw _privateConstructorUsedError;
   int get level => throw _privateConstructorUsedError;
+  @CharacterRaceTypeConverter()
   Race get characterRace => throw _privateConstructorUsedError;
+  @CharacterClassTypeConverter()
   Class get characterClass => throw _privateConstructorUsedError;
   Attributes get characterStats => throw _privateConstructorUsedError;
 
@@ -40,8 +42,8 @@ abstract class $CharacterCopyWith<$Res> {
   $Res call(
       {String name,
       int level,
-      Race characterRace,
-      Class characterClass,
+      @CharacterRaceTypeConverter() Race characterRace,
+      @CharacterClassTypeConverter() Class characterClass,
       Attributes characterStats});
 
   $RaceCopyWith<$Res> get characterRace;
@@ -128,8 +130,8 @@ abstract class _$$CharacterImplCopyWith<$Res>
   $Res call(
       {String name,
       int level,
-      Race characterRace,
-      Class characterClass,
+      @CharacterRaceTypeConverter() Race characterRace,
+      @CharacterClassTypeConverter() Class characterClass,
       Attributes characterStats});
 
   @override
@@ -188,8 +190,8 @@ class _$CharacterImpl implements _Character {
   _$CharacterImpl(
       {required this.name,
       required this.level,
-      required this.characterRace,
-      required this.characterClass,
+      @CharacterRaceTypeConverter() required this.characterRace,
+      @CharacterClassTypeConverter() required this.characterClass,
       required this.characterStats});
 
   factory _$CharacterImpl.fromJson(Map<String, dynamic> json) =>
@@ -200,8 +202,10 @@ class _$CharacterImpl implements _Character {
   @override
   final int level;
   @override
+  @CharacterRaceTypeConverter()
   final Race characterRace;
   @override
+  @CharacterClassTypeConverter()
   final Class characterClass;
   @override
   final Attributes characterStats;
@@ -249,8 +253,8 @@ abstract class _Character implements Character {
   factory _Character(
       {required final String name,
       required final int level,
-      required final Race characterRace,
-      required final Class characterClass,
+      @CharacterRaceTypeConverter() required final Race characterRace,
+      @CharacterClassTypeConverter() required final Class characterClass,
       required final Attributes characterStats}) = _$CharacterImpl;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
@@ -261,8 +265,10 @@ abstract class _Character implements Character {
   @override
   int get level;
   @override
+  @CharacterRaceTypeConverter()
   Race get characterRace;
   @override
+  @CharacterClassTypeConverter()
   Class get characterClass;
   @override
   Attributes get characterStats;

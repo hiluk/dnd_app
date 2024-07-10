@@ -10,10 +10,10 @@ _$CharacterImpl _$$CharacterImplFromJson(Map<String, dynamic> json) =>
     _$CharacterImpl(
       name: json['name'] as String,
       level: json['level'] as int,
-      characterRace:
-          Race.fromJson(json['characterRace'] as Map<String, dynamic>),
-      characterClass:
-          Class.fromJson(json['characterClass'] as Map<String, dynamic>),
+      characterRace: const CharacterRaceTypeConverter()
+          .fromJson(json['characterRace'] as int),
+      characterClass: const CharacterClassTypeConverter()
+          .fromJson(json['characterClass'] as int),
       characterStats:
           Attributes.fromJson(json['characterStats'] as Map<String, dynamic>),
     );
@@ -22,7 +22,9 @@ Map<String, dynamic> _$$CharacterImplToJson(_$CharacterImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'level': instance.level,
-      'characterRace': instance.characterRace,
-      'characterClass': instance.characterClass,
+      'characterRace':
+          const CharacterRaceTypeConverter().toJson(instance.characterRace),
+      'characterClass':
+          const CharacterClassTypeConverter().toJson(instance.characterClass),
       'characterStats': instance.characterStats,
     };
