@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_view.dart';
+import 'package:flutter_application_1/application/character/presentation/character_view.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/application/core/api/classes/repositories/classes_repository.dart';
@@ -40,6 +41,11 @@ void registerDependencies() {
                   path: CharacterCreationScreen.routePath,
                   name: CharacterCreationScreen.routePath,
                   builder: (context, state) => const CharacterCreationScreen(),
+                ),
+                GoRoute(
+                  path: CharacterView.path,
+                  name: CharacterView.routeName,
+                  builder: (context, state) => const CharacterView(),
                 )
               ],
               builder: (context, state) => const CharacterSelectionView(),

@@ -17,4 +17,17 @@ class CharactersRepository {
 
     return charactersRaw.map((json) => Character.fromJson(json)).toList();
   }
+
+  FutureOr<Character> fetchByName({
+    required String email,
+    required String name,
+  }) async {
+    final data = await httpClient.post(
+      '/characters/get-by-name',
+      {"email": email, "name": name},
+      {"Content-Type": "application/json", "Accept": "application/json"},
+    );
+
+    return Character.fromJson(data);
+  }
 }
