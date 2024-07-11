@@ -8,6 +8,8 @@ import 'package:flutter_application_1/application/core/ui_kit/widgets/slide_butt
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
 
+import 'widgets/character_preview.dart';
+
 class CharacterSelectionView extends StatefulWidget {
   static const routeName = 'character_selection';
   static const path = routeName;
@@ -22,6 +24,10 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Выбор персонажа'),
+        centerTitle: true,
+      ),
       floatingActionButton: SlideButton(
         onTap: () => context.pushNamed(CharacterCreationScreen.routeName),
       ),
@@ -34,8 +40,11 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
               CharactersBlocStateLoading _ => const Center(
                   child: CircularProgressIndicator(),
                 ),
-              CharactersBlocStateError state => Center(
-                  child: Text(state.error),
+              CharactersBlocStateError state => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(state.error),
+                  ),
                 ),
               CharactersBlocStateLoaded state => state.characters.isEmpty
                   ? const Center(
@@ -44,7 +53,12 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
                   : ListView.builder(
                       itemCount: state.characters.length,
                       itemBuilder: (context, index) {
-                        return Text(state.characters[index].name ?? '');
+                        return Column(
+                          children: [
+                            CharacterPreview(state.characters[index]),
+                            const Divider()
+                          ],
+                        );
                       },
                     )
             };

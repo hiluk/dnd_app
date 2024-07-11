@@ -14,6 +14,8 @@ class Attributes with _$Attributes {
     @Default(0) int charisma,
   }) = _Attributes;
 
+  factory Attributes.empty() => Attributes();
+
   factory Attributes.fromJson(Map<String, dynamic> json) =>
       _$AttributesFromJson(json);
 }

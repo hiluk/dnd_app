@@ -9,8 +9,9 @@ class CharactersRepository {
 
   Future<List<Character>> fetch() async {
     final data = await httpClient.post(
-      '/api/v1/character/GetAllUserCharacters',
-      'kestos1243@mail.ru',
+      '/characters',
+      '"kestos1243@mail.ru"',
+      {"Content-Type": "application/json", "Accept": "application/json"},
     );
     final charactersRaw = data as List<dynamic>;
 

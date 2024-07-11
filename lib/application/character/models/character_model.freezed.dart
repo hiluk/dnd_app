@@ -20,13 +20,13 @@ Character _$CharacterFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Character {
-  String? get name => throw _privateConstructorUsedError;
-  int? get level => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  int get level => throw _privateConstructorUsedError;
   @CharacterRaceTypeConverter()
   Race? get characterRace => throw _privateConstructorUsedError;
   @CharacterClassTypeConverter()
   Class? get characterClass => throw _privateConstructorUsedError;
-  Attributes? get characterStats => throw _privateConstructorUsedError;
+  Attributes get characterStats => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,15 +40,15 @@ abstract class $CharacterCopyWith<$Res> {
       _$CharacterCopyWithImpl<$Res, Character>;
   @useResult
   $Res call(
-      {String? name,
-      int? level,
+      {String name,
+      int level,
       @CharacterRaceTypeConverter() Race? characterRace,
       @CharacterClassTypeConverter() Class? characterClass,
-      Attributes? characterStats});
+      Attributes characterStats});
 
   $RaceCopyWith<$Res>? get characterRace;
   $ClassCopyWith<$Res>? get characterClass;
-  $AttributesCopyWith<$Res>? get characterStats;
+  $AttributesCopyWith<$Res> get characterStats;
 }
 
 /// @nodoc
@@ -64,21 +64,21 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? level = freezed,
+    Object? name = null,
+    Object? level = null,
     Object? characterRace = freezed,
     Object? characterClass = freezed,
-    Object? characterStats = freezed,
+    Object? characterStats = null,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      level: freezed == level
+              as String,
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       characterRace: freezed == characterRace
           ? _value.characterRace
           : characterRace // ignore: cast_nullable_to_non_nullable
@@ -87,10 +87,10 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.characterClass
           : characterClass // ignore: cast_nullable_to_non_nullable
               as Class?,
-      characterStats: freezed == characterStats
+      characterStats: null == characterStats
           ? _value.characterStats
           : characterStats // ignore: cast_nullable_to_non_nullable
-              as Attributes?,
+              as Attributes,
     ) as $Val);
   }
 
@@ -120,12 +120,8 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
 
   @override
   @pragma('vm:prefer-inline')
-  $AttributesCopyWith<$Res>? get characterStats {
-    if (_value.characterStats == null) {
-      return null;
-    }
-
-    return $AttributesCopyWith<$Res>(_value.characterStats!, (value) {
+  $AttributesCopyWith<$Res> get characterStats {
+    return $AttributesCopyWith<$Res>(_value.characterStats, (value) {
       return _then(_value.copyWith(characterStats: value) as $Val);
     });
   }
@@ -140,18 +136,18 @@ abstract class _$$CharacterImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? name,
-      int? level,
+      {String name,
+      int level,
       @CharacterRaceTypeConverter() Race? characterRace,
       @CharacterClassTypeConverter() Class? characterClass,
-      Attributes? characterStats});
+      Attributes characterStats});
 
   @override
   $RaceCopyWith<$Res>? get characterRace;
   @override
   $ClassCopyWith<$Res>? get characterClass;
   @override
-  $AttributesCopyWith<$Res>? get characterStats;
+  $AttributesCopyWith<$Res> get characterStats;
 }
 
 /// @nodoc
@@ -165,21 +161,21 @@ class __$$CharacterImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? level = freezed,
+    Object? name = null,
+    Object? level = null,
     Object? characterRace = freezed,
     Object? characterClass = freezed,
-    Object? characterStats = freezed,
+    Object? characterStats = null,
   }) {
     return _then(_$CharacterImpl(
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      level: freezed == level
+              as String,
+      level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       characterRace: freezed == characterRace
           ? _value.characterRace
           : characterRace // ignore: cast_nullable_to_non_nullable
@@ -188,10 +184,10 @@ class __$$CharacterImplCopyWithImpl<$Res>
           ? _value.characterClass
           : characterClass // ignore: cast_nullable_to_non_nullable
               as Class?,
-      characterStats: freezed == characterStats
+      characterStats: null == characterStats
           ? _value.characterStats
           : characterStats // ignore: cast_nullable_to_non_nullable
-              as Attributes?,
+              as Attributes,
     ));
   }
 }
@@ -200,8 +196,8 @@ class __$$CharacterImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CharacterImpl implements _Character {
   _$CharacterImpl(
-      {required this.name,
-      required this.level,
+      {this.name = "",
+      this.level = 0,
       @CharacterRaceTypeConverter() required this.characterRace,
       @CharacterClassTypeConverter() required this.characterClass,
       required this.characterStats});
@@ -210,9 +206,11 @@ class _$CharacterImpl implements _Character {
       _$$CharacterImplFromJson(json);
 
   @override
-  final String? name;
+  @JsonKey()
+  final String name;
   @override
-  final int? level;
+  @JsonKey()
+  final int level;
   @override
   @CharacterRaceTypeConverter()
   final Race? characterRace;
@@ -220,7 +218,7 @@ class _$CharacterImpl implements _Character {
   @CharacterClassTypeConverter()
   final Class? characterClass;
   @override
-  final Attributes? characterStats;
+  final Attributes characterStats;
 
   @override
   String toString() {
@@ -263,19 +261,19 @@ class _$CharacterImpl implements _Character {
 
 abstract class _Character implements Character {
   factory _Character(
-      {required final String? name,
-      required final int? level,
+      {final String name,
+      final int level,
       @CharacterRaceTypeConverter() required final Race? characterRace,
       @CharacterClassTypeConverter() required final Class? characterClass,
-      required final Attributes? characterStats}) = _$CharacterImpl;
+      required final Attributes characterStats}) = _$CharacterImpl;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$CharacterImpl.fromJson;
 
   @override
-  String? get name;
+  String get name;
   @override
-  int? get level;
+  int get level;
   @override
   @CharacterRaceTypeConverter()
   Race? get characterRace;
@@ -283,7 +281,7 @@ abstract class _Character implements Character {
   @CharacterClassTypeConverter()
   Class? get characterClass;
   @override
-  Attributes? get characterStats;
+  Attributes get characterStats;
   @override
   @JsonKey(ignore: true)
   _$$CharacterImplCopyWith<_$CharacterImpl> get copyWith =>
