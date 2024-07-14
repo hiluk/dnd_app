@@ -8,7 +8,7 @@ class Attributes with _$Attributes {
   factory Attributes({
     @Default(0) int strength,
     @Default(0) int dexterity,
-    @Default(0) int agility,
+    @Default(0) int wisdom,
     @Default(0) int constitution,
     @Default(0) int intelligence,
     @Default(0) int charisma,

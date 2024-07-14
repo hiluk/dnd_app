@@ -37,8 +37,6 @@ class CurrentCharacterBloc
   ) async {
     emit(CurrentCharacterBlocStateLoading());
 
-    add(CurrentCharacterBlocEventFetch(
-
-    ));
+    add(CurrentCharacterBlocEventFetch());
   }
 }

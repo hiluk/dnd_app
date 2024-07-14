@@ -6,6 +6,8 @@ import 'package:flutter_application_1/application/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'widgets/stats_widget.dart';
+
 class CharacterView extends StatelessWidget {
   static const routeName = 'character';
   static const path = routeName;
@@ -34,8 +36,32 @@ class CharacterView extends StatelessWidget {
                 CurrentCharacterBlocStateLoading _ => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                CurrentCharacterBlocStateLoaded state => Center(
-                    child: Text(state.character.name),
+                CurrentCharacterBlocStateLoaded state => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state.character.name,
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            state.character.characterRace?.name ?? '',
+                            style: const TextStyle(fontSize: 22),
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            state.character.characterClass?.name ?? '',
+                            style: const TextStyle(fontSize: 22),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Уровень: ${state.character.level}",
+                        style: const TextStyle(fontSize: 22),
+                      ),
+                      StatsWidget(stats: state.character.characterStats)
+                    ],
                   )
               };
             },

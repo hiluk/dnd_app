@@ -22,7 +22,7 @@ Attributes _$AttributesFromJson(Map<String, dynamic> json) {
 mixin _$Attributes {
   int get strength => throw _privateConstructorUsedError;
   int get dexterity => throw _privateConstructorUsedError;
-  int get agility => throw _privateConstructorUsedError;
+  int get wisdom => throw _privateConstructorUsedError;
   int get constitution => throw _privateConstructorUsedError;
   int get intelligence => throw _privateConstructorUsedError;
   int get charisma => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $AttributesCopyWith<$Res> {
   $Res call(
       {int strength,
       int dexterity,
-      int agility,
+      int wisdom,
       int constitution,
       int intelligence,
       int charisma});
@@ -63,7 +63,7 @@ class _$AttributesCopyWithImpl<$Res, $Val extends Attributes>
   $Res call({
     Object? strength = null,
     Object? dexterity = null,
-    Object? agility = null,
+    Object? wisdom = null,
     Object? constitution = null,
     Object? intelligence = null,
     Object? charisma = null,
@@ -77,9 +77,9 @@ class _$AttributesCopyWithImpl<$Res, $Val extends Attributes>
           ? _value.dexterity
           : dexterity // ignore: cast_nullable_to_non_nullable
               as int,
-      agility: null == agility
-          ? _value.agility
-          : agility // ignore: cast_nullable_to_non_nullable
+      wisdom: null == wisdom
+          ? _value.wisdom
+          : wisdom // ignore: cast_nullable_to_non_nullable
               as int,
       constitution: null == constitution
           ? _value.constitution
@@ -108,7 +108,7 @@ abstract class _$$AttributesImplCopyWith<$Res>
   $Res call(
       {int strength,
       int dexterity,
-      int agility,
+      int wisdom,
       int constitution,
       int intelligence,
       int charisma});
@@ -127,7 +127,7 @@ class __$$AttributesImplCopyWithImpl<$Res>
   $Res call({
     Object? strength = null,
     Object? dexterity = null,
-    Object? agility = null,
+    Object? wisdom = null,
     Object? constitution = null,
     Object? intelligence = null,
     Object? charisma = null,
@@ -141,9 +141,9 @@ class __$$AttributesImplCopyWithImpl<$Res>
           ? _value.dexterity
           : dexterity // ignore: cast_nullable_to_non_nullable
               as int,
-      agility: null == agility
-          ? _value.agility
-          : agility // ignore: cast_nullable_to_non_nullable
+      wisdom: null == wisdom
+          ? _value.wisdom
+          : wisdom // ignore: cast_nullable_to_non_nullable
               as int,
       constitution: null == constitution
           ? _value.constitution
@@ -167,7 +167,7 @@ class _$AttributesImpl implements _Attributes {
   _$AttributesImpl(
       {this.strength = 0,
       this.dexterity = 0,
-      this.agility = 0,
+      this.wisdom = 0,
       this.constitution = 0,
       this.intelligence = 0,
       this.charisma = 0});
@@ -183,7 +183,7 @@ class _$AttributesImpl implements _Attributes {
   final int dexterity;
   @override
   @JsonKey()
-  final int agility;
+  final int wisdom;
   @override
   @JsonKey()
   final int constitution;
@@ -196,7 +196,7 @@ class _$AttributesImpl implements _Attributes {
 
   @override
   String toString() {
-    return 'Attributes(strength: $strength, dexterity: $dexterity, agility: $agility, constitution: $constitution, intelligence: $intelligence, charisma: $charisma)';
+    return 'Attributes(strength: $strength, dexterity: $dexterity, wisdom: $wisdom, constitution: $constitution, intelligence: $intelligence, charisma: $charisma)';
   }
 
   @override
@@ -208,7 +208,7 @@ class _$AttributesImpl implements _Attributes {
                 other.strength == strength) &&
             (identical(other.dexterity, dexterity) ||
                 other.dexterity == dexterity) &&
-            (identical(other.agility, agility) || other.agility == agility) &&
+            (identical(other.wisdom, wisdom) || other.wisdom == wisdom) &&
             (identical(other.constitution, constitution) ||
                 other.constitution == constitution) &&
             (identical(other.intelligence, intelligence) ||
@@ -219,7 +219,7 @@ class _$AttributesImpl implements _Attributes {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, strength, dexterity, agility,
+  int get hashCode => Object.hash(runtimeType, strength, dexterity, wisdom,
       constitution, intelligence, charisma);
 
   @JsonKey(ignore: true)
@@ -240,7 +240,7 @@ abstract class _Attributes implements Attributes {
   factory _Attributes(
       {final int strength,
       final int dexterity,
-      final int agility,
+      final int wisdom,
       final int constitution,
       final int intelligence,
       final int charisma}) = _$AttributesImpl;
@@ -253,7 +253,7 @@ abstract class _Attributes implements Attributes {
   @override
   int get dexterity;
   @override
-  int get agility;
+  int get wisdom;
   @override
   int get constitution;
   @override

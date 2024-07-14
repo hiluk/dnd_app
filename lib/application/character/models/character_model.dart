@@ -13,8 +13,8 @@ class Character with _$Character {
   factory Character({
     @Default("") String name,
     @Default(0) int level,
-    @CharacterRaceTypeConverter() required Race? characterRace,
-    @CharacterClassTypeConverter() required Class? characterClass,
+    @CharacterRaceTypeConverter() Race? characterRace,
+    @CharacterClassTypeConverter() Class? characterClass,
     required Attributes characterStats,
   }) = _Character;
 

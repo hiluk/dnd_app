@@ -198,8 +198,8 @@ class _$CharacterImpl implements _Character {
   _$CharacterImpl(
       {this.name = "",
       this.level = 0,
-      @CharacterRaceTypeConverter() required this.characterRace,
-      @CharacterClassTypeConverter() required this.characterClass,
+      @CharacterRaceTypeConverter() this.characterRace,
+      @CharacterClassTypeConverter() this.characterClass,
       required this.characterStats});
 
   factory _$CharacterImpl.fromJson(Map<String, dynamic> json) =>
@@ -263,8 +263,8 @@ abstract class _Character implements Character {
   factory _Character(
       {final String name,
       final int level,
-      @CharacterRaceTypeConverter() required final Race? characterRace,
-      @CharacterClassTypeConverter() required final Class? characterClass,
+      @CharacterRaceTypeConverter() final Race? characterRace,
+      @CharacterClassTypeConverter() final Class? characterClass,
       required final Attributes characterStats}) = _$CharacterImpl;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
