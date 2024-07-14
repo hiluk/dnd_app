@@ -9,10 +9,18 @@ class CharacterCreationBloc
 
   CharacterCreationBloc({required this.charactersRepository})
       : super(CharacterCreationBlocState()) {
-    on<CharacterCreationBlocEventSelect>(_select);
+    on<CharacterCreationBlocEventSelect>(_onSelect);
+    on<CharacterCreationBlocEventCreate>(_onSave);
   }
 
-  void _select(
+  Future<void> _onSave(
+    CharacterCreationBlocEventCreate event,
+    Emitter<CharacterCreationBlocState> emit,
+  ) async {
+    charactersRepository.saveCharacter(event.character);
+  }
+
+  void _onSelect(
     CharacterCreationBlocEventSelect event,
     Emitter<CharacterCreationBlocState> emit,
   ) {

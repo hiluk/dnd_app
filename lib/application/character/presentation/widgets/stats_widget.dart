@@ -4,7 +4,7 @@ import 'package:flutter_application_1/application/character/models/attributes_mo
 import 'stat_row.dart';
 
 class StatsWidget extends StatelessWidget {
-  final Attributes stats;
+  final Attributes? stats;
   const StatsWidget({
     required this.stats,
     super.key,
@@ -19,23 +19,23 @@ class StatsWidget extends StatelessWidget {
         children: [
           StatRow(
             title: 'Ловкость',
-            value: stats.dexterity,
+            value: stats?.dexterity ?? 0,
           ),
           StatRow(
             title: 'Сила',
-            value: stats.strength,
+            value: stats?.strength ?? 0,
           ),
           StatRow(
             title: 'Интеллект',
-            value: stats.intelligence,
+            value: stats?.intelligence ?? 0,
           ),
           StatRow(
             title: 'Мудрость',
-            value: stats.wisdom,
+            value: stats?.wisdom ?? 0,
           ),
           StatRow(
             title: 'Харизма',
-            value: stats.charisma,
+            value: stats?.charisma ?? 0,
           ),
         ],
       ),
