@@ -11,26 +11,16 @@ class CharacterCreationBlocEventCreate extends CharacterCreationBlocEvent {
   CharacterCreationBlocEventCreate(this.character);
 }
 
-class CharacterCreationBlocEventSelectClass extends CharacterCreationBlocEvent {
-  final Class characterClass;
+class CharacterCreationBlocEventSelect extends CharacterCreationBlocEvent {
+  final Class? characterClass;
+  final String? characterName;
+  final Race? characterRace;
+  final Attributes? characterStats;
 
-  CharacterCreationBlocEventSelectClass(this.characterClass);
-}
-
-class CharacterCreationBlocEventSelectName extends CharacterCreationBlocEvent {
-  final String name;
-
-  CharacterCreationBlocEventSelectName(this.name);
-}
-
-class CharacterCreationBlocEventSelectRace extends CharacterCreationBlocEvent {
-  final Race race;
-
-  CharacterCreationBlocEventSelectRace(this.race);
-}
-
-class CharacterCreationBlocEventSelectStats extends CharacterCreationBlocEvent {
-  final Attributes stats;
-
-  CharacterCreationBlocEventSelectStats(this.stats);
+  CharacterCreationBlocEventSelect({
+    this.characterClass,
+    this.characterName,
+    this.characterRace,
+    this.characterStats
+  });
 }

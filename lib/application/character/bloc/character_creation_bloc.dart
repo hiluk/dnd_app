@@ -9,37 +9,20 @@ class CharacterCreationBloc
 
   CharacterCreationBloc({required this.charactersRepository})
       : super(CharacterCreationBlocState()) {
-    on<CharacterCreationBlocEventSelectName>(_selectName);
-    on<CharacterCreationBlocEventSelectRace>(_selectRace);
-    on<CharacterCreationBlocEventSelectClass>(_selectClass);
-    on<CharacterCreationBlocEventSelectStats>(_selectStats);
+    on<CharacterCreationBlocEventSelect>(_select);
   }
 
-  void _selectClass(
-    CharacterCreationBlocEventSelectClass event,
+  void _select(
+    CharacterCreationBlocEventSelect event,
     Emitter<CharacterCreationBlocState> emit,
   ) {
-    emit(state.copyWith(characterClass: event.characterClass));
-  }
-
-  void _selectName(
-    CharacterCreationBlocEventSelectName event,
-    Emitter<CharacterCreationBlocState> emit,
-  ) {
-    emit(state.copyWith(characterName: event.name));
-  }
-
-  void _selectRace(
-    CharacterCreationBlocEventSelectRace event,
-    Emitter<CharacterCreationBlocState> emit,
-  ) {
-    emit(state.copyWith(characterRace: event.race));
-  }
-
-  void _selectStats(
-    CharacterCreationBlocEventSelectStats event,
-    Emitter<CharacterCreationBlocState> emit,
-  ) {
-    emit(state.copyWith(characterAttributes: event.stats));
+    emit(state.copyWith(
+      characterClass: event.characterClass ?? state.characterClass,
+      characterRace: event.characterRace ?? state.characterRace,
+      characterName: event.characterName ?? state.characterName,
+      characterAttributes: event.characterStats ?? state.characterAttributes,
+    ));
+    print(state.characterRace?.name);
+    print(state.characterClass?.name);
   }
 }

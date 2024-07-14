@@ -4,7 +4,9 @@ import 'package:flutter_application_1/application/core/api/races/models/race_mod
 import 'package:flutter_application_1/application/core/di/di.dart';
 
 class RacesListView extends StatefulWidget {
+  final Function(Race?) selectRace;
   const RacesListView({
+    required this.selectRace,
     super.key,
   });
 
@@ -62,7 +64,6 @@ class _RacesListViewState extends State<RacesListView> {
       }
     }
     setState(() {});
-
-    debugPrint('Selected race: ${selectedRace?.name}');
+    widget.selectRace(selectedRace);
   }
 }
