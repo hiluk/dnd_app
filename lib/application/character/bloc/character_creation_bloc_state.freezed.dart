@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CharacterCreationBlocState {
   String get characterName => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isCreated => throw _privateConstructorUsedError;
   Attributes? get characterAttributes => throw _privateConstructorUsedError;
   Race? get characterRace => throw _privateConstructorUsedError;
   Class? get characterClass => throw _privateConstructorUsedError;
@@ -35,6 +37,8 @@ abstract class $CharacterCreationBlocStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String characterName,
+      bool isLoading,
+      bool isCreated,
       Attributes? characterAttributes,
       Race? characterRace,
       Class? characterClass});
@@ -59,6 +63,8 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? characterName = null,
+    Object? isLoading = null,
+    Object? isCreated = null,
     Object? characterAttributes = freezed,
     Object? characterRace = freezed,
     Object? characterClass = freezed,
@@ -68,6 +74,14 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
           ? _value.characterName
           : characterName // ignore: cast_nullable_to_non_nullable
               as String,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCreated: null == isCreated
+          ? _value.isCreated
+          : isCreated // ignore: cast_nullable_to_non_nullable
+              as bool,
       characterAttributes: freezed == characterAttributes
           ? _value.characterAttributes
           : characterAttributes // ignore: cast_nullable_to_non_nullable
@@ -131,6 +145,8 @@ abstract class _$$CharacterCreationBlocStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {String characterName,
+      bool isLoading,
+      bool isCreated,
       Attributes? characterAttributes,
       Race? characterRace,
       Class? characterClass});
@@ -157,6 +173,8 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? characterName = null,
+    Object? isLoading = null,
+    Object? isCreated = null,
     Object? characterAttributes = freezed,
     Object? characterRace = freezed,
     Object? characterClass = freezed,
@@ -166,6 +184,14 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
           ? _value.characterName
           : characterName // ignore: cast_nullable_to_non_nullable
               as String,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCreated: null == isCreated
+          ? _value.isCreated
+          : isCreated // ignore: cast_nullable_to_non_nullable
+              as bool,
       characterAttributes: freezed == characterAttributes
           ? _value.characterAttributes
           : characterAttributes // ignore: cast_nullable_to_non_nullable
@@ -187,6 +213,8 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
 class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
   _$CharacterCreationBlocStateImpl(
       {this.characterName = '',
+      this.isLoading = false,
+      this.isCreated = false,
       this.characterAttributes,
       this.characterRace,
       this.characterClass});
@@ -194,6 +222,12 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
   @override
   @JsonKey()
   final String characterName;
+  @override
+  @JsonKey()
+  final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isCreated;
   @override
   final Attributes? characterAttributes;
   @override
@@ -203,7 +237,7 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
 
   @override
   String toString() {
-    return 'CharacterCreationBlocState(characterName: $characterName, characterAttributes: $characterAttributes, characterRace: $characterRace, characterClass: $characterClass)';
+    return 'CharacterCreationBlocState(characterName: $characterName, isLoading: $isLoading, isCreated: $isCreated, characterAttributes: $characterAttributes, characterRace: $characterRace, characterClass: $characterClass)';
   }
 
   @override
@@ -213,6 +247,10 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
             other is _$CharacterCreationBlocStateImpl &&
             (identical(other.characterName, characterName) ||
                 other.characterName == characterName) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isCreated, isCreated) ||
+                other.isCreated == isCreated) &&
             (identical(other.characterAttributes, characterAttributes) ||
                 other.characterAttributes == characterAttributes) &&
             (identical(other.characterRace, characterRace) ||
@@ -222,8 +260,8 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, characterName,
-      characterAttributes, characterRace, characterClass);
+  int get hashCode => Object.hash(runtimeType, characterName, isLoading,
+      isCreated, characterAttributes, characterRace, characterClass);
 
   @JsonKey(ignore: true)
   @override
@@ -237,12 +275,18 @@ abstract class _CharacterCreationBlocState
     implements CharacterCreationBlocState {
   factory _CharacterCreationBlocState(
       {final String characterName,
+      final bool isLoading,
+      final bool isCreated,
       final Attributes? characterAttributes,
       final Race? characterRace,
       final Class? characterClass}) = _$CharacterCreationBlocStateImpl;
 
   @override
   String get characterName;
+  @override
+  bool get isLoading;
+  @override
+  bool get isCreated;
   @override
   Attributes? get characterAttributes;
   @override

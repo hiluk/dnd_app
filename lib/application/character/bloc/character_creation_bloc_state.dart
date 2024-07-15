@@ -9,6 +9,8 @@ part 'character_creation_bloc_state.freezed.dart';
 class CharacterCreationBlocState with _$CharacterCreationBlocState {
   factory CharacterCreationBlocState({
     @Default('') String characterName,
+    @Default(false) bool isLoading,
+    @Default(false) bool isCreated,
     Attributes? characterAttributes,
     Race? characterRace,
     Class? characterClass,

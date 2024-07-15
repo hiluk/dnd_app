@@ -17,7 +17,9 @@ class CharacterCreationBloc
     CharacterCreationBlocEventCreate event,
     Emitter<CharacterCreationBlocState> emit,
   ) async {
-    charactersRepository.saveCharacter(event.character);
+    emit(state.copyWith(isLoading: true));
+    await charactersRepository.saveCharacter(event.character);
+    emit(state.copyWith(isLoading: false, isCreated: true));
   }
 
   void _onSelect(
@@ -30,7 +32,5 @@ class CharacterCreationBloc
       characterName: event.characterName ?? state.characterName,
       characterAttributes: event.characterStats ?? state.characterAttributes,
     ));
-    print(state.characterRace?.name);
-    print(state.characterClass?.name);
   }
 }

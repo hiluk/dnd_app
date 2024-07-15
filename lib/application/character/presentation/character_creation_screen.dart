@@ -3,16 +3,16 @@ import 'package:flutter_application_1/application/character/bloc/character_creat
 import 'package:flutter_application_1/application/character/bloc/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character/bloc/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/character/models/character_model.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/classes_list_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/races_list_view.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/stats_widget.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/application/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/character_creating_preview.dart';
 
 class CharacterCreationScreen extends StatefulWidget {
   static const routeName = 'creation';
@@ -89,49 +89,30 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
 
                   if (state.characterName.isEmpty) {
                     return Center(
-                      child: TextField(
-                        controller: nameController,
-                        onChanged: (value) =>
-                            setState(() => currentName = value),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: TextField(
+                          controller: nameController,
+                          onChanged: (value) =>
+                              setState(() => currentName = value),
+                        ),
                       ),
                     );
                   }
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        state.characterName,
-                        style: const TextStyle(fontSize: 30),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            state.characterRace?.name ?? '',
-                            style: const TextStyle(fontSize: 22),
-                          ),
-                          const SizedBox(width: 20),
-                          Text(
-                            state.characterClass?.name ?? '',
-                            style: const TextStyle(fontSize: 22),
-                          ),
-                        ],
-                      ),
-                      StatsWidget(stats: state.characterAttributes),
-                      TextButton(
-                        onPressed: () =>
-                            bloc.add(CharacterCreationBlocEventCreate(
-                          Character(
-                            characterStats: state.characterAttributes!,
-                            characterClass: state.characterClass,
-                            characterRace: state.characterRace,
-                            name: state.characterName,
-                            level: 1,
-                          ),
-                        )),
-                        child: Text('Создать'),
-                      ),
-                    ],
-                  );
+
+                  if (state.isLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  if (state.isCreated) {
+                    return const Center(
+                      child: Text('Персонаж успешно создан'),
+                    );
+                  }
+
+                  return CharacterCreatingPreview(bloc: bloc);
                 },
               ),
             ),
