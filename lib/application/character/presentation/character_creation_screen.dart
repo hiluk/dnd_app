@@ -30,6 +30,7 @@ class CharacterCreationScreen extends StatefulWidget {
 class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   late CharacterCreationBloc creationBloc;
   late TextEditingController nameController;
+  late String title;
   Race? currentRace;
   Class? currentClass;
   String? currentName;
@@ -38,6 +39,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   @override
   Widget build(BuildContext context) {
     final charactersBloc = GoRouterState.of(context).extra! as CharactersBloc;
+
     return Scaffold(
       floatingActionButton: isShowFab()
           ? FloatingActionButton.extended(
@@ -52,14 +54,15 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                 );
                 clearVariables();
               },
+              backgroundColor: Colors.red,
               label: const Text('Выбрать'),
             )
           : null,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const SliverAppBar(
-              title: Text('Создание персонажа'),
+            SliverAppBar(
+              title: Text(getTitle()),
               centerTitle: true,
             ),
             SliverFillRemaining(
@@ -89,7 +92,6 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                           setState(() {
                             currentStats = stats;
                           });
-                          debugPrint(currentStats.toString());
                         },
                       );
                     }
@@ -141,6 +143,26 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
     setState(() {});
   }
 
+  String getTitle() {
+    if (creationBloc.state.characterRace == null) {
+      return 'Выбор расы';
+    }
+
+    if (creationBloc.state.characterClass == null) {
+      return 'Выбор класса';
+    }
+
+    if (creationBloc.state.characterAttributes == null) {
+      return 'Выбор характеристик';
+    }
+
+    if (creationBloc.state.characterName.isEmpty) {
+      return 'Выбор имени';
+    }
+
+    return 'Создание персонажа';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -148,6 +170,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
       charactersRepository: di.get<CharactersRepository>(),
     );
     nameController = TextEditingController();
+    title = 'Создание персонажа';
   }
 
   bool isShowFab() {
