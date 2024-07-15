@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation_bloc_state.dart';
+import 'package:flutter_application_1/application/character/bloc/characters_bloc.dart';
+import 'package:flutter_application_1/application/character/bloc/characters_bloc_event.dart';
+import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/classes_list_view.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_application_1/application/core/api/classes/models/class_
 import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/application/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'widgets/character_creating_preview.dart';
 
@@ -25,7 +28,7 @@ class CharacterCreationScreen extends StatefulWidget {
 }
 
 class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
-  late CharacterCreationBloc bloc;
+  late CharacterCreationBloc creationBloc;
   late TextEditingController nameController;
   Race? currentRace;
   Class? currentClass;
@@ -34,11 +37,12 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final charactersBloc = GoRouterState.of(context).extra! as CharactersBloc;
     return Scaffold(
       floatingActionButton: isShowFab()
           ? FloatingActionButton.extended(
               onPressed: () {
-                bloc.add(
+                creationBloc.add(
                   CharacterCreationBlocEventSelect(
                     characterRace: currentRace,
                     characterClass: currentClass,
@@ -59,61 +63,68 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
               centerTitle: true,
             ),
             SliverFillRemaining(
-              child: BlocBuilder<CharacterCreationBloc,
-                  CharacterCreationBlocState>(
-                bloc: bloc,
-                builder: (context, state) {
-                  if (state.characterRace == null) {
-                    return RacesListView(
-                      selectRace: (race) => setState(() => currentRace = race),
-                    );
-                  }
+              child: BlocProvider(
+                create: (context) => creationBloc,
+                child: BlocBuilder<CharacterCreationBloc,
+                    CharacterCreationBlocState>(
+                  bloc: creationBloc,
+                  builder: (context, state) {
+                    if (state.characterRace == null) {
+                      return RacesListView(
+                        selectRace: (race) =>
+                            setState(() => currentRace = race),
+                      );
+                    }
 
-                  if (state.characterClass == null) {
-                    return ClassesListView(
-                      selectClass: (characterClass) =>
-                          setState(() => currentClass = characterClass),
-                    );
-                  }
+                    if (state.characterClass == null) {
+                      return ClassesListView(
+                        selectClass: (characterClass) =>
+                            setState(() => currentClass = characterClass),
+                      );
+                    }
 
-                  if (state.characterAttributes == null) {
-                    return CharacterStatsCreateView(
-                      statsCallBack: (stats) {
-                        setState(() {
-                          currentStats = stats;
-                        });
-                        debugPrint(currentStats.toString());
-                      },
-                    );
-                  }
+                    if (state.characterAttributes == null) {
+                      return CharacterStatsCreateView(
+                        statsCallBack: (stats) {
+                          setState(() {
+                            currentStats = stats;
+                          });
+                          debugPrint(currentStats.toString());
+                        },
+                      );
+                    }
 
-                  if (state.characterName.isEmpty) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: TextField(
-                          controller: nameController,
-                          onChanged: (value) =>
-                              setState(() => currentName = value),
+                    if (state.characterName.isEmpty) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: TextField(
+                            controller: nameController,
+                            onChanged: (value) =>
+                                setState(() => currentName = value),
+                          ),
                         ),
-                      ),
-                    );
-                  }
+                      );
+                    }
 
-                  if (state.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+                    if (state.isLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                  if (state.isCreated) {
-                    return const Center(
-                      child: Text('Персонаж успешно создан'),
-                    );
-                  }
+                    if (state.isCreated) {
+                      charactersBloc.add(CharactersBlocEventRefresh());
+                      return const Center(
+                        child: Text('Персонаж успешно создан'),
+                      );
+                    }
 
-                  return CharacterCreatingPreview(bloc: bloc);
-                },
+                    return CharacterCreatingPreview(
+                      creationBloc: creationBloc,
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -133,7 +144,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   @override
   void initState() {
     super.initState();
-    bloc = CharacterCreationBloc(
+    creationBloc = CharacterCreationBloc(
       charactersRepository: di.get<CharactersRepository>(),
     );
     nameController = TextEditingController();

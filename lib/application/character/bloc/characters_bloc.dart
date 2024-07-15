@@ -31,7 +31,6 @@ class CharactersBloc extends Bloc<CharactersBlocEvent, CharactersBlocState> {
     Emitter<CharactersBlocState> emit,
   ) async {
     emit(CharactersBlocStateLoading());
-
     add(CharactersBlocEventFetch());
   }
 }

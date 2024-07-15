@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/presentation/character_selection_view.dart';
+import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class MainScreen extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () =>
-                      context.pushNamed(CharacterSelectionView.routeName),
+                      context.pushNamed(CharacterSelectionScreen.routeName),
                   icon: const Icon(Icons.person),
                 )
               ],

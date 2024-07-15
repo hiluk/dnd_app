@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
-import 'package:flutter_application_1/application/character/presentation/character_view.dart';
+import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class CharacterPreview extends StatelessWidget {
@@ -11,7 +11,7 @@ class CharacterPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          context.goNamed(CharacterView.routeName, extra: character.name),
+          context.goNamed(CharacterScreen.routeName, extra: character.name),
       child: SizedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

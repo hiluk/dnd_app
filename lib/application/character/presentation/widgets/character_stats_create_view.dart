@@ -56,6 +56,7 @@ class StatsCreateRow extends StatelessWidget {
   }
 }
 
+// TODO: Жесткий хардкод, надо придумать как испраивить
 class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
   late Attributes stats;
 
@@ -139,6 +140,22 @@ class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
           onPlusClick: () {
             setState(() {
               stats = stats.copyWith(wisdom: stats.wisdom + 1);
+            });
+            widget.statsCallBack(stats);
+          },
+        ),
+        StatsCreateRow(
+          title: "Хиризма",
+          count: stats.charisma,
+          onMinusClick: () {
+            setState(() {
+              stats = stats.copyWith(charisma: stats.charisma - 1);
+            });
+            widget.statsCallBack(stats);
+          },
+          onPlusClick: () {
+            setState(() {
+              stats = stats.copyWith(charisma: stats.charisma + 1);
             });
             widget.statsCallBack(stats);
           },

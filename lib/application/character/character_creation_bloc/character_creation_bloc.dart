@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/application/character/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation_bloc_state.dart';
+import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

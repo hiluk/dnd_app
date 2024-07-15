@@ -10,33 +10,42 @@ import 'package:go_router/go_router.dart';
 
 import 'widgets/character_preview.dart';
 
-class CharacterSelectionView extends StatefulWidget {
+class CharacterSelectionScreen extends StatefulWidget {
   static const routeName = 'character_selection';
   static const path = routeName;
 
-  const CharacterSelectionView({super.key});
+  const CharacterSelectionScreen({super.key});
 
   @override
-  State<CharacterSelectionView> createState() => _CharacterSelectionViewState();
+  State<CharacterSelectionScreen> createState() =>
+      _CharacterSelectionScreenState();
 }
 
-class _CharacterSelectionViewState extends State<CharacterSelectionView> {
+class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
+  late CharactersBloc charactersBloc;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Выбор персонажа'),
-        centerTitle: true,
-      ),
-      floatingActionButton: SlideButton(
-        onTap: () => context.pushNamed(CharacterCreationScreen.routeName),
-      ),
-      body: BlocProvider<CharactersBloc>(
-        create: (_) => CharactersBloc(
-            charactersRepository: di.get<CharactersRepository>()),
-        child: BlocBuilder<CharactersBloc, CharactersBlocState>(
-          builder: (context, state) {
-            return switch (state) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CharactersBloc>(
+          create: (_) => charactersBloc,
+        ),
+      ],
+      child: BlocBuilder<CharactersBloc, CharactersBlocState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Выбор персонажа'),
+              centerTitle: true,
+            ),
+            floatingActionButton: SlideButton(
+              onTap: () => context.pushNamed(
+                CharacterCreationScreen.routeName,
+                extra: charactersBloc,
+              ),
+            ),
+            body: switch (state) {
               CharactersBlocStateLoading _ => const Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -60,10 +69,10 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
                           ],
                         );
                       },
-                    )
-            };
-          },
-        ),
+                    ),
+            },
+          );
+        },
       ),
     );
   }
@@ -71,6 +80,8 @@ class _CharacterSelectionViewState extends State<CharacterSelectionView> {
   @override
   void initState() {
     super.initState();
-    // charactersBox = Hive.box('characters');
+    charactersBloc = CharactersBloc(
+      charactersRepository: di.get<CharactersRepository>(),
+    );
   }
 }

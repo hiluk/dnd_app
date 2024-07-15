@@ -8,10 +8,10 @@ import 'package:go_router/go_router.dart';
 
 import 'widgets/stats_widget.dart';
 
-class CharacterView extends StatelessWidget {
+class CharacterScreen extends StatelessWidget {
   static const routeName = 'character';
   static const path = routeName;
-  const CharacterView({
+  const CharacterScreen({
     super.key,
   });
 
@@ -29,6 +29,7 @@ class CharacterView extends StatelessWidget {
           ),
           child: BlocBuilder<CurrentCharacterBloc, CurrentCharacterBlocState>(
             builder: (context, state) {
+              print(state.toString());
               return switch (state) {
                 CurrentCharacterBlocStateError state => Center(
                     child: Text(state.error),
