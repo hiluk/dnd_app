@@ -33,7 +33,9 @@ class MainApp extends StatelessWidget {
     final router = di.get<GoRouter>();
 
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) => router.refresh(),
+      listener: (context, state) {
+        router.refresh();
+      },
       child: MaterialApp.router(
         theme: di.get<ThemeData>(),
         debugShowCheckedModeBanner: false,

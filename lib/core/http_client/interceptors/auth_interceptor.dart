@@ -11,16 +11,17 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      final refreshToken = dataBase.getTokens().refreshToken;
-      final response = await dio.post(
-        "/refresh",
-        data: {"refreshToken: $refreshToken"},
-      );
-
-      if (response.statusCode == 200) {
-        dataBase.cacheTokens(response.data["refreshToken"]);
-      }
       try {
+        final refreshToken = dataBase.getTokens().refreshToken;
+        final response = await dio.post(
+          "/refresh",
+          data: {"refreshToken: $refreshToken"},
+        );
+
+        if (response.statusCode == 200) {
+          dataBase.cacheTokens(response.data["refreshToken"]);
+        }
+
         handler.resolve(await _retry(err.requestOptions));
       } catch (e) {
         handler.reject(err);

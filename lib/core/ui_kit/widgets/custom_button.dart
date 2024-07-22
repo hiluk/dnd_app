@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
+  final bool isLoading;
   final VoidCallback? callBack;
   const CustomButton({
     required this.title,
     this.callBack,
+    this.isLoading = false,
     super.key,
   });
 
@@ -22,13 +24,15 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 17,
-              color: Colors.black,
-            ),
-          ),
+          child: !isLoading
+              ? Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    color: Colors.black,
+                  ),
+                )
+              : const CircularProgressIndicator(color: Colors.black),
         ),
       ),
     );

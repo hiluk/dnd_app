@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class DndRouter {
-  static GoRouter getInstance(DataBase dataBase) {
+  static GoRouter getInstance(DataBase dataBase, {AuthState? authState}) {
     return GoRouter(
       debugLogDiagnostics: true,
       routes: [
@@ -26,7 +26,6 @@ class DndRouter {
         ),
         GoRoute(
           path: MainScreen.routeLocation,
-          name: MainScreen.routeName,
           builder: (context, state) => const MainScreen(),
           routes: [
             GoRoute(
@@ -55,7 +54,9 @@ class DndRouter {
         return switch (authState) {
           Loading _ => null,
           Error _ => null,
-          Logged _ => null,
+          Logged _ => state.uri.toString() == LoginScreen.routeLocation
+              ? MainScreen.routeLocation
+              : null,
           NotLogged _ => LoginScreen.routeLocation,
           _ => null,
         };

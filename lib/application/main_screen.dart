@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatelessWidget {
-  static const routeName = ' ';
+  static const routeName = '';
   static const routeLocation = '/';
   const MainScreen({super.key});
 

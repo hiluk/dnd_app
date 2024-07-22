@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     title: "Войти",
                     callBack: () => authBloc.add(AuthEvent.login(loginRequest)),
+                    isLoading: authBloc.state == Loading,
                   ),
                 ],
               ),
