@@ -7,9 +7,9 @@ class TokensRepository {
 
   const TokensRepository(this.httpClient);
 
-  Future<Tokens> login(String url, AuthRequest data) async {
+  Future<Tokens> login(AuthRequest data) async {
     try {
-      final tokensRaw = await httpClient.post(url, data.toJson());
+      final tokensRaw = await httpClient.post("/login", data.toJson());
 
       return Tokens.fromJson(tokensRaw);
     } catch (e) {
@@ -17,9 +17,17 @@ class TokensRepository {
     }
   }
 
-  Future<void> register(String url, AuthRequest data) async {
+  Future<Tokens> refresh(String token) async {
     try {
-      await httpClient.post(url, data.toJson());
+      return await httpClient.post("/refresh", {"refreshToken": token});
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> register(AuthRequest data) async {
+    try {
+      final token = await httpClient.post("/register", data.toJson());
     } catch (e) {
       rethrow;
     }

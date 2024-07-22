@@ -659,6 +659,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) error,
+    required TResult Function() loading,
     required TResult Function(Tokens tokens) logged,
     required TResult Function() notLogged,
   }) =>
@@ -666,6 +667,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
     TResult? Function(Tokens tokens)? logged,
     TResult? Function()? notLogged,
   }) =>
@@ -673,6 +675,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? error,
+    TResult Function()? loading,
     TResult Function(Tokens tokens)? logged,
     TResult Function()? notLogged,
     required TResult orElse(),
@@ -681,6 +684,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Error value) error,
+    required TResult Function(Loading value) loading,
     required TResult Function(Logged value) logged,
     required TResult Function(NotLogged value) notLogged,
   }) =>
@@ -688,6 +692,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error value)? error,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Logged value)? logged,
     TResult? Function(NotLogged value)? notLogged,
   }) =>
@@ -695,6 +700,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error value)? error,
+    TResult Function(Loading value)? loading,
     TResult Function(Logged value)? logged,
     TResult Function(NotLogged value)? notLogged,
     required TResult orElse(),
@@ -784,6 +790,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) error,
+    required TResult Function() loading,
     required TResult Function(Tokens tokens) logged,
     required TResult Function() notLogged,
   }) {
@@ -794,6 +801,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
     TResult? Function(Tokens tokens)? logged,
     TResult? Function()? notLogged,
   }) {
@@ -804,6 +812,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? error,
+    TResult Function()? loading,
     TResult Function(Tokens tokens)? logged,
     TResult Function()? notLogged,
     required TResult orElse(),
@@ -818,6 +827,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Error value) error,
+    required TResult Function(Loading value) loading,
     required TResult Function(Logged value) logged,
     required TResult Function(NotLogged value) notLogged,
   }) {
@@ -828,6 +838,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error value)? error,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Logged value)? logged,
     TResult? Function(NotLogged value)? notLogged,
   }) {
@@ -838,6 +849,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error value)? error,
+    TResult Function(Loading value)? loading,
     TResult Function(Logged value)? logged,
     TResult Function(NotLogged value)? notLogged,
     required TResult orElse(),
@@ -856,6 +868,120 @@ abstract class Error implements AuthState {
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoadingImpl implements Loading {
+  const _$LoadingImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) error,
+    required TResult Function() loading,
+    required TResult Function(Tokens tokens) logged,
+    required TResult Function() notLogged,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? error,
+    TResult? Function()? loading,
+    TResult? Function(Tokens tokens)? logged,
+    TResult? Function()? notLogged,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? error,
+    TResult Function()? loading,
+    TResult Function(Tokens tokens)? logged,
+    TResult Function()? notLogged,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Error value) error,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Logged value) logged,
+    required TResult Function(NotLogged value) notLogged,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Error value)? error,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Logged value)? logged,
+    TResult? Function(NotLogged value)? notLogged,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Error value)? error,
+    TResult Function(Loading value)? loading,
+    TResult Function(Logged value)? logged,
+    TResult Function(NotLogged value)? notLogged,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Loading implements AuthState {
+  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -933,6 +1059,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) error,
+    required TResult Function() loading,
     required TResult Function(Tokens tokens) logged,
     required TResult Function() notLogged,
   }) {
@@ -943,6 +1070,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
     TResult? Function(Tokens tokens)? logged,
     TResult? Function()? notLogged,
   }) {
@@ -953,6 +1081,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? error,
+    TResult Function()? loading,
     TResult Function(Tokens tokens)? logged,
     TResult Function()? notLogged,
     required TResult orElse(),
@@ -967,6 +1096,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Error value) error,
+    required TResult Function(Loading value) loading,
     required TResult Function(Logged value) logged,
     required TResult Function(NotLogged value) notLogged,
   }) {
@@ -977,6 +1107,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error value)? error,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Logged value)? logged,
     TResult? Function(NotLogged value)? notLogged,
   }) {
@@ -987,6 +1118,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error value)? error,
+    TResult Function(Loading value)? loading,
     TResult Function(Logged value)? logged,
     TResult Function(NotLogged value)? notLogged,
     required TResult orElse(),
@@ -1046,6 +1178,7 @@ class _$NotLoggedImpl implements NotLogged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) error,
+    required TResult Function() loading,
     required TResult Function(Tokens tokens) logged,
     required TResult Function() notLogged,
   }) {
@@ -1056,6 +1189,7 @@ class _$NotLoggedImpl implements NotLogged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
     TResult? Function(Tokens tokens)? logged,
     TResult? Function()? notLogged,
   }) {
@@ -1066,6 +1200,7 @@ class _$NotLoggedImpl implements NotLogged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? error,
+    TResult Function()? loading,
     TResult Function(Tokens tokens)? logged,
     TResult Function()? notLogged,
     required TResult orElse(),
@@ -1080,6 +1215,7 @@ class _$NotLoggedImpl implements NotLogged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Error value) error,
+    required TResult Function(Loading value) loading,
     required TResult Function(Logged value) logged,
     required TResult Function(NotLogged value) notLogged,
   }) {
@@ -1090,6 +1226,7 @@ class _$NotLoggedImpl implements NotLogged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Error value)? error,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Logged value)? logged,
     TResult? Function(NotLogged value)? notLogged,
   }) {
@@ -1100,6 +1237,7 @@ class _$NotLoggedImpl implements NotLogged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Error value)? error,
+    TResult Function(Loading value)? loading,
     TResult Function(Logged value)? logged,
     TResult Function(NotLogged value)? notLogged,
     required TResult orElse(),

@@ -37,4 +37,4 @@ flutter:
   fonts:
     - family: Vinque
       fonts:
-        - asset: lib/assets/fonts/vinque.otf
+        - asset: assets/fonts/vinque.otf

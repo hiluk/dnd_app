@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required this.dataBase,
     required this.repository,
-  }) : super(const NotLogged()) {
+  }) : super(const Loading()) {
     on<Started>(_onStarted);
     on<Login>(_onLogin);
     on<Register>(_onRegister);
@@ -27,10 +27,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Login event,
     Emitter<AuthState> emit,
   ) async {
+    emit(const Loading());
     try {
-      final tokens = await repository.login("/login", event.request);
+      final tokens = await repository.login(event.request);
 
       dataBase.cacheTokens(tokens);
+
       emit(Logged(tokens));
     } catch (e) {
       emit(Error((e as Error).message));
@@ -41,8 +43,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Register event,
     Emitter<AuthState> emit,
   ) async {
+    emit(const Loading());
     try {
-      await repository.register("/register", event.request);
+      await repository.register(event.request);
 
       add(Login(
         LoginRequest(
