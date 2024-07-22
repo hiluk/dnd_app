@@ -10,8 +10,10 @@ import 'package:flutter_application_1/core/api/classes/repositories/classes_repo
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/api/races/repositories/races_repository.dart';
 import 'package:flutter_application_1/core/http_client/http_client.dart';
+import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 GetIt di = GetIt.instance;
 
@@ -55,6 +57,12 @@ void registerDependencies() {
       ],
     ),
   );
+
+  di.registerSingletonAsync<SharedPreferences>(() async {
+    return await SharedPreferences.getInstance();
+  });
+
+  di.registerSingleton<DataBase>(DataBase(di.get<SharedPreferences>()));
 
   di.registerSingleton<ThemeData>(
     ThemeData(
