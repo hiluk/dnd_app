@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_application_1/application/auth/models/auth_request.dart';
+import 'package:flutter_application_1/application/auth/models/login_request.dart';
+import 'package:flutter_application_1/application/auth/models/register_request.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
 import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
@@ -15,12 +16,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required this.dataBase,
     required this.repository,
-  }) : super(const Loading()) {
+  }) : super(const AuthState.loading()) {
     on<Started>(_onStarted);
     on<Login>(_onLogin);
     on<Register>(_onRegister);
+    on<SignOut>(_onSingOut);
 
-    add(const Started());
+    add(const AuthEvent.started());
   }
 
   Future<void> _onLogin(
@@ -33,9 +35,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       dataBase.cacheTokens(tokens);
 
-      emit(Logged(tokens));
+      emit(AuthState.logged(tokens));
     } catch (e) {
-      emit(Error((e as Error).message));
+      emit(AuthState.error((e as Error).message));
     }
   }
 
@@ -43,19 +45,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Register event,
     Emitter<AuthState> emit,
   ) async {
-    emit(const Loading());
+    emit(const AuthState.loading());
     try {
       await repository.register(event.request);
 
-      add(Login(
+      add(AuthEvent.login(
         LoginRequest(
           login: event.request.login,
           password: event.request.password,
         ),
       ));
     } catch (e) {
-      emit(Error((e as Error).message));
+      emit(AuthState.error((e as Error).message));
     }
+  }
+
+  Future<void> _onSingOut(
+    SignOut event,
+    Emitter<AuthState> emit,
+  ) async {
+    dataBase.clearTokens();
+
+    emit(const AuthState.notLogged());
   }
 
   Future<void> _onStarted(
@@ -65,6 +76,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final tokens = dataBase.getTokens();
     final isAuth = tokens.accessToken.isNotEmpty;
 
-    isAuth ? emit(Logged(tokens)) : emit(const NotLogged());
+    isAuth ? emit(AuthState.logged(tokens)) : emit(const AuthState.notLogged());
   }
 }

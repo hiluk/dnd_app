@@ -13,6 +13,11 @@ class DataBase {
     prefs.setString(refreshTokenTag, tokens.refreshToken);
   }
 
+  void clearTokens() {
+    prefs.remove(accessTokenTag);
+    prefs.remove(refreshTokenTag);
+  }
+
   Tokens getTokens() {
     final accessToken = prefs.getString(accessTokenTag);
     final refreshToken = prefs.getString(refreshTokenTag);

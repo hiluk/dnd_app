@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/character/bloc/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/bloc/characters_bloc_state.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/character_preview.dart';
 
@@ -26,6 +28,7 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AuthBloc>(context, listen: false);
     return MultiBlocProvider(
       providers: [
         BlocProvider<CharactersBloc>(

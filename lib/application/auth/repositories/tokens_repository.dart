@@ -1,4 +1,5 @@
-import 'package:flutter_application_1/application/auth/models/auth_request.dart';
+import 'package:flutter_application_1/application/auth/models/login_request.dart';
+import 'package:flutter_application_1/application/auth/models/register_request.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 
@@ -7,7 +8,7 @@ class TokensRepository {
 
   const TokensRepository(this.httpClient);
 
-  Future<Tokens> login(AuthRequest data) async {
+  Future<Tokens> login(LoginRequest data) async {
     try {
       final tokensRaw = await httpClient.post("/login", data.toJson());
 
@@ -25,9 +26,9 @@ class TokensRepository {
     }
   }
 
-  Future<void> register(AuthRequest data) async {
+  Future<void> register(RegisterRequest data) async {
     try {
-      final token = await httpClient.post("/register", data.toJson());
+      await httpClient.post("/register", data.toJson());
     } catch (e) {
       rethrow;
     }

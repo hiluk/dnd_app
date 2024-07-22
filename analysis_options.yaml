@@ -6,3 +6,4 @@ analyzer:
     - "**/*.freezed.dart"
   errors:
     invalid_annotation_target: ignore
+    unrelated_type_equality_checks: ignore

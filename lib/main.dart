@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 void main() async {
@@ -11,7 +13,16 @@ void main() async {
   await di.allReady();
 
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const MainApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => di.get<AuthBloc>(),
+        ),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -19,10 +30,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: di.get<ThemeData>(),
-      debugShowCheckedModeBanner: false,
-      routerConfig: di.get<GoRouter>(),
+    final router = di.get<GoRouter>();
+
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) => router.refresh(),
+      child: MaterialApp.router(
+        theme: di.get<ThemeData>(),
+        debugShowCheckedModeBanner: false,
+        routerConfig: router,
+      ),
     );
   }
 }

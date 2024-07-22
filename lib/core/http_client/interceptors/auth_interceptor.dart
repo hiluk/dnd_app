@@ -1,25 +1,25 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
-import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
 
 class AuthInterceptor extends Interceptor {
   final DataBase dataBase;
-  final TokensRepository repository;
-  final IHttpClient httpClient;
+  final Dio dio = Dio(BaseOptions(baseUrl: "http://10.0.2.2:5009"));
   AuthInterceptor({
     required this.dataBase,
-    required this.repository,
-    required this.httpClient,
   });
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       final refreshToken = dataBase.getTokens().refreshToken;
-      final newTokens = await repository.refresh(refreshToken);
+      final response = await dio.post(
+        "/refresh",
+        data: {"refreshToken: $refreshToken"},
+      );
 
-      dataBase.cacheTokens(newTokens);
+      if (response.statusCode == 200) {
+        dataBase.cacheTokens(response.data["refreshToken"]);
+      }
       try {
         handler.resolve(await _retry(err.requestOptions));
       } catch (e) {
