@@ -9,9 +9,9 @@ import 'package:flutter_application_1/application/character/presentation/widgets
 import 'package:flutter_application_1/application/character/presentation/widgets/classes_list_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/races_list_view.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
-import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/application/core/di/di.dart';
+import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
+import 'package:flutter_application_1/core/api/races/models/race_model.dart';
+import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/bloc/current_character_bloc_state.dart';
 import 'package:flutter_application_1/application/character/bloc/currrent_character_bloc.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
-import 'package:flutter_application_1/application/core/di/di.dart';
+import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

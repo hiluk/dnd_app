@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/race_element.dart';
-import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/application/core/di/di.dart';
+import 'package:flutter_application_1/core/api/races/models/race_model.dart';
+import 'package:flutter_application_1/core/di/di.dart';
 
 class RacesListView extends StatefulWidget {
   final Function(Race?) selectRace;

@@ -3,8 +3,8 @@ import 'package:flutter_application_1/application/character/bloc/characters_bloc
 import 'package:flutter_application_1/application/character/bloc/characters_bloc_state.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
-import 'package:flutter_application_1/application/core/di/di.dart';
-import 'package:flutter_application_1/application/core/ui_kit/widgets/slide_button.dart';
+import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
 

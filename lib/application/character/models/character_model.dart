@@ -1,8 +1,8 @@
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/application/core/utils/converters/class_converter.dart';
-import 'package:flutter_application_1/application/core/utils/converters/race_converter.dart';
+import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
+import 'package:flutter_application_1/core/api/races/models/race_model.dart';
+import 'package:flutter_application_1/core/utils/converters/class_converter.dart';
+import 'package:flutter_application_1/core/utils/converters/race_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'character_model.freezed.dart';

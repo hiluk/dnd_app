@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_application_1/application/core/api/classes/models/class_model.dart';
+import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 
 class ClassElement extends StatelessWidget {
   final Class characterClass;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_application_1/application/core/api/races/models/race_model.dart';
+import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 
 class RaceElement extends StatelessWidget {
   final Race race;

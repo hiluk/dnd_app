@@ -9,7 +9,7 @@ part of 'character_model.dart';
 _$CharacterImpl _$$CharacterImplFromJson(Map<String, dynamic> json) =>
     _$CharacterImpl(
       name: json['name'] as String? ?? "",
-      level: json['level'] as int? ?? 0,
+      level: (json['level'] as num?)?.toInt() ?? 0,
       characterRace: _$JsonConverterFromJson<int, Race>(
           json['characterRace'], const CharacterRaceTypeConverter().fromJson),
       characterClass: _$JsonConverterFromJson<int, Class>(
