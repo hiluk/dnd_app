@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/application/auth/models/tokens.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -15,11 +16,14 @@ class AuthInterceptor extends Interceptor {
         final refreshToken = dataBase.getTokens().refreshToken;
         final response = await dio.post(
           "/refresh",
-          data: {"refreshToken: $refreshToken"},
+          data: {
+            "refreshToken": refreshToken,
+          },
         );
+        final tokens = Tokens.fromJson(response.data);
 
         if (response.statusCode == 200) {
-          dataBase.cacheTokens(response.data["refreshToken"]);
+          dataBase.cacheTokens(tokens);
         }
 
         handler.resolve(await _retry(err.requestOptions));
@@ -33,9 +37,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers.addAll({
-      "Content-Type": "application/json",
-    });
+    // options.headers.addAll({
+    //   "Content-Type": "application/json",
+    // });
 
     final accessToken = dataBase.getTokens().accessToken;
     if (accessToken.isNotEmpty) {
