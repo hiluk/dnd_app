@@ -6,9 +6,9 @@ part 'register_request.g.dart';
 @freezed
 class RegisterRequest with _$RegisterRequest {
   factory RegisterRequest({
-    required String email,
-    required String login,
-    required String password,
+    @Default("") String email,
+    @Default("") String login,
+    @Default("") String password,
   }) = _RegisterRequest;
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>

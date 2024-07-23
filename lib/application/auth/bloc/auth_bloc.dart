@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_application_1/application/auth/models/error_response.dart';
 import 'package:flutter_application_1/application/auth/models/login_request.dart';
 import 'package:flutter_application_1/application/auth/models/register_request.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
@@ -36,8 +38,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       dataBase.cacheTokens(tokens);
 
       emit(AuthState.logged(tokens));
-    } catch (e) {
-      emit(AuthState.error((e as Error).message));
+    } on DioException catch (e) {
+      final errorResponse = ErrorResponse.fromJson(e.response?.data);
+      String message = switch (errorResponse.detail) {
+        "Failed" => "Ошибка авторизации",
+        _ => "Незвестная ошибка",
+      };
+
+      emit(AuthState.error(message));
     }
   }
 
@@ -55,8 +63,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.request.password,
         ),
       ));
-    } catch (e) {
-      emit(AuthState.error((e as Error).message));
+    } on DioException catch (e) {
+      final errorResponse = ErrorResponse.fromJson(e.response?.data);
+      String message = switch (errorResponse.detail) {
+        "Failed" => "Ошибка авторизации",
+        _ => "Незвестная ошибка",
+      };
+
+      emit(AuthState.error(message));
     }
   }
 

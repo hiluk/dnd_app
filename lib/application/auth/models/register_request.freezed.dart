@@ -119,17 +119,19 @@ class __$$RegisterRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$RegisterRequestImpl implements _RegisterRequest {
-  _$RegisterRequestImpl(
-      {required this.email, required this.login, required this.password});
+  _$RegisterRequestImpl({this.email = "", this.login = "", this.password = ""});
 
   factory _$RegisterRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegisterRequestImplFromJson(json);
 
   @override
+  @JsonKey()
   final String email;
   @override
+  @JsonKey()
   final String login;
   @override
+  @JsonKey()
   final String password;
 
   @override
@@ -169,9 +171,9 @@ class _$RegisterRequestImpl implements _RegisterRequest {
 
 abstract class _RegisterRequest implements RegisterRequest {
   factory _RegisterRequest(
-      {required final String email,
-      required final String login,
-      required final String password}) = _$RegisterRequestImpl;
+      {final String email,
+      final String login,
+      final String password}) = _$RegisterRequestImpl;
 
   factory _RegisterRequest.fromJson(Map<String, dynamic> json) =
       _$RegisterRequestImpl.fromJson;

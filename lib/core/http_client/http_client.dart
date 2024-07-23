@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 
 class AppHttpClient implements IHttpClient {
@@ -24,8 +23,7 @@ class AppHttpClient implements IHttpClient {
       );
 
       return null is T ? response.data : response.data!;
-    } on Exception catch (e) {
-      debugPrint(e.toString());
+    } on Exception {
       rethrow;
     }
   }
@@ -60,8 +58,7 @@ class AppHttpClient implements IHttpClient {
         queryParameters: queryParams,
       );
       return null is T ? response.data : response.data!;
-    } on DioException catch (e) {
-      debugPrint(e.toString());
+    } on DioException {
       rethrow;
     }
   }

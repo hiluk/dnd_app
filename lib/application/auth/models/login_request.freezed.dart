@@ -108,14 +108,16 @@ class __$$LoginRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LoginRequestImpl implements _LoginRequest {
-  _$LoginRequestImpl({required this.login, required this.password});
+  _$LoginRequestImpl({this.login = "", this.password = ""});
 
   factory _$LoginRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginRequestImplFromJson(json);
 
   @override
+  @JsonKey()
   final String login;
   @override
+  @JsonKey()
   final String password;
 
   @override
@@ -152,9 +154,8 @@ class _$LoginRequestImpl implements _LoginRequest {
 }
 
 abstract class _LoginRequest implements LoginRequest {
-  factory _LoginRequest(
-      {required final String login,
-      required final String password}) = _$LoginRequestImpl;
+  factory _LoginRequest({final String login, final String password}) =
+      _$LoginRequestImpl;
 
   factory _LoginRequest.fromJson(Map<String, dynamic> json) =
       _$LoginRequestImpl.fromJson;

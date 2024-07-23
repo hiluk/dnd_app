@@ -1,5 +1,6 @@
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/presentation/login_screen.dart';
+import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
@@ -22,6 +23,13 @@ class DndRouter {
         GoRoute(
           path: LoginScreen.routeLocation,
           name: LoginScreen.routeName,
+          routes: [
+            GoRoute(
+              path: RegisterScreen.routeLocation,
+              name: RegisterScreen.routeName,
+              builder: (context, state) => const RegisterScreen(),
+            )
+          ],
           builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
@@ -50,14 +58,15 @@ class DndRouter {
       ],
       redirect: (context, state) {
         final authState = context.read<AuthBloc>().state;
+        final inAuthScreens =
+            state.uri.toString() == LoginScreen.routeLocation ||
+                state.uri.toString() == '/login/register';
 
         return switch (authState) {
           Loading _ => null,
           Error _ => null,
-          Logged _ => state.uri.toString() == LoginScreen.routeLocation
-              ? MainScreen.routeLocation
-              : null,
-          NotLogged _ => LoginScreen.routeLocation,
+          Logged _ => inAuthScreens ? MainScreen.routeLocation : null,
+          NotLogged _ => inAuthScreens ? null : LoginScreen.routeLocation,
           _ => null,
         };
       },
