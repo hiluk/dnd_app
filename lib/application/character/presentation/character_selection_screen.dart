@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/character/bloc/characters_bloc.dart';
-import 'package:flutter_application_1/application/character/bloc/characters_bloc_state.dart';
+import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/core/di/di.dart';
@@ -35,7 +34,7 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
           create: (_) => charactersBloc,
         ),
       ],
-      child: BlocBuilder<CharactersBloc, CharactersBlocState>(
+      child: BlocBuilder<CharactersBloc, CharactersState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
@@ -49,16 +48,16 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
               ),
             ),
             body: switch (state) {
-              CharactersBlocStateLoading _ => const Center(
+              CharactersLoading _ => const Center(
                   child: CircularProgressIndicator(),
                 ),
-              CharactersBlocStateError state => Padding(
+              CharactersError state => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
-                    child: Text(state.error),
+                    child: Text(state.message),
                   ),
                 ),
-              CharactersBlocStateLoaded state => state.characters.isEmpty
+              CharactersLoaded state => state.characters.isEmpty
                   ? const Center(
                       child: Text('Нет персонажей'),
                     )
@@ -73,6 +72,7 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
                         );
                       },
                     ),
+              _ => null,
             },
           );
         },

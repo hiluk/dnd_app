@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/stats_widget.dart';
 

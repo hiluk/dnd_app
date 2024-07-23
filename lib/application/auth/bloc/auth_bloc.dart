@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Login event,
     Emitter<AuthState> emit,
   ) async {
-    emit(const Loading());
+    emit(const AuthState.loading());
     try {
       final tokens = await repository.login(event.request);
 

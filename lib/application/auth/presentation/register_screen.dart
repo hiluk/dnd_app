@@ -20,14 +20,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
-    final isLoading = authBloc.state == const AuthState.loading();
+    final isLoading = authBloc.state is AuthLoading;
 
     return Scaffold(
       appBar: AppBar(),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           state.whenOrNull(
-            error: (message) => print("Ошибка 202"),
+            error: (message) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+              ),
+            ),
           );
         },
         child: SafeArea(

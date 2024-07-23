@@ -63,10 +63,10 @@ class DndRouter {
                 state.uri.toString() == '/login/register';
 
         return switch (authState) {
-          Loading _ => null,
-          Error _ => null,
-          Logged _ => inAuthScreens ? MainScreen.routeLocation : null,
-          NotLogged _ => inAuthScreens ? null : LoginScreen.routeLocation,
+          AuthLoading _ => null,
+          AuthError _ => null,
+          AuthLogged _ => inAuthScreens ? MainScreen.routeLocation : null,
+          AuthNotLogged _ => inAuthScreens ? null : LoginScreen.routeLocation,
           _ => null,
         };
       },

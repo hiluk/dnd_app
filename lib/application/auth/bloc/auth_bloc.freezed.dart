@@ -652,26 +652,26 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Error value) error,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Logged value) logged,
-    required TResult Function(NotLogged value) notLogged,
+    required TResult Function(AuthError value) error,
+    required TResult Function(AuthLoading value) loading,
+    required TResult Function(AuthLogged value) logged,
+    required TResult Function(AuthNotLogged value) notLogged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Error value)? error,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Logged value)? logged,
-    TResult? Function(NotLogged value)? notLogged,
+    TResult? Function(AuthError value)? error,
+    TResult? Function(AuthLoading value)? loading,
+    TResult? Function(AuthLogged value)? logged,
+    TResult? Function(AuthNotLogged value)? notLogged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Error value)? error,
-    TResult Function(Loading value)? loading,
-    TResult Function(Logged value)? logged,
-    TResult Function(NotLogged value)? notLogged,
+    TResult Function(AuthError value)? error,
+    TResult Function(AuthLoading value)? loading,
+    TResult Function(AuthLogged value)? logged,
+    TResult Function(AuthNotLogged value)? notLogged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -695,20 +695,20 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$AuthErrorImplCopyWith<$Res> {
+  factory _$$AuthErrorImplCopyWith(
+          _$AuthErrorImpl value, $Res Function(_$AuthErrorImpl) then) =
+      __$$AuthErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$AuthErrorImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$AuthErrorImpl>
+    implements _$$AuthErrorImplCopyWith<$Res> {
+  __$$AuthErrorImplCopyWithImpl(
+      _$AuthErrorImpl _value, $Res Function(_$AuthErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -716,7 +716,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? message = null,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$AuthErrorImpl(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -727,8 +727,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl(this.message);
+class _$AuthErrorImpl implements AuthError {
+  const _$AuthErrorImpl(this.message);
 
   @override
   final String message;
@@ -742,7 +742,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$AuthErrorImpl &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -752,8 +752,8 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$AuthErrorImplCopyWith<_$AuthErrorImpl> get copyWith =>
+      __$$AuthErrorImplCopyWithImpl<_$AuthErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -795,10 +795,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Error value) error,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Logged value) logged,
-    required TResult Function(NotLogged value) notLogged,
+    required TResult Function(AuthError value) error,
+    required TResult Function(AuthLoading value) loading,
+    required TResult Function(AuthLogged value) logged,
+    required TResult Function(AuthNotLogged value) notLogged,
   }) {
     return error(this);
   }
@@ -806,10 +806,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Error value)? error,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Logged value)? logged,
-    TResult? Function(NotLogged value)? notLogged,
+    TResult? Function(AuthError value)? error,
+    TResult? Function(AuthLoading value)? loading,
+    TResult? Function(AuthLogged value)? logged,
+    TResult? Function(AuthNotLogged value)? notLogged,
   }) {
     return error?.call(this);
   }
@@ -817,10 +817,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Error value)? error,
-    TResult Function(Loading value)? loading,
-    TResult Function(Logged value)? logged,
-    TResult Function(NotLogged value)? notLogged,
+    TResult Function(AuthError value)? error,
+    TResult Function(AuthLoading value)? loading,
+    TResult Function(AuthLogged value)? logged,
+    TResult Function(AuthNotLogged value)? notLogged,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -830,35 +830,35 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements AuthState {
-  const factory Error(final String message) = _$ErrorImpl;
+abstract class AuthError implements AuthState {
+  const factory AuthError(final String message) = _$AuthErrorImpl;
 
   String get message;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$AuthErrorImplCopyWith<_$AuthErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$AuthLoadingImplCopyWith<$Res> {
+  factory _$$AuthLoadingImplCopyWith(
+          _$AuthLoadingImpl value, $Res Function(_$AuthLoadingImpl) then) =
+      __$$AuthLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$AuthLoadingImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$AuthLoadingImpl>
+    implements _$$AuthLoadingImplCopyWith<$Res> {
+  __$$AuthLoadingImplCopyWithImpl(
+      _$AuthLoadingImpl _value, $Res Function(_$AuthLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$AuthLoadingImpl implements AuthLoading {
+  const _$AuthLoadingImpl();
 
   @override
   String toString() {
@@ -868,7 +868,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$AuthLoadingImpl);
   }
 
   @override
@@ -914,10 +914,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Error value) error,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Logged value) logged,
-    required TResult Function(NotLogged value) notLogged,
+    required TResult Function(AuthError value) error,
+    required TResult Function(AuthLoading value) loading,
+    required TResult Function(AuthLogged value) logged,
+    required TResult Function(AuthNotLogged value) notLogged,
   }) {
     return loading(this);
   }
@@ -925,10 +925,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Error value)? error,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Logged value)? logged,
-    TResult? Function(NotLogged value)? notLogged,
+    TResult? Function(AuthError value)? error,
+    TResult? Function(AuthLoading value)? loading,
+    TResult? Function(AuthLogged value)? logged,
+    TResult? Function(AuthNotLogged value)? notLogged,
   }) {
     return loading?.call(this);
   }
@@ -936,10 +936,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Error value)? error,
-    TResult Function(Loading value)? loading,
-    TResult Function(Logged value)? logged,
-    TResult Function(NotLogged value)? notLogged,
+    TResult Function(AuthError value)? error,
+    TResult Function(AuthLoading value)? loading,
+    TResult Function(AuthLogged value)? logged,
+    TResult Function(AuthNotLogged value)? notLogged,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -949,15 +949,15 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements AuthState {
-  const factory Loading() = _$LoadingImpl;
+abstract class AuthLoading implements AuthState {
+  const factory AuthLoading() = _$AuthLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$LoggedImplCopyWith<$Res> {
-  factory _$$LoggedImplCopyWith(
-          _$LoggedImpl value, $Res Function(_$LoggedImpl) then) =
-      __$$LoggedImplCopyWithImpl<$Res>;
+abstract class _$$AuthLoggedImplCopyWith<$Res> {
+  factory _$$AuthLoggedImplCopyWith(
+          _$AuthLoggedImpl value, $Res Function(_$AuthLoggedImpl) then) =
+      __$$AuthLoggedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Tokens tokens});
 
@@ -965,11 +965,11 @@ abstract class _$$LoggedImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LoggedImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$LoggedImpl>
-    implements _$$LoggedImplCopyWith<$Res> {
-  __$$LoggedImplCopyWithImpl(
-      _$LoggedImpl _value, $Res Function(_$LoggedImpl) _then)
+class __$$AuthLoggedImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$AuthLoggedImpl>
+    implements _$$AuthLoggedImplCopyWith<$Res> {
+  __$$AuthLoggedImplCopyWithImpl(
+      _$AuthLoggedImpl _value, $Res Function(_$AuthLoggedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -977,7 +977,7 @@ class __$$LoggedImplCopyWithImpl<$Res>
   $Res call({
     Object? tokens = null,
   }) {
-    return _then(_$LoggedImpl(
+    return _then(_$AuthLoggedImpl(
       null == tokens
           ? _value.tokens
           : tokens // ignore: cast_nullable_to_non_nullable
@@ -996,8 +996,8 @@ class __$$LoggedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoggedImpl implements Logged {
-  const _$LoggedImpl(this.tokens);
+class _$AuthLoggedImpl implements AuthLogged {
+  const _$AuthLoggedImpl(this.tokens);
 
   @override
   final Tokens tokens;
@@ -1011,7 +1011,7 @@ class _$LoggedImpl implements Logged {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoggedImpl &&
+            other is _$AuthLoggedImpl &&
             (identical(other.tokens, tokens) || other.tokens == tokens));
   }
 
@@ -1021,8 +1021,8 @@ class _$LoggedImpl implements Logged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoggedImplCopyWith<_$LoggedImpl> get copyWith =>
-      __$$LoggedImplCopyWithImpl<_$LoggedImpl>(this, _$identity);
+  _$$AuthLoggedImplCopyWith<_$AuthLoggedImpl> get copyWith =>
+      __$$AuthLoggedImplCopyWithImpl<_$AuthLoggedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1064,10 +1064,10 @@ class _$LoggedImpl implements Logged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Error value) error,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Logged value) logged,
-    required TResult Function(NotLogged value) notLogged,
+    required TResult Function(AuthError value) error,
+    required TResult Function(AuthLoading value) loading,
+    required TResult Function(AuthLogged value) logged,
+    required TResult Function(AuthNotLogged value) notLogged,
   }) {
     return logged(this);
   }
@@ -1075,10 +1075,10 @@ class _$LoggedImpl implements Logged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Error value)? error,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Logged value)? logged,
-    TResult? Function(NotLogged value)? notLogged,
+    TResult? Function(AuthError value)? error,
+    TResult? Function(AuthLoading value)? loading,
+    TResult? Function(AuthLogged value)? logged,
+    TResult? Function(AuthNotLogged value)? notLogged,
   }) {
     return logged?.call(this);
   }
@@ -1086,10 +1086,10 @@ class _$LoggedImpl implements Logged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Error value)? error,
-    TResult Function(Loading value)? loading,
-    TResult Function(Logged value)? logged,
-    TResult Function(NotLogged value)? notLogged,
+    TResult Function(AuthError value)? error,
+    TResult Function(AuthLoading value)? loading,
+    TResult Function(AuthLogged value)? logged,
+    TResult Function(AuthNotLogged value)? notLogged,
     required TResult orElse(),
   }) {
     if (logged != null) {
@@ -1099,35 +1099,35 @@ class _$LoggedImpl implements Logged {
   }
 }
 
-abstract class Logged implements AuthState {
-  const factory Logged(final Tokens tokens) = _$LoggedImpl;
+abstract class AuthLogged implements AuthState {
+  const factory AuthLogged(final Tokens tokens) = _$AuthLoggedImpl;
 
   Tokens get tokens;
   @JsonKey(ignore: true)
-  _$$LoggedImplCopyWith<_$LoggedImpl> get copyWith =>
+  _$$AuthLoggedImplCopyWith<_$AuthLoggedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$NotLoggedImplCopyWith<$Res> {
-  factory _$$NotLoggedImplCopyWith(
-          _$NotLoggedImpl value, $Res Function(_$NotLoggedImpl) then) =
-      __$$NotLoggedImplCopyWithImpl<$Res>;
+abstract class _$$AuthNotLoggedImplCopyWith<$Res> {
+  factory _$$AuthNotLoggedImplCopyWith(
+          _$AuthNotLoggedImpl value, $Res Function(_$AuthNotLoggedImpl) then) =
+      __$$AuthNotLoggedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$NotLoggedImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$NotLoggedImpl>
-    implements _$$NotLoggedImplCopyWith<$Res> {
-  __$$NotLoggedImplCopyWithImpl(
-      _$NotLoggedImpl _value, $Res Function(_$NotLoggedImpl) _then)
+class __$$AuthNotLoggedImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$AuthNotLoggedImpl>
+    implements _$$AuthNotLoggedImplCopyWith<$Res> {
+  __$$AuthNotLoggedImplCopyWithImpl(
+      _$AuthNotLoggedImpl _value, $Res Function(_$AuthNotLoggedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$NotLoggedImpl implements NotLogged {
-  const _$NotLoggedImpl();
+class _$AuthNotLoggedImpl implements AuthNotLogged {
+  const _$AuthNotLoggedImpl();
 
   @override
   String toString() {
@@ -1137,7 +1137,7 @@ class _$NotLoggedImpl implements NotLogged {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$NotLoggedImpl);
+        (other.runtimeType == runtimeType && other is _$AuthNotLoggedImpl);
   }
 
   @override
@@ -1183,10 +1183,10 @@ class _$NotLoggedImpl implements NotLogged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Error value) error,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Logged value) logged,
-    required TResult Function(NotLogged value) notLogged,
+    required TResult Function(AuthError value) error,
+    required TResult Function(AuthLoading value) loading,
+    required TResult Function(AuthLogged value) logged,
+    required TResult Function(AuthNotLogged value) notLogged,
   }) {
     return notLogged(this);
   }
@@ -1194,10 +1194,10 @@ class _$NotLoggedImpl implements NotLogged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Error value)? error,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Logged value)? logged,
-    TResult? Function(NotLogged value)? notLogged,
+    TResult? Function(AuthError value)? error,
+    TResult? Function(AuthLoading value)? loading,
+    TResult? Function(AuthLogged value)? logged,
+    TResult? Function(AuthNotLogged value)? notLogged,
   }) {
     return notLogged?.call(this);
   }
@@ -1205,10 +1205,10 @@ class _$NotLoggedImpl implements NotLogged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Error value)? error,
-    TResult Function(Loading value)? loading,
-    TResult Function(Logged value)? logged,
-    TResult Function(NotLogged value)? notLogged,
+    TResult Function(AuthError value)? error,
+    TResult Function(AuthLoading value)? loading,
+    TResult Function(AuthLogged value)? logged,
+    TResult Function(AuthNotLogged value)? notLogged,
     required TResult orElse(),
   }) {
     if (notLogged != null) {
@@ -1218,6 +1218,6 @@ class _$NotLoggedImpl implements NotLogged {
   }
 }
 
-abstract class NotLogged implements AuthState {
-  const factory NotLogged() = _$NotLoggedImpl;
+abstract class AuthNotLogged implements AuthState {
+  const factory AuthNotLogged() = _$AuthNotLoggedImpl;
 }

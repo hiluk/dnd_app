@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/characters_bloc.dart';
-import 'package:flutter_application_1/application/character/bloc/characters_bloc_event.dart';
-import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character/character_creation_bloc/character_creation_bloc_state.dart';
+import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc_state.dart';
+import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/classes_list_view.dart';
@@ -116,7 +115,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                     }
 
                     if (state.isCreated) {
-                      charactersBloc.add(CharactersBlocEventRefresh());
+                      charactersBloc.add(const CharactersEvent.refresh());
                       return const Center(
                         child: Text('Персонаж успешно создан'),
                       );

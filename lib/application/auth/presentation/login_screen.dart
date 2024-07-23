@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
-    final isLoading = authBloc.state == const AuthState.loading();
+    final isLoading = authBloc.state is AuthLoading;
 
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
