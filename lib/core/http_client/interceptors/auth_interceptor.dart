@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
+import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthInterceptor extends Interceptor {
   final DataBase dataBase;
@@ -13,7 +15,6 @@ class AuthInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       final refreshToken = dataBase.getTokens().refreshToken;
-      print("refreshToken: $refreshToken");
 
       if (refreshToken.isEmpty) {
         handler.reject(err);
@@ -28,9 +29,11 @@ class AuthInterceptor extends Interceptor {
 
         if (response.statusCode == 200) {
           dataBase.cacheTokens(tokens);
+          handler.resolve(await _retry(err.requestOptions));
+        } else {
+          dataBase.clearTokens();
+          di.get<GoRouter>().refresh();
         }
-
-        handler.resolve(await _retry(err.requestOptions));
       }
     } else {
       handler.reject(err);
@@ -51,7 +54,6 @@ class AuthInterceptor extends Interceptor {
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
-    final Dio dio = Dio();
     final accessToken = dataBase.getTokens().accessToken;
 
     final options = Options(

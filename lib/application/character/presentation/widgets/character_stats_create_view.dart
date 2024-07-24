@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/application/character/bloc/character_creation/attributes_cubit.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
+
+import 'stats_create_row.dart';
 
 class CharacterStatsCreateView extends StatefulWidget {
   final Function(Attributes) statsCallBack;
@@ -13,52 +16,8 @@ class CharacterStatsCreateView extends StatefulWidget {
       _CharacterStatsCreateViewState();
 }
 
-class StatsCreateRow extends StatelessWidget {
-  final String title;
-  final int count;
-  final VoidCallback onPlusClick;
-  final VoidCallback onMinusClick;
-
-  const StatsCreateRow({
-    super.key,
-    required this.title,
-    required this.count,
-    required this.onPlusClick,
-    required this.onMinusClick,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title),
-          Row(
-            children: [
-              IconButton(
-                onPressed: onMinusClick,
-                icon: const Icon(Icons.remove),
-                color: Colors.white,
-              ),
-              Text(count.toString()),
-              IconButton(
-                onPressed: onPlusClick,
-                icon: const Icon(Icons.add),
-                color: Colors.white,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// TODO: Жесткий хардкод, надо придумать как испраивить
 class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
-  late Attributes stats;
+  late AttributesCubit stats;
 
   @override
   Widget build(BuildContext context) {
@@ -66,107 +25,56 @@ class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
       children: [
         StatsCreateRow(
           title: "Ловкость",
-          count: stats.dexterity,
-          onMinusClick: () {
-            setState(() {
-              stats = stats.copyWith(dexterity: stats.dexterity - 1);
-            });
-            widget.statsCallBack(stats);
-          },
-          onPlusClick: () {
-            setState(() {
-              stats = stats.copyWith(dexterity: stats.dexterity + 1);
-            });
-            widget.statsCallBack(stats);
-          },
+          count: stats.state.dexterity,
+          onMinusClick: () => stats.decrementDexterity(),
+          onPlusClick: () => stats.incrementDexterity(),
         ),
         StatsCreateRow(
           title: "Cила",
-          count: stats.strength,
-          onMinusClick: () {
-            setState(() {
-              stats = stats.copyWith(strength: stats.strength - 1);
-            });
-            widget.statsCallBack(stats);
-          },
-          onPlusClick: () {
-            setState(() {
-              stats = stats.copyWith(strength: stats.strength + 1);
-            });
-            widget.statsCallBack(stats);
-          },
+          count: stats.state.strength,
+          onMinusClick: () => stats.decrementStrength(),
+          onPlusClick: () => stats.incrementStrength(),
         ),
         StatsCreateRow(
           title: "Телосложение",
-          count: stats.constitution,
-          onMinusClick: () {
-            setState(() {
-              stats = stats.copyWith(constitution: stats.constitution - 1);
-            });
-            widget.statsCallBack(stats);
-          },
-          onPlusClick: () {
-            setState(() {
-              stats = stats.copyWith(constitution: stats.constitution + 1);
-            });
-            widget.statsCallBack(stats);
-          },
+          count: stats.state.constitution,
+          onMinusClick: () => stats.decrementConstitution(),
+          onPlusClick: () => stats.incrementConstitution(),
         ),
         StatsCreateRow(
           title: "Интеллект",
-          count: stats.intelligence,
-          onMinusClick: () {
-            setState(() {
-              stats = stats.copyWith(intelligence: stats.intelligence - 1);
-            });
-            widget.statsCallBack(stats);
-          },
-          onPlusClick: () {
-            setState(() {
-              stats = stats.copyWith(intelligence: stats.intelligence + 1);
-            });
-            widget.statsCallBack(stats);
-          },
+          count: stats.state.intelligence,
+          onMinusClick: () => stats.decrementIntelligence(),
+          onPlusClick: () => stats.incrementIntelligence(),
         ),
         StatsCreateRow(
           title: "Мудрость",
-          count: stats.wisdom,
-          onMinusClick: () {
-            setState(() {
-              stats = stats.copyWith(wisdom: stats.wisdom - 1);
-            });
-            widget.statsCallBack(stats);
-          },
-          onPlusClick: () {
-            setState(() {
-              stats = stats.copyWith(wisdom: stats.wisdom + 1);
-            });
-            widget.statsCallBack(stats);
-          },
+          count: stats.state.wisdom,
+          onMinusClick: () => stats.decrementWisdom(),
+          onPlusClick: () => stats.incrementWisdom(),
         ),
         StatsCreateRow(
           title: "Хиризма",
-          count: stats.charisma,
-          onMinusClick: () {
-            setState(() {
-              stats = stats.copyWith(charisma: stats.charisma - 1);
-            });
-            widget.statsCallBack(stats);
-          },
-          onPlusClick: () {
-            setState(() {
-              stats = stats.copyWith(charisma: stats.charisma + 1);
-            });
-            widget.statsCallBack(stats);
-          },
+          count: stats.state.charisma,
+          onMinusClick: () => stats.decrementCharisma(),
+          onPlusClick: () => stats.incrementCharisma(),
         ),
       ],
     );
   }
 
   @override
+  void dispose() {
+    stats.close();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    stats = Attributes();
+    stats = AttributesCubit();
+    stats.stream.listen(
+      (event) => widget.statsCallBack(stats.state),
+    );
   }
 }

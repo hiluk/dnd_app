@@ -88,6 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final tokens = dataBase.getTokens();
+    print("AccessToken: ${tokens.accessToken}");
     final isAuth = tokens.accessToken.isNotEmpty;
 
     isAuth ? emit(AuthState.logged(tokens)) : emit(const AuthState.notLogged());
