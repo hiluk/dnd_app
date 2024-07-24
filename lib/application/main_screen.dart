@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
-import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,13 +27,6 @@ class MainScreen extends StatelessWidget {
                   onPressed: () =>
                       context.pushNamed(CharacterSelectionScreen.routeName),
                   icon: const Icon(Icons.person),
-                ),
-                IconButton(
-                  onPressed: () {
-                    di.get<DataBase>().clearTokens();
-                    di.get<DataBase>().getTokens().accessToken;
-                  },
-                  icon: const Icon(Icons.abc),
                 ),
               ],
             ),

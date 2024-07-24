@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final errorResponse = ErrorResponse.fromJson(e.response?.data);
       String message = switch (errorResponse.detail) {
         "Failed" => "Ошибка авторизации",
-        _ => "Незвестная ошибка",
+        _ => "Неизвестная ошибка",
       };
 
       emit(AuthState.error(message));
@@ -67,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final errorResponse = ErrorResponse.fromJson(e.response?.data);
       String message = switch (errorResponse.detail) {
         "Failed" => "Ошибка авторизации",
-        _ => "Незвестная ошибка",
+        _ => "Неизвестная ошибка",
       };
 
       emit(AuthState.error(message));
@@ -88,7 +88,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final tokens = dataBase.getTokens();
-    print("AccessToken: ${tokens.accessToken}");
     final isAuth = tokens.accessToken.isNotEmpty;
 
     isAuth ? emit(AuthState.logged(tokens)) : emit(const AuthState.notLogged());

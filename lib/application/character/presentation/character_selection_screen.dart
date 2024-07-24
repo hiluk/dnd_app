@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
@@ -7,9 +6,8 @@ import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-import 'widgets/character_preview.dart';
+import 'widgets/snapping_characters_list.dart';
 
 class CharacterSelectionScreen extends StatefulWidget {
   static const routeName = 'character_selection';
@@ -27,7 +25,6 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<AuthBloc>(context, listen: false);
     return MultiBlocProvider(
       providers: [
         BlocProvider<CharactersBloc>(
@@ -38,7 +35,9 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Выбор персонажа'),
+              title: const Text(
+                'Выбор персонажа',
+              ),
               centerTitle: true,
             ),
             floatingActionButton: SlideButton(
@@ -61,16 +60,10 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
                   ? const Center(
                       child: Text('Нет персонажей'),
                     )
-                  : ListView.builder(
-                      itemCount: state.characters.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            CharacterPreview(state.characters[index]),
-                            const Divider()
-                          ],
-                        );
-                      },
+                  : Column(
+                      children: [
+                        SnappingCharactersList(characters: state.characters),
+                      ],
                     ),
               _ => null,
             },

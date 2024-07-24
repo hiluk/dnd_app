@@ -24,22 +24,14 @@ class RaceElement extends StatelessWidget {
       onTap: () => onSelect(race.name),
       child: AnimatedContainer(
         duration: duration,
-        color: Colors.transparent,
         height: isExpanded ? expandedHeight : notExpandedHeight,
         child: Padding(
           padding: EdgeInsets.only(top: notExpandedHeight * 0.25),
-          child: Column(
+          child: Stack(
             children: [
-              Text(
-                race.name,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 24,
-                ),
-              ),
               isExpanded
-                  ? Flexible(
-                      flex: 1,
+                  ? Transform.translate(
+                      offset: Offset(size.width * 0.3, 0),
                       child: Animate(
                         delay: duration,
                         effects: const [
@@ -49,47 +41,68 @@ class RaceElement extends StatelessWidget {
                             duration: duration,
                           ),
                         ],
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            height: size.height * 0.5,
-                            child: PageView(
-                              children: [
-                                Text(race.description),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Язык: ${race.language}'),
-                                    const SizedBox(height: 10),
-                                    Text('Размеры: ${race.size}'),
-                                    const SizedBox(height: 10),
-                                    Text('Характеристики: ${race.traits}'),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('Скорость: '),
-                                        const SizedBox(width: 5),
-                                        Column(
-                                          children: race.speed
-                                              .map(
-                                                (e) => Text(
-                                                    "${e.type} ${e.value}"),
-                                              )
-                                              .toList(),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ],
+                        child: Container(
+                          height: 500,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                'assets/images/human.png',
+                              ),
                             ),
                           ),
                         ),
                       ),
                     )
                   : const SizedBox.shrink(),
+              Column(
+                children: [
+                  Text(
+                    race.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  isExpanded
+                      ? Flexible(
+                          flex: 1,
+                          child: Animate(
+                            delay: duration,
+                            effects: const [
+                              FadeEffect(
+                                begin: 0,
+                                end: 1,
+                                duration: duration,
+                              ),
+                            ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                return SizedBox(
+                                  height: constraints.maxHeight,
+                                  child: PageView(
+                                    children: [
+                                      Text(race.description),
+                                      Column(
+                                        children: [
+                                          Text('Язык: ${race.language}'),
+                                          Text('Размеры: ${race.size}'),
+                                          Text(
+                                              'Характеристики: ${race.traits}'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
+              ),
             ],
           ),
         ),

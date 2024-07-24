@@ -11,6 +11,7 @@ import 'package:flutter_application_1/core/http_client/http_client.dart';
 import 'package:flutter_application_1/core/http_client/interceptors/auth_interceptor.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:flutter_application_1/core/router/dnd_router.dart';
+import 'package:flutter_application_1/core/utils/extensions/hex_color.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,8 +51,10 @@ void registerDependencies() {
   di.registerSingleton<ThemeData>(
     ThemeData(
       fontFamily: 'Vinque',
-      colorScheme: const ColorScheme.dark().copyWith(
-        background: Colors.black,
+      colorScheme: ColorScheme.dark(
+        onBackground: HexColor.fromHex('#FAFBFC'),
+        background: HexColor.fromHex('#141414'),
+        surface: HexColor.fromHex('#141414'),
       ),
     ),
   );
