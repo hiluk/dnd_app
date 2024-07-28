@@ -1,11 +1,14 @@
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/presentation/login_screen.dart';
 import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
+import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
+import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:flutter_application_1/application/splash_screen.dart';
+import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,27 +35,40 @@ class DndRouter {
           ],
           builder: (context, state) => const LoginScreen(),
         ),
-        GoRoute(
-          path: MainScreen.routeLocation,
-          builder: (context, state) => const MainScreen(),
+        ShellRoute(
+          builder: (context, state, child) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider<CharactersBloc>(
+                  create: (context) => CharactersBloc(
+                    charactersRepository: di.get<CharactersRepository>(),
+                  ),
+                ),
+              ],
+              child: child,
+            );
+          },
           routes: [
+            GoRoute(
+              path: MainScreen.routeLocation,
+              name: MainScreen.routeName,
+              builder: (context, state) => const MainScreen(),
+            ),
             GoRoute(
               path: CharacterSelectionScreen.path,
               name: CharacterSelectionScreen.routeName,
-              routes: [
-                GoRoute(
-                  path: CharacterCreationScreen.routePath,
-                  name: CharacterCreationScreen.routePath,
-                  builder: (context, state) => const CharacterCreationScreen(),
-                ),
-                GoRoute(
-                  path: CharacterScreen.path,
-                  name: CharacterScreen.routeName,
-                  builder: (context, state) => const CharacterScreen(),
-                )
-              ],
               builder: (context, state) => const CharacterSelectionScreen(),
             ),
+            GoRoute(
+              path: CharacterCreationScreen.routePath,
+              name: CharacterCreationScreen.routeName,
+              builder: (context, state) => const CharacterCreationScreen(),
+            ),
+            GoRoute(
+              path: CharacterScreen.path,
+              name: CharacterScreen.routeName,
+              builder: (context, state) => const CharacterScreen(),
+            )
           ],
         ),
       ],

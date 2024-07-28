@@ -94,15 +94,15 @@ class CharacterPreview extends StatelessWidget {
                     inFocus
                         ? Animate(
                             effects: const [
-                              SlideEffect(
-                                begin: Offset(0, 0.4),
-                                end: Offset.zero,
-                                duration: Duration(milliseconds: 400),
-                              ),
+                              // SlideEffect(
+                              //   begin: Offset(0, 0.4),
+                              //   end: Offset.zero,
+                              //   duration: Duration(milliseconds: 400),
+                              // ),
                               FadeEffect(
                                 begin: 0,
                                 end: 1,
-                                duration: Duration(milliseconds: 400),
+                                duration: Duration(milliseconds: 800),
                               ),
                             ],
                             child: Container(

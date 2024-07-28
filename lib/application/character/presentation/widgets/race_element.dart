@@ -33,12 +33,12 @@ class RaceElement extends StatelessWidget {
                   ? Transform.translate(
                       offset: Offset(size.width * 0.3, 0),
                       child: Animate(
-                        delay: duration,
+                        delay: const Duration(milliseconds: 800),
                         effects: const [
                           FadeEffect(
                             begin: 0,
                             end: 1,
-                            duration: duration,
+                            duration: Duration(milliseconds: 400),
                           ),
                         ],
                         child: Container(

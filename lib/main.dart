@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
 import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,7 +19,10 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => di.get<AuthBloc>(),
+          create: (context) => AuthBloc(
+        dataBase: di.get<DataBase>(),
+        repository: di.get<TokensRepository>(),
+      ),
         ),
       ],
       child: const MainApp(),

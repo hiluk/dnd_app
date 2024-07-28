@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
@@ -75,16 +74,6 @@ void registerDependencies() {
       );
     },
     dependsOn: [AppHttpClient],
-  );
-
-  di.registerSingletonAsync<AuthBloc>(
-    () async {
-      return AuthBloc(
-        dataBase: di.get<DataBase>(),
-        repository: di.get<TokensRepository>(),
-      );
-    },
-    dependsOn: [DataBase, TokensRepository],
   );
 
   di.registerSingletonAsync<CharactersRepository>(

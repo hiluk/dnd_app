@@ -10,7 +10,7 @@ import 'widgets/stats_widget.dart';
 
 class CharacterScreen extends StatelessWidget {
   static const routeName = 'character';
-  static const path = routeName;
+  static const path = '/$routeName';
   const CharacterScreen({
     super.key,
   });

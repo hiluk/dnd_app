@@ -12,13 +12,12 @@ import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import 'widgets/character_creating_preview.dart';
 
 class CharacterCreationScreen extends StatefulWidget {
   static const routeName = 'creation';
-  static const routePath = routeName;
+  static const routePath = '/$routeName';
   const CharacterCreationScreen({super.key});
 
   @override
@@ -27,8 +26,8 @@ class CharacterCreationScreen extends StatefulWidget {
 }
 
 class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
-  late CharacterCreationBloc creationBloc;
   late TextEditingController nameController;
+  late CharacterCreationBloc creationBloc;
   late String title;
   Race? currentRace;
   Class? currentClass;
@@ -37,36 +36,34 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final charactersBloc = GoRouterState.of(context).extra! as CharactersBloc;
-
-    return Scaffold(
-      floatingActionButton: isShowFab()
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                creationBloc.add(
-                  CharacterCreationBlocEventSelect(
-                    characterRace: currentRace,
-                    characterClass: currentClass,
-                    characterStats: currentStats,
-                    characterName: currentName,
-                  ),
-                );
-                clearVariables();
-              },
-              backgroundColor: Colors.red,
-              label: const Text('Выбрать'),
-            )
-          : null,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Text(getTitle()),
-              centerTitle: true,
-            ),
-            SliverFillRemaining(
-              child: BlocProvider(
-                create: (context) => creationBloc,
+    return BlocProvider(
+      create: (context) => creationBloc,
+      child: Scaffold(
+        floatingActionButton: isShowFab()
+            ? FloatingActionButton.extended(
+                onPressed: () {
+                  creationBloc.add(
+                    CharacterCreationBlocEventSelect(
+                      characterRace: currentRace,
+                      characterClass: currentClass,
+                      characterStats: currentStats,
+                      characterName: currentName,
+                    ),
+                  );
+                  clearVariables();
+                },
+                backgroundColor: Colors.red,
+                label: const Text('Выбрать'),
+              )
+            : null,
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text(getTitle()),
+                centerTitle: true,
+              ),
+              SliverFillRemaining(
                 child: BlocBuilder<CharacterCreationBloc,
                     CharacterCreationBlocState>(
                   bloc: creationBloc,
@@ -115,20 +112,20 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                     }
 
                     if (state.isCreated) {
-                      charactersBloc.add(const CharactersEvent.refresh());
+                      context
+                          .read<CharactersBloc>()
+                          .add(const CharactersEvent.refresh());
                       return const Center(
                         child: Text('Персонаж успешно создан'),
                       );
                     }
 
-                    return CharacterCreatingPreview(
-                      creationBloc: creationBloc,
-                    );
+                    return const CharacterCreatingPreview();
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -169,6 +166,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
       charactersRepository: di.get<CharactersRepository>(),
     );
     nameController = TextEditingController();
+
     title = 'Создание персонажа';
   }
 
