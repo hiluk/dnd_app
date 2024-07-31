@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
+import 'package:injectable/injectable.dart';
 
+@Order(-1)
+@Injectable(as: IHttpClient)
 class AppHttpClient implements IHttpClient {
   final Dio client;
 

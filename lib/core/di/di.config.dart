@@ -29,6 +29,7 @@ import '../api/classes/models/class_model.dart' as _i305;
 import '../api/feats/repository/feats_repository.dart' as _i97;
 import '../api/races/models/race_model.dart' as _i446;
 import '../api/weapons/repository/weapons_repository.dart' as _i619;
+import '../http_client/http_client.dart' as _i747;
 import '../http_client/interceptors/auth_interceptor.dart' as _i960;
 import '../http_client/interfaces/i_http_client.dart' as _i101;
 import '../modules/core_module.dart' as _i193;
@@ -53,14 +54,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i682.DataBase>(
         () => _i682.DataBase(gh<_i460.SharedPreferences>()));
+    gh.factory<_i361.Dio>(() => coreModule.dio);
     gh.factory<_i960.AuthInterceptor>(
         () => _i960.AuthInterceptor(dataBase: gh<_i682.DataBase>()));
+    gh.factory<_i101.IHttpClient>(() => _i747.AppHttpClient(gh<_i361.Dio>()));
     await gh.factoryAsync<List<_i305.Class>>(
       () => coreModule.classes,
       preResolve: true,
     );
-    gh.factory<_i361.Dio>(() => coreModule.dio);
-    gh.factory<_i101.IHttpClient>(() => coreModule.httpClient);
     await gh.factoryAsync<List<_i446.Race>>(
       () => coreModule.races,
       preResolve: true,
