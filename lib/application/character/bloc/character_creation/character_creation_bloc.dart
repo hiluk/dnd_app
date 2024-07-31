@@ -11,6 +11,14 @@ class CharacterCreationBloc
       : super(CharacterCreationBlocState()) {
     on<CharacterCreationBlocEventSelect>(_onSelect);
     on<CharacterCreationBlocEventCreate>(_onSave);
+    on<CharacterCreationBlocEventReturn>(_onReturn);
+  }
+
+  Future<void> _onReturn(
+    CharacterCreationBlocEventReturn event,
+    Emitter<CharacterCreationBlocState> emit,
+  ) async {
+    emit(state.previousState!);
   }
 
   Future<void> _onSave(
@@ -27,6 +35,7 @@ class CharacterCreationBloc
     Emitter<CharacterCreationBlocState> emit,
   ) {
     emit(state.copyWith(
+      previousState: event.previousState,
       characterClass: event.characterClass ?? state.characterClass,
       characterRace: event.characterRace ?? state.characterRace,
       characterName: event.characterName ?? state.characterName,

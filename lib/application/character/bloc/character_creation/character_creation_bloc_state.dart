@@ -11,6 +11,7 @@ class CharacterCreationBlocState with _$CharacterCreationBlocState {
     @Default('') String characterName,
     @Default(false) bool isLoading,
     @Default(false) bool isCreated,
+    CharacterCreationBlocState? previousState,
     Attributes? characterAttributes,
     Race? characterRace,
     Class? characterClass,

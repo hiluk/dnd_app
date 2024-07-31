@@ -18,7 +18,7 @@ class CharacterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final extraName = GoRouterState.of(context).extra! as String;
-    debugPrint(extraName);
+
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -29,7 +29,6 @@ class CharacterScreen extends StatelessWidget {
           ),
           child: BlocBuilder<CurrentCharacterBloc, CurrentCharacterBlocState>(
             builder: (context, state) {
-              print(state.toString());
               return switch (state) {
                 CurrentCharacterBlocStateError state => Center(
                     child: Text(state.error),

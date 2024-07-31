@@ -21,45 +21,49 @@ class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        StatsCreateRow(
-          title: "Ловкость",
-          count: stats.state.dexterity,
-          onMinusClick: () => stats.decrementDexterity(),
-          onPlusClick: () => stats.incrementDexterity(),
-        ),
-        StatsCreateRow(
-          title: "Cила",
-          count: stats.state.strength,
-          onMinusClick: () => stats.decrementStrength(),
-          onPlusClick: () => stats.incrementStrength(),
-        ),
-        StatsCreateRow(
-          title: "Телосложение",
-          count: stats.state.constitution,
-          onMinusClick: () => stats.decrementConstitution(),
-          onPlusClick: () => stats.incrementConstitution(),
-        ),
-        StatsCreateRow(
-          title: "Интеллект",
-          count: stats.state.intelligence,
-          onMinusClick: () => stats.decrementIntelligence(),
-          onPlusClick: () => stats.incrementIntelligence(),
-        ),
-        StatsCreateRow(
-          title: "Мудрость",
-          count: stats.state.wisdom,
-          onMinusClick: () => stats.decrementWisdom(),
-          onPlusClick: () => stats.incrementWisdom(),
-        ),
-        StatsCreateRow(
-          title: "Хиризма",
-          count: stats.state.charisma,
-          onMinusClick: () => stats.decrementCharisma(),
-          onPlusClick: () => stats.incrementCharisma(),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 100.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          StatsCreateRow(
+            title: "Ловкость",
+            count: stats.state.dexterity,
+            onMinusClick: () => stats.decrementDexterity(),
+            onPlusClick: () => stats.incrementDexterity(),
+          ),
+          StatsCreateRow(
+            title: "Cила",
+            count: stats.state.strength,
+            onMinusClick: () => stats.decrementStrength(),
+            onPlusClick: () => stats.incrementStrength(),
+          ),
+          StatsCreateRow(
+            title: "Телосложение",
+            count: stats.state.constitution,
+            onMinusClick: () => stats.decrementConstitution(),
+            onPlusClick: () => stats.incrementConstitution(),
+          ),
+          StatsCreateRow(
+            title: "Интеллект",
+            count: stats.state.intelligence,
+            onMinusClick: () => stats.decrementIntelligence(),
+            onPlusClick: () => stats.incrementIntelligence(),
+          ),
+          StatsCreateRow(
+            title: "Мудрость",
+            count: stats.state.wisdom,
+            onMinusClick: () => stats.decrementWisdom(),
+            onPlusClick: () => stats.incrementWisdom(),
+          ),
+          StatsCreateRow(
+            title: "Хиризма",
+            count: stats.state.charisma,
+            onMinusClick: () => stats.decrementCharisma(),
+            onPlusClick: () => stats.incrementCharisma(),
+          ),
+        ],
+      ),
     );
   }
 

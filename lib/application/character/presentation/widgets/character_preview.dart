@@ -21,7 +21,7 @@ class CharacterPreview extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.goNamed(CharacterScreen.routeName, extra: character.name);
+        context.pushNamed(CharacterScreen.routeName, extra: character.name);
       },
       child: AnimatedScale(
         duration: const Duration(milliseconds: 200),

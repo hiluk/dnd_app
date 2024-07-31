@@ -5,13 +5,14 @@ import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
+import 'package:flutter_application_1/core/router/dnd_router.dart';
+import 'package:flutter_application_1/core/utils/extensions/hex_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  registerDependencies();
+  await configureDependencies();
   await di.allReady();
 
   HttpOverrides.global = MyHttpOverrides();
@@ -20,9 +21,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(
-        dataBase: di.get<DataBase>(),
-        repository: di.get<TokensRepository>(),
-      ),
+            dataBase: di.get<DataBase>(),
+            repository: di.get<TokensRepository>(),
+          ),
         ),
       ],
       child: const MainApp(),
@@ -35,14 +36,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final router = di.get<DndRouter>().router;
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        di.get<GoRouter>().refresh();
+        router.refresh();
       },
       child: MaterialApp.router(
-        theme: di.get<ThemeData>(),
+        theme: ThemeData(
+          fontFamily: 'Vinque',
+          colorScheme: ColorScheme.dark(
+            onBackground: HexColor.fromHex('#FAFBFC'),
+            background: HexColor.fromHex('#141414'),
+            surface: HexColor.fromHex('#141414'),
+          ),
+        ),
         debugShowCheckedModeBanner: false,
-        routerConfig: di.get<GoRouter>(),
+        routerConfig: router,
       ),
     );
   }

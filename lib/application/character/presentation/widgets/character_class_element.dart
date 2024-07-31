@@ -28,57 +28,89 @@ class ClassElement extends StatelessWidget {
         height: isExpanded ? expandedHeight : notExpandedHeight,
         child: Padding(
           padding: EdgeInsets.only(top: notExpandedHeight * 0.25),
-          child: Column(
+          child: Stack(
             children: [
-              Text(
-                characterClass.name,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 24,
-                ),
-              ),
               isExpanded
-                  ? Flexible(
-                      flex: 1,
+                  ? Transform.translate(
+                      offset: Offset(size.width * 0.3, 0),
                       child: Animate(
-                        delay: duration,
+                        delay: const Duration(milliseconds: 800),
                         effects: const [
                           FadeEffect(
                             begin: 0,
-                            end: 1,
-                            duration: duration,
+                            end: 0.5,
+                            duration: Duration(milliseconds: 400),
                           ),
                         ],
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            height: size.height * 0.5,
-                            child: PageView(
-                              children: [
-                                Text(characterClass.description),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        'Экипировка: ${characterClass.equipment}'),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                        'HP на первом уровне: ${characterClass.hpAt1stLevel}'),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                        'HP при повышении уровня: ${characterClass.hpAtHigherLevels}'),
-                                    const SizedBox(height: 10),
-                                    Text('Броня: ${characterClass.profArmor}'),
-                                    const SizedBox(height: 10),
-                                  ],
-                                ),
-                              ],
+                        child: Container(
+                          height: 500,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fitHeight,
+                              image: AssetImage(
+                                'assets/images/warrior.png',
+                              ),
                             ),
                           ),
                         ),
                       ),
                     )
                   : const SizedBox.shrink(),
+              Column(
+                children: [
+                  Text(
+                    characterClass.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  isExpanded
+                      ? Flexible(
+                          flex: 1,
+                          child: Animate(
+                            delay: duration,
+                            effects: const [
+                              FadeEffect(
+                                begin: 0,
+                                end: 1,
+                                duration: duration,
+                              ),
+                            ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: size.height * 0.5,
+                                child: PageView(
+                                  children: [
+                                    Text(characterClass.description),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            'Экипировка: ${characterClass.equipment}'),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                            'HP на первом уровне: ${characterClass.hpAt1stLevel}'),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                            'HP при повышении уровня: ${characterClass.hpAtHigherLevels}'),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                            'Броня: ${characterClass.profArmor}'),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
+              ),
             ],
           ),
         ),

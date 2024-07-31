@@ -12,6 +12,7 @@ import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'widgets/character_creating_preview.dart';
 
@@ -27,7 +28,6 @@ class CharacterCreationScreen extends StatefulWidget {
 
 class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   late TextEditingController nameController;
-  late CharacterCreationBloc creationBloc;
   late String title;
   Race? currentRace;
   Class? currentClass;
@@ -37,96 +37,125 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => creationBloc,
-      child: Scaffold(
-        floatingActionButton: isShowFab()
-            ? FloatingActionButton.extended(
-                onPressed: () {
-                  creationBloc.add(
-                    CharacterCreationBlocEventSelect(
-                      characterRace: currentRace,
-                      characterClass: currentClass,
-                      characterStats: currentStats,
-                      characterName: currentName,
-                    ),
-                  );
-                  clearVariables();
-                },
-                backgroundColor: Colors.red,
-                label: const Text('Выбрать'),
-              )
-            : null,
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                title: Text(getTitle()),
-                centerTitle: true,
-              ),
-              SliverFillRemaining(
-                child: BlocBuilder<CharacterCreationBloc,
-                    CharacterCreationBlocState>(
-                  bloc: creationBloc,
-                  builder: (context, state) {
-                    if (state.characterRace == null) {
-                      return RacesListView(
-                        selectRace: (race) =>
-                            setState(() => currentRace = race),
-                      );
-                    }
-
-                    if (state.characterClass == null) {
-                      return ClassesListView(
-                        selectClass: (characterClass) =>
-                            setState(() => currentClass = characterClass),
-                      );
-                    }
-
-                    if (state.characterAttributes == null) {
-                      return CharacterStatsCreateView(
-                        statsCallBack: (stats) {
-                          setState(() {
-                            currentStats = stats;
-                          });
-                        },
-                      );
-                    }
-
-                    if (state.characterName.isEmpty) {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: TextField(
-                            controller: nameController,
-                            onChanged: (value) =>
-                                setState(() => currentName = value),
-                          ),
+      create: (context) => CharacterCreationBloc(
+        charactersRepository: di.get<CharactersRepository>(),
+      ),
+      child: BlocBuilder<CharacterCreationBloc, CharacterCreationBlocState>(
+        builder: (context, state) {
+          return Scaffold(
+            floatingActionButton: isShowFab()
+                ? FloatingActionButton.extended(
+                    onPressed: () {
+                      final bloc = context.read<CharacterCreationBloc>();
+                      bloc.add(
+                        CharacterCreationBlocEventSelect(
+                          previousState: bloc.state,
+                          characterRace: currentRace,
+                          characterClass: currentClass,
+                          characterStats: currentStats,
+                          characterName: currentName,
                         ),
                       );
-                    }
+                      clearVariables();
+                    },
+                    backgroundColor: Colors.red,
+                    label: const Text('Выбрать'),
+                  )
+                : null,
+            body: SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    leading: IconButton(
+                      onPressed: state.previousState != null
+                          ? () {
+                              context.read<CharacterCreationBloc>().add(
+                                    CharacterCreationBlocEventReturn(),
+                                  );
+                              clearVariables();
+                            }
+                          : () => context.pop(),
+                      icon: const Icon(Icons.arrow_back),
+                    ),
+                    title: Text(getTitle(state)),
+                    centerTitle: true,
+                  ),
+                  SliverFillRemaining(
+                    child: BlocBuilder<CharacterCreationBloc,
+                        CharacterCreationBlocState>(
+                      builder: (context, state) {
+                        // Выбор расы
+                        if (state.characterRace == null) {
+                          return RacesListView(
+                            races: [],
+                            selectRace: (race) => setState(
+                              () => currentRace = race,
+                            ),
+                          );
+                        }
 
-                    if (state.isLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
+                        //Выбор класса
+                        if (state.characterClass == null) {
+                          return ClassesListView(
+                            selectClass: (characterClass) => setState(
+                              () => currentClass = characterClass,
+                            ),
+                          );
+                        }
 
-                    if (state.isCreated) {
-                      context
-                          .read<CharactersBloc>()
-                          .add(const CharactersEvent.refresh());
-                      return const Center(
-                        child: Text('Персонаж успешно создан'),
-                      );
-                    }
+                        //Выбор аттрибутов
+                        if (state.characterAttributes == null) {
+                          return CharacterStatsCreateView(
+                            statsCallBack: (stats) {
+                              setState(() {
+                                currentStats = stats;
+                              });
+                            },
+                          );
+                        }
 
-                    return const CharacterCreatingPreview();
-                  },
-                ),
+                        //Выбор имени
+                        if (state.characterName.isEmpty) {
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 30.0,
+                              ),
+                              child: TextField(
+                                controller: nameController,
+                                onChanged: (value) =>
+                                    setState(() => currentName = value),
+                              ),
+                            ),
+                          );
+                        }
+
+                        if (state.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        // Уведомление об успешном создании персонажа
+                        if (state.isCreated) {
+                          context
+                              .read<CharactersBloc>()
+                              .add(const CharactersEvent.refresh());
+                          return const Center(
+                            child: Text('Персонаж успешно создан'),
+                          );
+                        }
+
+                        // Превью персонажа перед сохранением
+                        return const CharacterCreatingPreview();
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -139,20 +168,20 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
     setState(() {});
   }
 
-  String getTitle() {
-    if (creationBloc.state.characterRace == null) {
+  String getTitle(CharacterCreationBlocState state) {
+    if (state.characterRace == null) {
       return 'Выбор расы';
     }
 
-    if (creationBloc.state.characterClass == null) {
+    if (state.characterClass == null) {
       return 'Выбор класса';
     }
 
-    if (creationBloc.state.characterAttributes == null) {
+    if (state.characterAttributes == null) {
       return 'Выбор характеристик';
     }
 
-    if (creationBloc.state.characterName.isEmpty) {
+    if (state.characterName.isEmpty) {
       return 'Выбор имени';
     }
 
@@ -162,11 +191,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   @override
   void initState() {
     super.initState();
-    creationBloc = CharacterCreationBloc(
-      charactersRepository: di.get<CharactersRepository>(),
-    );
     nameController = TextEditingController();
-
     title = 'Создание персонажа';
   }
 

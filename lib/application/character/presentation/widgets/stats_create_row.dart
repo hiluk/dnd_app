@@ -16,28 +16,50 @@ class StatsCreateRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title),
-          Row(
-            children: [
-              IconButton(
-                onPressed: onMinusClick,
-                icon: const Icon(Icons.remove),
-                color: Colors.white,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      child: SizedBox(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 24,
               ),
-              Text(count.toString()),
-              IconButton(
-                onPressed: onPlusClick,
-                icon: const Icon(Icons.add),
-                color: Colors.white,
+            ),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width * 0.4,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: onMinusClick,
+                    icon: const Icon(
+                      Icons.remove,
+                      size: 35,
+                    ),
+                    color: Colors.white,
+                  ),
+                  Text(
+                    count.toString(),
+                    style: const TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: onPlusClick,
+                    icon: const Icon(
+                      Icons.add,
+                      size: 35,
+                    ),
+                    color: Colors.white,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

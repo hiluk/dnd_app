@@ -37,17 +37,19 @@ class RaceElement extends StatelessWidget {
                         effects: const [
                           FadeEffect(
                             begin: 0,
-                            end: 1,
+                            end: 0.5,
                             duration: Duration(milliseconds: 400),
                           ),
                         ],
-                        child: Container(
-                          height: 500,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                'assets/images/human.png',
+                        child: Align(
+                          child: Container(
+                            height: 500,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fitHeight,
+                                image: AssetImage(
+                                  'assets/images/human.png',
+                                ),
                               ),
                             ),
                           ),

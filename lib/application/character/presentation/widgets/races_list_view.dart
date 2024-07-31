@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/race_element.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/core/di/di.dart';
 
 class RacesListView extends StatefulWidget {
   final Function(Race?) selectRace;
+  final List<Race> races;
   const RacesListView({
     required this.selectRace,
+    required this.races,
     super.key,
   });
 
@@ -16,18 +17,17 @@ class RacesListView extends StatefulWidget {
 
 class _RacesListViewState extends State<RacesListView> {
   late Race? selectedRace;
-  late List<Race> races;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: races.length,
+      itemCount: widget.races.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
             RaceElement(
-              race: races[index],
-              isExpanded: isSelected(races[index].name),
+              race: widget.races[index],
+              isExpanded: isSelected(widget.races[index].name),
               onSelect: (raceName) => selectRace(raceName),
             ),
             Divider(
@@ -42,7 +42,6 @@ class _RacesListViewState extends State<RacesListView> {
 
   @override
   void initState() {
-    races = di.get<List<Race>>();
     selectedRace = null;
     super.initState();
   }
@@ -59,7 +58,7 @@ class _RacesListViewState extends State<RacesListView> {
     if (isSelected(raceName)) {
       selectedRace = null;
     } else {
-      for (final race in races) {
+      for (final race in widget.races) {
         race.name == raceName ? selectedRace = race : null;
       }
     }

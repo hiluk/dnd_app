@@ -12,9 +12,16 @@ import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable()
 class DndRouter {
-  static GoRouter getInstance(DataBase dataBase, {AuthState? authState}) {
+  final DataBase dataBase;
+
+  const DndRouter(this.dataBase);
+
+  @lazySingleton
+  GoRouter get router {
     return GoRouter(
       debugLogDiagnostics: true,
       routes: [
