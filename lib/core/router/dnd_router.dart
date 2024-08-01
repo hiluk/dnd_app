@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/presentation/login_screen.dart';
 import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
@@ -13,8 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static GoRouter getInstance() {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  static GoRouter get router {
     return GoRouter(
+      navigatorKey: navigatorKey,
       debugLogDiagnostics: true,
       routes: [
         GoRoute(

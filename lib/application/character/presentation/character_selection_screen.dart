@@ -23,6 +23,7 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
   Widget build(BuildContext context) {
     final charactersBloc = BlocProvider.of<CharactersBloc>(context);
     final height = MediaQuery.sizeOf(context).height;
+
     return BlocBuilder<CharactersBloc, CharactersState>(
       bloc: charactersBloc,
       builder: (context, state) {

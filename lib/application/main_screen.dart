@@ -31,9 +31,7 @@ class MainScreen extends StatelessWidget {
               ],
             ),
             const SliverList(
-              delegate: SliverChildListDelegate.fixed(
-                [],
-              ),
+              delegate: SliverChildListDelegate.fixed([]),
             ),
           ],
         ),

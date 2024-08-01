@@ -7,7 +7,6 @@ import 'package:flutter_application_1/application/character/models/attributes_mo
 import 'package:flutter_application_1/application/character/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/classes_list_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/races_list_view.dart';
-import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
@@ -37,9 +36,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CharacterCreationBloc(
-        charactersRepository: di.get<CharactersRepository>(),
-      ),
+      create: (context) => di.get<CharacterCreationBloc>(),
       child: BlocBuilder<CharacterCreationBloc, CharacterCreationBlocState>(
         builder: (context, state) {
           return Scaffold(

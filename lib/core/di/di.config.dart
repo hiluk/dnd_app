@@ -63,11 +63,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => coreModule.classes,
       preResolve: true,
     );
-    gh.factory<_i583.GoRouter>(() => coreModule.router);
     await gh.factoryAsync<List<_i446.Race>>(
       () => coreModule.races,
       preResolve: true,
     );
+    gh.singleton<_i583.GoRouter>(() => coreModule.router);
     gh.factory<_i485.CharactersRepository>(
         () => _i485.CharactersRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i667.ArmorRepository>(
@@ -90,10 +90,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i101.IHttpClient>(),
           gh<_i682.DataBase>(),
         ));
-    gh.factory<_i459.AuthBloc>(() => _i459.AuthBloc(
-          dataBase: gh<_i682.DataBase>(),
-          repository: gh<_i246.ITokensRepository>(),
-        ));
+    gh.factory<_i459.AuthBloc>(
+        () => _i459.AuthBloc(gh<_i246.ITokensRepository>()));
     return this;
   }
 }

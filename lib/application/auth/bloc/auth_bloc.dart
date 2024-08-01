@@ -4,7 +4,6 @@ import 'package:flutter_application_1/application/auth/interfaces/i_token_reposi
 import 'package:flutter_application_1/application/auth/models/error_response.dart';
 import 'package:flutter_application_1/application/auth/models/login_request.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
-import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_bloc.freezed.dart';
@@ -12,12 +11,9 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final DataBase dataBase;
   final ITokensRepository repository;
-  AuthBloc({
-    required this.dataBase,
-    required this.repository,
-  }) : super(const AuthState.loading()) {
+
+  AuthBloc(this.repository) : super(const AuthState.loading()) {
     on<Started>(_onStarted);
     on<Login>(_onLogin);
     on<Register>(_onRegister);
@@ -77,7 +73,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SignOut event,
     Emitter<AuthState> emit,
   ) async {
-    dataBase.clearTokens();
+    repository.clearTokens();
 
     emit(const AuthState.notLogged());
   }

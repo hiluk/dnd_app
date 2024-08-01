@@ -31,8 +31,6 @@ abstract class CoreModule {
     dio.interceptors.add(di.get<AuthInterceptor>());
     return dio;
   }
-  
-  GoRouter get router => AppRouter.getInstance();
 
   @Order(-2)
   @preResolve
@@ -48,4 +46,7 @@ abstract class CoreModule {
         )
         .toList();
   }
+
+  @singleton
+  GoRouter get router => AppRouter.router;
 }
