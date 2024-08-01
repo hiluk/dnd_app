@@ -4,6 +4,7 @@ import 'package:flutter_application_1/application/character/bloc/character_creat
 import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
+import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/classes_list_view.dart';
 import 'package:flutter_application_1/application/character/presentation/widgets/races_list_view.dart';
@@ -39,115 +40,119 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
       create: (context) => di.get<CharacterCreationBloc>(),
       child: BlocBuilder<CharacterCreationBloc, CharacterCreationBlocState>(
         builder: (context, state) {
-          return Scaffold(
-            floatingActionButton: isShowFab()
-                ? FloatingActionButton.extended(
-                    onPressed: () {
-                      final bloc = context.read<CharacterCreationBloc>();
-                      bloc.add(
-                        CharacterCreationBlocEventSelect(
-                          previousState: bloc.state,
-                          characterRace: currentRace,
-                          characterClass: currentClass,
-                          characterStats: currentStats,
-                          characterName: currentName,
-                        ),
-                      );
-                      clearVariables();
-                    },
-                    backgroundColor: Colors.red,
-                    label: const Text('Выбрать'),
-                  )
-                : null,
-            body: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    leading: IconButton(
-                      onPressed: state.previousState != null
-                          ? () {
-                              context.read<CharacterCreationBloc>().add(
-                                    CharacterCreationBlocEventReturn(),
-                                  );
-                              clearVariables();
-                            }
-                          : () => context.pop(),
-                      icon: const Icon(Icons.arrow_back),
-                    ),
-                    title: Text(getTitle(state)),
-                    centerTitle: true,
-                  ),
-                  SliverFillRemaining(
-                    child: BlocBuilder<CharacterCreationBloc,
-                        CharacterCreationBlocState>(
-                      builder: (context, state) {
-                        // Выбор расы
-                        if (state.characterRace == null) {
-                          return RacesListView(
-                            selectRace: (race) => setState(
-                              () => currentRace = race,
-                            ),
-                          );
-                        }
-
-                        //Выбор класса
-                        if (state.characterClass == null) {
-                          return ClassesListView(
-                            selectClass: (characterClass) => setState(
-                              () => currentClass = characterClass,
-                            ),
-                          );
-                        }
-
-                        //Выбор аттрибутов
-                        if (state.characterAttributes == null) {
-                          return CharacterStatsCreateView(
-                            statsCallBack: (stats) {
-                              setState(() {
-                                currentStats = stats;
-                              });
-                            },
-                          );
-                        }
-
-                        //Выбор имени
-                        if (state.characterName.isEmpty) {
-                          return Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 30.0,
-                              ),
-                              child: TextField(
-                                controller: nameController,
-                                onChanged: (value) =>
-                                    setState(() => currentName = value),
-                              ),
-                            ),
-                          );
-                        }
-
-                        if (state.isLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        // Уведомление об успешном создании персонажа
-                        if (state.isCreated) {
-                          context
-                              .read<CharactersBloc>()
-                              .add(const CharactersEvent.refresh());
-                          return const Center(
-                            child: Text('Персонаж успешно создан'),
-                          );
-                        }
-
-                        // Превью персонажа перед сохранением
-                        return const CharacterCreatingPreview();
+          return BlocListener<CharacterCreationBloc,
+              CharacterCreationBlocState>(
+            listener: (context, state) async {
+              if (state.isCreated) {
+                context
+                    .read<CharactersBloc>()
+                    .add(const CharactersEvent.refresh());
+                context.pushReplacementNamed(
+                  CharacterScreen.routeName,
+                  extra: state.characterName,
+                );
+              }
+            },
+            child: Scaffold(
+              floatingActionButton: isShowFab()
+                  ? FloatingActionButton.extended(
+                      onPressed: () {
+                        final bloc = context.read<CharacterCreationBloc>();
+                        bloc.add(
+                          CharacterCreationBlocEventSelect(
+                            previousState: bloc.state,
+                            characterRace: currentRace,
+                            characterClass: currentClass,
+                            characterStats: currentStats,
+                            characterName: currentName,
+                          ),
+                        );
+                        clearVariables();
                       },
+                      backgroundColor: Colors.red,
+                      label: const Text('Выбрать'),
+                    )
+                  : null,
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      leading: IconButton(
+                        onPressed: state.previousState != null
+                            ? () {
+                                context.read<CharacterCreationBloc>().add(
+                                      CharacterCreationBlocEventReturn(),
+                                    );
+                                clearVariables();
+                              }
+                            : () => context.pop(),
+                        icon: const Icon(Icons.arrow_back),
+                      ),
+                      title: Text(getTitle(state)),
+                      centerTitle: true,
                     ),
-                  ),
-                ],
+                    SliverFillRemaining(
+                      child: BlocBuilder<CharacterCreationBloc,
+                          CharacterCreationBlocState>(
+                        builder: (context, state) {
+                          // Выбор расы
+                          if (state.characterRace == null) {
+                            return RacesListView(
+                              selectRace: (race) => setState(
+                                () => currentRace = race,
+                              ),
+                            );
+                          }
+
+                          //Выбор класса
+                          if (state.characterClass == null) {
+                            return ClassesListView(
+                              selectClass: (characterClass) => setState(
+                                () => currentClass = characterClass,
+                              ),
+                            );
+                          }
+
+                          //Выбор аттрибутов
+                          if (state.characterAttributes == null) {
+                            return CharacterStatsCreateView(
+                              statsCallBack: (stats) {
+                                setState(() {
+                                  currentStats = stats;
+                                });
+                              },
+                            );
+                          }
+
+                          //Выбор имени
+                          if (state.characterName.isEmpty) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 30.0,
+                                ),
+                                child: TextField(
+                                  controller: nameController,
+                                  onChanged: (value) =>
+                                      setState(() => currentName = value),
+                                ),
+                              ),
+                            );
+                          }
+
+                          if (state.isLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          // Превью персонажа перед сохранением
+                          return const CharacterCreatingPreview();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

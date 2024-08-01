@@ -50,10 +50,7 @@ class _MainAppState extends State<MainApp> {
         router.refresh();
       },
       child: MaterialApp.router(
-        theme: ThemeData(
-          fontFamily: 'Vinque',
-          colorScheme: const ColorScheme.dark(),
-        ),
+        theme: di.get<ThemeData>(),
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),
