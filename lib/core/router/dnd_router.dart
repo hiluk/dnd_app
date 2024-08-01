@@ -9,19 +9,11 @@ import 'package:flutter_application_1/application/character/repositories/charact
 import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:flutter_application_1/application/splash_screen.dart';
 import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:injectable/injectable.dart';
 
-@Injectable()
-class DndRouter {
-  final DataBase dataBase;
-
-  const DndRouter(this.dataBase);
-
-  @lazySingleton
-  GoRouter get router {
+class AppRouter {
+  static GoRouter getInstance() {
     return GoRouter(
       debugLogDiagnostics: true,
       routes: [

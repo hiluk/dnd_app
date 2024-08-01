@@ -92,8 +92,6 @@ abstract class _$$LoginImplCopyWith<$Res> {
       __$$LoginImplCopyWithImpl<$Res>;
   @useResult
   $Res call({LoginRequest request});
-
-  $LoginRequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -107,22 +105,14 @@ class __$$LoginImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? request = null,
+    Object? request = freezed,
   }) {
     return _then(_$LoginImpl(
-      null == request
+      freezed == request
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
               as LoginRequest,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LoginRequestCopyWith<$Res> get request {
-    return $LoginRequestCopyWith<$Res>(_value.request, (value) {
-      return _then(_value.copyWith(request: value));
-    });
   }
 }
 
@@ -144,11 +134,12 @@ class _$LoginImpl implements Login {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoginImpl &&
-            (identical(other.request, request) || other.request == request));
+            const DeepCollectionEquality().equals(other.request, request));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, request);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(request));
 
   @JsonKey(ignore: true)
   @override
@@ -247,8 +238,6 @@ abstract class _$$RegisterImplCopyWith<$Res> {
       __$$RegisterImplCopyWithImpl<$Res>;
   @useResult
   $Res call({RegisterRequest request});
-
-  $RegisterRequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -262,22 +251,14 @@ class __$$RegisterImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? request = null,
+    Object? request = freezed,
   }) {
     return _then(_$RegisterImpl(
-      null == request
+      freezed == request
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
               as RegisterRequest,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RegisterRequestCopyWith<$Res> get request {
-    return $RegisterRequestCopyWith<$Res>(_value.request, (value) {
-      return _then(_value.copyWith(request: value));
-    });
   }
 }
 
@@ -299,11 +280,12 @@ class _$RegisterImpl implements Register {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterImpl &&
-            (identical(other.request, request) || other.request == request));
+            const DeepCollectionEquality().equals(other.request, request));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, request);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(request));
 
   @JsonKey(ignore: true)
   @override

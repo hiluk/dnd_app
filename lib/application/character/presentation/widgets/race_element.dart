@@ -92,7 +92,8 @@ class RaceElement extends StatelessWidget {
                                           Text('Язык: ${race.language}'),
                                           Text('Размеры: ${race.size}'),
                                           Text(
-                                              'Характеристики: ${race.traits}'),
+                                            'Характеристики: ${race.traits}',
+                                          ),
                                         ],
                                       ),
                                     ],

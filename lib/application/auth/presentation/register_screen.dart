@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/auth/models/register_request.dart';
+import 'package:flutter_application_1/application/auth/models/login_request.dart';
 import 'package:flutter_application_1/application/auth/presentation/widgets/custom_text_field.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,6 +82,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    registerRequest = RegisterRequest();
+    registerRequest = const RegisterRequest();
   }
 }

@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/application/auth/interfaces/i_token_repository.dart';
 import 'package:flutter_application_1/application/auth/models/error_response.dart';
 import 'package:flutter_application_1/application/auth/models/login_request.dart';
-import 'package:flutter_application_1/application/auth/models/register_request.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
-import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,7 +13,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final DataBase dataBase;
-  final TokensRepository repository;
+  final ITokensRepository repository;
   AuthBloc({
     required this.dataBase,
     required this.repository,
@@ -33,9 +32,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthState.loading());
     try {
-      final tokens = await repository.login(event.request);
+      final tokens = await repository.fetch(event.request);
 
-      dataBase.cacheTokens(tokens);
+      repository.cache(tokens);
 
       emit(AuthState.logged(tokens));
     } on DioException catch (e) {
@@ -55,7 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthState.loading());
     try {
-      await repository.register(event.request);
+      await repository.fetch(event.request);
 
       add(AuthEvent.login(
         LoginRequest(
@@ -87,7 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Started event,
     Emitter<AuthState> emit,
   ) async {
-    final tokens = dataBase.getTokens();
+    final tokens = repository.getFromCache();
     final isAuth = tokens.accessToken.isNotEmpty;
 
     isAuth ? emit(AuthState.logged(tokens)) : emit(const AuthState.notLogged());

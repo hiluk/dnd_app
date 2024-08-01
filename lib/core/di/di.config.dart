@@ -10,10 +10,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:go_router/go_router.dart' as _i583;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../application/auth/bloc/auth_bloc.dart' as _i459;
+import '../../application/auth/interfaces/i_token_repository.dart' as _i246;
 import '../../application/auth/repositories/tokens_repository.dart' as _i498;
 import '../../application/character/bloc/character_creation/character_creation_bloc.dart'
     as _i61;
@@ -32,9 +34,8 @@ import '../api/weapons/repository/weapons_repository.dart' as _i619;
 import '../http_client/http_client.dart' as _i747;
 import '../http_client/interceptors/auth_interceptor.dart' as _i960;
 import '../http_client/interfaces/i_http_client.dart' as _i101;
-import '../modules/core_module.dart' as _i193;
 import '../prefs/data_base.dart' as _i682;
-import '../router/dnd_router.dart' as _i866;
+import 'modules/core_module.dart' as _i134;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -62,13 +63,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => coreModule.classes,
       preResolve: true,
     );
+    gh.factory<_i583.GoRouter>(() => coreModule.router);
     await gh.factoryAsync<List<_i446.Race>>(
       () => coreModule.races,
       preResolve: true,
     );
-    gh.factory<_i866.DndRouter>(() => _i866.DndRouter(gh<_i682.DataBase>()));
-    gh.factory<_i498.TokensRepository>(
-        () => _i498.TokensRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i485.CharactersRepository>(
         () => _i485.CharactersRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i667.ArmorRepository>(
@@ -79,10 +78,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i97.FeatsRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i619.WeaponsRepository>(
         () => _i619.WeaponsRepository(gh<_i101.IHttpClient>()));
-    gh.factory<_i459.AuthBloc>(() => _i459.AuthBloc(
-          dataBase: gh<_i682.DataBase>(),
-          repository: gh<_i498.TokensRepository>(),
-        ));
     gh.factory<_i13.CharactersBloc>(() => _i13.CharactersBloc(
         charactersRepository: gh<_i485.CharactersRepository>()));
     gh.factory<_i61.CharacterCreationBloc>(() => _i61.CharacterCreationBloc(
@@ -91,8 +86,16 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i485.CharactersRepository>(),
           gh<String>(),
         ));
+    gh.factory<_i246.ITokensRepository>(() => _i498.TokensRepository(
+          gh<_i101.IHttpClient>(),
+          gh<_i682.DataBase>(),
+        ));
+    gh.factory<_i459.AuthBloc>(() => _i459.AuthBloc(
+          dataBase: gh<_i682.DataBase>(),
+          repository: gh<_i246.ITokensRepository>(),
+        ));
     return this;
   }
 }
 
-class _$CoreModule extends _i193.CoreModule {}
+class _$CoreModule extends _i134.CoreModule {}

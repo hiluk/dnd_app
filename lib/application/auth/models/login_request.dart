@@ -4,12 +4,18 @@ part 'login_request.freezed.dart';
 part 'login_request.g.dart';
 
 @freezed
-class LoginRequest with _$LoginRequest {
-  factory LoginRequest({
-    @Default("") String login,
-    @Default("") String password,
-  }) = _LoginRequest;
+class AuthRequest with _$AuthRequest {
+  factory AuthRequest.fromJson(Map<String, dynamic> json) =>
+      _$AuthRequestFromJson(json);
 
-  factory LoginRequest.fromJson(Map<String, dynamic> json) =>
-      _$LoginRequestFromJson(json);
+  const factory AuthRequest.login({
+    @Default('') String login,
+    @Default('') String password,
+  }) = LoginRequest;
+
+  const factory AuthRequest.register({
+    @Default('') String email,
+    @Default('') String login,
+    @Default('') String password,
+  }) = RegisterRequest;
 }

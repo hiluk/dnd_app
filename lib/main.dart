@@ -2,27 +2,26 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/auth/repositories/tokens_repository.dart';
+import 'package:flutter_application_1/application/auth/interfaces/i_token_repository.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/prefs/data_base.dart';
-import 'package:flutter_application_1/core/router/dnd_router.dart';
-import 'package:flutter_application_1/core/utils/extensions/hex_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
 
   await configureDependencies();
   await di.allReady();
 
-  HttpOverrides.global = MyHttpOverrides();
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(
             dataBase: di.get<DataBase>(),
-            repository: di.get<TokensRepository>(),
+            repository: di.get<ITokensRepository>(),
           ),
         ),
       ],
@@ -36,7 +35,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = di.get<DndRouter>().router;
+    final router = di.get<GoRouter>();
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         router.refresh();
@@ -44,11 +43,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp.router(
         theme: ThemeData(
           fontFamily: 'Vinque',
-          colorScheme: ColorScheme.dark(
-            onBackground: HexColor.fromHex('#FAFBFC'),
-            background: HexColor.fromHex('#141414'),
-            surface: HexColor.fromHex('#141414'),
-          ),
+          colorScheme: const ColorScheme.dark(),
         ),
         debugShowCheckedModeBanner: false,
         routerConfig: router,
