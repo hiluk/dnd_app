@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_application_1/application/character/models/character_dto.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 
@@ -14,19 +15,13 @@ class CharactersRepository {
     return charactersRaw.map((json) => Character.fromJson(json)).toList();
   }
 
-  FutureOr<Character> fetchByName({
-    required String email,
-    required String name,
-  }) async {
-    final data = await httpClient.post(
-      '/characters/get-by-name',
-      {"name": name},
-    );
+  FutureOr<Character> fetchById(String id) async {
+    final data = await httpClient.get('/characters/$id');
 
     return Character.fromJson(data);
   }
 
-  Future<void> saveCharacter(Character character) async {
+  Future<void> saveCharacter(CharacterDto character) async {
     await httpClient.post(
       '/characters/create',
       character.toJson(),

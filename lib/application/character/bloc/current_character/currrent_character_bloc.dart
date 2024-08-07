@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CurrentCharacterBloc
     extends Bloc<CurrentCharacterBlocEvent, CurrentCharacterBlocState> {
   final CharactersRepository repository;
-  final String name;
-  CurrentCharacterBloc(this.repository, this.name)
+  final String id;
+  CurrentCharacterBloc(this.repository, this.id)
       : super(CurrentCharacterBlocStateLoading()) {
     on<CurrentCharacterBlocEventFetch>(_onFetch);
     on<CurrentCharacterBlocEventRefresh>(_onRefresh);
@@ -20,10 +20,7 @@ class CurrentCharacterBloc
     Emitter<CurrentCharacterBlocState> emit,
   ) async {
     try {
-      final character = await repository.fetchByName(
-        name: name,
-        email: "kestos1243@mail.ru",
-      );
+      final character = await repository.fetchById(id);
 
       emit(CurrentCharacterBlocStateLoaded(character));
     } catch (e) {

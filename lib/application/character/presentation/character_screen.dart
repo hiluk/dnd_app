@@ -17,7 +17,7 @@ class CharacterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final extraName = GoRouterState.of(context).extra! as String;
+    final extraId = GoRouterState.of(context).extra! as String;
 
     return Scaffold(
       appBar: AppBar(),
@@ -25,7 +25,7 @@ class CharacterScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => CurrentCharacterBloc(
             di.get<CharactersRepository>(),
-            extraName,
+            extraId,
           ),
           child: BlocBuilder<CurrentCharacterBloc, CurrentCharacterBlocState>(
             builder: (context, state) {
@@ -46,12 +46,12 @@ class CharacterScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            state.character.characterRace?.name ?? '',
+                            state.character.characterRace.name,
                             style: const TextStyle(fontSize: 22),
                           ),
                           const SizedBox(width: 20),
                           Text(
-                            state.character.characterClass?.name ?? '',
+                            state.character.characterClass.name,
                             style: const TextStyle(fontSize: 22),
                           ),
                         ],

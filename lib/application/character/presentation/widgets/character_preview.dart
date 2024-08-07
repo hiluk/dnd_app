@@ -21,7 +21,7 @@ class CharacterPreview extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.pushNamed(CharacterScreen.routeName, extra: character.name);
+        context.pushNamed(CharacterScreen.routeName, extra: character.id);
       },
       child: AnimatedScale(
         duration: const Duration(milliseconds: 200),
@@ -64,14 +64,14 @@ class CharacterPreview extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    character.characterRace!.name,
+                                    character.characterRace.name,
                                     style: TextStyle(
                                       color: HexColor.fromHex('#FAFBFC'),
                                       fontSize: 27,
                                     ),
                                   ),
                                   Text(
-                                    character.characterClass!.name,
+                                    character.characterClass.name,
                                     style: TextStyle(
                                       color: HexColor.fromHex('#FAFBFC'),
                                       fontSize: 27,
