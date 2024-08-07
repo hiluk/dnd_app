@@ -9,22 +9,31 @@ class CharactersRepository {
   const CharactersRepository(this.httpClient);
 
   Future<List<Character>> fetch() async {
-    final data = await httpClient.get('/characters');
-    final charactersRaw = data as List<dynamic>;
+    try {
+      final data = await httpClient.get('/characters');
+      final charactersRaw = data as List<dynamic>;
 
-    return charactersRaw.map((json) => Character.fromJson(json)).toList();
+      return charactersRaw.map((json) => Character.fromJson(json)).toList();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   FutureOr<Character> fetchById(String id) async {
-    final data = await httpClient.get('/characters/$id');
+    try {
+      final data = await httpClient.get('/characters/$id');
 
-    return Character.fromJson(data);
+      return Character.fromJson(data);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> saveCharacter(CharacterDto character) async {
-    await httpClient.post(
-      '/characters/create',
-      character.toJson(),
-    );
+    try {
+      await httpClient.post('/characters/create', character.toJson());
+    } catch (e) {
+      rethrow;
+    }
   }
 }

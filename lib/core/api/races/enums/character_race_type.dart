@@ -1,6 +1,8 @@
+import 'package:flutter_application_1/core/utils/constants/races_constants.dart';
+
 enum CharacterRaceType {
-  human("Человек", 1),
-  halfElf("Полуэльф", 2);
+  human(RacesConstants.human, 1),
+  halfElf(RacesConstants.halfElf, 2);
 
   final String name;
   final int jsonValue;

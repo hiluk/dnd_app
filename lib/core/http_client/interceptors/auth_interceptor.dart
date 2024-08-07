@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 @Injectable(order: -1)
 class AuthInterceptor extends Interceptor {
   final ITokensDatabase dataBase;
-  final Dio dio = Dio(BaseOptions(baseUrl: "http://10.0.2.2:5009"));
+  final Dio dio = Dio(BaseOptions(baseUrl: 'https://10.0.2.2:5001'));
   AuthInterceptor({
     required this.dataBase,
   });
