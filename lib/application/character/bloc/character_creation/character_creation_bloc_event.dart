@@ -1,6 +1,5 @@
 import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/character/models/character_model.dart';
 import 'package:flutter_application_1/application/character/models/character_dto.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';

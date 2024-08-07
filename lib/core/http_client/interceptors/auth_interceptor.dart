@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
 import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/prefs/data_base.dart';
+import 'package:flutter_application_1/core/prefs/interfaces/i_tokens_database.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(order: -1)
 class AuthInterceptor extends Interceptor {
-  final DataBase dataBase;
+  final ITokensDatabase dataBase;
   final Dio dio = Dio(BaseOptions(baseUrl: "http://10.0.2.2:5009"));
   AuthInterceptor({
     required this.dataBase,

@@ -36,6 +36,7 @@ import '../http_client/http_client.dart' as _i747;
 import '../http_client/interceptors/auth_interceptor.dart' as _i960;
 import '../http_client/interfaces/i_http_client.dart' as _i101;
 import '../prefs/data_base.dart' as _i682;
+import '../prefs/interfaces/i_tokens_database.dart' as _i953;
 import 'modules/core_module.dart' as _i134;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -54,12 +55,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => coreModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i682.DataBase>(
+    gh.factory<_i953.ITokensDatabase>(
         () => _i682.DataBase(gh<_i460.SharedPreferences>()));
     gh.factory<_i361.Dio>(() => coreModule.dio);
-    gh.factory<_i960.AuthInterceptor>(
-        () => _i960.AuthInterceptor(dataBase: gh<_i682.DataBase>()));
     gh.factory<_i101.IHttpClient>(() => _i747.AppHttpClient(gh<_i361.Dio>()));
+    gh.factory<_i960.AuthInterceptor>(
+        () => _i960.AuthInterceptor(dataBase: gh<_i953.ITokensDatabase>()));
     await gh.factoryAsync<List<_i305.Class>>(
       () => coreModule.classes,
       preResolve: true,
@@ -80,18 +81,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i97.FeatsRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i619.WeaponsRepository>(
         () => _i619.WeaponsRepository(gh<_i101.IHttpClient>()));
-    gh.factory<_i13.CharactersBloc>(() => _i13.CharactersBloc(
-        charactersRepository: gh<_i485.CharactersRepository>()));
-    gh.factory<_i61.CharacterCreationBloc>(() => _i61.CharacterCreationBloc(
-        charactersRepository: gh<_i485.CharactersRepository>()));
     gh.factory<_i235.CurrentCharacterBloc>(() => _i235.CurrentCharacterBloc(
           gh<_i485.CharactersRepository>(),
           gh<String>(),
         ));
     gh.factory<_i246.ITokensRepository>(() => _i498.TokensRepository(
           gh<_i101.IHttpClient>(),
-          gh<_i682.DataBase>(),
+          gh<_i953.ITokensDatabase>(),
         ));
+    gh.factory<_i13.CharactersBloc>(() => _i13.CharactersBloc(
+        charactersRepository: gh<_i485.CharactersRepository>()));
+    gh.factory<_i61.CharacterCreationBloc>(() => _i61.CharacterCreationBloc(
+        charactersRepository: gh<_i485.CharactersRepository>()));
     gh.factory<_i459.AuthBloc>(
         () => _i459.AuthBloc(gh<_i246.ITokensRepository>()));
     return this;

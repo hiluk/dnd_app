@@ -2,7 +2,7 @@ import 'package:flutter_application_1/application/auth/interfaces/i_token_reposi
 import 'package:flutter_application_1/application/auth/models/login_request.dart';
 import 'package:flutter_application_1/application/auth/models/tokens.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
-import 'package:flutter_application_1/core/prefs/data_base.dart';
+import 'package:flutter_application_1/core/prefs/interfaces/i_tokens_database.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: ITokensRepository)
@@ -11,7 +11,7 @@ class TokensRepository implements ITokensRepository {
   static const String refreshTokenTag = 'refreshToken';
   @override
   final IHttpClient httpClient;
-  final DataBase dataBase;
+  final ITokensDatabase dataBase;
 
   const TokensRepository(this.httpClient, this.dataBase);
 
