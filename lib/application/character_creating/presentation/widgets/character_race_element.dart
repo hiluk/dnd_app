@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_assets.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
-import 'package:flutter_application_1/core/utils/constants/races_constants.dart';
 
 class RaceElement extends StatelessWidget {
   final Race race;
@@ -45,7 +44,9 @@ class RaceElement extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       fit: BoxFit.fitHeight,
-                                      image: AssetImage(findAsset()),
+                                      image: AssetImage(
+                                        DndAssets.findRaceAsset(race),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -80,12 +81,5 @@ class RaceElement extends StatelessWidget {
         ),
       );
     });
-  }
-
-  String findAsset() {
-    return switch (race.name) {
-      RacesConstants.human => DndAssets.human,
-      _ => DndAssets.human,
-    };
   }
 }

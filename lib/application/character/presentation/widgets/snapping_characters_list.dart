@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/character_preview.dart';
+import 'package:flutter_application_1/application/character/presentation/widgets/character_card.dart';
 
 class SnappingCharactersList extends StatefulWidget {
   final List<Character> characters;
@@ -28,7 +28,7 @@ class _SnappingCharactersListState extends State<SnappingCharactersList>
         onPageChanged: (value) => setState(() => _currentIndex = value),
         controller: _pageController,
         itemBuilder: (context, index) {
-          return CharacterPreview(
+          return CharacterCard(
             character: widget.characters[index],
             inFocus: _currentIndex == index,
           );

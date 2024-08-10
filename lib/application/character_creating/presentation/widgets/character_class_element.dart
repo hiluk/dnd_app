@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/utils/constants/classes_constants.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_assets.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
 
@@ -43,7 +42,9 @@ class ClassElement extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     fit: BoxFit.fitHeight,
-                                    image: AssetImage(findAsset()),
+                                    image: AssetImage(
+                                      DndAssets.findClassAsset(characterClass),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -82,12 +83,5 @@ class ClassElement extends StatelessWidget {
               ),
       );
     });
-  }
-
-  String findAsset() {
-    return switch (characterClass.name) {
-      CharacterClassConstants.warrior => DndAssets.warrior,
-      _ => DndAssets.human,
-    };
   }
 }

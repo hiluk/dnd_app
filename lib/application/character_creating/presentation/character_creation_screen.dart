@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/classes_list_view.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/races_list_view.dart';
@@ -70,8 +70,10 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                         clearVariables();
                       },
                       backgroundColor: Colors.red,
-                      label: const Text('Выбрать'),
-                    )
+                      label: const Text(
+                        'Выбрать',
+                        style: TextStyle(fontSize: 17),
+                      ))
                   : null,
               body: SafeArea(
                 child: CustomScrollView(

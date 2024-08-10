@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/expandable_element.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/expandable_element.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_race_element.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
