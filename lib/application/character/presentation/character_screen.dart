@@ -6,7 +6,7 @@ import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'widgets/stats_widget.dart';
+import '../../character_creating/presentation/widgets/stats_widget.dart';
 
 class CharacterScreen extends StatelessWidget {
   static const routeName = 'character';

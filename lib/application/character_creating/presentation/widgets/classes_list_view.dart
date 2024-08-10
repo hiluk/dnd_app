@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/character_class_element.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/expandable_element.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_class_element.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/expandable_element.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_assets.dart';
 
 class ClassesListView extends StatefulWidget {
   final Function(Class?) selectClass;
@@ -28,7 +27,6 @@ class _ClassesListViewState extends State<ClassesListView> {
         return Column(
           children: [
             ExpandableElement(
-              asset: DndAssets.warrior,
               onToggle: (isExpanded) => selectClass(classes[index].name),
               child: ClassElement(characterClass: classes[index]),
             ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/expandable_element.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/race_element.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/expandable_element.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_race_element.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_assets.dart';
-import 'package:flutter_application_1/core/utils/constants/races_constants.dart';
 
 class RacesListView extends StatefulWidget {
   final Function(Race?) selectRace;
@@ -29,7 +27,6 @@ class _RacesListViewState extends State<RacesListView> {
         return Column(
           children: [
             ExpandableElement(
-              asset: findAssetByName(races[index].name),
               onToggle: (isExpanded) => selectRace(races[index].name),
               child: RaceElement(race: races[index]),
             ),
@@ -41,13 +38,6 @@ class _RacesListViewState extends State<RacesListView> {
         );
       },
     );
-  }
-
-  String findAssetByName(String raceName) {
-    return switch (raceName) {
-      RacesConstants.human => DndAssets.human,
-      _ => DndAssets.human,
-    };
   }
 
   @override

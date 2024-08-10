@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 
-import 'stat_row.dart';
+import '../../../character/presentation/widgets/stat_row.dart';
 
 class StatsWidget extends StatelessWidget {
   final Attributes? stats;

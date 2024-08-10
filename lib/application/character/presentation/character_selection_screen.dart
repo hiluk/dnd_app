@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';

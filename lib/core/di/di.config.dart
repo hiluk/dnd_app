@@ -18,14 +18,14 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import '../../application/auth/bloc/auth_bloc.dart' as _i459;
 import '../../application/auth/interfaces/i_token_repository.dart' as _i246;
 import '../../application/auth/repositories/tokens_repository.dart' as _i498;
-import '../../application/character/bloc/character_creation/character_creation_bloc.dart'
-    as _i61;
 import '../../application/character/bloc/characters/characters_bloc.dart'
     as _i13;
 import '../../application/character/bloc/current_character/currrent_character_bloc.dart'
     as _i235;
 import '../../application/character/repositories/characters_repository.dart'
     as _i485;
+import '../../application/character_creating/bloc/character_creation_bloc.dart'
+    as _i405;
 import '../api/armor/repositories/armor_repository.dart' as _i667;
 import '../api/backgrounds/repositories/backgrounds_repository.dart' as _i609;
 import '../api/classes/models/class_model.dart' as _i305;
@@ -91,7 +91,7 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i13.CharactersBloc>(() => _i13.CharactersBloc(
         charactersRepository: gh<_i485.CharactersRepository>()));
-    gh.factory<_i61.CharacterCreationBloc>(() => _i61.CharacterCreationBloc(
+    gh.factory<_i405.CharacterCreationBloc>(() => _i405.CharacterCreationBloc(
         charactersRepository: gh<_i485.CharactersRepository>()));
     gh.factory<_i459.AuthBloc>(
         () => _i459.AuthBloc(gh<_i246.ITokensRepository>()));

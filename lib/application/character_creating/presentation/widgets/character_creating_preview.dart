@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character/models/character_dto.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/stats_widget.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/stats_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterCreatingPreview extends StatelessWidget {

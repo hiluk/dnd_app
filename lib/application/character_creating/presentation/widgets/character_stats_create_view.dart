@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/character_creation/attributes_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 
 import 'stats_create_row.dart';

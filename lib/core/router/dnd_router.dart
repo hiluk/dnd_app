@@ -3,7 +3,7 @@ import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/presentation/login_screen.dart';
 import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character/presentation/character_creation_screen.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
