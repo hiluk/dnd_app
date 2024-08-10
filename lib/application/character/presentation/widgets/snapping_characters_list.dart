@@ -21,18 +21,24 @@ class _SnappingCharactersListState extends State<SnappingCharactersList>
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+
     return SizedBox(
-      height: 400,
-      child: PageView.builder(
-        itemCount: widget.characters.length,
-        onPageChanged: (value) => setState(() => _currentIndex = value),
-        controller: _pageController,
-        itemBuilder: (context, index) {
-          return CharacterCard(
-            character: widget.characters[index],
-            inFocus: _currentIndex == index,
-          );
-        },
+      height: height * 0.5,
+      child: Stack(
+        children: [
+          PageView.builder(
+            itemCount: widget.characters.length,
+            onPageChanged: (value) => setState(() => _currentIndex = value),
+            controller: _pageController,
+            itemBuilder: (context, index) {
+              return CharacterCard(
+                character: widget.characters[index],
+                inFocus: _currentIndex == index,
+              );
+            },
+          ),
+        ],
       ),
     );
   }

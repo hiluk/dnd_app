@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
+import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
 import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,8 @@ class CharacterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final assetPath = CharacterClassType.getRandomAsset();
+
     return GestureDetector(
       onTap: () {
         context.pushNamed(CharacterScreen.routeName, extra: character.id);
@@ -27,84 +30,92 @@ class CharacterCard extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         scale: inFocus ? 1 : 0.8,
         child: LayoutBuilder(builder: (context, constraints) {
-          final avatarHeight = constraints.maxHeight * 0.25;
-
           return Stack(
             children: [
               Align(
                 alignment: Alignment.bottomCenter,
-                child: UnconstrainedBox(
+                child: Padding(
+                  padding: EdgeInsets.only(top: constraints.maxHeight * 0.25),
                   child: AnimatedContainer(
                     duration: DndDurations.fast,
                     width: constraints.maxWidth,
-                    height: constraints.maxHeight - avatarHeight * 0.5,
+                    height: constraints.maxHeight,
                     decoration: BoxDecoration(
                       color: inFocus
-                          ? DndColors.card
-                          : DndColors.primary.withOpacity(0.2),
+                          ? DndColors.primary
+                          : DndColors.primary.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: avatarHeight * 0.5),
-                      child: Column(
-                        children: [
-                          Text(
-                            character.name,
-                            style: const TextStyle(
-                              color: DndColors.onPrimary,
-                              fontSize: 40,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                character.characterRace.name,
-                                style: const TextStyle(
-                                  color: DndColors.onPrimary,
-                                  fontSize: 27,
-                                ),
-                              ),
-                              Text(
-                                character.characterClass.name,
-                                style: const TextStyle(
-                                  color: DndColors.onPrimary,
-                                  fontSize: 27,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Уровень: ${character.level.toString()}',
-                            style: const TextStyle(
-                              color: DndColors.onPrimary,
-                              fontSize: 27,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
               ),
               inFocus
-                  ? Animate(
-                      effects: const [
-                        FadeEffect(
-                          begin: 0,
-                          end: 1,
-                          duration: DndDurations.long,
+                  ? Stack(
+                      children: [
+                        Animate(
+                          effects: const [
+                            FadeEffect(
+                              begin: 0,
+                              end: 1,
+                              duration: DndDurations.long,
+                            ),
+                          ],
+                          child: Transform.translate(
+                            offset: Offset(constraints.maxWidth * 0.15, 0),
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Opacity(
+                                opacity: 1,
+                                child: CharacterAvatar(
+                                  height: constraints.maxHeight,
+                                  assetPath: assetPath,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: CharacterAvatar(
-                          height: avatarHeight,
-                        ),
-                      ),
                     )
                   : const SizedBox.shrink(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    character.name,
+                    style: const TextStyle(
+                      color: DndColors.onPrimary,
+                      fontSize: 40,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        character.characterRace.name,
+                        style: const TextStyle(
+                          color: DndColors.onPrimary,
+                          fontSize: 27,
+                        ),
+                      ),
+                      Text(
+                        character.characterClass.name,
+                        style: const TextStyle(
+                          color: DndColors.onPrimary,
+                          fontSize: 27,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    'Уровень: ${character.level.toString()}',
+                    style: const TextStyle(
+                      color: DndColors.onPrimary,
+                      fontSize: 27,
+                    ),
+                  ),
+                ],
+              ),
             ],
           );
         }),

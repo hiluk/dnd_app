@@ -11,15 +11,16 @@ class CharacterAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: AssetImage(
-            assetPath ?? 'assets/images/human_plug.jpeg',
+    return OverflowBox(
+      maxHeight: height,
+      maxWidth: height * 2,
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage(
+              assetPath ?? 'assets/images/warrior.png',
+            ),
           ),
         ),
       ),

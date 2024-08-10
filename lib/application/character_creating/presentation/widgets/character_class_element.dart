@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_assets.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
 
 class ClassElement extends StatelessWidget {
@@ -43,7 +43,9 @@ class ClassElement extends StatelessWidget {
                                   image: DecorationImage(
                                     fit: BoxFit.fitHeight,
                                     image: AssetImage(
-                                      DndAssets.findClassAsset(characterClass),
+                                      CharacterClassType.getAssetByName(
+                                        characterClass.name,
+                                      ),
                                     ),
                                   ),
                                 ),

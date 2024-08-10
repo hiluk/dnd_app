@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
                   title,
                   style: const TextStyle(
                     fontSize: 17,
-                    color: Colors.black,
+                    color: DndColors.onPrimary,
                   ),
                 )
               : const CircularProgressIndicator(color: Colors.black),
