@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
+import 'package:flutter_application_1/application/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
@@ -39,6 +40,10 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
                     .read<CharactersBloc>()
                     .add(const CharactersRefresh()),
                 icon: const Icon(Icons.refresh),
+              ),
+              IconButton(
+                onPressed: () => context.read<ThemeModeCubit>().toggle(),
+                icon: const Icon(Icons.reviews_rounded),
               )
             ],
           ),

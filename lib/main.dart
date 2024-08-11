@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/application/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/ui_kit/dnd_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,6 +20,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => di.get<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => di.get<ThemeModeCubit>(),
         ),
       ],
       child: const MainApp(),
@@ -44,13 +49,16 @@ class MyHttpOverrides extends HttpOverrides {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
+    final themeMode = context.watch<ThemeModeCubit>();
+    print(themeMode.state.name);
     final router = di.get<GoRouter>();
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         router.refresh();
       },
       child: MaterialApp.router(
-        theme: di.get<ThemeData>(),
+        theme: di.get<DndTheme>().fromMode(themeMode.state.name),
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),

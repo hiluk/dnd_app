@@ -9,7 +9,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
-import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:go_router/go_router.dart' as _i583;
 import 'package:injectable/injectable.dart' as _i526;
@@ -26,6 +25,7 @@ import '../../application/character/repositories/characters_repository.dart'
     as _i485;
 import '../../application/character_creating/bloc/character_creation_bloc.dart'
     as _i405;
+import '../../application/theme_mode_cubit.dart' as _i891;
 import '../api/armor/repositories/armor_repository.dart' as _i667;
 import '../api/backgrounds/repositories/backgrounds_repository.dart' as _i609;
 import '../api/classes/models/class_model.dart' as _i305;
@@ -37,6 +37,7 @@ import '../http_client/interceptors/auth_interceptor.dart' as _i960;
 import '../http_client/interfaces/i_http_client.dart' as _i101;
 import '../prefs/data_base.dart' as _i682;
 import '../prefs/interfaces/i_tokens_database.dart' as _i953;
+import '../ui_kit/dnd_theme.dart' as _i350;
 import 'modules/core_module.dart' as _i134;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -69,8 +70,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => coreModule.races,
       preResolve: true,
     );
+    gh.factory<_i350.DndTheme>(() => _i350.DndTheme());
+    gh.factory<_i891.ThemeModeCubit>(() => _i891.ThemeModeCubit());
     gh.singleton<_i583.GoRouter>(() => coreModule.router);
-    gh.singleton<_i409.ThemeData>(() => coreModule.theme);
     gh.factory<_i485.CharactersRepository>(
         () => _i485.CharactersRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i667.ArmorRepository>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
 
 class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
@@ -24,13 +25,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
       style: const TextStyle(color: Colors.black),
       controller: controller,
       onChanged: widget.onChanged,
+      cursorColor: DndColors.primary,
       decoration: InputDecoration(
+        focusColor: DndColors.primary,
+        focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+          color: DndColors.primary,
+        )),
         filled: true,
         fillColor: Colors.white,
         labelStyle: const TextStyle(color: Colors.black),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         label: Text(widget.label ?? ""),
-        border: const OutlineInputBorder(),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }

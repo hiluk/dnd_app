@@ -3,13 +3,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_1/application/character/models/character_model.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
-import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
+import 'package:flutter_application_1/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:flutter_application_1/core/utils/extensions/context_extension.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/ui_kit/widgets/avatar_box.dart';
 
-class CharacterCard extends StatelessWidget {
+class CharacterCard extends StatefulWidget {
   final Character character;
   final bool inFocus;
   const CharacterCard({
@@ -19,16 +20,25 @@ class CharacterCard extends StatelessWidget {
   });
 
   @override
+  State<CharacterCard> createState() => _CharacterCardState();
+}
+
+class _CharacterCardState extends State<CharacterCard> {
+  late String assetPath;
+
+  @override
   Widget build(BuildContext context) {
-    final assetPath = CharacterClassType.getRandomAsset();
+    final theme = context.getTheme<CharacterCardThemeExtension>() ??
+        CharacterCardThemeExtension.defaultThemeData;
 
     return GestureDetector(
       onTap: () {
-        context.pushNamed(CharacterScreen.routeName, extra: character.id);
+        context.pushNamed(CharacterScreen.routeName,
+            extra: widget.character.id);
       },
       child: AnimatedScale(
         duration: const Duration(milliseconds: 200),
-        scale: inFocus ? 1 : 0.8,
+        scale: widget.inFocus ? 1 : 0.8,
         child: LayoutBuilder(builder: (context, constraints) {
           return Stack(
             children: [
@@ -40,16 +50,11 @@ class CharacterCard extends StatelessWidget {
                     duration: DndDurations.fast,
                     width: constraints.maxWidth,
                     height: constraints.maxHeight,
-                    decoration: BoxDecoration(
-                      color: inFocus
-                          ? DndColors.primary
-                          : DndColors.primary.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
+                    decoration: theme.cardStyle,
                   ),
                 ),
               ),
-              inFocus
+              widget.inFocus
                   ? Stack(
                       children: [
                         Animate(
@@ -84,38 +89,26 @@ class CharacterCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    character.name,
-                    style: const TextStyle(
-                      color: DndColors.onPrimary,
-                      fontSize: 40,
-                    ),
+                    widget.character.name,
+                    style: theme.titleTextStyle,
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        character.characterRace.name,
-                        style: const TextStyle(
-                          color: DndColors.onPrimary,
-                          fontSize: 27,
-                        ),
+                        widget.character.characterRace.name,
+                        style: theme.bodyTextStyle,
                       ),
                       Text(
-                        character.characterClass.name,
-                        style: const TextStyle(
-                          color: DndColors.onPrimary,
-                          fontSize: 27,
-                        ),
+                        widget.character.characterClass.name,
+                        style: theme.bodyTextStyle,
                       ),
                     ],
                   ),
                   Text(
-                    'Уровень: ${character.level.toString()}',
-                    style: const TextStyle(
-                      color: DndColors.onPrimary,
-                      fontSize: 27,
-                    ),
+                    'Уровень: ${widget.character.level.toString()}',
+                    style: theme.bodyTextStyle,
                   ),
                 ],
               ),
@@ -124,5 +117,11 @@ class CharacterCard extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    assetPath = CharacterClassType.getRandomAsset();
   }
 }

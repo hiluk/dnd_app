@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/http_client/interceptors/auth_interceptor.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/core/router/dnd_router.dart';
-import 'package:flutter_application_1/core/ui_kit/app_theme.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,7 +49,4 @@ abstract class CoreModule {
 
   @singleton
   GoRouter get router => AppRouter.router;
-
-  @singleton
-  ThemeData get theme => DndTheme.instance;
 }

@@ -15,7 +15,9 @@ enum CharacterClassType {
     this.assetPath,
   );
 
-  static String getAssetByName(String name) {
+  static String getAssetByName(String? name) {
+    if (name == null) return 'assets/images/dragon.png';
+
     return CharacterClassType.values
         .firstWhere((e) => e.name == name)
         .assetPath;

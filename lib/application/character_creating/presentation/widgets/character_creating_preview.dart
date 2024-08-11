@@ -3,6 +3,7 @@ import 'package:flutter_application_1/application/character_creating/bloc/charac
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/stats_widget.dart';
+import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,19 +28,17 @@ class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
   @override
   Widget build(BuildContext context) {
     final isLoading = context.watch<CharacterCreationBloc>().state.isLoading;
-    final height = MediaQuery.sizeOf(context).height;
 
     return Stack(
       children: [
-        Transform.translate(
-          offset: Offset(0, -(height * 0.15)),
-          child: const Positioned.fill(
-            child: LimitedBox(
-              maxHeight: 100,
-              child: Opacity(
-                opacity: 0.5,
-                child: CharacterAvatar(
-                  assetPath: 'assets/images/dragon.png',
+        Positioned.fill(
+          child: LimitedBox(
+            maxHeight: 100,
+            child: Opacity(
+              opacity: 0.5,
+              child: CharacterAvatar(
+                assetPath: CharacterClassType.getAssetByName(
+                  dto.characterClass?.name,
                 ),
               ),
             ),

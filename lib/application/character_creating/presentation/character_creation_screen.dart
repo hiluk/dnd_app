@@ -86,6 +86,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                       centerTitle: true,
                     ),
                     SliverFillRemaining(
+                      fillOverscroll: true,
                       child: BlocBuilder<CharacterCreationBloc,
                           CharacterCreationBlocState>(
                         builder: (context, state) {

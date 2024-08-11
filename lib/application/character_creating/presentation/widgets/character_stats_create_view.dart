@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
 
 import 'stats_create_row.dart';
 
@@ -21,10 +21,9 @@ class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 100.0),
+    return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           StatsCreateRow(
             title: "Ловкость",
@@ -57,7 +56,7 @@ class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
             onPlusClick: () => stats.incrementWisdom(),
           ),
           StatsCreateRow(
-            title: "Хиризма",
+            title: "Харизма",
             count: stats.state.charisma,
             onMinusClick: () => stats.decrementCharisma(),
             onPlusClick: () => stats.incrementCharisma(),
