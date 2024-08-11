@@ -6,7 +6,7 @@ import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'widgets/custom_text_field.dart';
+import '../../../core/ui_kit/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = 'login';
@@ -47,20 +47,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     CustomTextField(
                       label: "Логин",
-                      callBack: (text) => setState(() {
+                      onChanged: (text) => setState(() {
                         loginRequest = loginRequest.copyWith(login: text);
                       }),
                     ),
                     CustomTextField(
                       label: "Пароль",
-                      callBack: (text) => setState(() {
+                      onChanged: (text) => setState(() {
                         loginRequest = loginRequest.copyWith(password: text);
                       }),
                     ),
                     CustomButton(
                       title: "Войти",
-                      callBack: () =>
-                          authBloc.add(AuthEvent.login(loginRequest)),
+                      onTap: () => authBloc.add(AuthEvent.login(loginRequest)),
                       isLoading: isLoading,
                     ),
                     TextButton(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/models/login_request.dart';
-import 'package:flutter_application_1/application/auth/presentation/widgets/custom_text_field.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -45,26 +45,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     CustomTextField(
                       label: "Email",
-                      callBack: (text) => setState(() {
+                      onChanged: (text) => setState(() {
                         registerRequest = registerRequest.copyWith(email: text);
                       }),
                     ),
                     CustomTextField(
                       label: "Логин",
-                      callBack: (text) => setState(() {
+                      onChanged: (text) => setState(() {
                         registerRequest = registerRequest.copyWith(login: text);
                       }),
                     ),
                     CustomTextField(
                       label: "Пароль",
-                      callBack: (text) => setState(() {
+                      onChanged: (text) => setState(() {
                         registerRequest =
                             registerRequest.copyWith(password: text);
                       }),
                     ),
                     CustomButton(
                       title: "Зарегистрироваться",
-                      callBack: () => authBloc.add(
+                      onTap: () => authBloc.add(
                         AuthEvent.register(registerRequest),
                       ),
                       isLoading: isLoading,

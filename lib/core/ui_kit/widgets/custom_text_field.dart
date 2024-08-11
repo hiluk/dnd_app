@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  final Function(String)? callBack;
+  final Function(String)? onChanged;
   final String? label;
+  final bool autoFocus;
   const CustomTextField({
-    this.callBack,
+    this.onChanged,
     this.label,
+    this.autoFocus = false,
     super.key,
   });
 
@@ -18,9 +20,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autofocus: widget.autoFocus,
       style: const TextStyle(color: Colors.black),
       controller: controller,
-      onChanged: widget.callBack,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,

@@ -66,9 +66,12 @@ class CharacterCard extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               child: Opacity(
                                 opacity: 1,
-                                child: CharacterAvatar(
-                                  height: constraints.maxHeight,
-                                  assetPath: assetPath,
+                                child: OverflowBox(
+                                  maxHeight: constraints.maxHeight,
+                                  maxWidth: constraints.maxWidth * 2,
+                                  child: CharacterAvatar(
+                                    assetPath: assetPath,
+                                  ),
                                 ),
                               ),
                             ),

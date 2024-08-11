@@ -22,10 +22,8 @@ enum CharacterClassType {
   }
 
   static String getRandomAsset() {
-    final index = Random().nextInt(4) + 1;
+    final index = Random().nextInt(CharacterClassType.values.length);
 
-    return CharacterClassType.values
-        .firstWhere((e) => e.jsonValue == index)
-        .assetPath;
+    return CharacterClassType.values[index].assetPath;
   }
 }

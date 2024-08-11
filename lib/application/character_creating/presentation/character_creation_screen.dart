@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
@@ -31,7 +30,6 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   late String title;
   Race? currentRace;
   Class? currentClass;
-  String? currentName;
   Attributes? currentStats;
 
   @override
@@ -44,13 +42,8 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
               CharacterCreationBlocState>(
             listener: (context, state) async {
               if (state.isCreated) {
-                context
-                    .read<CharactersBloc>()
-                    .add(const CharactersEvent.refresh());
-                context.pushReplacementNamed(
-                  CharacterScreen.routeName,
-                  extra: state.characterName,
-                );
+                context.read<CharactersBloc>().add(const CharactersRefresh());
+                context.pop();
               }
             },
             child: Scaffold(
@@ -64,7 +57,6 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                             characterRace: currentRace,
                             characterClass: currentClass,
                             characterStats: currentStats,
-                            characterName: currentName,
                           ),
                         );
                         clearVariables();
@@ -126,28 +118,6 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                             );
                           }
 
-                          //Выбор имени
-                          if (state.characterName.isEmpty) {
-                            return Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 30.0,
-                                ),
-                                child: TextField(
-                                  controller: nameController,
-                                  onChanged: (value) =>
-                                      setState(() => currentName = value),
-                                ),
-                              ),
-                            );
-                          }
-
-                          if (state.isLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-
                           // Превью персонажа перед сохранением
                           return const CharacterCreatingPreview();
                         },
@@ -166,7 +136,6 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   void clearVariables() {
     currentClass = null;
     currentRace = null;
-    currentName = null;
     currentStats = null;
     setState(() {});
   }
@@ -184,10 +153,6 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
       return 'Выбор характеристик';
     }
 
-    if (state.characterName.isEmpty) {
-      return 'Выбор имени';
-    }
-
     return 'Создание персонажа';
   }
 
@@ -199,10 +164,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
   }
 
   bool isShowFab() {
-    return currentRace != null ||
-            currentClass != null ||
-            currentName != null ||
-            currentStats != null
+    return currentRace != null || currentClass != null || currentStats != null
         ? true
         : false;
   }

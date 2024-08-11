@@ -3,52 +3,118 @@ import 'package:flutter_application_1/application/character_creating/bloc/charac
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/stats_widget.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CharacterCreatingPreview extends StatelessWidget {
+import '../../../../core/ui_kit/widgets/avatar_box.dart';
+
+class CharacterCreatingPreview extends StatefulWidget {
   const CharacterCreatingPreview({
     super.key,
   });
 
   @override
+  State<CharacterCreatingPreview> createState() =>
+      _CharacterCreatingPreviewState();
+}
+
+class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
+  late String characterName;
+  late CharacterCreationBloc creationBloc;
+  late CharacterDto dto;
+
+  @override
   Widget build(BuildContext context) {
-    final creationBloc = BlocProvider.of<CharacterCreationBloc>(context);
-    final character = CharacterDto(
+    final isLoading = context.watch<CharacterCreationBloc>().state.isLoading;
+    final height = MediaQuery.sizeOf(context).height;
+
+    return Stack(
+      children: [
+        Transform.translate(
+          offset: Offset(0, -(height * 0.15)),
+          child: const Positioned.fill(
+            child: LimitedBox(
+              maxHeight: 100,
+              child: Opacity(
+                opacity: 0.5,
+                child: CharacterAvatar(
+                  assetPath: 'assets/images/dragon.png',
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        dto.characterRace?.name ?? '',
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                      const SizedBox(width: 20),
+                      Text(
+                        dto.characterClass?.name ?? '',
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                    ],
+                  ),
+                  StatsWidget(stats: dto.characterStats),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Выберите имя для вашего персонажа',
+                        style: TextStyle(fontSize: 19),
+                      ),
+                      CustomTextField(
+                        autoFocus: true,
+                        onChanged: (value) => setState(() {
+                          dto = dto.copyWith(name: value);
+                        }),
+                      ),
+                    ],
+                  ),
+                  CustomButton(
+                    onTap: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      creationBloc.add(CharacterCreationBlocEventCreate(dto));
+                    },
+                    title: 'Создать',
+                    isLoading: isLoading,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    creationBloc = BlocProvider.of<CharacterCreationBloc>(context);
+    dto = CharacterDto(
       characterStats: creationBloc.state.characterAttributes!,
       characterClass: creationBloc.state.characterClass,
       characterRace: creationBloc.state.characterRace,
-      name: creationBloc.state.characterName,
       level: 1,
-    );
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          character.name,
-          style: const TextStyle(fontSize: 30),
-        ),
-        Row(
-          children: [
-            Text(
-              character.characterRace?.name ?? '',
-              style: const TextStyle(fontSize: 22),
-            ),
-            const SizedBox(width: 20),
-            Text(
-              character.characterClass?.name ?? '',
-              style: const TextStyle(fontSize: 22),
-            ),
-          ],
-        ),
-        StatsWidget(stats: character.characterStats),
-        TextButton(
-          onPressed: () async {
-            creationBloc.add(CharacterCreationBlocEventCreate(character));
-          },
-          child: const Text('Создать'),
-        ),
-      ],
     );
   }
 }

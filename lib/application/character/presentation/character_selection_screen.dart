@@ -33,6 +33,14 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
               'Выбор персонажа',
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () => context
+                    .read<CharactersBloc>()
+                    .add(const CharactersRefresh()),
+                icon: const Icon(Icons.refresh),
+              )
+            ],
           ),
           floatingActionButton: SlideButton(
             onTap: () => context.pushNamed(CharacterCreationScreen.routeName),

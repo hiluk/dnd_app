@@ -4,10 +4,10 @@ import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
 class CustomButton extends StatelessWidget {
   final String title;
   final bool isLoading;
-  final VoidCallback? callBack;
+  final VoidCallback? onTap;
   const CustomButton({
     required this.title,
-    this.callBack,
+    this.onTap,
     this.isLoading = false,
     super.key,
   });
@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return GestureDetector(
-      onTap: callBack,
+      onTap: onTap,
       child: Container(
         height: size.height * 0.06,
         width: size.width * 0.5,
@@ -33,7 +33,7 @@ class CustomButton extends StatelessWidget {
                     color: DndColors.onPrimary,
                   ),
                 )
-              : const CircularProgressIndicator(color: Colors.black),
+              : const CircularProgressIndicator(color: DndColors.onPrimary),
         ),
       ),
     );

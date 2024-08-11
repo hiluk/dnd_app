@@ -17,13 +17,13 @@ class StatRow extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            fontSize: 15,
+            fontSize: 19,
           ),
         ),
         Text(
           value.toString(),
           style: const TextStyle(
-            fontSize: 15,
+            fontSize: 19,
           ),
         )
       ],
