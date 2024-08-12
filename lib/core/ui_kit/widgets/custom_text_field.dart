@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
 
 class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
@@ -18,19 +17,21 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextEditingController controller;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return TextField(
       autofocus: widget.autoFocus,
       style: const TextStyle(color: Colors.black),
       controller: controller,
       onChanged: widget.onChanged,
-      cursorColor: DndColors.primary,
+      cursorColor: theme.primaryColor,
       decoration: InputDecoration(
-        focusColor: DndColors.primary,
-        focusedBorder: const OutlineInputBorder(
+        focusColor: theme.primaryColor,
+        focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-          color: DndColors.primary,
+          color: theme.primaryColor,
         )),
         filled: true,
         fillColor: Colors.white,

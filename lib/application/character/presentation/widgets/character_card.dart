@@ -5,7 +5,6 @@ import 'package:flutter_application_1/application/character/presentation/charact
 import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
 import 'package:flutter_application_1/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
-import 'package:flutter_application_1/core/utils/extensions/context_extension.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/ui_kit/widgets/avatar_box.dart';
@@ -28,8 +27,9 @@ class _CharacterCardState extends State<CharacterCard> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.getTheme<CharacterCardThemeExtension>() ??
-        CharacterCardThemeExtension.defaultThemeData;
+    final theme = Theme.of(context);
+    final themeExtension = theme.extension<CharacterCardThemeExtension>() ??
+        CharacterCardThemeExtension.dark;
 
     return GestureDetector(
       onTap: () {
@@ -50,7 +50,7 @@ class _CharacterCardState extends State<CharacterCard> {
                     duration: DndDurations.fast,
                     width: constraints.maxWidth,
                     height: constraints.maxHeight,
-                    decoration: theme.cardStyle,
+                    decoration: themeExtension.cardStyle,
                   ),
                 ),
               ),
@@ -90,7 +90,7 @@ class _CharacterCardState extends State<CharacterCard> {
                 children: [
                   Text(
                     widget.character.name,
-                    style: theme.titleTextStyle,
+                    style: themeExtension.titleTextStyle,
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -98,17 +98,17 @@ class _CharacterCardState extends State<CharacterCard> {
                     children: [
                       Text(
                         widget.character.characterRace.name,
-                        style: theme.bodyTextStyle,
+                        style: themeExtension.bodyTextStyle,
                       ),
                       Text(
                         widget.character.characterClass.name,
-                        style: theme.bodyTextStyle,
+                        style: themeExtension.bodyTextStyle,
                       ),
                     ],
                   ),
                   Text(
                     'Уровень: ${widget.character.level.toString()}',
-                    style: theme.bodyTextStyle,
+                    style: themeExtension.bodyTextStyle,
                   ),
                 ],
               ),

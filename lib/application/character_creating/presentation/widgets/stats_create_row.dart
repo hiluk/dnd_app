@@ -16,6 +16,8 @@ class StatsCreateRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: SizedBox(
@@ -39,7 +41,7 @@ class StatsCreateRow extends StatelessWidget {
                       Icons.remove,
                       size: 35,
                     ),
-                    color: Colors.white,
+                    color: theme.colorScheme.onSurface,
                   ),
                   Text(
                     count.toString(),
@@ -53,7 +55,7 @@ class StatsCreateRow extends StatelessWidget {
                       Icons.add,
                       size: 35,
                     ),
-                    color: Colors.white,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ],
               ),

@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
+import 'package:flutter_application_1/core/utils/constants/dnd_colors.dart';
 
 class ButtonThemeExtension extends ThemeExtension<ButtonThemeExtension> {
-  static ButtonThemeExtension defaultThemeData = ButtonThemeExtension(
-    textStyle: const TextStyle(
+  static ButtonThemeExtension dark = ButtonThemeExtension(
+    textStyle: TextStyle(
       fontSize: 17,
-      color: DndColors.onPrimary,
+      color: const DndColors.dark().onPrimary,
     ),
     boxDecoration: BoxDecoration(
-      color: DndColors.primary,
+      color: const DndColors.dark().primary,
       borderRadius: BorderRadius.circular(15),
     ),
   );
 
   static ButtonThemeExtension light = ButtonThemeExtension(
-    textStyle: const TextStyle(
+    textStyle: TextStyle(
       fontSize: 17,
-      color: DndColors.onPrimary,
+      color: const DndColors.light().onPrimary,
     ),
     boxDecoration: BoxDecoration(
-      color: DndColors.onFourth,
+      color: const DndColors.light().primary,
       borderRadius: BorderRadius.circular(15),
     ),
   );

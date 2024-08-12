@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
 import 'package:flutter_application_1/core/ui_kit/theme_extensions/button_text_extension.dart';
-import 'package:flutter_application_1/core/utils/extensions/context_extension.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
@@ -17,22 +15,23 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final theme = context.getTheme<ButtonThemeExtension>() ??
-        ButtonThemeExtension.defaultThemeData;
+    final theme = Theme.of(context);
+    final themeExtenstion =
+        theme.extension<ButtonThemeExtension>() ?? ButtonThemeExtension.dark;
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
         height: size.height * 0.06,
         width: size.width * 0.5,
-        decoration: theme.boxDecoration,
+        decoration: themeExtenstion.boxDecoration,
         child: Center(
           child: !isLoading
               ? Text(
                   title,
-                  style: theme.textStyle,
+                  style: themeExtenstion.textStyle,
                 )
-              : const CircularProgressIndicator(color: DndColors.onPrimary),
+              : CircularProgressIndicator(color: theme.primaryColor),
         ),
       ),
     );

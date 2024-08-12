@@ -23,7 +23,6 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final charactersBloc = BlocProvider.of<CharactersBloc>(context);
-    final height = MediaQuery.sizeOf(context).height;
 
     return BlocBuilder<CharactersBloc, CharactersState>(
       bloc: charactersBloc,
@@ -48,6 +47,7 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
             ],
           ),
           floatingActionButton: SlideButton(
+            title: 'Создать персонажа',
             onTap: () => context.pushNamed(CharacterCreationScreen.routeName),
           ),
           body: switch (state) {
@@ -64,11 +64,8 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
                 ? const Center(
                     child: Text('Нет персонажей'),
                   )
-                : Column(
-                    children: [
-                      SizedBox(height: 0.15 * height),
-                      SnappingCharactersList(characters: state.characters),
-                    ],
+                : Center(
+                    child: SnappingCharactersList(characters: state.characters),
                   ),
             _ => null,
           },

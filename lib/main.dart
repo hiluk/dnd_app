@@ -50,7 +50,6 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     final themeMode = context.watch<ThemeModeCubit>();
-    print(themeMode.state.name);
     final router = di.get<GoRouter>();
 
     return BlocListener<AuthBloc, AuthState>(
@@ -58,7 +57,7 @@ class _MainAppState extends State<MainApp> {
         router.refresh();
       },
       child: MaterialApp.router(
-        theme: di.get<DndTheme>().fromMode(themeMode.state.name),
+        theme: di.get<DndTheme>().fromMode(themeMode.state),
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),

@@ -10,6 +10,7 @@ import 'package:flutter_application_1/application/character_creating/presentatio
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/ui_kit/theme_extensions/button_text_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,11 +62,17 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                         );
                         clearVariables();
                       },
-                      backgroundColor: Colors.red,
-                      label: const Text(
+                      backgroundColor: Theme.of(context)
+                          .floatingActionButtonTheme
+                          .backgroundColor,
+                      label: Text(
                         'Выбрать',
-                        style: TextStyle(fontSize: 17),
-                      ))
+                        style: Theme.of(context)
+                                .extension<ButtonThemeExtension>()
+                                ?.textStyle ??
+                            ButtonThemeExtension.dark.textStyle,
+                      ),
+                    )
                   : null,
               body: SafeArea(
                 child: CustomScrollView(

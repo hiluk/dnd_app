@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/color_scheme.dart';
+import 'package:flutter_application_1/core/utils/constants/dnd_colors.dart';
 
 class CharacterCardThemeExtension
     extends ThemeExtension<CharacterCardThemeExtension> {
-  static final defaultThemeData = CharacterCardThemeExtension(
-    bodyTextStyle: const TextStyle(
-      color: DndColors.onPrimary,
+  static final dark = CharacterCardThemeExtension(
+    bodyTextStyle: TextStyle(
+      color: DndColors.dark().onPrimary,
       fontSize: 27,
     ),
-    titleTextStyle: const TextStyle(
-      color: DndColors.onPrimary,
+    titleTextStyle: TextStyle(
+      color: DndColors.dark().onPrimary,
       fontSize: 40,
     ),
     cardStyle: BoxDecoration(
-      color: DndColors.primary,
-      borderRadius: BorderRadius.circular(25),
-    ),
-  );
-  static final light = CharacterCardThemeExtension(
-    bodyTextStyle: const TextStyle(
-      color: DndColors.onPrimary,
-      fontSize: 27,
-    ),
-    titleTextStyle: const TextStyle(
-      color: DndColors.onPrimary,
-      fontSize: 40,
-    ),
-    cardStyle: BoxDecoration(
-      color: DndColors.fourth,
+      color: DndColors.dark().primary,
       borderRadius: BorderRadius.circular(25),
     ),
   );
 
+  static final light = CharacterCardThemeExtension(
+    bodyTextStyle: TextStyle(
+      color: DndColors.light().onPrimary,
+      fontSize: 27,
+    ),
+    titleTextStyle: TextStyle(
+      color: DndColors.light().onPrimary,
+      fontSize: 40,
+    ),
+    cardStyle: BoxDecoration(
+      color: DndColors.light().primary,
+      borderRadius: BorderRadius.circular(25),
+    ),
+  );
   final TextStyle titleTextStyle;
+
   final TextStyle bodyTextStyle;
   final BoxDecoration cardStyle;
-
   const CharacterCardThemeExtension({
     required this.bodyTextStyle,
     required this.titleTextStyle,
@@ -52,7 +52,7 @@ class CharacterCardThemeExtension
   ThemeExtension<CharacterCardThemeExtension> lerp(
       covariant ThemeExtension<CharacterCardThemeExtension>? other, double t) {
     if (other is! CharacterCardThemeExtension) {
-      return defaultThemeData;
+      return dark;
     }
 
     return CharacterCardThemeExtension(
