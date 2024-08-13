@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_class_element.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/expandable_element.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/class_widget.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
 
-class ClassesListView extends StatefulWidget {
-  final Function(Class?) selectClass;
+class ClassesListView extends StatelessWidget {
+  final List<Class> classes;
   const ClassesListView({
-    required this.selectClass,
     super.key,
+    required this.classes,
   });
-
-  @override
-  State<ClassesListView> createState() => _ClassesListViewState();
-}
-
-class _ClassesListViewState extends State<ClassesListView> {
-  late Class? selectedRace;
-  late List<Class> classes;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +17,10 @@ class _ClassesListViewState extends State<ClassesListView> {
       itemBuilder: (context, index) {
         return Column(
           children: [
-            ExpandableElement(
-              onToggle: (isExpanded) => selectClass(classes[index].name),
-              child: ClassElement(characterClass: classes[index]),
+            ExpandableWidget(
+              isExpanded: false,
+              onToggle: () {},
+              child: ClassWidget(characterClass: classes[index]),
             ),
             Divider(
               height: 0,
@@ -38,32 +30,5 @@ class _ClassesListViewState extends State<ClassesListView> {
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    classes = di.get<List<Class>>();
-    selectedRace = null;
-    super.initState();
-  }
-
-  bool isSelected(String name) {
-    return selectedRace?.name != null &&
-            selectedRace!.name.contains(name) &&
-            selectedRace!.name.length == name.length
-        ? true
-        : false;
-  }
-
-  void selectClass(String className) {
-    if (isSelected(className)) {
-      selectedRace = null;
-    } else {
-      for (final characterClass in classes) {
-        characterClass.name == className ? selectedRace = characterClass : null;
-      }
-    }
-    setState(() {});
-    widget.selectClass(selectedRace);
   }
 }

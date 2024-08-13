@@ -1,69 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/expandable_element.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_race_element.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/select_race_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/race_widget.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RacesListView extends StatefulWidget {
-  final Function(Race?) selectRace;
+class RacesListView extends StatelessWidget {
+  final List<Race> races;
   const RacesListView({
-    required this.selectRace,
     super.key,
+    required this.races,
   });
 
   @override
-  State<RacesListView> createState() => _RacesListViewState();
-}
-
-class _RacesListViewState extends State<RacesListView> {
-  late Race? selectedRace;
-  late List<Race> races;
-
-  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: races.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            ExpandableElement(
-              onToggle: (isExpanded) => selectRace(races[index].name),
-              child: RaceElement(race: races[index]),
-            ),
-            Divider(
-              height: 0,
-              color: Colors.grey.withOpacity(0.7),
-            ),
-          ],
-        );
-      },
+    return ListView.custom(
+      childrenDelegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final race = races[index];
+
+          return ExpandableWidget(
+            key: ValueKey(race.name),
+            onToggle: () => context.read<SelectRaceCubit>().selectRace(race),
+            isExpanded: context.watch<SelectRaceCubit>().state == race,
+            child: RaceWidget(race: race),
+          );
+        },
+        childCount: races.length,
+        findChildIndexCallback: (key) {
+          final valueKey = key as ValueKey<String>;
+
+          final current = races.indexWhere((e) => e.name == valueKey.value);
+          return current;
+        },
+      ),
     );
-  }
-
-  @override
-  void initState() {
-    selectedRace = null;
-    races = di.get<List<Race>>();
-    super.initState();
-  }
-
-  bool isSelected(String name) {
-    return selectedRace?.name != null &&
-            selectedRace!.name.contains(name) &&
-            selectedRace!.name.length == name.length
-        ? true
-        : false;
-  }
-
-  void selectRace(String raceName) {
-    if (isSelected(raceName)) {
-      selectedRace = null;
-    } else {
-      for (final race in races) {
-        race.name == raceName ? selectedRace = race : null;
-      }
-    }
-    setState(() {});
-    widget.selectRace(selectedRace);
   }
 }
