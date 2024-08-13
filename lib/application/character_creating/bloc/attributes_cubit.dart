@@ -24,11 +24,8 @@ class AttributesCubit extends Cubit<Attributes> {
       ? emit(state.copyWith(strength: state.strength - 1))
       : null;
 
-  void decrementWisdom() => state.wisdom != 0
-      ? emit(
-          state.copyWith(wisdom: state.wisdom - 1),
-        )
-      : null;
+  void decrementWisdom() =>
+      state.wisdom != 0 ? emit(state.copyWith(wisdom: state.wisdom - 1)) : null;
 
   void incrementCharisma() => state.charisma != 20
       ? emit(state.copyWith(charisma: state.charisma + 1))

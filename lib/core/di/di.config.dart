@@ -25,7 +25,7 @@ import '../../application/character/repositories/characters_repository.dart'
     as _i485;
 import '../../application/character_creating/bloc/character_creation_bloc.dart'
     as _i405;
-import '../../application/theme_mode_cubit.dart' as _i891;
+import '../ui_kit/bloc/theme_mode_cubit.dart' as _i891;
 import '../api/armor/repositories/armor_repository.dart' as _i667;
 import '../api/backgrounds/repositories/backgrounds_repository.dart' as _i609;
 import '../api/classes/models/class_model.dart' as _i305;

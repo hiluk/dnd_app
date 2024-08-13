@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/theme_mode_cubit.dart';
+import 'package:flutter_application_1/core/ui_kit/bloc/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/ui_kit/dnd_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
