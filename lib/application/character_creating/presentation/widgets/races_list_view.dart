@@ -3,14 +3,23 @@ import 'package:flutter_application_1/application/character_creating/bloc/select
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/race_widget.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RacesListView extends StatelessWidget {
-  final List<Race> races;
+import '../../../../core/di/di.dart';
+
+class RacesListView extends StatefulWidget {
+  final Function(Race?) raceCallBack;
   const RacesListView({
     super.key,
-    required this.races,
+    required this.raceCallBack,
   });
+
+  @override
+  State<RacesListView> createState() => _RacesListViewState();
+}
+
+class _RacesListViewState extends State<RacesListView> {
+  late SelectRaceCubit cubit;
+  late List<Race> races;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +30,8 @@ class RacesListView extends StatelessWidget {
 
           return ExpandableWidget(
             key: ValueKey(race.name),
-            onToggle: () => context.read<SelectRaceCubit>().selectRace(race),
-            isExpanded: context.watch<SelectRaceCubit>().state == race,
+            onToggle: () => cubit.selectRace(race),
+            isExpanded: cubit.state == race,
             child: RaceWidget(race: race),
           );
         },
@@ -35,5 +44,17 @@ class RacesListView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    races = di.get<List<Race>>();
+    cubit = SelectRaceCubit()
+      ..stream.listen(
+        (event) {
+          widget.raceCallBack(event);
+        },
+      );
   }
 }

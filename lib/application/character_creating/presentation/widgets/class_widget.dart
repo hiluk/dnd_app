@@ -17,18 +17,18 @@ class ClassWidget extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final isExpanded = constraints.biggest.height > 100;
 
-      return Animate(
-        key: UniqueKey(),
-        delay: DndDurations.fast,
-        effects: const [
-          FadeEffect(
-            begin: 0,
-            end: 1,
-            duration: DndDurations.fast,
-          ),
-        ],
-        child: isExpanded
-            ? Stack(
+      return isExpanded
+          ? Animate(
+              key: UniqueKey(),
+              delay: DndDurations.fast,
+              effects: const [
+                FadeEffect(
+                  begin: 0,
+                  end: 1,
+                  duration: DndDurations.fast,
+                ),
+              ],
+              child: Stack(
                 children: [
                   isExpanded
                       ? Align(
@@ -75,15 +75,25 @@ class ClassWidget extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
-            : Text(
+              ),
+            )
+          : Animate(
+              delay: DndDurations.fast,
+              effects: const [
+                FadeEffect(
+                  begin: 0,
+                  end: 1,
+                  duration: DndDurations.fast,
+                ),
+              ],
+              child: Text(
                 characterClass.name,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 24,
                 ),
               ),
-      );
+            );
     });
   }
 }

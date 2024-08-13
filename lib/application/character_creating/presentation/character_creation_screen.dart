@@ -100,7 +100,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                           // Выбор расы
                           if (state.characterRace == null) {
                             return RacesListView(
-                              selectRace: (race) => setState(
+                              raceCallBack: (race) => setState(
                                 () => currentRace = race,
                               ),
                             );
@@ -109,7 +109,7 @@ class _CharacterCreationScreenState extends State<CharacterCreationScreen> {
                           //Выбор класса
                           if (state.characterClass == null) {
                             return ClassesListView(
-                              selectClass: (characterClass) => setState(
+                              classCallback: (characterClass) => setState(
                                 () => currentClass = characterClass,
                               ),
                             );

@@ -4,7 +4,7 @@ import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_assets.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
 
-class RaceWidget extends StatelessWidget {
+class RaceWidget extends StatefulWidget {
   final Race race;
   const RaceWidget({
     super.key,
@@ -12,26 +12,30 @@ class RaceWidget extends StatelessWidget {
   });
 
   @override
+  State<RaceWidget> createState() => _RaceWidgetState();
+}
+
+class _RaceWidgetState extends State<RaceWidget> {
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final isExpanded = constraints.biggest.height > 100;
 
       return Container(
-        key: Key(race.name),
         height: constraints.maxHeight,
         alignment: Alignment.topCenter,
-        child: Animate(
-          key: UniqueKey(),
-          delay: DndDurations.fast,
-          effects: const [
-            FadeEffect(
-              begin: 0,
-              end: 1,
-              duration: DndDurations.fast,
-            ),
-          ],
-          child: isExpanded
-              ? Stack(
+        child: isExpanded
+            ? Animate(
+                key: UniqueKey(),
+                delay: DndDurations.fast,
+                effects: const [
+                  FadeEffect(
+                    begin: 0,
+                    end: 1,
+                    duration: DndDurations.fast,
+                  ),
+                ],
+                child: Stack(
                   children: [
                     isExpanded
                         ? Align(
@@ -46,7 +50,7 @@ class RaceWidget extends StatelessWidget {
                                     image: DecorationImage(
                                       fit: BoxFit.fitHeight,
                                       image: AssetImage(
-                                        DndAssets.findRaceAsset(race),
+                                        DndAssets.findRaceAsset(widget.race),
                                       ),
                                     ),
                                   ),
@@ -59,27 +63,27 @@ class RaceWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: PageView(
                         children: [
-                          Text(race.description),
+                          Text(widget.race.description),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Язык: ${race.language}'),
-                              Text('Размеры: ${race.size}'),
-                              Text('Характеристики: ${race.traits}'),
+                              Text('Язык: ${widget.race.language}'),
+                              Text('Размеры: ${widget.race.size}'),
+                              Text('Характеристики: ${widget.race.traits}'),
                             ],
                           ),
                         ],
                       ),
                     ),
                   ],
-                )
-              : Text(
-                  race.name,
-                  style: const TextStyle(
-                    fontSize: 24,
-                  ),
                 ),
-        ),
+              )
+            : Text(
+                widget.race.name,
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
+              ),
       );
     });
   }

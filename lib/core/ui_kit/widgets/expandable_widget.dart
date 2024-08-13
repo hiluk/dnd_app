@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
 
-class ExpandableWidget extends StatelessWidget {
+class ExpandableWidget extends StatefulWidget {
   final Widget child;
   final VoidCallback onToggle;
   final bool isExpanded;
@@ -14,7 +14,17 @@ class ExpandableWidget extends StatelessWidget {
   });
 
   @override
+  State<ExpandableWidget> createState() => _ExpandableWidgetState();
+}
+
+class _ExpandableWidgetState extends State<ExpandableWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final size = MediaQuery.sizeOf(context);
     final notExpandedHeight = size.height * 0.07;
     final expandedHeight = size.height * 0.5;
@@ -22,13 +32,13 @@ class ExpandableWidget extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: onToggle,
+          onTap: widget.onToggle,
           child: AnimatedContainer(
             duration: DndDurations.regular,
-            height: isExpanded ? expandedHeight : notExpandedHeight,
+            height: widget.isExpanded ? expandedHeight : notExpandedHeight,
             child: Padding(
               padding: EdgeInsets.only(top: notExpandedHeight * 0.25),
-              child: child,
+              child: widget.child,
             ),
           ),
         ),

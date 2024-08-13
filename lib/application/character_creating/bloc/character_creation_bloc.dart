@@ -1,6 +1,6 @@
+import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
-import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterCreationBloc
@@ -18,7 +18,7 @@ class CharacterCreationBloc
     CharacterCreationBlocEventReturn event,
     Emitter<CharacterCreationBlocState> emit,
   ) async {
-    emit(state.previousState!);
+    emit(state.previousState ?? state);
   }
 
   Future<void> _onSave(
