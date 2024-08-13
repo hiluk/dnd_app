@@ -42,6 +42,6 @@ flutter:
     - assets/images/
   uses-material-design: true
   fonts:
-    - family: Vinque
+    - family: Orpheus
       fonts:
-        - asset: assets/fonts/vinque.otf
+        - asset: assets/fonts/orpheus.ttf

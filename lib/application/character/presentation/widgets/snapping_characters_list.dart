@@ -18,22 +18,24 @@ class _SnappingCharactersListState extends State<SnappingCharactersList>
     with TickerProviderStateMixin {
   late int _currentIndex;
   late PageController _pageController;
+  late List<Character> _characters;
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
 
     return SizedBox(
-      height: height * 0.5,
+      height: height * 0.6,
       child: Stack(
         children: [
           PageView.builder(
-            itemCount: widget.characters.length,
+            itemCount: _characters.length,
             onPageChanged: (value) => setState(() => _currentIndex = value),
             controller: _pageController,
+            reverse: true,
             itemBuilder: (context, index) {
               return CharacterCard(
-                character: widget.characters[index],
+                character: _characters[index],
                 inFocus: _currentIndex == index,
               );
             },
@@ -46,10 +48,11 @@ class _SnappingCharactersListState extends State<SnappingCharactersList>
   @override
   void initState() {
     super.initState();
-    _currentIndex = 0;
+    _characters = widget.characters.reversed.toList();
+    _currentIndex = widget.characters.length;
     _pageController = PageController(
       initialPage: _currentIndex,
-      viewportFraction: 0.65,
+      viewportFraction: 0.7,
       keepPage: true,
     );
   }

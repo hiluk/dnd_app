@@ -21,6 +21,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return TextField(
       autofocus: widget.autoFocus,
       style: const TextStyle(color: Colors.black),

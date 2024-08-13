@@ -36,14 +36,14 @@ class _CharacterCardState extends State<CharacterCard> {
         context.pushNamed(CharacterScreen.routeName,
             extra: widget.character.id);
       },
-      child: AnimatedScale(
-        duration: const Duration(milliseconds: 200),
-        scale: widget.inFocus ? 1 : 0.8,
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
+      child: LayoutBuilder(builder: (context, constraints) {
+        return Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedScale(
+                duration: const Duration(milliseconds: 200),
+                scale: widget.inFocus ? 1 : 0.8,
                 child: Padding(
                   padding: EdgeInsets.only(top: constraints.maxHeight * 0.25),
                   child: AnimatedContainer(
@@ -54,68 +54,62 @@ class _CharacterCardState extends State<CharacterCard> {
                   ),
                 ),
               ),
-              widget.inFocus
-                  ? Stack(
-                      children: [
-                        Animate(
-                          effects: const [
-                            FadeEffect(
-                              begin: 0,
-                              end: 1,
-                              duration: DndDurations.long,
-                            ),
-                          ],
-                          child: Transform.translate(
-                            offset: Offset(constraints.maxWidth * 0.15, 0),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Opacity(
-                                opacity: 1,
-                                child: OverflowBox(
-                                  maxHeight: constraints.maxHeight,
-                                  maxWidth: constraints.maxWidth * 2,
-                                  child: CharacterAvatar(
-                                    assetPath: assetPath,
-                                  ),
-                                ),
-                              ),
+            ),
+            widget.inFocus
+                ? Stack(
+                    children: [
+                      Animate(
+                        effects: const [
+                          FadeEffect(
+                            begin: 0,
+                            end: 1,
+                            duration: DndDurations.long,
+                          ),
+                        ],
+                        child: Transform.translate(
+                          offset: Offset(constraints.maxWidth * 0.2, 0),
+                          child: OverflowBox(
+                            maxHeight: constraints.maxHeight,
+                            maxWidth: constraints.maxWidth * 2,
+                            child: CharacterAvatar(
+                              assetPath: assetPath,
                             ),
                           ),
                         ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.character.name,
-                    style: themeExtension.titleTextStyle,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        widget.character.characterRace.name,
-                        style: themeExtension.bodyTextStyle,
-                      ),
-                      Text(
-                        widget.character.characterClass.name,
-                        style: themeExtension.bodyTextStyle,
                       ),
                     ],
-                  ),
-                  Text(
-                    'Уровень: ${widget.character.level.toString()}',
-                    style: themeExtension.bodyTextStyle,
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
-      ),
+                  )
+                : const SizedBox.shrink(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.character.name,
+                  style: themeExtension.titleTextStyle,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      widget.character.characterRace.name,
+                      style: themeExtension.bodyTextStyle,
+                    ),
+                    Text(
+                      widget.character.characterClass.name,
+                      style: themeExtension.bodyTextStyle,
+                    ),
+                  ],
+                ),
+                Text(
+                  'Уровень: ${widget.character.level.toString()}',
+                  style: themeExtension.bodyTextStyle,
+                ),
+              ],
+            ),
+          ],
+        );
+      }),
     );
   }
 

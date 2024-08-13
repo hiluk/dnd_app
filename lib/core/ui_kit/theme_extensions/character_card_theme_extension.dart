@@ -5,37 +5,38 @@ class CharacterCardThemeExtension
     extends ThemeExtension<CharacterCardThemeExtension> {
   static final dark = CharacterCardThemeExtension(
     bodyTextStyle: TextStyle(
-      color: DndColors.dark().onPrimary,
+      color: const DndColors.dark().onPrimary,
       fontSize: 27,
     ),
     titleTextStyle: TextStyle(
-      color: DndColors.dark().onPrimary,
+      color: const DndColors.dark().onPrimary,
       fontSize: 40,
     ),
     cardStyle: BoxDecoration(
-      color: DndColors.dark().primary,
+      color: const DndColors.dark().primary,
       borderRadius: BorderRadius.circular(25),
     ),
   );
 
   static final light = CharacterCardThemeExtension(
     bodyTextStyle: TextStyle(
-      color: DndColors.light().onPrimary,
+      color: const DndColors.light().onPrimary,
       fontSize: 27,
     ),
     titleTextStyle: TextStyle(
-      color: DndColors.light().onPrimary,
+      color: const DndColors.light().onPrimary,
       fontSize: 40,
     ),
     cardStyle: BoxDecoration(
-      color: DndColors.light().primary,
+      color: const DndColors.light().primary,
       borderRadius: BorderRadius.circular(25),
     ),
   );
-  final TextStyle titleTextStyle;
 
+  final TextStyle titleTextStyle;
   final TextStyle bodyTextStyle;
   final BoxDecoration cardStyle;
+
   const CharacterCardThemeExtension({
     required this.bodyTextStyle,
     required this.titleTextStyle,

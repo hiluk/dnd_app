@@ -71,7 +71,7 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i350.DndTheme>(() => _i350.DndTheme());
-    gh.factory<_i891.ThemeModeCubit>(() => _i891.ThemeModeCubit());
+    gh.factory<_i891.ModeTypeCubit>(() => _i891.ModeTypeCubit());
     gh.singleton<_i583.GoRouter>(() => coreModule.router);
     gh.factory<_i485.CharactersRepository>(
         () => _i485.CharactersRepository(gh<_i101.IHttpClient>()));

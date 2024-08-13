@@ -4,16 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class ThemeModeCubit extends Cubit<ModeType> {
-  ThemeModeCubit() : super(ModeType.light);
+class ModeTypeCubit extends Cubit<ModeType> {
+  ModeTypeCubit() : super(ModeType.light);
+
+  bool get isDark => state == ModeType.dark;
 
   void toggle() {
-    print('Я нажат');
     if (state.name == ThemeMode.light.name) {
-      print('Я теперь темный');
       emit(ModeType.dark);
     } else {
-      print('Я теперь светлый');
       emit(ModeType.light);
     }
   }

@@ -3,6 +3,7 @@ import 'package:flutter_application_1/application/character/bloc/characters/char
 import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
+import 'package:flutter_application_1/core/utils/enums/mode_enums.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
 
@@ -23,15 +24,14 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final charactersBloc = BlocProvider.of<CharactersBloc>(context);
+    final mode = context.watch<ModeTypeCubit>().state;
 
     return BlocBuilder<CharactersBloc, CharactersState>(
       bloc: charactersBloc,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text(
-              'Выбор персонажа',
-            ),
+            title: const Text('Выбор персонажа'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -41,8 +41,10 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
                 icon: const Icon(Icons.refresh),
               ),
               IconButton(
-                onPressed: () => context.read<ThemeModeCubit>().toggle(),
-                icon: const Icon(Icons.reviews_rounded),
+                onPressed: () => context.read<ModeTypeCubit>().toggle(),
+                icon: mode != ModeType.light
+                    ? const Icon(Icons.light_mode)
+                    : const Icon(Icons.dark_mode),
               )
             ],
           ),

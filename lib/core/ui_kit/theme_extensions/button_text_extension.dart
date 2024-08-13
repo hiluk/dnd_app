@@ -16,6 +16,7 @@ class ButtonThemeExtension extends ThemeExtension<ButtonThemeExtension> {
   static ButtonThemeExtension light = ButtonThemeExtension(
     textStyle: TextStyle(
       fontSize: 17,
+      fontWeight: FontWeight.w800,
       color: const DndColors.light().onPrimary,
     ),
     boxDecoration: BoxDecoration(

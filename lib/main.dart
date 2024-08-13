@@ -22,7 +22,7 @@ void main() async {
           create: (context) => di.get<AuthBloc>(),
         ),
         BlocProvider(
-          create: (context) => di.get<ThemeModeCubit>(),
+          create: (context) => di.get<ModeTypeCubit>(),
         ),
       ],
       child: const MainApp(),
@@ -49,15 +49,16 @@ class MyHttpOverrides extends HttpOverrides {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    final themeMode = context.watch<ThemeModeCubit>();
+    final themeMode = context.watch<ModeTypeCubit>();
     final router = di.get<GoRouter>();
+    final theme = di.get<DndTheme>();
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         router.refresh();
       },
       child: MaterialApp.router(
-        theme: di.get<DndTheme>().fromMode(themeMode.state),
+        theme: themeMode.isDark ? theme.dark : theme.light,
         debugShowCheckedModeBanner: false,
         routerConfig: router,
       ),
