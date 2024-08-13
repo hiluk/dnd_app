@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/select_race_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/race_widget.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
@@ -18,7 +18,7 @@ class RacesListView extends StatefulWidget {
 }
 
 class _RacesListViewState extends State<RacesListView> {
-  late SelectRaceCubit cubit;
+  late RaceCubit cubit;
   late List<Race> races;
 
   @override
@@ -38,8 +38,8 @@ class _RacesListViewState extends State<RacesListView> {
         childCount: races.length,
         findChildIndexCallback: (key) {
           final valueKey = key as ValueKey<String>;
-
           final current = races.indexWhere((e) => e.name == valueKey.value);
+
           return current;
         },
       ),
@@ -47,10 +47,16 @@ class _RacesListViewState extends State<RacesListView> {
   }
 
   @override
+  void dispose() {
+    cubit.close();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     races = di.get<List<Race>>();
-    cubit = SelectRaceCubit()
+    cubit = RaceCubit()
       ..stream.listen(
         (event) {
           widget.raceCallBack(event);

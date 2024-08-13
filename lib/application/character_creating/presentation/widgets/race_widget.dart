@@ -79,6 +79,7 @@ class _RaceWidgetState extends State<RaceWidget> {
                 ),
               )
             : Text(
+                key: ValueKey(widget.race.name),
                 widget.race.name,
                 style: const TextStyle(
                   fontSize: 24,

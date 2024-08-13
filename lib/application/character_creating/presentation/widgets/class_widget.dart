@@ -77,21 +77,12 @@ class ClassWidget extends StatelessWidget {
                 ],
               ),
             )
-          : Animate(
-              delay: DndDurations.fast,
-              effects: const [
-                FadeEffect(
-                  begin: 0,
-                  end: 1,
-                  duration: DndDurations.fast,
-                ),
-              ],
-              child: Text(
-                characterClass.name,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 24,
-                ),
+          : Text(
+              key: ValueKey(characterClass.name),
+              characterClass.name,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24,
               ),
             );
     });

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/select_class_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/class_widget.dart';
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
@@ -17,7 +17,7 @@ class ClassesListView extends StatefulWidget {
 }
 
 class _ClassesListViewState extends State<ClassesListView> {
-  late SelectClassCubit cubit;
+  late ClassCubit cubit;
   late List<Class> classes;
 
   @override
@@ -46,10 +46,16 @@ class _ClassesListViewState extends State<ClassesListView> {
   }
 
   @override
+  void dispose() {
+    cubit.close();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     classes = di.get<List<Class>>();
-    cubit = SelectClassCubit()
+    cubit = ClassCubit()
       ..stream.listen((event) {
         widget.classCallback(event);
       });

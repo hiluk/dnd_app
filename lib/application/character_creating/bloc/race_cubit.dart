@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 
-class SelectRaceCubit extends Cubit<Race?> {
-  SelectRaceCubit() : super(null);
+class RaceCubit extends Cubit<Race?> {
+  RaceCubit() : super(null);
 
   void selectRace(Race characterRace) {
     if (state == characterRace) {
