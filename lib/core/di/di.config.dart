@@ -25,7 +25,6 @@ import '../../application/character/repositories/characters_repository.dart'
     as _i485;
 import '../../application/character_creating/bloc/character_creation_bloc.dart'
     as _i405;
-import '../ui_kit/bloc/theme_mode_cubit.dart' as _i891;
 import '../api/armor/repositories/armor_repository.dart' as _i667;
 import '../api/backgrounds/repositories/backgrounds_repository.dart' as _i609;
 import '../api/classes/models/class_model.dart' as _i305;
@@ -37,6 +36,7 @@ import '../http_client/interceptors/auth_interceptor.dart' as _i960;
 import '../http_client/interfaces/i_http_client.dart' as _i101;
 import '../prefs/data_base.dart' as _i682;
 import '../prefs/interfaces/i_tokens_database.dart' as _i953;
+import '../ui_kit/bloc/theme_mode_cubit.dart' as _i761;
 import '../ui_kit/dnd_theme.dart' as _i350;
 import 'modules/core_module.dart' as _i134;
 
@@ -70,8 +70,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => coreModule.races,
       preResolve: true,
     );
+    gh.factory<_i761.ModeTypeCubit>(() => _i761.ModeTypeCubit());
     gh.factory<_i350.DndTheme>(() => _i350.DndTheme());
-    gh.factory<_i891.ModeTypeCubit>(() => _i891.ModeTypeCubit());
     gh.singleton<_i583.GoRouter>(() => coreModule.router);
     gh.factory<_i485.CharactersRepository>(
         () => _i485.CharactersRepository(gh<_i101.IHttpClient>()));

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 
 abstract class IHttpClient {
+  Dio get client;
+
   void addInterceptor(Interceptor interceptor);
 
   Future<T?> delete<T>(

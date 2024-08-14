@@ -1,10 +1,21 @@
-import 'package:flutter_application_1/core/utils/constants/races_constants.dart';
+import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 
 enum CharacterRaceType {
-  human(RacesConstants.human, 1),
-  halfElf(RacesConstants.halfElf, 2);
+  human('Человек', 1, 'assets/images/human.png'),
+  halfElf('Полуэльф', 2, 'assets/images/half_elf.png');
 
   final String name;
   final int jsonValue;
-  const CharacterRaceType(this.name, this.jsonValue);
+  final String assetPath;
+  const CharacterRaceType(
+    this.name,
+    this.jsonValue,
+    this.assetPath,
+  );
+
+  static String findRaceAsset(Race race) {
+    return CharacterRaceType.values
+        .firstWhere((e) => e.name == race.name)
+        .assetPath;
+  }
 }

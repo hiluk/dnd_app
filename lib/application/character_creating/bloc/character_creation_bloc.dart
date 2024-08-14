@@ -25,9 +25,13 @@ class CharacterCreationBloc
     CharacterCreationBlocEventCreate event,
     Emitter<CharacterCreationBlocState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
-    await charactersRepository.saveCharacter(event.character);
-    emit(state.copyWith(isLoading: false, isCreated: true));
+    try {
+      emit(state.copyWith(isLoading: true, isError: false));
+      await charactersRepository.saveCharacter(event.character);
+      emit(state.copyWith(isLoading: false, isCreated: true));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, isError: true));
+    }
   }
 
   void _onSelect(

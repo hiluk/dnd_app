@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 @Order(-1)
 @Injectable(as: IHttpClient)
 class AppHttpClient implements IHttpClient {
+  @override
   final Dio client;
 
   AppHttpClient(this.client);

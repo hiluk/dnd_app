@@ -22,4 +22,18 @@ class Race with _$Race {
   }) = _Race;
 
   factory Race.fromJson(Map<String, dynamic> json) => _$RaceFromJson(json);
+
+  factory Race.mock(String raceName) {
+    return Race(
+      name: raceName,
+      description: '',
+      asi: [Asi(stat: '', value: 0)],
+      age: '',
+      size: '',
+      speed: [Speed(type: '', value: 0)],
+      language: '',
+      vision: '',
+      traits: '',
+    );
+  }
 }

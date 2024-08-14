@@ -23,4 +23,21 @@ class Class with _$Class {
   }) = _Class;
 
   factory Class.fromJson(Map<String, dynamic> json) => _$ClassFromJson(json);
+
+  factory Class.mock(String className) {
+    return Class(
+      name: className,
+      description: '',
+      hitDice: '',
+      hpAt1stLevel: '',
+      hpAtHigherLevels: '',
+      profArmor: '',
+      profWeapon: '',
+      profTool: '',
+      profSavingThrows: '',
+      profSkills: '',
+      equipment: '',
+      spellCastingAbility: '',
+    );
+  }
 }
