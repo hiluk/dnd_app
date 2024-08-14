@@ -36,10 +36,11 @@ class CharacterCreationBloc
 
   void _onSelect(
     CharacterCreationBlocEventSelect event,
-    Emitter<CharacterCreationBlocState> emit,
+    Emitter<CharacterCreationBlocState> 
+    emit,
   ) {
     emit(state.copyWith(
-      previousState: event.previousState,
+      previousState: state,
       characterClass: event.characterClass ?? state.characterClass,
       characterRace: event.characterRace ?? state.characterRace,
       characterName: event.characterName ?? state.characterName,
