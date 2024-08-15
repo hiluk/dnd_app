@@ -4,6 +4,7 @@ import 'package:flutter_application_1/application/character_creating/presentatio
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClassesListView extends StatefulWidget {
   final Function(Class?) classCallback;
@@ -27,11 +28,19 @@ class _ClassesListViewState extends State<ClassesListView> {
         (context, index) {
           final characterClass = classes[index];
 
-          return ExpandableWidget(
-            key: ValueKey(characterClass.name),
-            onToggle: () => cubit.selectClass(characterClass),
-            isExpanded: cubit.state == characterClass,
-            child: ClassWidget(characterClass: characterClass),
+          return BlocConsumer<ClassCubit, Class?>(
+            bloc: cubit,
+            listener: (context, state) {
+              widget.classCallback(state);
+            },
+            builder: (context, state) {
+              return ExpandableWidget(
+                key: ValueKey(characterClass.name),
+                onToggle: () => cubit.selectClass(characterClass),
+                isExpanded: state == characterClass,
+                child: ClassWidget(characterClass: characterClass),
+              );
+            },
           );
         },
         childCount: classes.length,
@@ -55,9 +64,6 @@ class _ClassesListViewState extends State<ClassesListView> {
   void initState() {
     super.initState();
     classes = di.get<List<Class>>();
-    cubit = ClassCubit()
-      ..stream.listen((event) {
-        widget.classCallback(event);
-      });
+    cubit = ClassCubit();
   }
 }

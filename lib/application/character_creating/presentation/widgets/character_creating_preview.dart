@@ -27,8 +27,6 @@ class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.watch<CharacterCreationBloc>().state.isLoading;
-
     return Stack(
       children: [
         Positioned.fill(
@@ -88,7 +86,8 @@ class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
                       creationBloc.add(CharacterCreationBlocEventCreate(dto));
                     },
                     title: 'Создать',
-                    isLoading: isLoading,
+                    isLoading:
+                        context.watch<CharacterCreationBloc>().state.isLoading,
                   ),
                 ],
               ),

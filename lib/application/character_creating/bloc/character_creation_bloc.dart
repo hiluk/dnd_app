@@ -29,6 +29,8 @@ class CharacterCreationBloc
   ) async {
     try {
       emit(state.copyWith(isLoading: true, isError: false));
+
+      await Future.delayed(const Duration(seconds: 1));
       await charactersRepository.saveCharacter(event.character);
       emit(state.copyWith(isLoading: false, isCreated: true));
 

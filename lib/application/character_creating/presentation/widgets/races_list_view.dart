@@ -3,6 +3,7 @@ import 'package:flutter_application_1/application/character_creating/bloc/race_c
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/race_widget.dart';
 import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
 
@@ -24,15 +25,22 @@ class _RacesListViewState extends State<RacesListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.custom(
+      key: const ValueKey('race'),
       childrenDelegate: SliverChildBuilderDelegate(
         (context, index) {
           final race = races[index];
 
-          return ExpandableWidget(
-            key: ValueKey(race.name),
-            onToggle: () => cubit.selectRace(race),
-            isExpanded: cubit.state == race,
-            child: RaceWidget(race: race),
+          return BlocConsumer<RaceCubit, Race?>(
+            bloc: cubit,
+            listener: (context, state) => widget.raceCallBack(state),
+            builder: (context, state) {
+              return ExpandableWidget(
+                key: ValueKey(race.name),
+                onToggle: () => cubit.selectRace(race),
+                isExpanded: state == race,
+                child: RaceWidget(race: race),
+              );
+            },
           );
         },
         childCount: races.length,
@@ -55,12 +63,7 @@ class _RacesListViewState extends State<RacesListView> {
   @override
   void initState() {
     super.initState();
+    cubit = RaceCubit();
     races = di.get<List<Race>>();
-    cubit = RaceCubit()
-      ..stream.listen(
-        (event) {
-          widget.raceCallBack(event);
-        },
-      );
   }
 }
