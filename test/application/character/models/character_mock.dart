@@ -15,7 +15,7 @@ class CharacterMock {
     this.characterStats = const Attributes(),
     this.id = '',
     this.level = 0,
-    this.name = '',
+    required this.name,
   });
 
   factory CharacterMock.fromJson(Map<String, dynamic> map) {

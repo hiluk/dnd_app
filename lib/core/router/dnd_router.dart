@@ -3,10 +3,11 @@ import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/application/auth/presentation/login_screen.dart';
 import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:flutter_application_1/application/splash_screen.dart';
 import 'package:flutter_application_1/core/di/di.dart';
@@ -44,6 +45,11 @@ class AppRouter {
               providers: [
                 BlocProvider<CharactersBloc>(
                   create: (context) => CharactersBloc(
+                    charactersRepository: di.get<CharactersRepository>(),
+                  ),
+                ),
+                BlocProvider<CharacterCreationBloc>(
+                  create: (context) => CharacterCreationBloc(
                     charactersRepository: di.get<CharactersRepository>(),
                   ),
                 ),

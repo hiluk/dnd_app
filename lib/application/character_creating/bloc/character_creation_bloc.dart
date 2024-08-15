@@ -14,6 +14,8 @@ class CharacterCreationBloc
     on<CharacterCreationBlocEventReturn>(_onReturn);
   }
 
+  CharacterCreationBlocState get _emptyState => CharacterCreationBlocState();
+
   Future<void> _onReturn(
     CharacterCreationBlocEventReturn event,
     Emitter<CharacterCreationBlocState> emit,
@@ -29,6 +31,10 @@ class CharacterCreationBloc
       emit(state.copyWith(isLoading: true, isError: false));
       await charactersRepository.saveCharacter(event.character);
       emit(state.copyWith(isLoading: false, isCreated: true));
+
+      await null;
+
+      emit(_emptyState);
     } catch (e) {
       emit(state.copyWith(isLoading: false, isError: true));
     }

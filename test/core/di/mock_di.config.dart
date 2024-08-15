@@ -10,6 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart'
     as _i103;
+import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart'
+    as _i71;
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart'
     as _i1053;
 import 'package:flutter_application_1/core/api/races/models/race_model.dart'
@@ -23,6 +25,8 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../application/character/repositories/mock_characters_repository.dart'
     as _i278;
+import '../../application/character_creating/bloc/character_creation_bloc_mock.dart'
+    as _i1040;
 import '../http_client/mock_http_client.dart' as _i449;
 import 'modules/mock_core_module.dart' as _i931;
 
@@ -47,6 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i583.GoRouter>(() => coreModule.router);
     gh.factory<_i103.CharactersRepository>(
         () => _i278.MockCharacterRepository());
+    gh.factory<_i71.CharacterCreationBloc>(
+        () => _i1040.MockCharacterCreationBloc());
     gh.factory<_i121.IHttpClient>(() => _i449.MockHttpClient());
     return this;
   }

@@ -16,6 +16,7 @@ void main() {
   late CharactersRepository repository;
   late IHttpClient client;
   late List<Map<String, dynamic>> charactersFromApi;
+  late List<Character> parsedApiCharacters;
 
   setUpAll(() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -26,9 +27,7 @@ void main() {
 
     client = di.get<IHttpClient>();
     repository = CharactersRepository(client);
-    charactersFromApi = [
-      CharacterMock().toJson(),
-    ];
+    charactersFromApi = [CharacterMock(name: 'oldCharacter').toJson()];
 
     when(
       () => client.get('/characters'),
@@ -36,19 +35,23 @@ void main() {
 
     when(
       () => client.post('/characters/create', any()),
-    ).thenAnswer((_) async => charactersFromApi.add(CharacterMock().toJson()));
+    ).thenAnswer(
+      (_) async => charactersFromApi.add(CharacterMock(
+        name: 'newCharacter',
+      ).toJson()),
+    );
   });
 
   test('При вызове Fetch возвращает список персонажей', () async {
-    final characters = charactersFromApi
+    parsedApiCharacters = charactersFromApi
         .map(
           (e) => Character.fromJson(e),
         )
         .toList();
 
-    final newList = await repository.fetch();
+    final actualList = await repository.fetch();
 
-    expect(characters, newList);
+    expect(actualList, orderedEquals(parsedApiCharacters));
   });
 
   test('При вызове Save создаст нового персонажа', () async {
@@ -56,14 +59,8 @@ void main() {
       CharacterDto(characterStats: const Attributes()),
     );
 
-    final characters = charactersFromApi
-        .map(
-          (e) => Character.fromJson(e),
-        )
-        .toList();
+    final actualList = await repository.fetch();
 
-    final newList = await repository.fetch();
-
-    expect(characters, newList);
+    expect(actualList.last.name, equals('newCharacter'));
   });
 }
