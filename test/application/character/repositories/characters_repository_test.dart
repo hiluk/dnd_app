@@ -30,16 +30,21 @@ void main() {
       CharacterMock().toJson(),
     ];
 
-    when(() => client.get('/characters'))
-        .thenAnswer((_) async => charactersFromApi);
+    when(
+      () => client.get('/characters'),
+    ).thenAnswer((_) async => charactersFromApi);
 
-    when(() => client.post('/characters/create', any())).thenAnswer(
-        (_) async => charactersFromApi.add(CharacterMock().toJson()));
+    when(
+      () => client.post('/characters/create', any()),
+    ).thenAnswer((_) async => charactersFromApi.add(CharacterMock().toJson()));
   });
 
   test('При вызове Fetch возвращает список персонажей', () async {
-    final characters =
-        charactersFromApi.map((e) => Character.fromJson(e)).toList();
+    final characters = charactersFromApi
+        .map(
+          (e) => Character.fromJson(e),
+        )
+        .toList();
 
     final newList = await repository.fetch();
 
@@ -48,13 +53,14 @@ void main() {
 
   test('При вызове Save создаст нового персонажа', () async {
     await repository.saveCharacter(
-      CharacterDto(
-        characterStats: const Attributes(),
-      ),
+      CharacterDto(characterStats: const Attributes()),
     );
 
-    final characters =
-        charactersFromApi.map((e) => Character.fromJson(e)).toList();
+    final characters = charactersFromApi
+        .map(
+          (e) => Character.fromJson(e),
+        )
+        .toList();
 
     final newList = await repository.fetch();
 

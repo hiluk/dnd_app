@@ -8,7 +8,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart'
     as _i103;
 import 'package:flutter_application_1/core/api/classes/models/class_model.dart'
@@ -43,7 +42,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => coreModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i361.Dio>(() => coreModule.dio);
     gh.factory<List<_i1053.Class>>(() => coreModule.classes);
     gh.factory<List<_i314.Race>>(() => coreModule.races);
     gh.singleton<_i583.GoRouter>(() => coreModule.router);
