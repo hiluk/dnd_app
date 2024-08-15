@@ -36,8 +36,7 @@ class CharacterCreationBloc
 
   void _onSelect(
     CharacterCreationBlocEventSelect event,
-    Emitter<CharacterCreationBlocState> 
-    emit,
+    Emitter<CharacterCreationBlocState> emit,
   ) {
     emit(state.copyWith(
       previousState: state,

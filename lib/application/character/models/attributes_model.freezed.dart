@@ -164,7 +164,7 @@ class __$$AttributesImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AttributesImpl implements _Attributes {
-  _$AttributesImpl(
+  const _$AttributesImpl(
       {this.strength = 0,
       this.dexterity = 0,
       this.wisdom = 0,
@@ -237,7 +237,7 @@ class _$AttributesImpl implements _Attributes {
 }
 
 abstract class _Attributes implements Attributes {
-  factory _Attributes(
+  const factory _Attributes(
       {final int strength,
       final int dexterity,
       final int wisdom,

@@ -5,7 +5,7 @@ part 'attributes_model.g.dart';
 
 @freezed
 class Attributes with _$Attributes {
-  factory Attributes({
+  const factory Attributes({
     @Default(0) int strength,
     @Default(0) int dexterity,
     @Default(0) int wisdom,
@@ -14,7 +14,7 @@ class Attributes with _$Attributes {
     @Default(0) int charisma,
   }) = _Attributes;
 
-  factory Attributes.empty() => Attributes();
+  factory Attributes.empty() => const Attributes();
 
   factory Attributes.fromJson(Map<String, dynamic> json) =>
       _$AttributesFromJson(json);

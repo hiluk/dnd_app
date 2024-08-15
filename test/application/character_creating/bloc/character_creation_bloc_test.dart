@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/di/mock_di.dart';
 
 void main() async {
+  late CharacterCreationBloc bloc;
+
   setUpAll(() async {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
@@ -20,22 +22,18 @@ void main() async {
 
     await configureMockDependencies();
     await mockDi.allReady();
+
+    bloc = CharacterCreationBloc(
+      charactersRepository: di.get<CharactersRepository>(),
+    );
   });
 
   group('Character Creation BloC', () {
     test('При создании создает пустой CharacterRequest', () {
-      final bloc = CharacterCreationBloc(
-        charactersRepository: di.get<CharactersRepository>(),
-      );
-
       expect(bloc.state, CharacterCreationBlocState());
     });
 
     test('При эвенте Select выбирает одно новое свойство', () async {
-      final bloc = CharacterCreationBloc(
-        charactersRepository: di.get<CharactersRepository>(),
-      );
-
       const name = 'test';
       bloc.add(CharacterCreationBlocEventSelect(characterName: name));
 
@@ -51,10 +49,6 @@ void main() async {
     });
 
     test('При эвенте Return возвращает предыдущее состояния Bloc', () async {
-      final bloc = CharacterCreationBloc(
-        charactersRepository: di.get<CharactersRepository>(),
-      );
-
       final savedState = bloc.state;
       const name = 'test';
 

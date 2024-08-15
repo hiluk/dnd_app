@@ -22,8 +22,8 @@ import 'package:go_router/go_router.dart' as _i583;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
-import '../../application/character/repositories/mock_character_repository.dart'
-    as _i527;
+import '../../application/character/repositories/mock_characters_repository.dart'
+    as _i278;
 import '../http_client/mock_http_client.dart' as _i449;
 import 'modules/mock_core_module.dart' as _i931;
 
@@ -47,9 +47,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<List<_i1053.Class>>(() => coreModule.classes);
     gh.factory<List<_i314.Race>>(() => coreModule.races);
     gh.singleton<_i583.GoRouter>(() => coreModule.router);
-    gh.factory<_i121.IHttpClient>(() => _i449.MockHttpClient());
     gh.factory<_i103.CharactersRepository>(
-        () => _i527.MockCharacterRepository(gh<_i121.IHttpClient>()));
+        () => _i278.MockCharacterRepository());
+    gh.factory<_i121.IHttpClient>(() => _i449.MockHttpClient());
     return this;
   }
 }
