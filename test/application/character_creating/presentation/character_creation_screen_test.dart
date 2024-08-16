@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_creating_preview.dart';
@@ -48,8 +51,21 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: BlocProvider(
-          create: (context) => bloc,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => bloc,
+            ),
+            BlocProvider(
+              create: (context) => RaceCubit(),
+            ),
+            BlocProvider(
+              create: (context) => ClassCubit(),
+            ),
+            BlocProvider(
+              create: (context) => StatsCubit(),
+            ),
+          ],
           child: creationScreen,
         ),
       ),
@@ -68,8 +84,21 @@ void main() {
 
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: BlocProvider(
-          create: (context) => bloc,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => bloc,
+            ),
+            BlocProvider(
+              create: (context) => RaceCubit(),
+            ),
+            BlocProvider(
+              create: (context) => ClassCubit(),
+            ),
+            BlocProvider(
+              create: (context) => StatsCubit(),
+            ),
+          ],
           child: creationScreen,
         ),
       ),
@@ -89,8 +118,21 @@ void main() {
 
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: BlocProvider(
-          create: (context) => bloc,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => bloc,
+            ),
+            BlocProvider(
+              create: (context) => RaceCubit(),
+            ),
+            BlocProvider(
+              create: (context) => ClassCubit(),
+            ),
+            BlocProvider(
+              create: (context) => StatsCubit(),
+            ),
+          ],
           child: creationScreen,
         ),
       ),
@@ -111,8 +153,21 @@ void main() {
 
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: BlocProvider(
-          create: (context) => bloc,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => bloc,
+            ),
+            BlocProvider(
+              create: (context) => RaceCubit(),
+            ),
+            BlocProvider(
+              create: (context) => ClassCubit(),
+            ),
+            BlocProvider(
+              create: (context) => StatsCubit(),
+            ),
+          ],
           child: creationScreen,
         ),
       ),
