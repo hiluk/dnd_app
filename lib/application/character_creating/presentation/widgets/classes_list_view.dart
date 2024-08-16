@@ -6,37 +6,26 @@ import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ClassesListView extends StatefulWidget {
-  final Function(Class?) classCallback;
+class ClassesListView extends StatelessWidget {
   const ClassesListView({
     super.key,
-    required this.classCallback,
   });
 
   @override
-  State<ClassesListView> createState() => _ClassesListViewState();
-}
-
-class _ClassesListViewState extends State<ClassesListView> {
-  late ClassCubit cubit;
-  late List<Class> classes;
-
-  @override
   Widget build(BuildContext context) {
+    final classes = di.get<List<Class>>();
+
     return ListView.custom(
       childrenDelegate: SliverChildBuilderDelegate(
         (context, index) {
           final characterClass = classes[index];
 
-          return BlocConsumer<ClassCubit, Class?>(
-            bloc: cubit,
-            listener: (context, state) {
-              widget.classCallback(state);
-            },
+          return BlocBuilder<ClassCubit, Class?>(
             builder: (context, state) {
               return ExpandableWidget(
                 key: ValueKey(characterClass.name),
-                onToggle: () => cubit.selectClass(characterClass),
+                onToggle: () =>
+                    context.read<ClassCubit>().selectClass(characterClass),
                 isExpanded: state == characterClass,
                 child: ClassWidget(characterClass: characterClass),
               );
@@ -52,18 +41,5 @@ class _ClassesListViewState extends State<ClassesListView> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    cubit.close();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    classes = di.get<List<Class>>();
-    cubit = ClassCubit();
   }
 }

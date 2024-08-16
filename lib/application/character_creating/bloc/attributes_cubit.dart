@@ -1,53 +1,65 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_application_1/application/character/models/attributes_model.dart';
 
-class AttributesCubit extends Cubit<Attributes> {
-  AttributesCubit() : super(Attributes());
+class StatsCubit extends Cubit<Attributes?> {
+  StatsCubit() : super(null);
 
-  void decrementCharisma() => state.charisma != 0
-      ? emit(state.copyWith(charisma: state.charisma - 1))
+  int get charisma => state?.charisma ?? 0;
+  int get constitution => state?.constitution ?? 0;
+  int get dexterity => state?.dexterity ?? 0;
+  int get intelligence => state?.intelligence ?? 0;
+  int get strength => state?.strength ?? 0;
+  int get wisdom => state?.wisdom ?? 0;
+
+  void clear() => emit(null);
+
+  void decrementCharisma() => state != null && charisma != 0
+      ? emit(state?.copyWith(charisma: charisma - 1))
       : null;
 
-  void decrementConstitution() => state.constitution != 0
-      ? emit(state.copyWith(constitution: state.constitution - 1))
+  void decrementConstitution() => state != null && constitution != 0
+      ? emit(state?.copyWith(constitution: constitution - 1))
       : null;
 
-  void decrementDexterity() => state.dexterity != 0
-      ? emit(state.copyWith(dexterity: state.dexterity - 1))
+  void decrementDexterity() => state != null && dexterity != 0
+      ? emit(state?.copyWith(dexterity: dexterity - 1))
       : null;
 
-  void decrementIntelligence() => state.intelligence != 0
-      ? emit(state.copyWith(intelligence: state.intelligence - 1))
+  void decrementIntelligence() => state != null && intelligence != 0
+      ? emit(state?.copyWith(intelligence: intelligence - 1))
       : null;
 
-  void decrementStrength() => state.strength != 0
-      ? emit(state.copyWith(strength: state.strength - 1))
+  void decrementStrength() => state != null && strength != 0
+      ? emit(state?.copyWith(strength: strength - 1))
       : null;
 
-  void decrementWisdom() =>
-      state.wisdom != 0 ? emit(state.copyWith(wisdom: state.wisdom - 1)) : null;
-
-  void incrementCharisma() => state.charisma != 20
-      ? emit(state.copyWith(charisma: state.charisma + 1))
+  void decrementWisdom() => state != null && wisdom != 0
+      ? emit(state?.copyWith(wisdom: wisdom - 1))
       : null;
 
-  void incrementConstitution() => state.constitution != 20
-      ? emit(state.copyWith(constitution: state.constitution + 1))
+  void incrementCharisma() => state != null && charisma != 20
+      ? emit(state?.copyWith(charisma: charisma + 1))
       : null;
 
-  void incrementDexterity() => state.dexterity != 20
-      ? emit(state.copyWith(dexterity: state.dexterity + 1))
+  void incrementConstitution() => state != null && constitution != 20
+      ? emit(state?.copyWith(constitution: constitution + 1))
       : null;
 
-  void incrementIntelligence() => state.intelligence != 20
-      ? emit(state.copyWith(intelligence: state.intelligence + 1))
+  void incrementDexterity() => state != null && dexterity != 20
+      ? emit(state?.copyWith(dexterity: dexterity + 1))
       : null;
 
-  void incrementStrength() => state.strength != 20
-      ? emit(state.copyWith(strength: state.strength + 1))
+  void incrementIntelligence() => state != null && intelligence != 20
+      ? emit(state?.copyWith(intelligence: intelligence + 1))
       : null;
 
-  void incrementWisdom() => state.wisdom != 20
-      ? emit(state.copyWith(wisdom: state.wisdom + 1))
+  void incrementStrength() => state != null && strength != 20
+      ? emit(state?.copyWith(strength: strength + 1))
       : null;
+
+  void incrementWisdom() => state != null && wisdom != 20
+      ? emit(state?.copyWith(wisdom: wisdom + 1))
+      : null;
+
+  void init() => state == null ? emit(const Attributes()) : null;
 }

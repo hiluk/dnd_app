@@ -7,36 +7,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
 
-class RacesListView extends StatefulWidget {
-  final Function(Race?) raceCallBack;
+class RacesListView extends StatelessWidget {
   const RacesListView({
     super.key,
-    required this.raceCallBack,
   });
 
   @override
-  State<RacesListView> createState() => _RacesListViewState();
-}
-
-class _RacesListViewState extends State<RacesListView> {
-  late RaceCubit cubit;
-  late List<Race> races;
-
-  @override
   Widget build(BuildContext context) {
+    final races = di.get<List<Race>>();
+
     return ListView.custom(
-      key: const ValueKey('race'),
       childrenDelegate: SliverChildBuilderDelegate(
         (context, index) {
           final race = races[index];
 
-          return BlocConsumer<RaceCubit, Race?>(
-            bloc: cubit,
-            listener: (context, state) => widget.raceCallBack(state),
+          return BlocBuilder<RaceCubit, Race?>(
             builder: (context, state) {
               return ExpandableWidget(
                 key: ValueKey(race.name),
-                onToggle: () => cubit.selectRace(race),
+                onToggle: () => context.read<RaceCubit>().selectRace(race),
                 isExpanded: state == race,
                 child: RaceWidget(race: race),
               );
@@ -52,18 +41,5 @@ class _RacesListViewState extends State<RacesListView> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    cubit.close();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    cubit = RaceCubit();
-    races = di.get<List<Race>>();
   }
 }

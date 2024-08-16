@@ -24,93 +24,115 @@ class CharacterCard extends StatefulWidget {
 
 class _CharacterCardState extends State<CharacterCard> {
   late String assetPath;
+  late ThemeData theme;
+  late CharacterCardThemeExtension themeExtension;
+  bool isTapped = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final themeExtension = theme.extension<CharacterCardThemeExtension>() ??
-        CharacterCardThemeExtension.dark;
-
-    return GestureDetector(
-      onTap: () {
-        context.pushNamed(CharacterScreen.routeName,
-            extra: widget.character.id);
-      },
-      child: LayoutBuilder(builder: (context, constraints) {
-        return Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: AnimatedScale(
-                duration: const Duration(milliseconds: 200),
-                scale: widget.inFocus ? 1 : 0.8,
-                child: Padding(
-                  padding: EdgeInsets.only(top: constraints.maxHeight * 0.25),
-                  child: AnimatedContainer(
-                    duration: DndDurations.fast,
-                    width: constraints.maxWidth,
-                    height: constraints.maxHeight,
-                    decoration: themeExtension.cardStyle,
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (_) => setState(() {
+        isTapped = true;
+      }),
+      onPointerUp: (_) => setState(() {
+        isTapped = false;
+      }),
+      child: GestureDetector(
+        onTap: () {
+          context.pushNamed(
+            CharacterScreen.routeName,
+            extra: widget.character.id,
+          );
+        },
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Stack(
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedScale(
+                  duration: DndDurations.regular,
+                  scale: widget.inFocus
+                      ? isTapped
+                          ? 0.95
+                          : 1
+                      : 0.8,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: constraints.maxHeight * 0.25),
+                    child: AnimatedContainer(
+                      duration: DndDurations.fast,
+                      width: constraints.maxWidth,
+                      height: constraints.maxHeight,
+                      decoration: themeExtension.cardStyle,
+                    ),
                   ),
                 ),
               ),
-            ),
-            widget.inFocus
-                ? Stack(
-                    children: [
-                      Animate(
-                        effects: const [
-                          FadeEffect(
-                            begin: 0,
-                            end: 1,
-                            duration: DndDurations.long,
-                          ),
-                        ],
-                        child: Transform.translate(
-                          offset: Offset(constraints.maxWidth * 0.2, 0),
-                          child: OverflowBox(
-                            maxHeight: constraints.maxHeight,
-                            maxWidth: constraints.maxWidth * 2,
-                            child: CharacterAvatar(
-                              assetPath: assetPath,
+              widget.inFocus
+                  ? Stack(
+                      children: [
+                        Animate(
+                          effects: const [
+                            FadeEffect(
+                              begin: 0,
+                              end: 1,
+                              duration: DndDurations.long,
+                            ),
+                          ],
+                          child: Transform.translate(
+                            offset: Offset(constraints.maxWidth * 0.2, 0),
+                            child: OverflowBox(
+                              maxHeight: constraints.maxHeight,
+                              maxWidth: constraints.maxWidth * 2,
+                              child: CharacterAvatar(
+                                assetPath: assetPath,
+                              ),
                             ),
                           ),
                         ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.character.name,
+                    style: themeExtension.titleTextStyle,
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        widget.character.characterRace.name,
+                        style: themeExtension.bodyTextStyle,
+                      ),
+                      Text(
+                        widget.character.characterClass.name,
+                        style: themeExtension.bodyTextStyle,
                       ),
                     ],
-                  )
-                : const SizedBox.shrink(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.character.name,
-                  style: themeExtension.titleTextStyle,
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      widget.character.characterRace.name,
-                      style: themeExtension.bodyTextStyle,
-                    ),
-                    Text(
-                      widget.character.characterClass.name,
-                      style: themeExtension.bodyTextStyle,
-                    ),
-                  ],
-                ),
-                Text(
-                  'Уровень: ${widget.character.level.toString()}',
-                  style: themeExtension.bodyTextStyle,
-                ),
-              ],
-            ),
-          ],
-        );
-      }),
+                  ),
+                  Text(
+                    'Уровень: ${widget.character.level.toString()}',
+                    style: themeExtension.bodyTextStyle,
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
+      ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    theme = Theme.of(context);
+    themeExtension = theme.extension<CharacterCardThemeExtension>() ??
+        CharacterCardThemeExtension.dark;
   }
 
   @override

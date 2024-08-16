@@ -42,9 +42,9 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
               ),
               IconButton(
                 onPressed: () => context.read<ModeTypeCubit>().toggle(),
-                icon: mode != ModeType.light
-                    ? const Icon(Icons.light_mode)
-                    : const Icon(Icons.dark_mode),
+                icon: mode == ModeType.light
+                    ? const Icon(Icons.dark_mode)
+                    : const Icon(Icons.light_mode),
               )
             ],
           ),

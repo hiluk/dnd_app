@@ -6,7 +6,10 @@ import 'package:flutter_application_1/application/character/bloc/characters/char
 import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
 import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
 import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/application/main_screen.dart';
 import 'package:flutter_application_1/application/splash_screen.dart';
@@ -52,6 +55,15 @@ class AppRouter {
                   create: (context) => CharacterCreationBloc(
                     charactersRepository: di.get<CharactersRepository>(),
                   ),
+                ),
+                BlocProvider(
+                  create: (context) => RaceCubit(),
+                ),
+                BlocProvider(
+                  create: (context) => ClassCubit(),
+                ),
+                BlocProvider(
+                  create: (context) => StatsCubit(),
                 ),
               ],
               child: child,

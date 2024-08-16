@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/ui_kit/theme_extensions/button_text_extension.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatefulWidget {
   final String title;
   final bool isLoading;
   final VoidCallback? onTap;
@@ -13,29 +13,55 @@ class CustomButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    final theme = Theme.of(context);
-    final themeExtenstion =
-        theme.extension<ButtonThemeExtension>() ?? ButtonThemeExtension.dark;
+  State<CustomButton> createState() => _CustomButtonState();
+}
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: size.height * 0.06,
-        width: size.width * 0.5,
-        decoration: themeExtenstion.boxDecoration,
-        child: Center(
-          child: !isLoading
-              ? Text(
-                  title,
-                  style: themeExtenstion.textStyle,
-                )
-              : CircularProgressIndicator(
-                  color: themeExtenstion.textStyle.color,
-                ),
+class _CustomButtonState extends State<CustomButton> {
+  late Size size;
+  late ThemeData theme;
+  late ButtonThemeExtension themeExtension;
+  bool isTapped = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) => setState(() {
+        isTapped = true;
+      }),
+      onPointerUp: (event) => setState(() {
+        isTapped = false;
+      }),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Transform.scale(
+          scale: isTapped ? 0.95 : 1,
+          child: Container(
+            height: size.height * 0.06,
+            width: size.width * 0.5,
+            decoration: themeExtension.boxDecoration,
+            child: Center(
+              child: !widget.isLoading
+                  ? Text(
+                      widget.title,
+                      style: themeExtension.textStyle,
+                    )
+                  : CircularProgressIndicator(
+                      color: themeExtension.textStyle.color,
+                    ),
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    size = MediaQuery.sizeOf(context);
+    theme = Theme.of(context);
+    themeExtension =
+        theme.extension<ButtonThemeExtension>() ?? ButtonThemeExtension.dark;
   }
 }

@@ -13,7 +13,6 @@ class Attributes with _$Attributes {
     @Default(0) int intelligence,
     @Default(0) int charisma,
   }) = _Attributes;
-
   factory Attributes.empty() => const Attributes();
 
   factory Attributes.fromJson(Map<String, dynamic> json) =>
