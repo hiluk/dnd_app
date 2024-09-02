@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/ui_kit/theme_extensions/button_text_extension.dart';
+import 'package:flutter_application_1/core/ui_kit/widgets/scale_listener.dart';
 
 class CustomButton extends StatefulWidget {
   final String title;
@@ -20,24 +21,17 @@ class _CustomButtonState extends State<CustomButton> {
   late Size size;
   late ThemeData theme;
   late ButtonThemeExtension themeExtension;
-  bool isTapped = false;
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) => setState(() {
-        isTapped = true;
-      }),
-      onPointerUp: (event) => setState(() {
-        isTapped = false;
-      }),
+    return ScaleListener(
       child: GestureDetector(
         onTap: widget.onTap,
-        child: Transform.scale(
-          scale: isTapped ? 0.95 : 1,
+        child: Material(
+          elevation: 8,
+          borderRadius: themeExtension.boxDecoration.borderRadius,
           child: Container(
-            height: size.height * 0.06,
+            height: size.height * 0.065,
             width: size.width * 0.5,
             decoration: themeExtension.boxDecoration,
             child: Center(

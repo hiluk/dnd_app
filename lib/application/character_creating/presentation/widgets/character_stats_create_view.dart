@@ -5,11 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'stats_create_row.dart';
 
-class CharacterStatsCreateView extends StatelessWidget {
+class CharacterStatsCreateView extends StatefulWidget {
   const CharacterStatsCreateView({
     super.key,
   });
 
+  @override
+  State<CharacterStatsCreateView> createState() =>
+      _CharacterStatsCreateViewState();
+}
+
+class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
   @override
   Widget build(BuildContext context) {
     final statsCubit = context.read<StatsCubit>();
@@ -61,5 +67,11 @@ class CharacterStatsCreateView extends StatelessWidget {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<StatsCubit>().init();
   }
 }

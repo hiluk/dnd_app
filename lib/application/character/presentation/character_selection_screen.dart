@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:flutter_application_1/core/ui_kit/bloc/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
+import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
 import 'package:flutter_application_1/core/utils/enums/mode_enums.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
@@ -21,6 +24,8 @@ class CharacterSelectionScreen extends StatefulWidget {
 }
 
 class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
+  bool isWarm = false;
+
   @override
   Widget build(BuildContext context) {
     final charactersBloc = BlocProvider.of<CharactersBloc>(context);
@@ -66,13 +71,23 @@ class _CharacterSelectionScreenState extends State<CharacterSelectionScreen> {
                 ? const Center(
                     child: Text('Нет персонажей'),
                   )
-                : Center(
-                    child: SnappingCharactersList(characters: state.characters),
-                  ),
+                : isWarm
+                    ? Center(
+                        child: SnappingCharactersList(
+                            characters: state.characters),
+                      )
+                    : null,
             _ => null,
           },
         );
       },
     );
+  }
+
+  @override
+  initState() {
+    super.initState();
+    // Таймер чтобы не было дерганной анимации слайда персонажей
+    Timer(DndDurations.regular, () => setState(() => isWarm = true));
   }
 }

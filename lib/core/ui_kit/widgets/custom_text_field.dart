@@ -4,10 +4,12 @@ class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final String? label;
   final bool autoFocus;
+  final bool alwaysInFocus;
   const CustomTextField({
     this.onChanged,
     this.label,
     this.autoFocus = false,
+    this.alwaysInFocus = false,
     super.key,
   });
 
@@ -17,13 +19,20 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextEditingController controller;
+  late FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return TextField(
+      focusNode: focusNode,
       autofocus: widget.autoFocus,
+      onSubmitted: widget.alwaysInFocus
+          ? (value) {
+              focusNode.requestFocus();
+            }
+          : null,
       style: const TextStyle(color: Colors.black),
       controller: controller,
       onChanged: widget.onChanged,
@@ -49,8 +58,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   @override
+  void dispose() {
+    focusNode.dispose();
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     controller = TextEditingController();
+    focusNode = FocusNode();
   }
 }

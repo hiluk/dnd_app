@@ -6,14 +6,64 @@ import 'package:flutter_application_1/application/character_creating/bloc/charac
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
 import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
+import 'package:flutter_application_1/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_stats_create_view.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/classes_list_view.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/races_list_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/ui_kit/theme_extensions/button_text_extension.dart';
 import 'widgets/character_creating_preview.dart';
+
+Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
+  void clearVariables() {
+    context.read<RaceCubit>().selectRace(null);
+    context.read<ClassCubit>().selectClass(null);
+    context.read<StatsCubit>().dispose();
+  }
+
+  String title = 'Создание персонажа';
+  Widget body = const CharacterCreatingPreview();
+
+  if (state.characterAttributes == null) {
+    title = 'Выбор характеристик';
+    body = const CharacterStatsCreateView();
+  }
+
+  if (state.characterClass == null) {
+    body = const ClassesListView();
+    title = 'Выбор класса';
+  }
+
+  if (state.characterRace == null) {
+    body = const RacesListView();
+    title = 'Выбор расы';
+  }
+
+  return CustomScrollView(
+    slivers: [
+      SliverAppBar(
+        leading: IconButton(
+          onPressed: state.previousState != null
+              ? () {
+                  context.read<CharacterCreationBloc>().add(
+                        CharacterCreationBlocEventReturn(),
+                      );
+                  clearVariables();
+                }
+              : () => context.pop(),
+          icon: const Icon(Icons.arrow_back),
+        ),
+        title: Text(title),
+        centerTitle: true,
+      ),
+      SliverFillRemaining(
+        fillOverscroll: true,
+        child: body,
+      ),
+    ],
+  );
+}
 
 class CharacterCreationScreen extends StatelessWidget {
   static const routeName = 'creation';
@@ -22,86 +72,8 @@ class CharacterCreationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedRace = context.watch<RaceCubit>().state;
-    final selectedClass = context.watch<ClassCubit>().state;
-    final selectedStats = context.watch<StatsCubit>().state;
-
-    void clearVariables() {
-      context.read<RaceCubit>().selectRace(null);
-      context.read<ClassCubit>().selectClass(null);
-      context.read<StatsCubit>().clear();
-    }
-
-    Widget getBody(CharacterCreationBlocState state) {
-      if (state.characterRace == null) {
-        return const RacesListView();
-      }
-
-      //Выбор класса
-      if (state.characterClass == null) {
-        return const ClassesListView();
-      }
-
-      //Выбор аттрибутов
-      if (state.characterAttributes == null) {
-        context.read<StatsCubit>().init();
-        return const CharacterStatsCreateView();
-      }
-
-      // Превью персонажа перед сохранением
-      return const CharacterCreatingPreview();
-    }
-
-    String getTitle(CharacterCreationBlocState state) {
-      if (state.characterRace == null) {
-        return 'Выбор расы';
-      }
-
-      if (state.characterClass == null) {
-        return 'Выбор класса';
-      }
-
-      if (state.characterAttributes == null) {
-        return 'Выбор характеристик';
-      }
-
-      return 'Создание персонажа';
-    }
-
-    bool isShowFab() {
-      return selectedRace != null ||
-              selectedClass != null ||
-              selectedStats != null
-          ? true
-          : false;
-    }
-
     return Scaffold(
-      floatingActionButton: isShowFab()
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                final bloc = context.read<CharacterCreationBloc>();
-                bloc.add(
-                  CharacterCreationBlocEventSelect(
-                    previousState: bloc.state,
-                    characterRace: selectedRace,
-                    characterClass: selectedClass,
-                    characterStats: selectedStats,
-                  ),
-                );
-                clearVariables();
-              },
-              backgroundColor:
-                  Theme.of(context).floatingActionButtonTheme.backgroundColor,
-              label: Text(
-                'Выбрать',
-                style: Theme.of(context)
-                        .extension<ButtonThemeExtension>()
-                        ?.textStyle ??
-                    ButtonThemeExtension.dark.textStyle,
-              ),
-            )
-          : null,
+      floatingActionButton: const BlocListenerFAB(),
       body: SafeArea(
         child: BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
           listener: (context, state) {
@@ -110,31 +82,7 @@ class CharacterCreationScreen extends StatelessWidget {
               context.pop();
             }
           },
-          builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  leading: IconButton(
-                    onPressed: state.previousState != null
-                        ? () {
-                            context.read<CharacterCreationBloc>().add(
-                                  CharacterCreationBlocEventReturn(),
-                                );
-                            clearVariables();
-                          }
-                        : () => context.pop(),
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                  title: Text(getTitle(state)),
-                  centerTitle: true,
-                ),
-                SliverFillRemaining(
-                  fillOverscroll: true,
-                  child: getBody(state),
-                ),
-              ],
-            );
-          },
+          builder: _getBody,
         ),
       ),
     );

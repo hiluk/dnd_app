@@ -3,12 +3,9 @@ import 'package:flutter_application_1/application/character_creating/bloc/charac
 import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
 import 'package:flutter_application_1/application/character_creating/presentation/widgets/stats_widget.dart';
-import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
 import 'package:flutter_application_1/core/ui_kit/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/ui_kit/widgets/avatar_box.dart';
 
 class CharacterCreatingPreview extends StatefulWidget {
   const CharacterCreatingPreview({
@@ -27,74 +24,58 @@ class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: LimitedBox(
-            maxHeight: 100,
-            child: Opacity(
-              opacity: 0.5,
-              child: CharacterAvatar(
-                assetPath: CharacterClassType.getAssetByName(
-                  dto.characterClass?.name,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Stack(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        dto.characterRace?.name ?? '',
-                        style: const TextStyle(fontSize: 30),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        dto.characterClass?.name ?? '',
-                        style: const TextStyle(fontSize: 30),
-                      ),
-                    ],
+                  Text(
+                    dto.characterRace?.name ?? '',
+                    style: const TextStyle(fontSize: 30),
                   ),
-                  StatsWidget(stats: dto.characterStats),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Выберите имя для вашего персонажа',
-                        style: TextStyle(fontSize: 19),
-                      ),
-                      CustomTextField(
-                        autoFocus: true,
-                        onChanged: (value) => setState(() {
-                          dto = dto.copyWith(name: value);
-                        }),
-                      ),
-                    ],
-                  ),
-                  CustomButton(
-                    onTap: () async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      creationBloc.add(CharacterCreationBlocEventCreate(dto));
-                    },
-                    title: 'Создать',
-                    isLoading:
-                        context.watch<CharacterCreationBloc>().state.isLoading,
+                  const SizedBox(width: 20),
+                  Text(
+                    dto.characterClass?.name ?? '',
+                    style: const TextStyle(fontSize: 30),
                   ),
                 ],
               ),
+              StatsWidget(stats: dto.characterStats),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Выберите имя для вашего персонажа',
+                    style: TextStyle(fontSize: 19),
+                  ),
+                  CustomTextField(
+                    alwaysInFocus: true,
+                    autoFocus: true,
+                    onChanged: (value) => setState(() {
+                      dto = dto.copyWith(name: value);
+                    }),
+                  ),
+                ],
+              ),
+              CustomButton(
+                onTap: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  creationBloc.add(CharacterCreationBlocEventCreate(dto));
+                },
+                title: 'Создать',
+                isLoading:
+                    context.watch<CharacterCreationBloc>().state.isLoading,
+              ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

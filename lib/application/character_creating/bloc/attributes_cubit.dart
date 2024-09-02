@@ -11,8 +11,6 @@ class StatsCubit extends Cubit<Attributes?> {
   int get strength => state?.strength ?? 0;
   int get wisdom => state?.wisdom ?? 0;
 
-  void clear() => emit(null);
-
   void decrementCharisma() => state != null && charisma != 0
       ? emit(state?.copyWith(charisma: charisma - 1))
       : null;
@@ -36,6 +34,8 @@ class StatsCubit extends Cubit<Attributes?> {
   void decrementWisdom() => state != null && wisdom != 0
       ? emit(state?.copyWith(wisdom: wisdom - 1))
       : null;
+
+  void dispose() => emit(null);
 
   void incrementCharisma() => state != null && charisma != 20
       ? emit(state?.copyWith(charisma: charisma + 1))
