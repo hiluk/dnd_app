@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/core/ui_kit/bloc/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/di/di.dart';
+import 'package:flutter_application_1/core/ui_kit/bloc/theme_mode_cubit.dart';
 import 'package:flutter_application_1/core/ui_kit/dnd_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,15 @@ void main() async {
 
   await configureDependencies();
   await di.allReady();
+
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    di.get<Logger>().w("Flutter error: $details");
+  };
+  WidgetsBinding.instance.platformDispatcher.onError = ((e, st) {
+    di.get<Logger>().w("Platform error: ${e.toString()}");
+    return true;
+  });
 
   runApp(
     MultiBlocProvider(
