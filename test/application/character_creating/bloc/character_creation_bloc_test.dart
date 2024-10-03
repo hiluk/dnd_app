@@ -8,6 +8,7 @@ import 'package:flutter_application_1/application/character_creating/bloc/charac
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/di/mock_di.dart';
@@ -24,7 +25,8 @@ void main() {
     await mockDi.allReady();
 
     bloc = CharacterCreationBloc(
-      charactersRepository: di.get<CharactersRepository>(),
+      di.get<CharactersRepository>(),
+      Logger(),
     );
   });
 

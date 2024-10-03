@@ -17,6 +17,7 @@ import 'package:flutter_application_1/core/api/races/models/race_model.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +43,8 @@ void main() {
 
   setUp(() {
     bloc = CharacterCreationBloc(
-      charactersRepository: repository,
+      repository,
+      Logger(),
     );
     creationScreen = const CharacterCreationScreen();
   });

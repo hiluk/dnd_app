@@ -28,8 +28,12 @@ mixin _$CharacterDto {
   Class? get characterClass => throw _privateConstructorUsedError;
   Attributes get characterStats => throw _privateConstructorUsedError;
 
+  /// Serializes this CharacterDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CharacterDtoCopyWith<CharacterDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$CharacterDtoCopyWithImpl<$Res, $Val extends CharacterDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -95,6 +101,8 @@ class _$CharacterDtoCopyWithImpl<$Res, $Val extends CharacterDto>
     ) as $Val);
   }
 
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RaceCopyWith<$Res>? get characterRace {
@@ -107,6 +115,8 @@ class _$CharacterDtoCopyWithImpl<$Res, $Val extends CharacterDto>
     });
   }
 
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ClassCopyWith<$Res>? get characterClass {
@@ -119,6 +129,8 @@ class _$CharacterDtoCopyWithImpl<$Res, $Val extends CharacterDto>
     });
   }
 
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AttributesCopyWith<$Res> get characterStats {
@@ -159,6 +171,8 @@ class __$$CharacterDtoImplCopyWithImpl<$Res>
       _$CharacterDtoImpl _value, $Res Function(_$CharacterDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -241,12 +255,14 @@ class _$CharacterDtoImpl implements _CharacterDto {
                 other.characterStats == characterStats));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, name, level, characterRace, characterClass, characterStats);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CharacterDtoImplCopyWith<_$CharacterDtoImpl> get copyWith =>
@@ -283,8 +299,11 @@ abstract class _CharacterDto implements CharacterDto {
   Class? get characterClass;
   @override
   Attributes get characterStats;
+
+  /// Create a copy of CharacterDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharacterDtoImplCopyWith<_$CharacterDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,6 +6,7 @@ import 'package:flutter_application_1/application/character_creating/models/char
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +27,7 @@ void main() {
     await mockDi.allReady();
 
     client = di.get<IHttpClient>();
-    repository = CharactersRepository(client);
+    repository = CharactersRepository(client, Logger());
     charactersFromApi = [CharacterMock(name: 'oldCharacter').toJson()];
 
     when(

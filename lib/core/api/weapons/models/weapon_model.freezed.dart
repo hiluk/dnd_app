@@ -31,8 +31,12 @@ mixin _$Weapon {
   String get weight => throw _privateConstructorUsedError;
   List<String>? get properties => throw _privateConstructorUsedError;
 
+  /// Serializes this Weapon to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Weapon
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WeaponCopyWith<Weapon> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -62,6 +66,8 @@ class _$WeaponCopyWithImpl<$Res, $Val extends Weapon>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Weapon
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,6 +143,8 @@ class __$$WeaponImplCopyWithImpl<$Res>
       _$WeaponImpl _value, $Res Function(_$WeaponImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Weapon
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -253,7 +261,7 @@ class _$WeaponImpl implements _Weapon {
                 .equals(other._properties, _properties));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -266,7 +274,9 @@ class _$WeaponImpl implements _Weapon {
       weight,
       const DeepCollectionEquality().hash(_properties));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Weapon
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WeaponImplCopyWith<_$WeaponImpl> get copyWith =>
@@ -311,8 +321,11 @@ abstract class _Weapon implements Weapon {
   String get weight;
   @override
   List<String>? get properties;
+
+  /// Create a copy of Weapon
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WeaponImplCopyWith<_$WeaponImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -35,8 +35,12 @@ mixin _$Background {
   @JsonKey(name: 'suggested_characteristics')
   String get suggestedCharacteristics => throw _privateConstructorUsedError;
 
+  /// Serializes this Background to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BackgroundCopyWith<Background> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -71,6 +75,8 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -160,6 +166,8 @@ class __$$BackgroundImplCopyWithImpl<$Res>
       _$BackgroundImpl _value, $Res Function(_$BackgroundImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -292,7 +300,7 @@ class _$BackgroundImpl implements _Background {
                 other.suggestedCharacteristics == suggestedCharacteristics));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -307,7 +315,9 @@ class _$BackgroundImpl implements _Background {
       featureDesc,
       suggestedCharacteristics);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BackgroundImplCopyWith<_$BackgroundImpl> get copyWith =>
@@ -362,8 +372,11 @@ abstract class _Background implements Background {
   @override
   @JsonKey(name: 'suggested_characteristics')
   String get suggestedCharacteristics;
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BackgroundImplCopyWith<_$BackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

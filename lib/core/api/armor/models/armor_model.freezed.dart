@@ -44,8 +44,12 @@ mixin _$Armor {
   @JsonKey(name: 'stealth_disadvantage')
   bool get stealtDisadvantage => throw _privateConstructorUsedError;
 
+  /// Serializes this Armor to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Armor
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArmorCopyWith<Armor> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -81,6 +85,8 @@ class _$ArmorCopyWithImpl<$Res, $Val extends Armor>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Armor
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -192,6 +198,8 @@ class __$$ArmorImplCopyWithImpl<$Res>
       _$ArmorImpl _value, $Res Function(_$ArmorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Armor
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -365,7 +373,7 @@ class _$ArmorImpl implements _Armor {
                 other.stealtDisadvantage == stealtDisadvantage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -384,7 +392,9 @@ class _$ArmorImpl implements _Armor {
       weight,
       stealtDisadvantage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Armor
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArmorImplCopyWith<_$ArmorImpl> get copyWith =>
@@ -456,8 +466,11 @@ abstract class _Armor implements Armor {
   @override
   @JsonKey(name: 'stealth_disadvantage')
   bool get stealtDisadvantage;
+
+  /// Create a copy of Armor
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArmorImplCopyWith<_$ArmorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

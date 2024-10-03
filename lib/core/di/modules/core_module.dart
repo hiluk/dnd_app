@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/http_client/interceptors/auth_interceptor.dart';
+import 'package:flutter_application_1/core/http_client/interceptors/logger_interceptor.dart';
 import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter_application_1/core/router/dnd_router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api/classes/models/class_model.dart';
@@ -29,8 +31,12 @@ abstract class CoreModule {
     final dio = Dio(BaseOptions(baseUrl: 'https://10.0.2.2:5001'));
 
     dio.interceptors.add(di.get<AuthInterceptor>());
+    dio.interceptors.add(di.get<LoggerInterceptor>());
     return dio;
   }
+
+  @Order(-2)
+  Logger get logger => Logger();
 
   @Order(-2)
   @preResolve

@@ -23,8 +23,12 @@ mixin _$Speed {
   String get type => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
 
+  /// Serializes this Speed to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Speed
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SpeedCopyWith<Speed> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -46,6 +50,8 @@ class _$SpeedCopyWithImpl<$Res, $Val extends Speed>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Speed
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -83,6 +89,8 @@ class __$$SpeedImplCopyWithImpl<$Res>
       _$SpeedImpl _value, $Res Function(_$SpeedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Speed
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -129,11 +137,13 @@ class _$SpeedImpl implements _Speed {
             (identical(other.value, value) || other.value == value));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, type, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Speed
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SpeedImplCopyWith<_$SpeedImpl> get copyWith =>
@@ -157,8 +167,11 @@ abstract class _Speed implements Speed {
   String get type;
   @override
   int get value;
+
+  /// Create a copy of Speed
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SpeedImplCopyWith<_$SpeedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

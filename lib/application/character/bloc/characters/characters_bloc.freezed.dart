@@ -72,6 +72,9 @@ class _$CharactersEventCopyWithImpl<$Res, $Val extends CharactersEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -88,6 +91,9 @@ class __$$CharactersFetchImplCopyWithImpl<$Res>
   __$$CharactersFetchImplCopyWithImpl(
       _$CharactersFetchImpl _value, $Res Function(_$CharactersFetchImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -190,6 +196,9 @@ class __$$CharactersRefreshImplCopyWithImpl<$Res>
   __$$CharactersRefreshImplCopyWithImpl(_$CharactersRefreshImpl _value,
       $Res Function(_$CharactersRefreshImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -342,6 +351,9 @@ class _$CharactersStateCopyWithImpl<$Res, $Val extends CharactersState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -361,6 +373,8 @@ class __$$CharactersErrorImplCopyWithImpl<$Res>
       _$CharactersErrorImpl _value, $Res Function(_$CharactersErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -399,7 +413,9 @@ class _$CharactersErrorImpl implements CharactersError {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CharactersErrorImplCopyWith<_$CharactersErrorImpl> get copyWith =>
@@ -479,7 +495,10 @@ abstract class CharactersError implements CharactersState {
   const factory CharactersError(final String message) = _$CharactersErrorImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharactersErrorImplCopyWith<_$CharactersErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -501,6 +520,8 @@ class __$$CharactersLoadedImplCopyWithImpl<$Res>
       $Res Function(_$CharactersLoadedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -547,7 +568,9 @@ class _$CharactersLoadedImpl implements CharactersLoaded {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_characters));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CharactersLoadedImplCopyWith<_$CharactersLoadedImpl> get copyWith =>
@@ -628,7 +651,10 @@ abstract class CharactersLoaded implements CharactersState {
       _$CharactersLoadedImpl;
 
   List<Character> get characters;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharactersLoadedImplCopyWith<_$CharactersLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -647,6 +673,9 @@ class __$$CharactersLoadingImplCopyWithImpl<$Res>
   __$$CharactersLoadingImplCopyWithImpl(_$CharactersLoadingImpl _value,
       $Res Function(_$CharactersLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

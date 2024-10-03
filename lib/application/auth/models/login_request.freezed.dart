@@ -70,8 +70,13 @@ mixin _$AuthRequest {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this AuthRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthRequestCopyWith<AuthRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -95,6 +100,8 @@ class _$AuthRequestCopyWithImpl<$Res, $Val extends AuthRequest>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,6 +140,8 @@ class __$$LoginRequestImplCopyWithImpl<$Res>
       _$LoginRequestImpl _value, $Res Function(_$LoginRequestImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -187,11 +196,13 @@ class _$LoginRequestImpl implements LoginRequest {
                 other.password == password));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, login, password);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoginRequestImplCopyWith<_$LoginRequestImpl> get copyWith =>
@@ -279,8 +290,11 @@ abstract class LoginRequest implements AuthRequest {
   String get login;
   @override
   String get password;
+
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoginRequestImplCopyWith<_$LoginRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -304,6 +318,8 @@ class __$$RegisterRequestImplCopyWithImpl<$Res>
       _$RegisterRequestImpl _value, $Res Function(_$RegisterRequestImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -370,11 +386,13 @@ class _$RegisterRequestImpl implements RegisterRequest {
                 other.password == password));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, email, login, password);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RegisterRequestImplCopyWith<_$RegisterRequestImpl> get copyWith =>
@@ -466,8 +484,11 @@ abstract class RegisterRequest implements AuthRequest {
   String get login;
   @override
   String get password;
+
+  /// Create a copy of AuthRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RegisterRequestImplCopyWith<_$RegisterRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -27,6 +27,7 @@ dependencies:
   shared_preferences: ^2.2.3
   injectable: ^2.4.4
   bloc_test: ^9.1.7
+  logger: ^2.4.0
   
 
 dev_dependencies:

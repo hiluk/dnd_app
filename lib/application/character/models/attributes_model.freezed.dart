@@ -27,8 +27,12 @@ mixin _$Attributes {
   int get intelligence => throw _privateConstructorUsedError;
   int get charisma => throw _privateConstructorUsedError;
 
+  /// Serializes this Attributes to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Attributes
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AttributesCopyWith<Attributes> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$AttributesCopyWithImpl<$Res, $Val extends Attributes>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Attributes
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class __$$AttributesImplCopyWithImpl<$Res>
       _$AttributesImpl _value, $Res Function(_$AttributesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Attributes
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -217,12 +225,14 @@ class _$AttributesImpl implements _Attributes {
                 other.charisma == charisma));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, strength, dexterity, wisdom,
       constitution, intelligence, charisma);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Attributes
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AttributesImplCopyWith<_$AttributesImpl> get copyWith =>
@@ -260,8 +270,11 @@ abstract class _Attributes implements Attributes {
   int get intelligence;
   @override
   int get charisma;
+
+  /// Create a copy of Attributes
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AttributesImplCopyWith<_$AttributesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

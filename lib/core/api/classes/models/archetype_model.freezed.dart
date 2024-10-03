@@ -24,8 +24,12 @@ mixin _$Archetype {
   String get slug => throw _privateConstructorUsedError;
   String get desc => throw _privateConstructorUsedError;
 
+  /// Serializes this Archetype to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Archetype
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArchetypeCopyWith<Archetype> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$ArchetypeCopyWithImpl<$Res, $Val extends Archetype>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Archetype
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class __$$ArchetypeImplCopyWithImpl<$Res>
       _$ArchetypeImpl _value, $Res Function(_$ArchetypeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Archetype
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,11 +153,13 @@ class _$ArchetypeImpl implements _Archetype {
             (identical(other.desc, desc) || other.desc == desc));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, slug, desc);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Archetype
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArchetypeImplCopyWith<_$ArchetypeImpl> get copyWith =>
@@ -178,8 +188,11 @@ abstract class _Archetype implements Archetype {
   String get slug;
   @override
   String get desc;
+
+  /// Create a copy of Archetype
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArchetypeImplCopyWith<_$ArchetypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

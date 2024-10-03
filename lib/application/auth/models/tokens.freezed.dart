@@ -23,8 +23,12 @@ mixin _$Tokens {
   String get accessToken => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
 
+  /// Serializes this Tokens to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Tokens
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TokensCopyWith<Tokens> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -46,6 +50,8 @@ class _$TokensCopyWithImpl<$Res, $Val extends Tokens>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Tokens
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -83,6 +89,8 @@ class __$$TokensImplCopyWithImpl<$Res>
       _$TokensImpl _value, $Res Function(_$TokensImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tokens
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,11 +139,13 @@ class _$TokensImpl implements _Tokens {
                 other.refreshToken == refreshToken));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tokens
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TokensImplCopyWith<_$TokensImpl> get copyWith =>
@@ -160,8 +170,11 @@ abstract class _Tokens implements Tokens {
   String get accessToken;
   @override
   String get refreshToken;
+
+  /// Create a copy of Tokens
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TokensImplCopyWith<_$TokensImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

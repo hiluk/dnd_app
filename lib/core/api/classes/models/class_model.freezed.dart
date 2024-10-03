@@ -33,8 +33,12 @@ mixin _$Class {
   String get equipment => throw _privateConstructorUsedError;
   String get spellCastingAbility => throw _privateConstructorUsedError;
 
+  /// Serializes this Class to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Class
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ClassCopyWith<Class> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -68,6 +72,8 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Class
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,6 +173,8 @@ class __$$ClassImplCopyWithImpl<$Res>
       _$ClassImpl _value, $Res Function(_$ClassImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Class
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -315,7 +323,7 @@ class _$ClassImpl implements _Class {
                 other.spellCastingAbility == spellCastingAbility));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -332,7 +340,9 @@ class _$ClassImpl implements _Class {
       equipment,
       spellCastingAbility);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Class
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ClassImplCopyWith<_$ClassImpl> get copyWith =>
@@ -387,8 +397,11 @@ abstract class _Class implements Class {
   String get equipment;
   @override
   String get spellCastingAbility;
+
+  /// Create a copy of Class
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClassImplCopyWith<_$ClassImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -26,7 +26,9 @@ mixin _$CharacterCreationBlocState {
   Race? get characterRace => throw _privateConstructorUsedError;
   Class? get characterClass => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CharacterCreationBlocStateCopyWith<CharacterCreationBlocState>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -65,6 +67,8 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -113,6 +117,8 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CharacterCreationBlocStateCopyWith<$Res>? get previousState {
@@ -126,6 +132,8 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AttributesCopyWith<$Res>? get characterAttributes {
@@ -138,6 +146,8 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RaceCopyWith<$Res>? get characterRace {
@@ -150,6 +160,8 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ClassCopyWith<$Res>? get characterClass {
@@ -202,6 +214,8 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
       $Res Function(_$CharacterCreationBlocStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -324,7 +338,9 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
       characterRace,
       characterClass);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CharacterCreationBlocStateImplCopyWith<_$CharacterCreationBlocStateImpl>
@@ -360,8 +376,11 @@ abstract class _CharacterCreationBlocState
   Race? get characterRace;
   @override
   Class? get characterClass;
+
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharacterCreationBlocStateImplCopyWith<_$CharacterCreationBlocStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

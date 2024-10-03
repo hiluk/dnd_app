@@ -62,4 +62,9 @@ class StatsCubit extends Cubit<Attributes?> {
       : null;
 
   void init() => state == null ? emit(const Attributes()) : null;
+
+  @override
+  void onChange(Change<Attributes?> change) {
+    super.onChange(change);
+  }
 }

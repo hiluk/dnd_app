@@ -4,6 +4,7 @@ import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_application_1/core/prefs/interfaces/i_tokens_database.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
 @Injectable(order: -1)
 class AuthInterceptor extends Interceptor {
@@ -16,10 +17,11 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
+      di.get<Logger>().e("Токен устарел");
       final refreshToken = dataBase.getTokens().refreshToken;
 
       if (refreshToken.isEmpty) {
-        handler.reject(err);
+        quitApp();
       } else {
         final response = await dio.post(
           "/refresh",
@@ -29,12 +31,14 @@ class AuthInterceptor extends Interceptor {
         );
         final tokens = Tokens.fromJson(response.data);
 
-        if (response.statusCode == 200) {
-          dataBase.cacheTokens(tokens);
-          handler.resolve(await _retry(err.requestOptions));
-        } else {
-          dataBase.clearTokens();
-          di.get<GoRouter>().refresh();
+        switch (response.statusCode) {
+          case 200:
+            dataBase.cacheTokens(tokens);
+            handler.resolve(await _retry(err.requestOptions));
+            break;
+          case 401:
+            quitApp();
+            break;
         }
       }
     } else {
@@ -53,6 +57,12 @@ class AuthInterceptor extends Interceptor {
       options.headers.addAll({"Authorization": "Bearer $accessToken"});
     }
     return super.onRequest(options, handler);
+  }
+
+  void quitApp() {
+    di.get<Logger>().i("Рефреш токена нет, выхожу из приложения.");
+    dataBase.clearTokens();
+    di.get<GoRouter>().refresh();
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {

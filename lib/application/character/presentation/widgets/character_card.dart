@@ -62,24 +62,20 @@ class _CharacterCardState extends State<CharacterCard> {
                   ),
                 ),
               ),
-              Stack(
-                children: [
-                  AnimatedOpacity(
-                    duration: DndDurations.regular,
-                    curve: Curves.easeOut,
-                    opacity: widget.inFocus ? 1 : 0,
-                    child: Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.2, 0),
-                      child: OverflowBox(
-                        maxHeight: constraints.maxHeight * 0.9,
-                        maxWidth: constraints.maxWidth * 2,
-                        child: CharacterAvatar(
-                          assetPath: assetPath,
-                        ),
-                      ),
+              AnimatedOpacity(
+                duration: DndDurations.regular,
+                curve: Curves.easeOut,
+                opacity: widget.inFocus ? 1 : 0,
+                child: Transform.translate(
+                  offset: Offset(constraints.maxWidth * 0.2, 0),
+                  child: OverflowBox(
+                    maxHeight: constraints.maxHeight * 0.9,
+                    maxWidth: constraints.maxWidth * 2,
+                    child: CharacterAvatar(
+                      assetPath: assetPath,
                     ),
                   ),
-                ],
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

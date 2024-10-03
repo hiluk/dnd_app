@@ -23,8 +23,12 @@ mixin _$Asi {
   String get stat => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
 
+  /// Serializes this Asi to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Asi
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AsiCopyWith<Asi> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -45,6 +49,8 @@ class _$AsiCopyWithImpl<$Res, $Val extends Asi> implements $AsiCopyWith<$Res> {
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Asi
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,6 +85,8 @@ class __$$AsiImplCopyWithImpl<$Res> extends _$AsiCopyWithImpl<$Res, _$AsiImpl>
   __$$AsiImplCopyWithImpl(_$AsiImpl _value, $Res Function(_$AsiImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Asi
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,11 +133,13 @@ class _$AsiImpl implements _Asi {
             (identical(other.value, value) || other.value == value));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, stat, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Asi
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AsiImplCopyWith<_$AsiImpl> get copyWith =>
@@ -153,8 +163,11 @@ abstract class _Asi implements Asi {
   String get stat;
   @override
   int get value;
+
+  /// Create a copy of Asi
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AsiImplCopyWith<_$AsiImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

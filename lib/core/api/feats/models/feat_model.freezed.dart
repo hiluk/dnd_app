@@ -27,8 +27,12 @@ mixin _$Feat {
   @JsonKey(name: 'effects_desc')
   List<String>? get effectsDesc => throw _privateConstructorUsedError;
 
+  /// Serializes this Feat to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Feat
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FeatCopyWith<Feat> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -55,6 +59,8 @@ class _$FeatCopyWithImpl<$Res, $Val extends Feat>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Feat
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,6 +117,8 @@ class __$$FeatImplCopyWithImpl<$Res>
   __$$FeatImplCopyWithImpl(_$FeatImpl _value, $Res Function(_$FeatImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Feat
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -197,12 +205,14 @@ class _$FeatImpl implements _Feat {
                 .equals(other._effectsDesc, _effectsDesc));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, slug, name, desc, prerequisite,
       const DeepCollectionEquality().hash(_effectsDesc));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Feat
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FeatImplCopyWith<_$FeatImpl> get copyWith =>
@@ -238,8 +248,11 @@ abstract class _Feat implements Feat {
   @override
   @JsonKey(name: 'effects_desc')
   List<String>? get effectsDesc;
+
+  /// Create a copy of Feat
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FeatImplCopyWith<_$FeatImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

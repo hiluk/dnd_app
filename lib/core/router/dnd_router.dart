@@ -16,6 +16,7 @@ import 'package:flutter_application_1/application/splash_screen.dart';
 import 'package:flutter_application_1/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 class AppRouter {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -53,7 +54,8 @@ class AppRouter {
                 ),
                 BlocProvider<CharacterCreationBloc>(
                   create: (context) => CharacterCreationBloc(
-                    charactersRepository: di.get<CharactersRepository>(),
+                    di.get<CharactersRepository>(),
+                    di.get<Logger>(),
                   ),
                 ),
                 BlocProvider(
