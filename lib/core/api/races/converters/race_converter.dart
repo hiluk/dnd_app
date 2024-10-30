@@ -11,6 +11,8 @@ class CharacterRaceTypeConverter implements JsonConverter<Race, int> {
   Race fromJson(int json) {
     final raceType = _types.firstWhere((e) => e.jsonValue == json);
 
+    print('');
+
     return di.get<List<Race>>().firstWhere((e) => e.name == raceType.name);
   }
 
