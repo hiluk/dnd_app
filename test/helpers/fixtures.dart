@@ -33,12 +33,36 @@ Map<String, dynamic> classJson(String name) => {
       'spellCastingAbility': '',
     };
 
-final racesJson = [raceJson('Человек'), raceJson('Полуэльф')];
+final racesJson = [
+  for (final name in [
+    'Человек',
+    'Полуэльф',
+    'Дварф',
+    'Эльф',
+    'Полурослик',
+    'Драконорождённый',
+    'Гном',
+    'Полуорк',
+    'Тифлинг',
+  ])
+    raceJson(name),
+];
 final classesJson = [
-  classJson('Воин'),
-  classJson('Варвар'),
-  classJson('Рейнджер'),
-  classJson('Вор'),
+  for (final name in [
+    'Воин',
+    'Варвар',
+    'Следопыт',
+    'Плут',
+    'Бард',
+    'Жрец',
+    'Друид',
+    'Монах',
+    'Паладин',
+    'Чародей',
+    'Колдун',
+    'Волшебник',
+  ])
+    classJson(name),
 ];
 
 List<Race> get races => racesJson.map(Race.fromJson).toList();

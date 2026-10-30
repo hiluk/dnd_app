@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:dnd_app/core/api/races/enums/character_race_type.dart';
 import 'package:dnd_app/core/api/races/models/race_model.dart';
+import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
+import 'package:dnd_app/core/ui_kit/widgets/info_line.dart';
 import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 
 class RaceWidget extends StatefulWidget {
@@ -16,6 +18,13 @@ class RaceWidget extends StatefulWidget {
 }
 
 class _RaceWidgetState extends State<RaceWidget> {
+  String get _asi =>
+      widget.race.asi.map((e) => '${e.stat} на ${e.value}').join(', ');
+
+  String get _speed => widget.race.speed
+      .map((e) => '${e.type.toLowerCase()} ${e.value} фт.')
+      .join(', ');
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -63,18 +72,39 @@ class _RaceWidgetState extends State<RaceWidget> {
                         : const SizedBox.shrink(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: PageView(
-                        children: [
-                          Text(widget.race.description),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Язык: ${widget.race.language}'),
-                              Text('Размеры: ${widget.race.size}'),
-                              Text('Характеристики: ${widget.race.traits}'),
-                            ],
-                          ),
-                        ],
+                      child: DefaultTextStyle.merge(
+                        style: DndTheme.readableText,
+                        child: PageView(
+                          children: [
+                            SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(widget.race.description),
+                                  const SizedBox(height: 12),
+                                  InfoLine('Увеличение характеристик', _asi),
+                                  InfoLine('Размер', widget.race.size),
+                                  InfoLine('Скорость', _speed),
+                                  const Text(
+                                    'Листайте вправо, чтобы узнать больше →',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InfoLine('Зрение', widget.race.vision),
+                                  InfoLine('Возраст', widget.race.age),
+                                  InfoLine('Языки', widget.race.language),
+                                  InfoLine('Особенности', widget.race.traits),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

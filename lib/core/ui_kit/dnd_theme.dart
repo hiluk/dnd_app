@@ -6,6 +6,18 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class DndTheme {
+  /// Декоративный шрифт заголовков. В нём нет части символов
+  /// (например, «+» и кавычек-ёлочек), поэтому длинные тексты
+  /// справочника выводятся [readableText].
+  static const decorativeFont = 'Orpheus';
+
+  /// Стиль для описаний: системный шрифт со всеми символами
+  static const readableText = TextStyle(
+    fontFamily: 'Roboto',
+    fontFamilyFallback: ['sans-serif'],
+    fontSize: 14,
+  );
+
   late DndColors colors;
   ThemeData get dark {
     colors = const DndColors.dark();
@@ -13,7 +25,7 @@ class DndTheme {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: colors.primary,
       ),
-      fontFamily: 'Orpheus',
+      fontFamily: decorativeFont,
       extensions: [
         ButtonThemeExtension.dark,
         CharacterCardThemeExtension.dark,
@@ -29,7 +41,7 @@ class DndTheme {
   ThemeData get light {
     colors = const DndColors.light();
     return ThemeData(
-      fontFamily: 'Orpheus',
+      fontFamily: decorativeFont,
       extensions: [
         ButtonThemeExtension.light,
         CharacterCardThemeExtension.light,

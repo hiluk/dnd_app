@@ -77,7 +77,8 @@ class CharacterCreationScreen extends StatelessWidget {
       floatingActionButton: const BlocListenerFAB(),
       body: SafeArea(
         child: CatalogLoader(
-          child: BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
+          child:
+              BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
             listener: (context, state) {
               if (state.isCreated) {
                 context.read<CharactersBloc>().add(const CharactersRefresh());

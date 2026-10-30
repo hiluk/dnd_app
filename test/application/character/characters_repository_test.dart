@@ -22,14 +22,16 @@ void main() {
     client = MockHttpClient();
     catalog = CatalogRepository(client);
     di.registerSingleton(catalog);
-    repository = CharactersRepository(client, catalog, Logger(level: Level.off));
+    repository =
+        CharactersRepository(client, catalog, Logger(level: Level.off));
 
     when(() => client.get<List<dynamic>>('/races'))
         .thenAnswer((_) async => racesJson);
     when(() => client.get<List<dynamic>>('/classes'))
         .thenAnswer((_) async => classesJson);
     when(() => client.get<List<dynamic>>('/characters')).thenAnswer(
-      (_) async => [characterJson(), characterJson(name: 'Гимли', characterClass: 1)],
+      (_) async =>
+          [characterJson(), characterJson(name: 'Гимли', characterClass: 1)],
     );
   });
 
@@ -38,9 +40,25 @@ void main() {
 
     expect(characters.map((c) => c.name), ['Арагорн', 'Гимли']);
     expect(characters.first.characterRace.name, 'Человек');
-    expect(characters.first.characterClass.name, 'Рейнджер');
+    expect(characters.first.characterClass.name, 'Следопыт');
     expect(characters.first.characterStats.dexterity, 14);
     expect(characters.last.characterClass.name, 'Воин');
+  });
+
+  test('Номера рас и классов совпадают с сервером', () async {
+    when(() => client.get<List<dynamic>>('/characters')).thenAnswer(
+      (_) async => [
+        characterJson(characterRace: 9, characterClass: 12),
+        characterJson(characterRace: 3, characterClass: 6),
+      ],
+    );
+
+    final characters = await repository.fetch();
+
+    expect(characters[0].characterRace.name, 'Тифлинг');
+    expect(characters[0].characterClass.name, 'Волшебник');
+    expect(characters[1].characterRace.name, 'Дварф');
+    expect(characters[1].characterClass.name, 'Жрец');
   });
 
   test('Справочники загружаются один раз', () async {
@@ -84,9 +102,10 @@ void main() {
       characterStats: const Attributes(dexterity: 15),
     ));
 
-    final body = verify(() => client.post<void>('/characters/create', captureAny()))
-        .captured
-        .single as Map<String, dynamic>;
+    final body =
+        verify(() => client.post<void>('/characters/create', captureAny()))
+            .captured
+            .single as Map<String, dynamic>;
     expect(body['name'], 'Леголас');
     expect(body['characterRace'], 2);
     expect(body['characterClass'], 3);
@@ -94,8 +113,7 @@ void main() {
   });
 
   test('Удаление по Id', () async {
-    when(() => client.delete<void>('/characters/42'))
-        .thenAnswer((_) async {});
+    when(() => client.delete<void>('/characters/42')).thenAnswer((_) async {});
 
     await repository.deleteCharacter('42');
 

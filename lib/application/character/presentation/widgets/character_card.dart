@@ -122,6 +122,8 @@ class _CharacterCardState extends State<CharacterCard> {
   @override
   void initState() {
     super.initState();
-    assetPath = CharacterClassType.getRandomAsset();
+    assetPath = CharacterClassType.getAssetByName(
+      widget.character.characterClass.name,
+    );
   }
 }

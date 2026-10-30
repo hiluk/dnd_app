@@ -11,7 +11,8 @@ import 'package:logger/logger.dart';
 @module
 abstract class CoreModule {
   @lazySingleton
-  Dio dio(AuthInterceptor authInterceptor, LoggerInterceptor loggerInterceptor) {
+  Dio dio(
+      AuthInterceptor authInterceptor, LoggerInterceptor loggerInterceptor) {
     return Dio(AppConfig.baseOptions)
       ..interceptors.addAll([authInterceptor, loggerInterceptor]);
   }

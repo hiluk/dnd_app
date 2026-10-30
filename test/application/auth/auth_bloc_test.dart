@@ -32,7 +32,8 @@ void main() {
   setUp(() {
     repository = MockTokensRepository();
     sessionEnded = StreamController<void>.broadcast();
-    when(() => repository.onSessionEnded).thenAnswer((_) => sessionEnded.stream);
+    when(() => repository.onSessionEnded)
+        .thenAnswer((_) => sessionEnded.stream);
     when(() => repository.getFromCache()).thenReturn(empty);
     when(() => repository.cache(any())).thenAnswer((_) async {});
     when(() => repository.clearTokens()).thenAnswer((_) async {});

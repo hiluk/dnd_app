@@ -26,7 +26,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     _sessionEnded = repository.onSessionEnded
         .listen((_) => add(const AuthEvent.sessionExpired()));
-
   }
 
   // Токены уже загружены в память до запуска приложения, поэтому
