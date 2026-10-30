@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/core/di/di.config.dart';
+import 'package:dnd_app/core/di/di.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 

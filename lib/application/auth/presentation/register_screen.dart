@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/auth/models/login_request.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/custom_text_field.dart';
+import 'package:dnd_app/application/auth/bloc/auth_bloc.dart';
+import 'package:dnd_app/application/auth/models/login_request.dart';
+import 'package:dnd_app/core/ui_kit/widgets/custom_button.dart';
+import 'package:dnd_app/core/ui_kit/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -39,12 +39,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: SizedBox(
-                height: 270,
+                height: 320,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomTextField(
                       label: "Email",
+                      keyboardType: TextInputType.emailAddress,
+                      autofillHints: const [AutofillHints.email],
                       onChanged: (text) => setState(() {
                         registerRequest = registerRequest.copyWith(email: text);
                       }),
@@ -57,10 +59,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextField(
                       label: "Пароль",
+                      obscureText: true,
+                      autofillHints: const [AutofillHints.newPassword],
                       onChanged: (text) => setState(() {
                         registerRequest =
                             registerRequest.copyWith(password: text);
                       }),
+                    ),
+                    Text(
+                      "Пароль: от 6 символов, цифра, строчная и заглавная буквы",
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     CustomButton(
                       title: "Зарегистрироваться",

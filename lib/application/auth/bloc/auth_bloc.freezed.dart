@@ -21,6 +21,7 @@ mixin _$AuthEvent {
     required TResult Function(LoginRequest request) login,
     required TResult Function(RegisterRequest request) register,
     required TResult Function() signOut,
+    required TResult Function() sessionExpired,
     required TResult Function() started,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$AuthEvent {
     TResult? Function(LoginRequest request)? login,
     TResult? Function(RegisterRequest request)? register,
     TResult? Function()? signOut,
+    TResult? Function()? sessionExpired,
     TResult? Function()? started,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$AuthEvent {
     TResult Function(LoginRequest request)? login,
     TResult Function(RegisterRequest request)? register,
     TResult Function()? signOut,
+    TResult Function()? sessionExpired,
     TResult Function()? started,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$AuthEvent {
     required TResult Function(Login value) login,
     required TResult Function(Register value) register,
     required TResult Function(SignOut value) signOut,
+    required TResult Function(SessionExpired value) sessionExpired,
     required TResult Function(Started value) started,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$AuthEvent {
     TResult? Function(Login value)? login,
     TResult? Function(Register value)? register,
     TResult? Function(SignOut value)? signOut,
+    TResult? Function(SessionExpired value)? sessionExpired,
     TResult? Function(Started value)? started,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$AuthEvent {
     TResult Function(Login value)? login,
     TResult Function(Register value)? register,
     TResult Function(SignOut value)? signOut,
+    TResult Function(SessionExpired value)? sessionExpired,
     TResult Function(Started value)? started,
     required TResult orElse(),
   }) =>
@@ -160,6 +166,7 @@ class _$LoginImpl implements Login {
     required TResult Function(LoginRequest request) login,
     required TResult Function(RegisterRequest request) register,
     required TResult Function() signOut,
+    required TResult Function() sessionExpired,
     required TResult Function() started,
   }) {
     return login(request);
@@ -171,6 +178,7 @@ class _$LoginImpl implements Login {
     TResult? Function(LoginRequest request)? login,
     TResult? Function(RegisterRequest request)? register,
     TResult? Function()? signOut,
+    TResult? Function()? sessionExpired,
     TResult? Function()? started,
   }) {
     return login?.call(request);
@@ -182,6 +190,7 @@ class _$LoginImpl implements Login {
     TResult Function(LoginRequest request)? login,
     TResult Function(RegisterRequest request)? register,
     TResult Function()? signOut,
+    TResult Function()? sessionExpired,
     TResult Function()? started,
     required TResult orElse(),
   }) {
@@ -197,6 +206,7 @@ class _$LoginImpl implements Login {
     required TResult Function(Login value) login,
     required TResult Function(Register value) register,
     required TResult Function(SignOut value) signOut,
+    required TResult Function(SessionExpired value) sessionExpired,
     required TResult Function(Started value) started,
   }) {
     return login(this);
@@ -208,6 +218,7 @@ class _$LoginImpl implements Login {
     TResult? Function(Login value)? login,
     TResult? Function(Register value)? register,
     TResult? Function(SignOut value)? signOut,
+    TResult? Function(SessionExpired value)? sessionExpired,
     TResult? Function(Started value)? started,
   }) {
     return login?.call(this);
@@ -219,6 +230,7 @@ class _$LoginImpl implements Login {
     TResult Function(Login value)? login,
     TResult Function(Register value)? register,
     TResult Function(SignOut value)? signOut,
+    TResult Function(SessionExpired value)? sessionExpired,
     TResult Function(Started value)? started,
     required TResult orElse(),
   }) {
@@ -313,6 +325,7 @@ class _$RegisterImpl implements Register {
     required TResult Function(LoginRequest request) login,
     required TResult Function(RegisterRequest request) register,
     required TResult Function() signOut,
+    required TResult Function() sessionExpired,
     required TResult Function() started,
   }) {
     return register(request);
@@ -324,6 +337,7 @@ class _$RegisterImpl implements Register {
     TResult? Function(LoginRequest request)? login,
     TResult? Function(RegisterRequest request)? register,
     TResult? Function()? signOut,
+    TResult? Function()? sessionExpired,
     TResult? Function()? started,
   }) {
     return register?.call(request);
@@ -335,6 +349,7 @@ class _$RegisterImpl implements Register {
     TResult Function(LoginRequest request)? login,
     TResult Function(RegisterRequest request)? register,
     TResult Function()? signOut,
+    TResult Function()? sessionExpired,
     TResult Function()? started,
     required TResult orElse(),
   }) {
@@ -350,6 +365,7 @@ class _$RegisterImpl implements Register {
     required TResult Function(Login value) login,
     required TResult Function(Register value) register,
     required TResult Function(SignOut value) signOut,
+    required TResult Function(SessionExpired value) sessionExpired,
     required TResult Function(Started value) started,
   }) {
     return register(this);
@@ -361,6 +377,7 @@ class _$RegisterImpl implements Register {
     TResult? Function(Login value)? login,
     TResult? Function(Register value)? register,
     TResult? Function(SignOut value)? signOut,
+    TResult? Function(SessionExpired value)? sessionExpired,
     TResult? Function(Started value)? started,
   }) {
     return register?.call(this);
@@ -372,6 +389,7 @@ class _$RegisterImpl implements Register {
     TResult Function(Login value)? login,
     TResult Function(Register value)? register,
     TResult Function(SignOut value)? signOut,
+    TResult Function(SessionExpired value)? sessionExpired,
     TResult Function(Started value)? started,
     required TResult orElse(),
   }) {
@@ -438,6 +456,7 @@ class _$SignOutImpl implements SignOut {
     required TResult Function(LoginRequest request) login,
     required TResult Function(RegisterRequest request) register,
     required TResult Function() signOut,
+    required TResult Function() sessionExpired,
     required TResult Function() started,
   }) {
     return signOut();
@@ -449,6 +468,7 @@ class _$SignOutImpl implements SignOut {
     TResult? Function(LoginRequest request)? login,
     TResult? Function(RegisterRequest request)? register,
     TResult? Function()? signOut,
+    TResult? Function()? sessionExpired,
     TResult? Function()? started,
   }) {
     return signOut?.call();
@@ -460,6 +480,7 @@ class _$SignOutImpl implements SignOut {
     TResult Function(LoginRequest request)? login,
     TResult Function(RegisterRequest request)? register,
     TResult Function()? signOut,
+    TResult Function()? sessionExpired,
     TResult Function()? started,
     required TResult orElse(),
   }) {
@@ -475,6 +496,7 @@ class _$SignOutImpl implements SignOut {
     required TResult Function(Login value) login,
     required TResult Function(Register value) register,
     required TResult Function(SignOut value) signOut,
+    required TResult Function(SessionExpired value) sessionExpired,
     required TResult Function(Started value) started,
   }) {
     return signOut(this);
@@ -486,6 +508,7 @@ class _$SignOutImpl implements SignOut {
     TResult? Function(Login value)? login,
     TResult? Function(Register value)? register,
     TResult? Function(SignOut value)? signOut,
+    TResult? Function(SessionExpired value)? sessionExpired,
     TResult? Function(Started value)? started,
   }) {
     return signOut?.call(this);
@@ -497,6 +520,7 @@ class _$SignOutImpl implements SignOut {
     TResult Function(Login value)? login,
     TResult Function(Register value)? register,
     TResult Function(SignOut value)? signOut,
+    TResult Function(SessionExpired value)? sessionExpired,
     TResult Function(Started value)? started,
     required TResult orElse(),
   }) {
@@ -509,6 +533,129 @@ class _$SignOutImpl implements SignOut {
 
 abstract class SignOut implements AuthEvent {
   const factory SignOut() = _$SignOutImpl;
+}
+
+/// @nodoc
+abstract class _$$SessionExpiredImplCopyWith<$Res> {
+  factory _$$SessionExpiredImplCopyWith(_$SessionExpiredImpl value,
+          $Res Function(_$SessionExpiredImpl) then) =
+      __$$SessionExpiredImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SessionExpiredImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SessionExpiredImpl>
+    implements _$$SessionExpiredImplCopyWith<$Res> {
+  __$$SessionExpiredImplCopyWithImpl(
+      _$SessionExpiredImpl _value, $Res Function(_$SessionExpiredImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SessionExpiredImpl implements SessionExpired {
+  const _$SessionExpiredImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.sessionExpired()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SessionExpiredImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(LoginRequest request) login,
+    required TResult Function(RegisterRequest request) register,
+    required TResult Function() signOut,
+    required TResult Function() sessionExpired,
+    required TResult Function() started,
+  }) {
+    return sessionExpired();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(LoginRequest request)? login,
+    TResult? Function(RegisterRequest request)? register,
+    TResult? Function()? signOut,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? started,
+  }) {
+    return sessionExpired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(LoginRequest request)? login,
+    TResult Function(RegisterRequest request)? register,
+    TResult Function()? signOut,
+    TResult Function()? sessionExpired,
+    TResult Function()? started,
+    required TResult orElse(),
+  }) {
+    if (sessionExpired != null) {
+      return sessionExpired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Login value) login,
+    required TResult Function(Register value) register,
+    required TResult Function(SignOut value) signOut,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(Started value) started,
+  }) {
+    return sessionExpired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Login value)? login,
+    TResult? Function(Register value)? register,
+    TResult? Function(SignOut value)? signOut,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(Started value)? started,
+  }) {
+    return sessionExpired?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Login value)? login,
+    TResult Function(Register value)? register,
+    TResult Function(SignOut value)? signOut,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(Started value)? started,
+    required TResult orElse(),
+  }) {
+    if (sessionExpired != null) {
+      return sessionExpired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SessionExpired implements AuthEvent {
+  const factory SessionExpired() = _$SessionExpiredImpl;
 }
 
 /// @nodoc
@@ -555,6 +702,7 @@ class _$StartedImpl implements Started {
     required TResult Function(LoginRequest request) login,
     required TResult Function(RegisterRequest request) register,
     required TResult Function() signOut,
+    required TResult Function() sessionExpired,
     required TResult Function() started,
   }) {
     return started();
@@ -566,6 +714,7 @@ class _$StartedImpl implements Started {
     TResult? Function(LoginRequest request)? login,
     TResult? Function(RegisterRequest request)? register,
     TResult? Function()? signOut,
+    TResult? Function()? sessionExpired,
     TResult? Function()? started,
   }) {
     return started?.call();
@@ -577,6 +726,7 @@ class _$StartedImpl implements Started {
     TResult Function(LoginRequest request)? login,
     TResult Function(RegisterRequest request)? register,
     TResult Function()? signOut,
+    TResult Function()? sessionExpired,
     TResult Function()? started,
     required TResult orElse(),
   }) {
@@ -592,6 +742,7 @@ class _$StartedImpl implements Started {
     required TResult Function(Login value) login,
     required TResult Function(Register value) register,
     required TResult Function(SignOut value) signOut,
+    required TResult Function(SessionExpired value) sessionExpired,
     required TResult Function(Started value) started,
   }) {
     return started(this);
@@ -603,6 +754,7 @@ class _$StartedImpl implements Started {
     TResult? Function(Login value)? login,
     TResult? Function(Register value)? register,
     TResult? Function(SignOut value)? signOut,
+    TResult? Function(SessionExpired value)? sessionExpired,
     TResult? Function(Started value)? started,
   }) {
     return started?.call(this);
@@ -614,6 +766,7 @@ class _$StartedImpl implements Started {
     TResult Function(Login value)? login,
     TResult Function(Register value)? register,
     TResult Function(SignOut value)? signOut,
+    TResult Function(SessionExpired value)? sessionExpired,
     TResult Function(Started value)? started,
     required TResult orElse(),
   }) {

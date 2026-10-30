@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/application/character/models/character_model.dart';
+import 'package:dnd_app/application/character/models/character_model.dart';
 
 class CurrentCharacterBlocStateLoaded extends CurrentCharacterBlocState {
   final Character character;
@@ -15,3 +15,5 @@ class CurrentCharacterBlocStateError extends CurrentCharacterBlocState {
 }
 
 class CurrentCharacterBlocStateLoading extends CurrentCharacterBlocState {}
+
+class CurrentCharacterBlocStateDeleted extends CurrentCharacterBlocState {}

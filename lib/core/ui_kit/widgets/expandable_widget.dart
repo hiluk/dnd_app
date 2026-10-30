@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 
 class ExpandableWidget extends StatefulWidget {
   final Widget child;

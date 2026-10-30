@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character/models/attributes_model.dart';
 
 import '../../../character/presentation/widgets/stat_row.dart';
 
@@ -23,6 +23,10 @@ class StatsWidget extends StatelessWidget {
           StatRow(
             title: 'Сила',
             value: stats?.strength ?? 0,
+          ),
+          StatRow(
+            title: 'Телосложение',
+            value: stats?.constitution ?? 0,
           ),
           StatRow(
             title: 'Интеллект',

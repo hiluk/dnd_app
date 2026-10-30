@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/auth/presentation/login_screen.dart';
-import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
-import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
-import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
-import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
-import 'package:flutter_application_1/application/main_screen.dart';
-import 'package:flutter_application_1/application/splash_screen.dart';
-import 'package:flutter_application_1/core/di/di.dart';
+import 'package:dnd_app/application/auth/bloc/auth_bloc.dart';
+import 'package:dnd_app/application/auth/presentation/login_screen.dart';
+import 'package:dnd_app/application/auth/presentation/register_screen.dart';
+import 'package:dnd_app/application/character/bloc/characters/characters_bloc.dart';
+import 'package:dnd_app/application/character/presentation/character_screen.dart';
+import 'package:dnd_app/application/character/presentation/character_selection_screen.dart';
+import 'package:dnd_app/application/character/repositories/characters_repository.dart';
+import 'package:dnd_app/application/character_creating/bloc/attributes_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
+import 'package:dnd_app/application/character_creating/presentation/character_creation_screen.dart';
+import 'package:dnd_app/application/main_screen.dart';
+import 'package:dnd_app/application/splash_screen.dart';
+import 'package:dnd_app/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
@@ -45,29 +45,11 @@ class AppRouter {
         ),
         ShellRoute(
           builder: (context, state, child) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider<CharactersBloc>(
-                  create: (context) => CharactersBloc(
-                    charactersRepository: di.get<CharactersRepository>(),
-                  ),
-                ),
-                BlocProvider<CharacterCreationBloc>(
-                  create: (context) => CharacterCreationBloc(
-                    di.get<CharactersRepository>(),
-                    di.get<Logger>(),
-                  ),
-                ),
-                BlocProvider(
-                  create: (context) => RaceCubit(),
-                ),
-                BlocProvider(
-                  create: (context) => ClassCubit(),
-                ),
-                BlocProvider(
-                  create: (context) => StatsCubit(),
-                ),
-              ],
+            return BlocProvider<CharactersBloc>(
+              create: (context) => CharactersBloc(
+                charactersRepository: di.get<CharactersRepository>(),
+                logger: di.get<Logger>(),
+              ),
               child: child,
             );
           },
@@ -85,21 +67,36 @@ class AppRouter {
             GoRoute(
               path: CharacterCreationScreen.routePath,
               name: CharacterCreationScreen.routeName,
-              builder: (context, state) => const CharacterCreationScreen(),
+              // Состояние мастера создания живёт только пока открыт экран
+              builder: (context, state) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => CharacterCreationBloc(
+                      di.get<CharactersRepository>(),
+                      di.get<Logger>(),
+                    ),
+                  ),
+                  BlocProvider(create: (context) => RaceCubit()),
+                  BlocProvider(create: (context) => ClassCubit()),
+                  BlocProvider(create: (context) => StatsCubit()),
+                ],
+                child: const CharacterCreationScreen(),
+              ),
             ),
             GoRoute(
               path: CharacterScreen.path,
               name: CharacterScreen.routeName,
-              builder: (context, state) => const CharacterScreen(),
-            )
+              builder: (context, state) => CharacterScreen(
+                characterId: state.extra! as String,
+              ),
+            ),
           ],
         ),
       ],
       redirect: (context, state) {
         final authState = context.read<AuthBloc>().state;
         final inAuthScreens =
-            state.uri.toString() == LoginScreen.routeLocation ||
-                state.uri.toString() == '/login/register';
+            state.matchedLocation.startsWith(LoginScreen.routeLocation);
 
         return switch (authState) {
           AuthLoading _ => null,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/models/character_model.dart';
-import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
-import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
-import 'package:flutter_application_1/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/scale_listener.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/application/character/models/character_model.dart';
+import 'package:dnd_app/application/character/presentation/character_screen.dart';
+import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
+import 'package:dnd_app/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
+import 'package:dnd_app/core/ui_kit/widgets/scale_listener.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/ui_kit/widgets/avatar_box.dart';

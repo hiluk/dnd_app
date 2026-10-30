@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_application_1/core/api/races/enums/character_race_type.dart';
-import 'package:flutter_application_1/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/api/races/enums/character_race_type.dart';
+import 'package:dnd_app/core/api/races/models/race_model.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 
 class RaceWidget extends StatefulWidget {
   final Race race;

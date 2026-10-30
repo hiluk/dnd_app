@@ -1,6 +1,7 @@
-import 'package:flutter_application_1/application/character/repositories/characters_repository.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/application/character/repositories/characters_repository.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/core/http_client/api_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 
@@ -16,32 +17,32 @@ class CharacterCreationBloc
     on<CharacterCreationBlocEventReturn>(_onReturn);
   }
 
-  CharacterCreationBlocState get _emptyState => CharacterCreationBlocState();
-
   @override
   void onChange(Change<CharacterCreationBlocState> change) {
-    _logger.i(
+    final next = change.nextState;
+    final stats = next.characterAttributes;
+    _logger.d(
       '''
       Стейт создания персонажа изменился!
-      Текущий персонаж:
-      Раса: ${change.nextState.characterRace?.name ?? "Нет"} 
-      Класс: ${change.nextState.characterClass?.name ?? "Нет"}
-      Характеристики: 
-        Ловкость: ${change.nextState.characterAttributes?.dexterity ?? 0}
-        Сила: ${change.nextState.characterAttributes?.strength ?? 0}
-        Телосложение: ${change.nextState.characterAttributes?.intelligence ?? 0}
-        Мудрость: ${change.nextState.characterAttributes?.wisdom ?? 0}
-        Харизма: ${change.nextState.characterAttributes?.charisma ?? 0}
-      Имя: ${change.nextState.characterName}
+      Раса: ${next.characterRace?.name ?? "Нет"}
+      Класс: ${next.characterClass?.name ?? "Нет"}
+      Характеристики:
+        Сила: ${stats?.strength ?? 0}
+        Ловкость: ${stats?.dexterity ?? 0}
+        Телосложение: ${stats?.constitution ?? 0}
+        Интеллект: ${stats?.intelligence ?? 0}
+        Мудрость: ${stats?.wisdom ?? 0}
+        Харизма: ${stats?.charisma ?? 0}
+      Имя: ${next.characterName}
       ''',
     );
     super.onChange(change);
   }
 
-  Future<void> _onReturn(
+  void _onReturn(
     CharacterCreationBlocEventReturn event,
     Emitter<CharacterCreationBlocState> emit,
-  ) async {
+  ) {
     emit(state.previousState ?? state);
   }
 
@@ -49,18 +50,13 @@ class CharacterCreationBloc
     CharacterCreationBlocEventCreate event,
     Emitter<CharacterCreationBlocState> emit,
   ) async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
     try {
-      emit(state.copyWith(isLoading: true, isError: false));
-
-      await Future.delayed(const Duration(seconds: 1));
       await charactersRepository.saveCharacter(event.character);
+
       emit(state.copyWith(isLoading: false, isCreated: true));
-
-      await null;
-
-      emit(_emptyState);
     } catch (e) {
-      emit(state.copyWith(isLoading: false, isError: true));
+      emit(state.copyWith(isLoading: false, errorMessage: apiErrorMessage(e)));
     }
   }
 

@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:flutter_application_1/core/api/races/models/asi_model.dart';
-import 'package:flutter_application_1/core/api/races/models/speed_model.dart';
+import 'package:dnd_app/core/api/races/models/asi_model.dart';
+import 'package:dnd_app/core/api/races/models/speed_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'race_model.freezed.dart';

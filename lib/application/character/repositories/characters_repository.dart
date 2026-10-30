@@ -1,48 +1,39 @@
-import 'dart:async';
-
-import 'package:flutter_application_1/application/character/models/character_model.dart';
-import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
-import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
+import 'package:dnd_app/application/character/models/character_model.dart';
+import 'package:dnd_app/application/character_creating/models/character_dto.dart';
+import 'package:dnd_app/core/catalog/catalog_repository.dart';
+import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
+@injectable
 class CharactersRepository {
+  final IHttpClient _httpClient;
+  final CatalogRepository _catalog;
   final Logger _logger;
-  final IHttpClient httpClient;
 
-  const CharactersRepository(this.httpClient, this._logger);
+  const CharactersRepository(this._httpClient, this._catalog, this._logger);
 
   Future<List<Character>> fetch() async {
-    try {
-      final data = await httpClient.get('/characters');
-      final charactersRaw = data as List<dynamic>;
+    // Персонажи ссылаются на расы и классы из справочника
+    await _catalog.ensureLoaded();
+    final charactersRaw = await _httpClient.get<List<dynamic>>('/characters');
 
-      _logger.i(
-        '''
-        Персонажи получены! 
-        ${charactersRaw.map((e) => e['name']).join(', ')}
-        ''',
-      );
-      return charactersRaw.map((json) => Character.fromJson(json)).toList();
-    } catch (e) {
-      rethrow;
-    }
+    _logger.i('Получено персонажей: ${charactersRaw.length}');
+    return charactersRaw.map((json) => Character.fromJson(json)).toList();
   }
 
-  FutureOr<Character> fetchById(String id) async {
-    try {
-      final data = await httpClient.get('/characters/$id');
+  Future<Character> fetchById(String id) async {
+    await _catalog.ensureLoaded();
+    final data = await _httpClient.get<Map<String, dynamic>>('/characters/$id');
 
-      return Character.fromJson(data);
-    } catch (e) {
-      rethrow;
-    }
+    return Character.fromJson(data);
   }
 
   Future<void> saveCharacter(CharacterDto character) async {
-    try {
-      await httpClient.post('/characters/create', character.toJson());
-    } catch (e) {
-      rethrow;
-    }
+    await _httpClient.post<void>('/characters/create', character.toJson());
+  }
+
+  Future<void> deleteCharacter(String id) async {
+    await _httpClient.delete<void>('/characters/$id');
   }
 }

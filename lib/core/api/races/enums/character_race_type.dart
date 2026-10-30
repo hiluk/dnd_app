@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/core/api/races/models/race_model.dart';
+import 'package:dnd_app/core/api/races/models/race_model.dart';
 
 enum CharacterRaceType {
   human('Человек', 1, 'assets/images/human.png'),

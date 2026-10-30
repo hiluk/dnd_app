@@ -1,8 +1,8 @@
-import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
-import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
-import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/api/races/models/race_model.dart';
+import 'package:dnd_app/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/application/character_creating/models/character_dto.dart';
+import 'package:dnd_app/core/api/classes/models/class_model.dart';
+import 'package:dnd_app/core/api/races/models/race_model.dart';
 
 sealed class CharacterCreationBlocEvent {}
 

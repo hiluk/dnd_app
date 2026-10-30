@@ -1,15 +1,17 @@
-import 'package:flutter_application_1/application/auth/models/login_request.dart';
-import 'package:flutter_application_1/application/auth/models/tokens.dart';
-import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
+import 'package:dnd_app/application/auth/models/login_request.dart';
+import 'package:dnd_app/application/auth/models/tokens.dart';
 
 abstract interface class ITokensRepository {
-  IHttpClient get httpClient;
+  /// Срабатывает, когда сессия завершилась (в том числе по истечении токенов)
+  Stream<void> get onSessionEnded;
 
-  void cache(Tokens tokens);
+  Future<Tokens> login(LoginRequest request);
 
-  Future<Tokens> fetch(AuthRequest request);
+  Future<void> register(RegisterRequest request);
 
   Tokens getFromCache();
 
-  void clearTokens();
+  Future<void> cache(Tokens tokens);
+
+  Future<void> clearTokens();
 }

@@ -26,7 +26,7 @@ Map<String, dynamic> _$$CharacterDtoImplToJson(_$CharacterDtoImpl instance) =>
           instance.characterRace, const CharacterRaceTypeConverter().toJson),
       'characterClass': _$JsonConverterToJson<int, Class>(
           instance.characterClass, const CharacterClassTypeConverter().toJson),
-      'characterStats': instance.characterStats,
+      'characterStats': instance.characterStats.toJson(),
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

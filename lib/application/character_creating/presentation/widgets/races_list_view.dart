@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/race_widget.dart';
-import 'package:flutter_application_1/core/api/races/models/race_model.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
+import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/race_widget.dart';
+import 'package:dnd_app/core/api/races/models/race_model.dart';
+import 'package:dnd_app/core/ui_kit/widgets/expandable_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/di/di.dart';
+import 'package:dnd_app/core/catalog/catalog_repository.dart';
+import 'package:dnd_app/core/di/di.dart';
 
 class RacesListView extends StatelessWidget {
   const RacesListView({
@@ -14,7 +15,7 @@ class RacesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final races = di.get<List<Race>>();
+    final races = di.get<CatalogRepository>().races;
 
     return ListView.custom(
       childrenDelegate: SliverChildBuilderDelegate(

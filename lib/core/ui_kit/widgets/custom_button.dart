@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/theme_extensions/button_text_extension.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/scale_listener.dart';
+import 'package:dnd_app/core/ui_kit/theme_extensions/button_text_extension.dart';
+import 'package:dnd_app/core/ui_kit/widgets/scale_listener.dart';
 
 class CustomButton extends StatefulWidget {
   final String title;
@@ -24,9 +24,11 @@ class _CustomButtonState extends State<CustomButton> {
 
   @override
   Widget build(BuildContext context) {
+    final isEnabled = widget.onTap != null && !widget.isLoading;
+
     return ScaleListener(
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: isEnabled ? widget.onTap : null,
         child: Material(
           elevation: 8,
           borderRadius: themeExtension.boxDecoration.borderRadius,
@@ -34,6 +36,12 @@ class _CustomButtonState extends State<CustomButton> {
             height: size.height * 0.065,
             width: size.width * 0.5,
             decoration: themeExtension.boxDecoration,
+            foregroundDecoration: widget.onTap == null
+                ? BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: themeExtension.boxDecoration.borderRadius,
+                  )
+                : null,
             child: Center(
               child: !widget.isLoading
                   ? Text(

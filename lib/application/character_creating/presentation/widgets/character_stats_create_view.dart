@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
+import 'package:dnd_app/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character_creating/bloc/attributes_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'stats_create_row.dart';
@@ -33,7 +33,7 @@ class _CharacterStatsCreateViewState extends State<CharacterStatsCreateView> {
                 onPlusClick: () => statsCubit.incrementDexterity(),
               ),
               StatsCreateRow(
-                title: "Cила",
+                title: "Сила",
                 count: state?.strength ?? 0,
                 onMinusClick: () => statsCubit.decrementStrength(),
                 onPlusClick: () => statsCubit.incrementStrength(),

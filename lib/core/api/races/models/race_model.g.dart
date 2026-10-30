@@ -26,10 +26,10 @@ Map<String, dynamic> _$$RaceImplToJson(_$RaceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
-      'asi': instance.asi,
+      'asi': instance.asi.map((e) => e.toJson()).toList(),
       'age': instance.age,
       'size': instance.size,
-      'speed': instance.speed,
+      'speed': instance.speed.map((e) => e.toJson()).toList(),
       'language': instance.language,
       'vision': instance.vision,
       'traits': instance.traits,

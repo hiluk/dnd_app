@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_stats_create_view.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/classes_list_view.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/races_list_view.dart';
+import 'package:dnd_app/application/character/bloc/characters/characters_bloc.dart';
+import 'package:dnd_app/application/character_creating/bloc/attributes_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/character_stats_create_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/classes_list_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/races_list_view.dart';
+import 'package:dnd_app/core/catalog/catalog_loader.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -75,14 +76,20 @@ class CharacterCreationScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: const BlocListenerFAB(),
       body: SafeArea(
-        child: BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
-          listener: (context, state) {
-            if (state.isCreated) {
-              context.read<CharactersBloc>().add(const CharactersRefresh());
-              context.pop();
-            }
-          },
-          builder: _getBody,
+        child: CatalogLoader(
+          child: BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
+            listener: (context, state) {
+              if (state.isCreated) {
+                context.read<CharactersBloc>().add(const CharactersRefresh());
+                context.pop();
+              } else if (state.errorMessage != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.errorMessage!)),
+                );
+              }
+            },
+            builder: _getBody,
+          ),
         ),
       ),
     );

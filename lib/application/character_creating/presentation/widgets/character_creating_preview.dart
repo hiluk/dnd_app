@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/stats_widget.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/custom_text_field.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:dnd_app/application/character_creating/models/character_dto.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/stats_widget.dart';
+import 'package:dnd_app/core/ui_kit/widgets/custom_button.dart';
+import 'package:dnd_app/core/ui_kit/widgets/custom_text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterCreatingPreview extends StatefulWidget {
@@ -64,10 +64,14 @@ class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
                 ],
               ),
               CustomButton(
-                onTap: () async {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  creationBloc.add(CharacterCreationBlocEventCreate(dto));
-                },
+                onTap: dto.name.trim().isEmpty
+                    ? null
+                    : () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        creationBloc.add(CharacterCreationBlocEventCreate(
+                          dto.copyWith(name: dto.name.trim()),
+                        ));
+                      },
                 title: 'Создать',
                 isLoading:
                     context.watch<CharacterCreationBloc>().state.isLoading,

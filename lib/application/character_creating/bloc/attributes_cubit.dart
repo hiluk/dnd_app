@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_application_1/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character/models/attributes_model.dart';
 
 class StatsCubit extends Cubit<Attributes?> {
   StatsCubit() : super(null);

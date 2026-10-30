@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
-import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
+import 'package:dnd_app/core/api/classes/models/class_model.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 
 class ClassWidget extends StatelessWidget {
   final Class characterClass;

@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/character_creation_screen.dart';
-import 'package:flutter_application_1/core/ui_kit/bloc/theme_mode_cubit.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/slide_button.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
-import 'package:flutter_application_1/core/utils/enums/mode_enums.dart';
+import 'package:dnd_app/application/character/bloc/characters/characters_bloc.dart';
+import 'package:dnd_app/application/character_creating/presentation/character_creation_screen.dart';
+import 'package:dnd_app/core/ui_kit/bloc/theme_mode_cubit.dart';
+import 'package:dnd_app/core/ui_kit/widgets/slide_button.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/utils/enums/mode_enums.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:go_router/go_router.dart';
 

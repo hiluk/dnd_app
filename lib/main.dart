@@ -1,29 +1,27 @@
-import 'dart:io';
-
+import 'package:dnd_app/application/auth/bloc/auth_bloc.dart';
+import 'package:dnd_app/core/di/di.dart';
+import 'package:dnd_app/core/prefs/interfaces/i_tokens_database.dart';
+import 'package:dnd_app/core/ui_kit/bloc/theme_mode_cubit.dart';
+import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/ui_kit/bloc/theme_mode_cubit.dart';
-import 'package:flutter_application_1/core/ui_kit/dnd_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HttpOverrides.global = MyHttpOverrides();
 
   await configureDependencies();
-  await di.allReady();
+  await di.get<ITokensDatabase>().load();
 
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     di.get<Logger>().w("Flutter error: $details");
   };
-  WidgetsBinding.instance.platformDispatcher.onError = ((e, st) {
-    di.get<Logger>().w("Platform error: ${e.toString()}");
+  WidgetsBinding.instance.platformDispatcher.onError = (e, st) {
+    di.get<Logger>().e("Platform error", error: e, stackTrace: st);
     return true;
-  });
+  };
 
   runApp(
     MultiBlocProvider(
@@ -40,23 +38,9 @@ void main() async {
   );
 }
 
-class MainApp extends StatefulWidget {
+class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
-
-class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     final themeMode = context.watch<ModeTypeCubit>();
@@ -68,6 +52,7 @@ class _MainAppState extends State<MainApp> {
         router.refresh();
       },
       child: MaterialApp.router(
+        title: 'DnD',
         theme: themeMode.isDark ? theme.dark : theme.light,
         debugShowCheckedModeBanner: false,
         routerConfig: router,

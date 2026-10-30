@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/ui_kit/theme_extensions/button_text_extension.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/scale_listener.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/ui_kit/theme_extensions/button_text_extension.dart';
+import 'package:dnd_app/core/ui_kit/widgets/scale_listener.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 
 class OpacityFAB extends StatefulWidget {
   final String title;
