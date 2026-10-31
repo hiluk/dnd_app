@@ -5,13 +5,13 @@ import 'package:dnd_app/core/api/races/models/race_model.dart';
 enum CharacterRaceType {
   human('Человек', 1, 'assets/images/human.png'),
   halfElf('Полуэльф', 2, 'assets/images/half_elf.png'),
-  dwarf('Дварф', 3),
+  dwarf('Дварф', 3, 'assets/images/dwarf.jpg'),
   elf('Эльф', 4, 'assets/images/elf.png'),
-  halfling('Полурослик', 5),
+  halfling('Полурослик', 5, 'assets/images/halfling.png'),
   dragonborn('Драконорождённый', 6, 'assets/images/dragon.png'),
-  gnome('Гном', 7),
-  halfOrc('Полуорк', 8),
-  tiefling('Тифлинг', 9);
+  gnome('Гном', 7, 'assets/images/gnome.jpg'),
+  halfOrc('Полуорк', 8, 'assets/images/half_orc.png'),
+  tiefling('Тифлинг', 9, 'assets/images/tiefling.jpg');
 
   /// Картинка для рас, у которых пока нет своей
   static const fallbackAsset = 'assets/images/human_plug.jpeg';
