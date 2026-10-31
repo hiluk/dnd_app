@@ -1,6 +1,7 @@
 import 'package:dnd_app/application/character/models/attributes_model.dart';
 import 'package:dnd_app/application/character/repositories/characters_repository.dart';
-import 'package:dnd_app/application/character_creating/models/character_dto.dart';
+import 'package:dnd_app/application/character_creating/models/character_draft.dart';
+import 'package:dnd_app/core/api/abilities/ability.dart';
 import 'package:dnd_app/core/catalog/catalog_repository.dart';
 import 'package:dnd_app/core/di/di.dart';
 import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
@@ -41,7 +42,11 @@ void main() {
     expect(characters.map((c) => c.name), ['Арагорн', 'Гимли']);
     expect(characters.first.characterRace.name, 'Человек');
     expect(characters.first.characterClass.name, 'Следопыт');
-    expect(characters.first.characterStats.dexterity, 14);
+    expect(characters.first.baseStats.dexterity, 14);
+    expect(characters.first.generationMethod, GenerationMethod.standardArray);
+    expect(characters.first.sheet.hitPoints, 12);
+    expect(characters.first.sheet.savingThrows.first.ability, Ability.strength);
+    expect(characters.first.sheet.savingThrows.first.proficient, isTrue);
     expect(characters.last.characterClass.name, 'Воин');
   });
 
@@ -90,26 +95,61 @@ void main() {
     expect(character.id, '42');
   });
 
-  test('Создание отправляет номера расы и класса', () async {
+  test('Создание отправляет черновик в формате сервера', () async {
     await catalog.ensureLoaded();
     when(() => client.post<void>('/characters/create', any()))
         .thenAnswer((_) async {});
 
-    await repository.saveCharacter(CharacterDto(
-      name: 'Леголас',
+    await repository.saveCharacter(CharacterDraft(
+      name: 'Танис',
       characterRace: catalog.races[1],
       characterClass: catalog.classes[2],
-      characterStats: const Attributes(dexterity: 15),
+      generationMethod: GenerationMethod.pointBuy,
+      baseStats: const Attributes(dexterity: 15),
+      bonusChoices: const [Ability.dexterity, Ability.wisdom],
     ));
 
     final body =
         verify(() => client.post<void>('/characters/create', captureAny()))
             .captured
             .single as Map<String, dynamic>;
-    expect(body['name'], 'Леголас');
+    expect(body['name'], 'Танис');
     expect(body['characterRace'], 2);
     expect(body['characterClass'], 3);
-    expect((body['characterStats'] as Map)['dexterity'], 15);
+    expect(body['generationMethod'], 2);
+    expect(body['bonusChoices'], [2, 5]);
+    expect((body['baseStats'] as Map)['dexterity'], 15);
+    expect(body.containsKey('rollToken'), isFalse);
+  });
+
+  test('Превью возвращает лист с сервера', () async {
+    await catalog.ensureLoaded();
+    when(() => client.post<Map<String, dynamic>>('/characters/preview', any()))
+        .thenAnswer((_) async => sheetJson());
+
+    final sheet = await repository.preview(CharacterDraft(
+      characterRace: catalog.races[2],
+      characterClass: catalog.classes[0],
+      generationMethod: GenerationMethod.standardArray,
+      baseStats: const Attributes(),
+    ));
+
+    expect(sheet.hitPoints, 12);
+    expect(sheet.stats.constitution, 15);
+    expect(sheet.modifiers.charisma, -1);
+  });
+
+  test('Броски возвращают значения и подпись', () async {
+    when(() => client.post<Map<String, dynamic>>('/abilities/roll', null))
+        .thenAnswer((_) async => {
+              'values': [17, 6, 12, 9, 14, 11],
+              'token': 'signed',
+            });
+
+    final roll = await repository.rollAbilities();
+
+    expect(roll.values, [17, 6, 12, 9, 14, 11]);
+    expect(roll.token, 'signed');
   });
 
   test('Удаление по Id', () async {

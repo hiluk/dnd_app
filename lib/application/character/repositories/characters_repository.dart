@@ -1,5 +1,7 @@
 import 'package:dnd_app/application/character/models/character_model.dart';
-import 'package:dnd_app/application/character_creating/models/character_dto.dart';
+import 'package:dnd_app/application/character/models/character_sheet.dart';
+import 'package:dnd_app/application/character_creating/models/ability_roll.dart';
+import 'package:dnd_app/application/character_creating/models/character_draft.dart';
 import 'package:dnd_app/core/catalog/catalog_repository.dart';
 import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
 import 'package:injectable/injectable.dart';
@@ -29,8 +31,27 @@ class CharactersRepository {
     return Character.fromJson(data);
   }
 
-  Future<void> saveCharacter(CharacterDto character) async {
-    await _httpClient.post<void>('/characters/create', character.toJson());
+  /// Проверить черновик по правилам и получить лист, ничего не сохраняя.
+  /// Нарушение правил приходит как DioException с кодом 400.
+  Future<CharacterSheet> preview(CharacterDraft draft) async {
+    final data = await _httpClient.post<Map<String, dynamic>>(
+      '/characters/preview',
+      draft.toJson(),
+    );
+
+    return CharacterSheet.fromJson(data!);
+  }
+
+  /// Бросить 4к6 для шести характеристик на сервере
+  Future<AbilityRoll> rollAbilities() async {
+    final data =
+        await _httpClient.post<Map<String, dynamic>>('/abilities/roll', null);
+
+    return AbilityRoll.fromJson(data!);
+  }
+
+  Future<void> saveCharacter(CharacterDraft draft) async {
+    await _httpClient.post<void>('/characters/create', draft.toJson());
   }
 
   Future<void> deleteCharacter(String id) async {

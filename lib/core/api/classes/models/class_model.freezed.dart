@@ -32,6 +32,8 @@ mixin _$Class {
   String get profSkills => throw _privateConstructorUsedError;
   String get equipment => throw _privateConstructorUsedError;
   String get spellCastingAbility => throw _privateConstructorUsedError;
+  int get hitDie => throw _privateConstructorUsedError;
+  List<Ability> get savingThrows => throw _privateConstructorUsedError;
 
   /// Serializes this Class to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -59,7 +61,9 @@ abstract class $ClassCopyWith<$Res> {
       String profSavingThrows,
       String profSkills,
       String equipment,
-      String spellCastingAbility});
+      String spellCastingAbility,
+      int hitDie,
+      List<Ability> savingThrows});
 }
 
 /// @nodoc
@@ -89,6 +93,8 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
     Object? profSkills = null,
     Object? equipment = null,
     Object? spellCastingAbility = null,
+    Object? hitDie = null,
+    Object? savingThrows = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -139,6 +145,14 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
           ? _value.spellCastingAbility
           : spellCastingAbility // ignore: cast_nullable_to_non_nullable
               as String,
+      hitDie: null == hitDie
+          ? _value.hitDie
+          : hitDie // ignore: cast_nullable_to_non_nullable
+              as int,
+      savingThrows: null == savingThrows
+          ? _value.savingThrows
+          : savingThrows // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
     ) as $Val);
   }
 }
@@ -162,7 +176,9 @@ abstract class _$$ClassImplCopyWith<$Res> implements $ClassCopyWith<$Res> {
       String profSavingThrows,
       String profSkills,
       String equipment,
-      String spellCastingAbility});
+      String spellCastingAbility,
+      int hitDie,
+      List<Ability> savingThrows});
 }
 
 /// @nodoc
@@ -190,6 +206,8 @@ class __$$ClassImplCopyWithImpl<$Res>
     Object? profSkills = null,
     Object? equipment = null,
     Object? spellCastingAbility = null,
+    Object? hitDie = null,
+    Object? savingThrows = null,
   }) {
     return _then(_$ClassImpl(
       name: null == name
@@ -240,6 +258,14 @@ class __$$ClassImplCopyWithImpl<$Res>
           ? _value.spellCastingAbility
           : spellCastingAbility // ignore: cast_nullable_to_non_nullable
               as String,
+      hitDie: null == hitDie
+          ? _value.hitDie
+          : hitDie // ignore: cast_nullable_to_non_nullable
+              as int,
+      savingThrows: null == savingThrows
+          ? _value._savingThrows
+          : savingThrows // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
     ));
   }
 }
@@ -259,7 +285,10 @@ class _$ClassImpl implements _Class {
       required this.profSavingThrows,
       required this.profSkills,
       required this.equipment,
-      required this.spellCastingAbility});
+      required this.spellCastingAbility,
+      this.hitDie = 0,
+      final List<Ability> savingThrows = const []})
+      : _savingThrows = savingThrows;
 
   factory _$ClassImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassImplFromJson(json);
@@ -288,10 +317,21 @@ class _$ClassImpl implements _Class {
   final String equipment;
   @override
   final String spellCastingAbility;
+  @override
+  @JsonKey()
+  final int hitDie;
+  final List<Ability> _savingThrows;
+  @override
+  @JsonKey()
+  List<Ability> get savingThrows {
+    if (_savingThrows is EqualUnmodifiableListView) return _savingThrows;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_savingThrows);
+  }
 
   @override
   String toString() {
-    return 'Class(name: $name, description: $description, hitDice: $hitDice, hpAt1stLevel: $hpAt1stLevel, hpAtHigherLevels: $hpAtHigherLevels, profArmor: $profArmor, profWeapon: $profWeapon, profTool: $profTool, profSavingThrows: $profSavingThrows, profSkills: $profSkills, equipment: $equipment, spellCastingAbility: $spellCastingAbility)';
+    return 'Class(name: $name, description: $description, hitDice: $hitDice, hpAt1stLevel: $hpAt1stLevel, hpAtHigherLevels: $hpAtHigherLevels, profArmor: $profArmor, profWeapon: $profWeapon, profTool: $profTool, profSavingThrows: $profSavingThrows, profSkills: $profSkills, equipment: $equipment, spellCastingAbility: $spellCastingAbility, hitDie: $hitDie, savingThrows: $savingThrows)';
   }
 
   @override
@@ -320,7 +360,10 @@ class _$ClassImpl implements _Class {
             (identical(other.equipment, equipment) ||
                 other.equipment == equipment) &&
             (identical(other.spellCastingAbility, spellCastingAbility) ||
-                other.spellCastingAbility == spellCastingAbility));
+                other.spellCastingAbility == spellCastingAbility) &&
+            (identical(other.hitDie, hitDie) || other.hitDie == hitDie) &&
+            const DeepCollectionEquality()
+                .equals(other._savingThrows, _savingThrows));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -338,7 +381,9 @@ class _$ClassImpl implements _Class {
       profSavingThrows,
       profSkills,
       equipment,
-      spellCastingAbility);
+      spellCastingAbility,
+      hitDie,
+      const DeepCollectionEquality().hash(_savingThrows));
 
   /// Create a copy of Class
   /// with the given fields replaced by the non-null parameter values.
@@ -369,7 +414,9 @@ abstract class _Class implements Class {
       required final String profSavingThrows,
       required final String profSkills,
       required final String equipment,
-      required final String spellCastingAbility}) = _$ClassImpl;
+      required final String spellCastingAbility,
+      final int hitDie,
+      final List<Ability> savingThrows}) = _$ClassImpl;
 
   factory _Class.fromJson(Map<String, dynamic> json) = _$ClassImpl.fromJson;
 
@@ -397,6 +444,10 @@ abstract class _Class implements Class {
   String get equipment;
   @override
   String get spellCastingAbility;
+  @override
+  int get hitDie;
+  @override
+  List<Ability> get savingThrows;
 
   /// Create a copy of Class
   /// with the given fields replaced by the non-null parameter values.

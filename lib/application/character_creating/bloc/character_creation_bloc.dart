@@ -10,31 +10,26 @@ class CharacterCreationBloc
   final CharactersRepository charactersRepository;
   final Logger _logger;
 
+  /// Номер последнего запроса превью: ответы на устаревшие запросы игнорируются
+  int _previewRequest = 0;
+
   CharacterCreationBloc(this.charactersRepository, this._logger)
       : super(CharacterCreationBlocState()) {
     on<CharacterCreationBlocEventSelect>(_onSelect);
     on<CharacterCreationBlocEventCreate>(_onSave);
     on<CharacterCreationBlocEventReturn>(_onReturn);
+    on<CharacterCreationBlocEventPreview>(_onPreview);
   }
 
   @override
   void onChange(Change<CharacterCreationBlocState> change) {
     final next = change.nextState;
-    final stats = next.characterAttributes;
     _logger.d(
-      '''
-      Стейт создания персонажа изменился!
-      Раса: ${next.characterRace?.name ?? "Нет"}
-      Класс: ${next.characterClass?.name ?? "Нет"}
-      Характеристики:
-        Сила: ${stats?.strength ?? 0}
-        Ловкость: ${stats?.dexterity ?? 0}
-        Телосложение: ${stats?.constitution ?? 0}
-        Интеллект: ${stats?.intelligence ?? 0}
-        Мудрость: ${stats?.wisdom ?? 0}
-        Харизма: ${stats?.charisma ?? 0}
-      Имя: ${next.characterName}
-      ''',
+      'Мастер создания: шаг ${next.step.name}, '
+      'раса ${next.characterRace?.name ?? "—"}, '
+      'класс ${next.characterClass?.name ?? "—"}, '
+      'способ ${next.generationMethod?.title ?? "—"}, '
+      'база ${next.baseStats}, бонусы ${next.bonusChoices}',
     );
     super.onChange(change);
   }
@@ -43,21 +38,8 @@ class CharacterCreationBloc
     CharacterCreationBlocEventReturn event,
     Emitter<CharacterCreationBlocState> emit,
   ) {
+    _previewRequest++;
     emit(state.previousState ?? state);
-  }
-
-  Future<void> _onSave(
-    CharacterCreationBlocEventCreate event,
-    Emitter<CharacterCreationBlocState> emit,
-  ) async {
-    emit(state.copyWith(isLoading: true, errorMessage: null));
-    try {
-      await charactersRepository.saveCharacter(event.character);
-
-      emit(state.copyWith(isLoading: false, isCreated: true));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errorMessage: apiErrorMessage(e)));
-    }
   }
 
   void _onSelect(
@@ -66,10 +48,57 @@ class CharacterCreationBloc
   ) {
     emit(state.copyWith(
       previousState: state,
-      characterClass: event.characterClass ?? state.characterClass,
       characterRace: event.characterRace ?? state.characterRace,
-      characterName: event.characterName ?? state.characterName,
-      characterAttributes: event.characterStats ?? state.characterAttributes,
+      characterClass: event.characterClass ?? state.characterClass,
+      generationMethod: event.generationMethod ?? state.generationMethod,
+      baseStats: event.baseStats ?? state.baseStats,
+      rollToken: event.rollToken ?? state.rollToken,
+      bonusChoices: event.bonusChoices ?? state.bonusChoices,
+      errorMessage: null,
+      previewError: null,
     ));
+
+    if (state.step == CreationStep.summary) {
+      add(CharacterCreationBlocEventPreview(state.draft()!));
+    }
+  }
+
+  Future<void> _onPreview(
+    CharacterCreationBlocEventPreview event,
+    Emitter<CharacterCreationBlocState> emit,
+  ) async {
+    final request = ++_previewRequest;
+    emit(state.copyWith(isPreviewLoading: true, previewError: null));
+    try {
+      final sheet = await charactersRepository.preview(event.draft);
+      if (request != _previewRequest) return;
+
+      emit(state.copyWith(sheet: sheet, isPreviewLoading: false));
+    } catch (e) {
+      if (request != _previewRequest) return;
+
+      emit(state.copyWith(
+        sheet: null,
+        isPreviewLoading: false,
+        previewError: apiErrorMessage(e),
+      ));
+    }
+  }
+
+  Future<void> _onSave(
+    CharacterCreationBlocEventCreate event,
+    Emitter<CharacterCreationBlocState> emit,
+  ) async {
+    final draft = state.draft(name: event.name.trim());
+    if (draft == null) return;
+
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+    try {
+      await charactersRepository.saveCharacter(draft);
+
+      emit(state.copyWith(isLoading: false, isCreated: true));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, errorMessage: apiErrorMessage(e)));
+    }
   }
 }

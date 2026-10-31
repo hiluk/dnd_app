@@ -19,6 +19,11 @@ _$ClassImpl _$$ClassImplFromJson(Map<String, dynamic> json) => _$ClassImpl(
       profSkills: json['profSkills'] as String,
       equipment: json['equipment'] as String,
       spellCastingAbility: json['spellCastingAbility'] as String,
+      hitDie: (json['hitDie'] as num?)?.toInt() ?? 0,
+      savingThrows: (json['savingThrows'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$AbilityEnumMap, e))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$ClassImplToJson(_$ClassImpl instance) =>
@@ -35,4 +40,16 @@ Map<String, dynamic> _$$ClassImplToJson(_$ClassImpl instance) =>
       'profSkills': instance.profSkills,
       'equipment': instance.equipment,
       'spellCastingAbility': instance.spellCastingAbility,
+      'hitDie': instance.hitDie,
+      'savingThrows':
+          instance.savingThrows.map((e) => _$AbilityEnumMap[e]!).toList(),
     };
+
+const _$AbilityEnumMap = {
+  Ability.strength: 1,
+  Ability.dexterity: 2,
+  Ability.constitution: 3,
+  Ability.intelligence: 4,
+  Ability.wisdom: 5,
+  Ability.charisma: 6,
+};

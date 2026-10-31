@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:dnd_app/application/character/presentation/widgets/sheet_view.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
-import 'package:dnd_app/application/character_creating/models/character_dto.dart';
-import 'package:dnd_app/application/character_creating/presentation/widgets/stats_widget.dart';
 import 'package:dnd_app/core/ui_kit/widgets/custom_button.dart';
 import 'package:dnd_app/core/ui_kit/widgets/custom_text_field.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// Итоговый шаг: лист персонажа, посчитанный сервером, и выбор имени
 class CharacterCreatingPreview extends StatefulWidget {
-  const CharacterCreatingPreview({
-    super.key,
-  });
+  const CharacterCreatingPreview({super.key});
 
   @override
   State<CharacterCreatingPreview> createState() =>
@@ -18,86 +16,56 @@ class CharacterCreatingPreview extends StatefulWidget {
 }
 
 class _CharacterCreatingPreviewState extends State<CharacterCreatingPreview> {
-  late String characterName;
-  late CharacterCreationBloc creationBloc;
-  late CharacterDto dto;
+  String name = '';
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    dto.characterRace?.name ?? '',
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                  const SizedBox(width: 20),
-                  Text(
-                    dto.characterClass?.name ?? '',
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                ],
-              ),
-              StatsWidget(stats: dto.characterStats),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Выберите имя для вашего персонажа',
-                    style: TextStyle(fontSize: 19),
-                  ),
-                  CustomTextField(
-                    alwaysInFocus: true,
-                    autoFocus: true,
-                    onChanged: (value) => setState(() {
-                      dto = dto.copyWith(name: value);
-                    }),
-                  ),
-                ],
-              ),
-              CustomButton(
-                onTap: dto.name.trim().isEmpty
-                    ? null
-                    : () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        creationBloc.add(CharacterCreationBlocEventCreate(
-                          dto.copyWith(name: dto.name.trim()),
-                        ));
-                      },
-                title: 'Создать',
-                isLoading:
-                    context.watch<CharacterCreationBloc>().state.isLoading,
-              ),
-            ],
+    final state = context.watch<CharacterCreationBloc>().state;
+    final theme = Theme.of(context);
+
+    return ListView(
+      padding: const EdgeInsets.all(12),
+      children: [
+        Text(
+          '${state.characterRace?.name}   ${state.characterClass?.name}',
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 28),
+        ),
+        Text(
+          '${state.generationMethod?.title} · 1 уровень',
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16),
+        if (state.isPreviewLoading && state.sheet == null)
+          const Center(child: CircularProgressIndicator())
+        else if (state.previewError != null)
+          Text(state.previewError!,
+              style: TextStyle(color: theme.colorScheme.error))
+        else if (state.sheet != null)
+          SheetView(sheet: state.sheet!),
+        const SizedBox(height: 20),
+        const Text(
+          'Выберите имя для вашего персонажа',
+          style: TextStyle(fontSize: 19),
+        ),
+        CustomTextField(onChanged: (value) => setState(() => name = value)),
+        const SizedBox(height: 20),
+        Center(
+          child: CustomButton(
+            onTap: name.trim().isEmpty || state.sheet == null
+                ? null
+                : () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    context
+                        .read<CharacterCreationBloc>()
+                        .add(CharacterCreationBlocEventCreate(name));
+                  },
+            title: 'Создать',
+            isLoading: state.isLoading,
           ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    FocusManager.instance.primaryFocus?.unfocus();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    creationBloc = BlocProvider.of<CharacterCreationBloc>(context);
-    dto = CharacterDto(
-      characterStats: creationBloc.state.characterAttributes!,
-      characterClass: creationBloc.state.characterClass,
-      characterRace: creationBloc.state.characterRace,
-      level: 1,
+        ),
+        const SizedBox(height: 24),
+      ],
     );
   }
 }

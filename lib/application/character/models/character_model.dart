@@ -1,4 +1,6 @@
 import 'package:dnd_app/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character/models/character_sheet.dart';
+import 'package:dnd_app/core/api/abilities/ability.dart';
 import 'package:dnd_app/core/api/classes/converters/class_converter.dart';
 import 'package:dnd_app/core/api/classes/models/class_model.dart';
 import 'package:dnd_app/core/api/races/converters/race_converter.dart';
@@ -16,7 +18,14 @@ class Character with _$Character {
     required int level,
     @CharacterRaceTypeConverter() required Race characterRace,
     @CharacterClassTypeConverter() required Class characterClass,
-    required Attributes characterStats,
+    required GenerationMethod generationMethod,
+
+    /// Базовые характеристики (до бонусов расы)
+    required Attributes baseStats,
+    @Default([]) List<Ability> bonusChoices,
+
+    /// Итоговые и производные значения, посчитанные сервером
+    required CharacterSheet sheet,
   }) = _Character;
 
   factory Character.fromJson(Map<String, dynamic> json) =>

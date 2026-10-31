@@ -3,7 +3,7 @@ import 'package:dnd_app/application/character/bloc/current_character/current_cha
 import 'package:dnd_app/application/character/bloc/current_character/current_character_event.dart';
 import 'package:dnd_app/application/character/bloc/current_character/current_character_state.dart';
 import 'package:dnd_app/application/character/repositories/characters_repository.dart';
-import 'package:dnd_app/application/character_creating/presentation/widgets/stats_widget.dart';
+import 'package:dnd_app/application/character/presentation/widgets/sheet_view.dart';
 import 'package:dnd_app/core/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,35 +67,26 @@ class CharacterScreen extends StatelessWidget {
                   const Center(
                     child: CircularProgressIndicator(),
                   ),
-                CurrentCharacterBlocStateLoaded state => Padding(
+                CurrentCharacterBlocStateLoaded state => ListView(
                     padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          state.character.name,
-                          style: const TextStyle(fontSize: 30),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              state.character.characterRace.name,
-                              style: const TextStyle(fontSize: 22),
-                            ),
-                            const SizedBox(width: 20),
-                            Text(
-                              state.character.characterClass.name,
-                              style: const TextStyle(fontSize: 22),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          "Уровень: ${state.character.level}",
-                          style: const TextStyle(fontSize: 22),
-                        ),
-                        StatsWidget(stats: state.character.characterStats),
-                      ],
-                    ),
+                    children: [
+                      Text(
+                        state.character.name,
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                      Text(
+                        '${state.character.characterRace.name}   '
+                        '${state.character.characterClass.name}',
+                        style: const TextStyle(fontSize: 22),
+                      ),
+                      Text(
+                        'Уровень ${state.character.level} · '
+                        '${state.character.generationMethod.title}',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 16),
+                      SheetView(sheet: state.character.sheet),
+                    ],
                   ),
               },
             ),

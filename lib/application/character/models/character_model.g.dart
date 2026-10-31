@@ -15,8 +15,14 @@ _$CharacterImpl _$$CharacterImplFromJson(Map<String, dynamic> json) =>
           .fromJson((json['characterRace'] as num).toInt()),
       characterClass: const CharacterClassTypeConverter()
           .fromJson((json['characterClass'] as num).toInt()),
-      characterStats:
-          Attributes.fromJson(json['characterStats'] as Map<String, dynamic>),
+      generationMethod:
+          $enumDecode(_$GenerationMethodEnumMap, json['generationMethod']),
+      baseStats: Attributes.fromJson(json['baseStats'] as Map<String, dynamic>),
+      bonusChoices: (json['bonusChoices'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$AbilityEnumMap, e))
+              .toList() ??
+          const [],
+      sheet: CharacterSheet.fromJson(json['sheet'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CharacterImplToJson(_$CharacterImpl instance) =>
@@ -28,5 +34,24 @@ Map<String, dynamic> _$$CharacterImplToJson(_$CharacterImpl instance) =>
           const CharacterRaceTypeConverter().toJson(instance.characterRace),
       'characterClass':
           const CharacterClassTypeConverter().toJson(instance.characterClass),
-      'characterStats': instance.characterStats.toJson(),
+      'generationMethod': _$GenerationMethodEnumMap[instance.generationMethod]!,
+      'baseStats': instance.baseStats.toJson(),
+      'bonusChoices':
+          instance.bonusChoices.map((e) => _$AbilityEnumMap[e]!).toList(),
+      'sheet': instance.sheet.toJson(),
     };
+
+const _$GenerationMethodEnumMap = {
+  GenerationMethod.standardArray: 1,
+  GenerationMethod.pointBuy: 2,
+  GenerationMethod.roll: 3,
+};
+
+const _$AbilityEnumMap = {
+  Ability.strength: 1,
+  Ability.dexterity: 2,
+  Ability.constitution: 3,
+  Ability.intelligence: 4,
+  Ability.wisdom: 5,
+  Ability.charisma: 6,
+};

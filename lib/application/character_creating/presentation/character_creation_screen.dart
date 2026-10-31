@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:dnd_app/application/character/bloc/characters/characters_bloc.dart';
-import 'package:dnd_app/application/character_creating/bloc/attributes_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/assignment_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/bonus_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
 import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
-import 'package:dnd_app/application/character_creating/presentation/widgets/character_stats_create_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/assignment_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/bonus_choice_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/method_select_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/classes_list_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/races_list_view.dart';
 import 'package:dnd_app/core/catalog/catalog_loader.dart';
@@ -20,26 +23,26 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
   void clearVariables() {
     context.read<RaceCubit>().selectRace(null);
     context.read<ClassCubit>().selectClass(null);
-    context.read<StatsCubit>().dispose();
+    context.read<BonusChoiceCubit>().reset();
+    if (state.step == CreationStep.assignment) {
+      context.read<AssignmentCubit>().reset();
+    }
   }
 
-  String title = 'Создание персонажа';
-  Widget body = const CharacterCreatingPreview();
-
-  if (state.characterAttributes == null) {
-    title = 'Выбор характеристик';
-    body = const CharacterStatsCreateView();
-  }
-
-  if (state.characterClass == null) {
-    body = const ClassesListView();
-    title = 'Выбор класса';
-  }
-
-  if (state.characterRace == null) {
-    body = const RacesListView();
-    title = 'Выбор расы';
-  }
+  final (title, body) = switch (state.step) {
+    CreationStep.race => ('Выбор расы', const RacesListView()),
+    CreationStep.characterClass => ('Выбор класса', const ClassesListView()),
+    CreationStep.method => ('Способ генерации', const MethodSelectView()),
+    CreationStep.assignment => (
+        state.generationMethod!.title,
+        const AssignmentView(),
+      ),
+    CreationStep.bonusChoice => ('Бонусы расы', const BonusChoiceView()),
+    CreationStep.summary => (
+        'Создание персонажа',
+        const CharacterCreatingPreview()
+      ),
+  };
 
   return CustomScrollView(
     slivers: [
@@ -47,10 +50,10 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
         leading: IconButton(
           onPressed: state.previousState != null
               ? () {
+                  clearVariables();
                   context.read<CharacterCreationBloc>().add(
                         CharacterCreationBlocEventReturn(),
                       );
-                  clearVariables();
                 }
               : () => context.pop(),
           icon: const Icon(Icons.arrow_back),
