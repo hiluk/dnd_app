@@ -27,6 +27,7 @@ class SheetView extends StatelessWidget {
               _Badge('Инициатива', formatBonus(sheet.initiative)),
               _Badge('Скорость', '${sheet.speed} фт.'),
               _Badge('Мастерство', formatBonus(sheet.proficiencyBonus)),
+              _Badge('Пасс. внимат.', '${sheet.passivePerception}'),
             ],
           ),
           const SizedBox(height: 16),
@@ -37,9 +38,19 @@ class SheetView extends StatelessWidget {
               modifier: sheet.modifiers.valueOf(ability),
               save: sheet.savingThrows.firstWhere((s) => s.ability == ability),
             ),
+          if (sheet.skills.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            const Text(
+              'Навыки',
+              style: TextStyle(fontFamily: DndTheme.decorativeFont, fontSize: 22),
+            ),
+            for (final skill in [...sheet.skills]
+              ..sort((a, b) => a.skill.title.compareTo(b.skill.title)))
+              _SkillRow(skill: skill),
+          ],
           const SizedBox(height: 4),
           Text(
-            '● — владение спасброском',
+            '● — владение, ◆ — компетентность',
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
@@ -115,6 +126,41 @@ class _AbilityRow extends StatelessWidget {
             child: Text(
               '${save.proficient ? '●' : '○'} спас ${formatBonus(save.bonus)}',
               textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SkillRow extends StatelessWidget {
+  final SkillCheck skill;
+
+  const _SkillRow({required this.skill});
+
+  @override
+  Widget build(BuildContext context) {
+    final mark = skill.expertise ? '◆' : skill.proficient ? '●' : '○';
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        children: [
+          SizedBox(width: 20, child: Text(mark)),
+          Expanded(child: Text(skill.skill.title)),
+          Text(
+            skill.ability.short,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          SizedBox(
+            width: 44,
+            child: Text(
+              formatBonus(skill.bonus),
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontWeight: skill.proficient ? FontWeight.bold : FontWeight.normal,
+              ),
             ),
           ),
         ],

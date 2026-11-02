@@ -29,7 +29,8 @@ class CharacterCreationBloc
       'раса ${next.characterRace?.name ?? "—"}, '
       'класс ${next.characterClass?.name ?? "—"}, '
       'способ ${next.generationMethod?.title ?? "—"}, '
-      'база ${next.baseStats}, бонусы ${next.bonusChoices}',
+      'база ${next.baseStats}, бонусы ${next.bonusChoices}, '
+      'предыстория ${next.background?.name ?? "—"}, навыки ${next.skills}',
     );
     super.onChange(change);
   }
@@ -54,6 +55,8 @@ class CharacterCreationBloc
       baseStats: event.baseStats ?? state.baseStats,
       rollToken: event.rollToken ?? state.rollToken,
       bonusChoices: event.bonusChoices ?? state.bonusChoices,
+      background: event.background ?? state.background,
+      skills: event.skills ?? state.skills,
       errorMessage: null,
       previewError: null,
     ));

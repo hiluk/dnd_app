@@ -35,6 +35,13 @@ mixin _$Class {
   int get hitDie => throw _privateConstructorUsedError;
   List<Ability> get savingThrows => throw _privateConstructorUsedError;
 
+  /// Сколько навыков выбирается из [skillOptions]
+  int get skillChoices => throw _privateConstructorUsedError;
+  List<Skill> get skillOptions => throw _privateConstructorUsedError;
+
+  /// Сколько навыков получают компетентность на 1 уровне (плут — 2)
+  int get expertiseChoices => throw _privateConstructorUsedError;
+
   /// Serializes this Class to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -63,7 +70,10 @@ abstract class $ClassCopyWith<$Res> {
       String equipment,
       String spellCastingAbility,
       int hitDie,
-      List<Ability> savingThrows});
+      List<Ability> savingThrows,
+      int skillChoices,
+      List<Skill> skillOptions,
+      int expertiseChoices});
 }
 
 /// @nodoc
@@ -95,6 +105,9 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
     Object? spellCastingAbility = null,
     Object? hitDie = null,
     Object? savingThrows = null,
+    Object? skillChoices = null,
+    Object? skillOptions = null,
+    Object? expertiseChoices = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -153,6 +166,18 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
           ? _value.savingThrows
           : savingThrows // ignore: cast_nullable_to_non_nullable
               as List<Ability>,
+      skillChoices: null == skillChoices
+          ? _value.skillChoices
+          : skillChoices // ignore: cast_nullable_to_non_nullable
+              as int,
+      skillOptions: null == skillOptions
+          ? _value.skillOptions
+          : skillOptions // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertiseChoices: null == expertiseChoices
+          ? _value.expertiseChoices
+          : expertiseChoices // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -178,7 +203,10 @@ abstract class _$$ClassImplCopyWith<$Res> implements $ClassCopyWith<$Res> {
       String equipment,
       String spellCastingAbility,
       int hitDie,
-      List<Ability> savingThrows});
+      List<Ability> savingThrows,
+      int skillChoices,
+      List<Skill> skillOptions,
+      int expertiseChoices});
 }
 
 /// @nodoc
@@ -208,6 +236,9 @@ class __$$ClassImplCopyWithImpl<$Res>
     Object? spellCastingAbility = null,
     Object? hitDie = null,
     Object? savingThrows = null,
+    Object? skillChoices = null,
+    Object? skillOptions = null,
+    Object? expertiseChoices = null,
   }) {
     return _then(_$ClassImpl(
       name: null == name
@@ -266,6 +297,18 @@ class __$$ClassImplCopyWithImpl<$Res>
           ? _value._savingThrows
           : savingThrows // ignore: cast_nullable_to_non_nullable
               as List<Ability>,
+      skillChoices: null == skillChoices
+          ? _value.skillChoices
+          : skillChoices // ignore: cast_nullable_to_non_nullable
+              as int,
+      skillOptions: null == skillOptions
+          ? _value._skillOptions
+          : skillOptions // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertiseChoices: null == expertiseChoices
+          ? _value.expertiseChoices
+          : expertiseChoices // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -287,8 +330,12 @@ class _$ClassImpl implements _Class {
       required this.equipment,
       required this.spellCastingAbility,
       this.hitDie = 0,
-      final List<Ability> savingThrows = const []})
-      : _savingThrows = savingThrows;
+      final List<Ability> savingThrows = const [],
+      this.skillChoices = 0,
+      final List<Skill> skillOptions = const [],
+      this.expertiseChoices = 0})
+      : _savingThrows = savingThrows,
+        _skillOptions = skillOptions;
 
   factory _$ClassImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassImplFromJson(json);
@@ -329,9 +376,27 @@ class _$ClassImpl implements _Class {
     return EqualUnmodifiableListView(_savingThrows);
   }
 
+  /// Сколько навыков выбирается из [skillOptions]
+  @override
+  @JsonKey()
+  final int skillChoices;
+  final List<Skill> _skillOptions;
+  @override
+  @JsonKey()
+  List<Skill> get skillOptions {
+    if (_skillOptions is EqualUnmodifiableListView) return _skillOptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_skillOptions);
+  }
+
+  /// Сколько навыков получают компетентность на 1 уровне (плут — 2)
+  @override
+  @JsonKey()
+  final int expertiseChoices;
+
   @override
   String toString() {
-    return 'Class(name: $name, description: $description, hitDice: $hitDice, hpAt1stLevel: $hpAt1stLevel, hpAtHigherLevels: $hpAtHigherLevels, profArmor: $profArmor, profWeapon: $profWeapon, profTool: $profTool, profSavingThrows: $profSavingThrows, profSkills: $profSkills, equipment: $equipment, spellCastingAbility: $spellCastingAbility, hitDie: $hitDie, savingThrows: $savingThrows)';
+    return 'Class(name: $name, description: $description, hitDice: $hitDice, hpAt1stLevel: $hpAt1stLevel, hpAtHigherLevels: $hpAtHigherLevels, profArmor: $profArmor, profWeapon: $profWeapon, profTool: $profTool, profSavingThrows: $profSavingThrows, profSkills: $profSkills, equipment: $equipment, spellCastingAbility: $spellCastingAbility, hitDie: $hitDie, savingThrows: $savingThrows, skillChoices: $skillChoices, skillOptions: $skillOptions, expertiseChoices: $expertiseChoices)';
   }
 
   @override
@@ -363,7 +428,13 @@ class _$ClassImpl implements _Class {
                 other.spellCastingAbility == spellCastingAbility) &&
             (identical(other.hitDie, hitDie) || other.hitDie == hitDie) &&
             const DeepCollectionEquality()
-                .equals(other._savingThrows, _savingThrows));
+                .equals(other._savingThrows, _savingThrows) &&
+            (identical(other.skillChoices, skillChoices) ||
+                other.skillChoices == skillChoices) &&
+            const DeepCollectionEquality()
+                .equals(other._skillOptions, _skillOptions) &&
+            (identical(other.expertiseChoices, expertiseChoices) ||
+                other.expertiseChoices == expertiseChoices));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -383,7 +454,10 @@ class _$ClassImpl implements _Class {
       equipment,
       spellCastingAbility,
       hitDie,
-      const DeepCollectionEquality().hash(_savingThrows));
+      const DeepCollectionEquality().hash(_savingThrows),
+      skillChoices,
+      const DeepCollectionEquality().hash(_skillOptions),
+      expertiseChoices);
 
   /// Create a copy of Class
   /// with the given fields replaced by the non-null parameter values.
@@ -416,7 +490,10 @@ abstract class _Class implements Class {
       required final String equipment,
       required final String spellCastingAbility,
       final int hitDie,
-      final List<Ability> savingThrows}) = _$ClassImpl;
+      final List<Ability> savingThrows,
+      final int skillChoices,
+      final List<Skill> skillOptions,
+      final int expertiseChoices}) = _$ClassImpl;
 
   factory _Class.fromJson(Map<String, dynamic> json) = _$ClassImpl.fromJson;
 
@@ -448,6 +525,16 @@ abstract class _Class implements Class {
   int get hitDie;
   @override
   List<Ability> get savingThrows;
+
+  /// Сколько навыков выбирается из [skillOptions]
+  @override
+  int get skillChoices;
+  @override
+  List<Skill> get skillOptions;
+
+  /// Сколько навыков получают компетентность на 1 уровне (плут — 2)
+  @override
+  int get expertiseChoices;
 
   /// Create a copy of Class
   /// with the given fields replaced by the non-null parameter values.

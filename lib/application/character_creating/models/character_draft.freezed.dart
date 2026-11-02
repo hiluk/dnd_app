@@ -31,6 +31,23 @@ mixin _$CharacterDraft {
   Attributes get baseStats => throw _privateConstructorUsedError;
   List<Ability> get bonusChoices => throw _privateConstructorUsedError;
 
+  /// Предыстория; до шага навыков не указывается
+  @JsonKey(includeIfNull: false)
+  @BackgroundConverter()
+  Background? get background => throw _privateConstructorUsedError;
+
+  /// Навыки, выбранные для своей предыстории
+  List<Skill> get backgroundSkills => throw _privateConstructorUsedError;
+
+  /// Навыки, выбранные от расы (полуэльф)
+  List<Skill> get raceSkills => throw _privateConstructorUsedError;
+
+  /// Навыки, выбранные из списка класса
+  List<Skill> get classSkills => throw _privateConstructorUsedError;
+
+  /// Навыки с компетентностью (плут)
+  List<Skill> get expertise => throw _privateConstructorUsedError;
+
   /// Подпись результата бросков с сервера
   @JsonKey(includeIfNull: false)
   String? get rollToken => throw _privateConstructorUsedError;
@@ -58,11 +75,19 @@ abstract class $CharacterDraftCopyWith<$Res> {
       GenerationMethod generationMethod,
       Attributes baseStats,
       List<Ability> bonusChoices,
+      @JsonKey(includeIfNull: false)
+      @BackgroundConverter()
+      Background? background,
+      List<Skill> backgroundSkills,
+      List<Skill> raceSkills,
+      List<Skill> classSkills,
+      List<Skill> expertise,
       @JsonKey(includeIfNull: false) String? rollToken});
 
   $RaceCopyWith<$Res> get characterRace;
   $ClassCopyWith<$Res> get characterClass;
   $AttributesCopyWith<$Res> get baseStats;
+  $BackgroundCopyWith<$Res>? get background;
 }
 
 /// @nodoc
@@ -86,6 +111,11 @@ class _$CharacterDraftCopyWithImpl<$Res, $Val extends CharacterDraft>
     Object? generationMethod = null,
     Object? baseStats = null,
     Object? bonusChoices = null,
+    Object? background = freezed,
+    Object? backgroundSkills = null,
+    Object? raceSkills = null,
+    Object? classSkills = null,
+    Object? expertise = null,
     Object? rollToken = freezed,
   }) {
     return _then(_value.copyWith(
@@ -113,6 +143,26 @@ class _$CharacterDraftCopyWithImpl<$Res, $Val extends CharacterDraft>
           ? _value.bonusChoices
           : bonusChoices // ignore: cast_nullable_to_non_nullable
               as List<Ability>,
+      background: freezed == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background?,
+      backgroundSkills: null == backgroundSkills
+          ? _value.backgroundSkills
+          : backgroundSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      raceSkills: null == raceSkills
+          ? _value.raceSkills
+          : raceSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      classSkills: null == classSkills
+          ? _value.classSkills
+          : classSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertise: null == expertise
+          ? _value.expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
       rollToken: freezed == rollToken
           ? _value.rollToken
           : rollToken // ignore: cast_nullable_to_non_nullable
@@ -149,6 +199,20 @@ class _$CharacterDraftCopyWithImpl<$Res, $Val extends CharacterDraft>
       return _then(_value.copyWith(baseStats: value) as $Val);
     });
   }
+
+  /// Create a copy of CharacterDraft
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BackgroundCopyWith<$Res>? get background {
+    if (_value.background == null) {
+      return null;
+    }
+
+    return $BackgroundCopyWith<$Res>(_value.background!, (value) {
+      return _then(_value.copyWith(background: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -166,6 +230,13 @@ abstract class _$$CharacterDraftImplCopyWith<$Res>
       GenerationMethod generationMethod,
       Attributes baseStats,
       List<Ability> bonusChoices,
+      @JsonKey(includeIfNull: false)
+      @BackgroundConverter()
+      Background? background,
+      List<Skill> backgroundSkills,
+      List<Skill> raceSkills,
+      List<Skill> classSkills,
+      List<Skill> expertise,
       @JsonKey(includeIfNull: false) String? rollToken});
 
   @override
@@ -174,6 +245,8 @@ abstract class _$$CharacterDraftImplCopyWith<$Res>
   $ClassCopyWith<$Res> get characterClass;
   @override
   $AttributesCopyWith<$Res> get baseStats;
+  @override
+  $BackgroundCopyWith<$Res>? get background;
 }
 
 /// @nodoc
@@ -195,6 +268,11 @@ class __$$CharacterDraftImplCopyWithImpl<$Res>
     Object? generationMethod = null,
     Object? baseStats = null,
     Object? bonusChoices = null,
+    Object? background = freezed,
+    Object? backgroundSkills = null,
+    Object? raceSkills = null,
+    Object? classSkills = null,
+    Object? expertise = null,
     Object? rollToken = freezed,
   }) {
     return _then(_$CharacterDraftImpl(
@@ -222,6 +300,26 @@ class __$$CharacterDraftImplCopyWithImpl<$Res>
           ? _value._bonusChoices
           : bonusChoices // ignore: cast_nullable_to_non_nullable
               as List<Ability>,
+      background: freezed == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background?,
+      backgroundSkills: null == backgroundSkills
+          ? _value._backgroundSkills
+          : backgroundSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      raceSkills: null == raceSkills
+          ? _value._raceSkills
+          : raceSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      classSkills: null == classSkills
+          ? _value._classSkills
+          : classSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertise: null == expertise
+          ? _value._expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
       rollToken: freezed == rollToken
           ? _value.rollToken
           : rollToken // ignore: cast_nullable_to_non_nullable
@@ -240,8 +338,17 @@ class _$CharacterDraftImpl implements _CharacterDraft {
       required this.generationMethod,
       required this.baseStats,
       final List<Ability> bonusChoices = const [],
+      @JsonKey(includeIfNull: false) @BackgroundConverter() this.background,
+      final List<Skill> backgroundSkills = const [],
+      final List<Skill> raceSkills = const [],
+      final List<Skill> classSkills = const [],
+      final List<Skill> expertise = const [],
       @JsonKey(includeIfNull: false) this.rollToken})
-      : _bonusChoices = bonusChoices;
+      : _bonusChoices = bonusChoices,
+        _backgroundSkills = backgroundSkills,
+        _raceSkills = raceSkills,
+        _classSkills = classSkills,
+        _expertise = expertise;
 
   factory _$CharacterDraftImpl.fromJson(Map<String, dynamic> json) =>
       _$$CharacterDraftImplFromJson(json);
@@ -270,6 +377,61 @@ class _$CharacterDraftImpl implements _CharacterDraft {
     return EqualUnmodifiableListView(_bonusChoices);
   }
 
+  /// Предыстория; до шага навыков не указывается
+  @override
+  @JsonKey(includeIfNull: false)
+  @BackgroundConverter()
+  final Background? background;
+
+  /// Навыки, выбранные для своей предыстории
+  final List<Skill> _backgroundSkills;
+
+  /// Навыки, выбранные для своей предыстории
+  @override
+  @JsonKey()
+  List<Skill> get backgroundSkills {
+    if (_backgroundSkills is EqualUnmodifiableListView)
+      return _backgroundSkills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_backgroundSkills);
+  }
+
+  /// Навыки, выбранные от расы (полуэльф)
+  final List<Skill> _raceSkills;
+
+  /// Навыки, выбранные от расы (полуэльф)
+  @override
+  @JsonKey()
+  List<Skill> get raceSkills {
+    if (_raceSkills is EqualUnmodifiableListView) return _raceSkills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_raceSkills);
+  }
+
+  /// Навыки, выбранные из списка класса
+  final List<Skill> _classSkills;
+
+  /// Навыки, выбранные из списка класса
+  @override
+  @JsonKey()
+  List<Skill> get classSkills {
+    if (_classSkills is EqualUnmodifiableListView) return _classSkills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_classSkills);
+  }
+
+  /// Навыки с компетентностью (плут)
+  final List<Skill> _expertise;
+
+  /// Навыки с компетентностью (плут)
+  @override
+  @JsonKey()
+  List<Skill> get expertise {
+    if (_expertise is EqualUnmodifiableListView) return _expertise;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_expertise);
+  }
+
   /// Подпись результата бросков с сервера
   @override
   @JsonKey(includeIfNull: false)
@@ -277,7 +439,7 @@ class _$CharacterDraftImpl implements _CharacterDraft {
 
   @override
   String toString() {
-    return 'CharacterDraft(name: $name, characterRace: $characterRace, characterClass: $characterClass, generationMethod: $generationMethod, baseStats: $baseStats, bonusChoices: $bonusChoices, rollToken: $rollToken)';
+    return 'CharacterDraft(name: $name, characterRace: $characterRace, characterClass: $characterClass, generationMethod: $generationMethod, baseStats: $baseStats, bonusChoices: $bonusChoices, background: $background, backgroundSkills: $backgroundSkills, raceSkills: $raceSkills, classSkills: $classSkills, expertise: $expertise, rollToken: $rollToken)';
   }
 
   @override
@@ -296,6 +458,16 @@ class _$CharacterDraftImpl implements _CharacterDraft {
                 other.baseStats == baseStats) &&
             const DeepCollectionEquality()
                 .equals(other._bonusChoices, _bonusChoices) &&
+            (identical(other.background, background) ||
+                other.background == background) &&
+            const DeepCollectionEquality()
+                .equals(other._backgroundSkills, _backgroundSkills) &&
+            const DeepCollectionEquality()
+                .equals(other._raceSkills, _raceSkills) &&
+            const DeepCollectionEquality()
+                .equals(other._classSkills, _classSkills) &&
+            const DeepCollectionEquality()
+                .equals(other._expertise, _expertise) &&
             (identical(other.rollToken, rollToken) ||
                 other.rollToken == rollToken));
   }
@@ -310,6 +482,11 @@ class _$CharacterDraftImpl implements _CharacterDraft {
       generationMethod,
       baseStats,
       const DeepCollectionEquality().hash(_bonusChoices),
+      background,
+      const DeepCollectionEquality().hash(_backgroundSkills),
+      const DeepCollectionEquality().hash(_raceSkills),
+      const DeepCollectionEquality().hash(_classSkills),
+      const DeepCollectionEquality().hash(_expertise),
       rollToken);
 
   /// Create a copy of CharacterDraft
@@ -337,6 +514,13 @@ abstract class _CharacterDraft implements CharacterDraft {
           required final GenerationMethod generationMethod,
           required final Attributes baseStats,
           final List<Ability> bonusChoices,
+          @JsonKey(includeIfNull: false)
+          @BackgroundConverter()
+          final Background? background,
+          final List<Skill> backgroundSkills,
+          final List<Skill> raceSkills,
+          final List<Skill> classSkills,
+          final List<Skill> expertise,
           @JsonKey(includeIfNull: false) final String? rollToken}) =
       _$CharacterDraftImpl;
 
@@ -359,6 +543,28 @@ abstract class _CharacterDraft implements CharacterDraft {
   Attributes get baseStats;
   @override
   List<Ability> get bonusChoices;
+
+  /// Предыстория; до шага навыков не указывается
+  @override
+  @JsonKey(includeIfNull: false)
+  @BackgroundConverter()
+  Background? get background;
+
+  /// Навыки, выбранные для своей предыстории
+  @override
+  List<Skill> get backgroundSkills;
+
+  /// Навыки, выбранные от расы (полуэльф)
+  @override
+  List<Skill> get raceSkills;
+
+  /// Навыки, выбранные из списка класса
+  @override
+  List<Skill> get classSkills;
+
+  /// Навыки с компетентностью (плут)
+  @override
+  List<Skill> get expertise;
 
   /// Подпись результата бросков с сервера
   @override

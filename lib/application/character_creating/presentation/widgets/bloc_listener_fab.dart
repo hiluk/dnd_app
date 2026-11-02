@@ -1,10 +1,13 @@
 import 'package:dnd_app/application/character_creating/bloc/assignment_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/background_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/bonus_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
 import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/skill_choice_cubit.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/skills_view.dart';
 import 'package:dnd_app/core/ui_kit/widgets/showing_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +23,8 @@ class BlocListenerFAB extends StatelessWidget {
     final characterClass = context.watch<ClassCubit>().state;
     final assignment = context.watch<AssignmentCubit>().state;
     final choices = context.watch<BonusChoiceCubit>().state;
+    final background = context.watch<BackgroundCubit>().state;
+    final skills = context.watch<SkillChoiceCubit>().state;
 
     final event = switch (creation.step) {
       CreationStep.race when race != null =>
@@ -34,6 +39,11 @@ class BlocListenerFAB extends StatelessWidget {
       CreationStep.bonusChoice
           when choices.length == creation.requiredBonusChoices =>
         CharacterCreationBlocEventSelect(bonusChoices: choices),
+      CreationStep.background when background != null =>
+        CharacterCreationBlocEventSelect(background: background),
+      CreationStep.skills
+          when SkillsView.sectionsOf(creation).isComplete(skills) =>
+        CharacterCreationBlocEventSelect(skills: skills),
       _ => null,
     };
 
@@ -45,6 +55,7 @@ class BlocListenerFAB extends StatelessWidget {
         context.read<CharacterCreationBloc>().add(event);
         context.read<RaceCubit>().selectRace(null);
         context.read<ClassCubit>().selectClass(null);
+        context.read<BackgroundCubit>().select(null);
       },
     );
   }

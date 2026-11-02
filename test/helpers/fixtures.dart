@@ -1,3 +1,4 @@
+import 'package:dnd_app/core/api/backgrounds/models/background_model.dart';
 import 'package:dnd_app/core/api/classes/models/class_model.dart';
 import 'package:dnd_app/core/api/races/models/race_model.dart';
 
@@ -40,6 +41,8 @@ Map<String, dynamic> raceJson(String name) => {
       'vision': '',
       'traits': '',
       'asi': asiJson(name),
+      'skills': name == 'Эльф' ? [12] : <int>[],
+      'skillChoices': name == 'Полуэльф' ? 2 : 0,
       'speed': [
         {'type': 'Ходьба', 'value': 30},
       ],
@@ -60,6 +63,11 @@ Map<String, dynamic> classJson(String name) => {
       'spellCastingAbility': '',
       'hitDie': 10,
       'savingThrows': [1, 3],
+      'skillChoices': name == 'Плут' ? 4 : 2,
+      'skillOptions': name == 'Плут'
+          ? [1, 4, 5, 7, 8, 9, 12, 13, 14, 16, 17]
+          : [1, 2, 4, 6, 7, 8, 12, 18],
+      'expertiseChoices': name == 'Плут' ? 2 : 0,
     };
 
 final racesJson = [
@@ -94,6 +102,29 @@ final classesJson = [
     classJson(name),
 ];
 
+Map<String, dynamic> backgroundJson(int type, String name, List<int> skills,
+        {int skillChoices = 0}) =>
+    {
+      'type': type,
+      'name': name,
+      'description': '',
+      'skills': skills,
+      'skillChoices': skillChoices,
+      'tools': '',
+      'languages': '',
+      'equipment': '',
+      'feature': '',
+    };
+
+final backgroundsJson = [
+  backgroundJson(3, 'Преступник', [5, 17]),
+  backgroundJson(12, 'Солдат', [4, 8]),
+  backgroundJson(14, 'Своя предыстория', [], skillChoices: 2),
+];
+
+List<Background> get backgrounds =>
+    backgroundsJson.map(Background.fromJson).toList();
+
 List<Race> get races => racesJson.map(Race.fromJson).toList();
 List<Class> get classes => classesJson.map(Class.fromJson).toList();
 
@@ -117,6 +148,24 @@ Map<String, dynamic> sheetJson() => {
       'initiative': 2,
       'speed': 25,
       'proficiencyBonus': 2,
+      'passivePerception': 10,
+      'skills': [
+        for (final (skill, ability) in [
+          (4, 1),
+          (8, 6),
+          (12, 5),
+          (18, 5),
+          (17, 2),
+          (1, 2),
+        ])
+          {
+            'skill': skill,
+            'ability': ability,
+            'bonus': 2,
+            'proficient': skill <= 12,
+            'expertise': false,
+          },
+      ],
       'savingThrows': [
         for (final (ability, bonus, proficient) in [
           (1, 4, true),
@@ -145,5 +194,7 @@ Map<String, dynamic> characterJson({
       'generationMethod': 1,
       'baseStats': statsJson(15, 14, 13, 12, 10, 8),
       'bonusChoices': <int>[],
+      'background': 12,
+      'classSkills': [12, 18],
       'sheet': sheetJson(),
     };

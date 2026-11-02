@@ -14,6 +14,41 @@ enum Ability {
   final int jsonValue;
   final String title;
   const Ability(this.jsonValue, this.title);
+
+  /// Сокращение: «Сил», «Лов» и т.д.
+  String get short => title.substring(0, 3);
+}
+
+/// Навык и его характеристика. [jsonValue] совпадает с enum на сервере.
+@JsonEnum(valueField: 'jsonValue')
+enum Skill {
+  acrobatics(1, 'Акробатика', Ability.dexterity),
+  animalHandling(2, 'Уход за животными', Ability.wisdom),
+  arcana(3, 'Магия', Ability.intelligence),
+  athletics(4, 'Атлетика', Ability.strength),
+  deception(5, 'Обман', Ability.charisma),
+  history(6, 'История', Ability.intelligence),
+  insight(7, 'Проницательность', Ability.wisdom),
+  intimidation(8, 'Запугивание', Ability.charisma),
+  investigation(9, 'Анализ', Ability.intelligence),
+  medicine(10, 'Медицина', Ability.wisdom),
+  nature(11, 'Природа', Ability.intelligence),
+  perception(12, 'Внимательность', Ability.wisdom),
+  performance(13, 'Выступление', Ability.charisma),
+  persuasion(14, 'Убеждение', Ability.charisma),
+  religion(15, 'Религия', Ability.intelligence),
+  sleightOfHand(16, 'Ловкость рук', Ability.dexterity),
+  stealth(17, 'Скрытность', Ability.dexterity),
+  survival(18, 'Выживание', Ability.wisdom);
+
+  final int jsonValue;
+  final String title;
+  final Ability ability;
+  const Skill(this.jsonValue, this.title, this.ability);
+
+  /// Все навыки по алфавиту русских названий
+  static List<Skill> get sorted =>
+      [...values]..sort((a, b) => a.title.compareTo(b.title));
 }
 
 /// Способ генерации характеристик. [jsonValue] совпадает с enum на сервере.

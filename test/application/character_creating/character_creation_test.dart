@@ -7,18 +7,23 @@ import 'package:dnd_app/application/character_creating/bloc/bonus_choice_cubit.d
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/application/character_creating/bloc/background_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/skill_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/models/ability_roll.dart';
 import 'package:dnd_app/application/character_creating/models/character_draft.dart';
 import 'package:dnd_app/application/character_creating/presentation/character_creation_screen.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/assignment_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/backgrounds_list_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/skills_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/bonus_choice_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/character_creating_preview.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/classes_list_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/method_select_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/races_list_view.dart';
 import 'package:dnd_app/core/api/abilities/ability.dart';
+import 'package:dnd_app/core/api/backgrounds/models/background_model.dart';
 import 'package:dnd_app/core/catalog/catalog_repository.dart';
 import 'package:dnd_app/core/di/di.dart';
 import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
@@ -52,7 +57,11 @@ void main() {
   setUp(() async {
     await di.reset();
     catalog = CatalogRepository(MockHttpClient())
-      ..setData(races: fixtures.races, classes: fixtures.classes);
+      ..setData(
+        races: fixtures.races,
+        classes: fixtures.classes,
+        backgrounds: fixtures.backgrounds,
+      );
     di.registerSingleton(catalog);
     repository = MockCharactersRepository();
     when(() => repository.fetch()).thenAnswer((_) async => []);
@@ -185,12 +194,53 @@ void main() {
       return bloc;
     }
 
-    test('Дварф: после распределения сразу итог и превью с сервера', () async {
-      final bloc = await throughAssignment('Дварф');
+    Background background(String name) =>
+        catalog.backgrounds.firstWhere((b) => b.name == name);
 
+    Future<void> throughSkills(CharacterCreationBloc bloc) async {
+      bloc
+        ..add(
+            CharacterCreationBlocEventSelect(background: background('Солдат')))
+        ..add(CharacterCreationBlocEventSelect(
+          skills: const SkillSelection(
+            characterClass: [Skill.perception, Skill.survival],
+          ),
+        ));
+      await pumpEventQueue();
+    }
+
+    test('Дварф: после распределения предыстория, навыки, итог', () async {
+      final bloc = await throughAssignment('Дварф');
+      expect(bloc.state.step, CreationStep.background);
+      // До выбора навыков превью не запрашивается автоматически
+      verifyNever(() => repository.preview(any()));
+
+      bloc.add(
+          CharacterCreationBlocEventSelect(background: background('Солдат')));
+      await pumpEventQueue();
+      expect(bloc.state.step, CreationStep.skills);
+
+      await throughSkills(bloc);
       expect(bloc.state.step, CreationStep.summary);
       expect(bloc.state.sheet, sheet);
-      verify(() => repository.preview(any())).called(1);
+      final draft = verify(() => repository.preview(captureAny()))
+          .captured
+          .single as CharacterDraft;
+      expect(draft.background!.name, 'Солдат');
+      expect(draft.classSkills, [Skill.perception, Skill.survival]);
+    });
+
+    test('Превью до шага навыков отправляется без предыстории', () async {
+      final bloc = await throughAssignment('Дварф');
+      bloc.add(
+          CharacterCreationBlocEventSelect(background: background('Солдат')));
+      await pumpEventQueue();
+
+      expect(bloc.state.draft()!.background, isNull);
+      expect(
+        bloc.state.draft(skills: const SkillSelection())!.background!.name,
+        'Солдат',
+      );
     });
 
     test('Полуэльф: есть шаг выбора бонусов', () async {
@@ -204,7 +254,7 @@ void main() {
         bonusChoices: const [Ability.strength, Ability.wisdom],
       ));
       await pumpEventQueue();
-      expect(bloc.state.step, CreationStep.summary);
+      expect(bloc.state.step, CreationStep.background);
       expect(
           bloc.state.draft()!.bonusChoices, [Ability.strength, Ability.wisdom]);
     });
@@ -221,6 +271,7 @@ void main() {
     test('Создание отправляет черновик с именем', () async {
       when(() => repository.saveCharacter(any())).thenAnswer((_) async {});
       final bloc = await throughAssignment('Дварф');
+      await throughSkills(bloc);
 
       bloc.add(CharacterCreationBlocEventCreate('  Торин '));
       await pumpEventQueue();
@@ -231,14 +282,75 @@ void main() {
           .single as CharacterDraft;
       expect(draft.name, 'Торин');
       expect(draft.generationMethod, GenerationMethod.standardArray);
+      expect(draft.background!.type, 12);
     });
 
     test('Ошибка правил в превью показывается, лист сбрасывается', () async {
       when(() => repository.preview(any())).thenThrow(Exception());
       final bloc = await throughAssignment('Дварф');
+      await throughSkills(bloc);
 
       expect(bloc.state.sheet, isNull);
       expect(bloc.state.previewError, isNotNull);
+    });
+  });
+
+  group('Выбор навыков', () {
+    SkillSections sections(String race, String characterClass, String bg) =>
+        SkillSections(
+          race: catalog.races.firstWhere((r) => r.name == race),
+          characterClass:
+              catalog.classes.firstWhere((c) => c.name == characterClass),
+          background: catalog.backgrounds.firstWhere((b) => b.name == bg),
+        );
+
+    test('У воина-солдата только навыки класса без уже полученных', () {
+      final s = sections('Дварф', 'Воин', 'Солдат');
+
+      expect(s.sections, [SkillSection.characterClass]);
+      final options =
+          s.options(const SkillSelection(), SkillSection.characterClass);
+      expect(options, isNot(contains(Skill.athletics)));
+      expect(options, contains(Skill.perception));
+      expect(s.fixed.keys, containsAll([Skill.athletics, Skill.intimidation]));
+    });
+
+    test('Полуэльф-плут со своей предысторией: все четыре раздела', () {
+      final s = sections('Полуэльф', 'Плут', 'Своя предыстория');
+
+      expect(s.sections, SkillSection.values);
+      expect(s.limit(SkillSection.characterClass), 4);
+      expect(s.limit(SkillSection.expertise), 2);
+    });
+
+    test('Выбор в раннем разделе убирает конфликт из следующих', () {
+      final s = sections('Полуэльф', 'Плут', 'Своя предыстория');
+      final cubit = SkillChoiceCubit()
+        ..toggle(s, SkillSection.characterClass, Skill.stealth)
+        ..toggle(s, SkillSection.expertise, Skill.stealth);
+      expect(cubit.state.expertise, [Skill.stealth]);
+
+      // Скрытность теперь даёт предыстория — из класса и компетентности она уходит
+      cubit.toggle(s, SkillSection.background, Skill.stealth);
+      expect(cubit.state.characterClass, isEmpty);
+      expect(cubit.state.expertise, [Skill.stealth]);
+
+      // Снятие навыка убирает и компетентность в нём
+      cubit.toggle(s, SkillSection.background, Skill.stealth);
+      expect(cubit.state.expertise, isEmpty);
+    });
+
+    test('Нельзя выбрать больше лимита и навык не из списка', () {
+      final s = sections('Дварф', 'Воин', 'Солдат');
+      final cubit = SkillChoiceCubit()
+        ..toggle(s, SkillSection.characterClass, Skill.arcana)
+        ..toggle(s, SkillSection.characterClass, Skill.athletics)
+        ..toggle(s, SkillSection.characterClass, Skill.perception)
+        ..toggle(s, SkillSection.characterClass, Skill.survival)
+        ..toggle(s, SkillSection.characterClass, Skill.history);
+
+      expect(cubit.state.characterClass, [Skill.perception, Skill.survival]);
+      expect(s.isComplete(cubit.state), isTrue);
     });
   });
 
@@ -267,6 +379,8 @@ void main() {
                   ..start(GenerationMethod.pointBuy),
               ),
               BlocProvider(create: (_) => BonusChoiceCubit()),
+              BlocProvider(create: (_) => BackgroundCubit()),
+              BlocProvider(create: (_) => SkillChoiceCubit()),
             ],
             child: const CharacterCreationScreen(),
           ),
@@ -332,17 +446,47 @@ void main() {
       expect(find.text('Уже увеличена расой'), findsOneWidget);
     });
 
-    testWidgets('В конце итог с листом и именем', (tester) async {
+    final pointBuyDwarf = [
+      ...dwarfSteps,
+      CharacterCreationBlocEventSelect(
+        generationMethod: GenerationMethod.pointBuy,
+      ),
+      CharacterCreationBlocEventSelect(baseStats: const Attributes()),
+    ];
+
+    testWidgets('После характеристик выбирается предыстория', (tester) async {
+      await pumpScreen(tester, pointBuyDwarf);
+
+      expect(find.byType(BackgroundsListView), findsOneWidget);
+      expect(find.text('Солдат'), findsOneWidget);
+    });
+
+    testWidgets('Навыки: полученные и выбор класса', (tester) async {
       await pumpScreen(tester, [
-        ...dwarfSteps,
+        ...pointBuyDwarf,
+        CharacterCreationBlocEventSelect(background: fixtures.backgrounds[1]),
+      ]);
+
+      expect(find.byType(SkillsView), findsOneWidget);
+      expect(find.textContaining('Атлетика — предыстория'), findsOneWidget);
+      expect(find.text('Навыки класса: 0 из 2'), findsOneWidget);
+      expect(find.text('Компетентность: 0 из 2'), findsNothing);
+    });
+
+    testWidgets('В конце итог с листом, навыками и именем', (tester) async {
+      await pumpScreen(tester, [
+        ...pointBuyDwarf,
+        CharacterCreationBlocEventSelect(background: fixtures.backgrounds[1]),
         CharacterCreationBlocEventSelect(
-          generationMethod: GenerationMethod.pointBuy,
+          skills: const SkillSelection(
+            characterClass: [Skill.perception, Skill.survival],
+          ),
         ),
-        CharacterCreationBlocEventSelect(baseStats: const Attributes()),
       ]);
 
       expect(find.byType(CharacterCreatingPreview), findsOneWidget);
       expect(find.text('Класс доспеха'), findsOneWidget);
+      expect(find.text('Навыки'), findsOneWidget);
     });
   });
 }

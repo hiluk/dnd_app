@@ -17,6 +17,8 @@ class CharacterSheet with _$CharacterSheet {
     required int speed,
     required int proficiencyBonus,
     required List<SavingThrow> savingThrows,
+    @Default([]) List<SkillCheck> skills,
+    @Default(10) int passivePerception,
   }) = _CharacterSheet;
 
   factory CharacterSheet.fromJson(Map<String, dynamic> json) =>
@@ -33,4 +35,18 @@ class SavingThrow with _$SavingThrow {
 
   factory SavingThrow.fromJson(Map<String, dynamic> json) =>
       _$SavingThrowFromJson(json);
+}
+
+@freezed
+class SkillCheck with _$SkillCheck {
+  const factory SkillCheck({
+    required Skill skill,
+    required Ability ability,
+    required int bonus,
+    required bool proficient,
+    required bool expertise,
+  }) = _SkillCheck;
+
+  factory SkillCheck.fromJson(Map<String, dynamic> json) =>
+      _$SkillCheckFromJson(json);
 }

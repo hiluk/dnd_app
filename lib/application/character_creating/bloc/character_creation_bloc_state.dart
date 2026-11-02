@@ -2,6 +2,7 @@ import 'package:dnd_app/application/character/models/attributes_model.dart';
 import 'package:dnd_app/application/character/models/character_sheet.dart';
 import 'package:dnd_app/application/character_creating/models/character_draft.dart';
 import 'package:dnd_app/core/api/abilities/ability.dart';
+import 'package:dnd_app/core/api/backgrounds/models/background_model.dart';
 import 'package:dnd_app/core/api/classes/models/class_model.dart';
 import 'package:dnd_app/core/api/races/models/race_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,7 +16,9 @@ enum CreationStep {
   method,
   assignment,
   bonusChoice,
-  summary
+  background,
+  skills,
+  summary,
 }
 
 @freezed
@@ -37,6 +40,10 @@ class CharacterCreationBlocState with _$CharacterCreationBlocState {
 
     /// Выбор бонусов расы; null — ещё не выбраны
     List<Ability>? bonusChoices,
+    Background? background,
+
+    /// Выбор навыков; null — шаг навыков ещё не пройден
+    SkillSelection? skills,
 
     /// Лист, посчитанный сервером для текущего черновика
     CharacterSheet? sheet,
@@ -65,6 +72,8 @@ class CharacterCreationBlocState with _$CharacterCreationBlocState {
     if (requiredBonusChoices > 0 && bonusChoices == null) {
       return CreationStep.bonusChoice;
     }
+    if (background == null) return CreationStep.background;
+    if (skills == null) return CreationStep.skills;
     return CreationStep.summary;
   }
 
@@ -74,6 +83,7 @@ class CharacterCreationBlocState with _$CharacterCreationBlocState {
     Attributes? baseStats,
     String? rollToken,
     List<Ability>? bonusChoices,
+    SkillSelection? skills,
   }) {
     final stats = baseStats ?? this.baseStats;
     if (characterRace == null ||
@@ -91,6 +101,30 @@ class CharacterCreationBlocState with _$CharacterCreationBlocState {
       baseStats: stats,
       rollToken: rollToken ?? this.rollToken,
       bonusChoices: bonusChoices ?? this.bonusChoices ?? const [],
+      // Пока навыки не выбраны, превью считается без предыстории
+      background: (skills ?? this.skills) == null ? null : background,
+      backgroundSkills: (skills ?? this.skills)?.background ?? const [],
+      raceSkills: (skills ?? this.skills)?.race ?? const [],
+      classSkills: (skills ?? this.skills)?.characterClass ?? const [],
+      expertise: (skills ?? this.skills)?.expertise ?? const [],
     );
   }
+}
+
+/// Выбор навыков по источникам
+@freezed
+class SkillSelection with _$SkillSelection {
+  const SkillSelection._();
+
+  const factory SkillSelection({
+    /// Навыки своей предыстории
+    @Default([]) List<Skill> background,
+
+    /// Навыки расы на выбор (полуэльф)
+    @Default([]) List<Skill> race,
+    @Default([]) List<Skill> characterClass,
+
+    /// Компетентность (плут)
+    @Default([]) List<Skill> expertise,
+  }) = _SkillSelection;
 }

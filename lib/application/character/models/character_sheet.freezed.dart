@@ -28,6 +28,8 @@ mixin _$CharacterSheet {
   int get speed => throw _privateConstructorUsedError;
   int get proficiencyBonus => throw _privateConstructorUsedError;
   List<SavingThrow> get savingThrows => throw _privateConstructorUsedError;
+  List<SkillCheck> get skills => throw _privateConstructorUsedError;
+  int get passivePerception => throw _privateConstructorUsedError;
 
   /// Serializes this CharacterSheet to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,7 +55,9 @@ abstract class $CharacterSheetCopyWith<$Res> {
       int initiative,
       int speed,
       int proficiencyBonus,
-      List<SavingThrow> savingThrows});
+      List<SavingThrow> savingThrows,
+      List<SkillCheck> skills,
+      int passivePerception});
 
   $AttributesCopyWith<$Res> get stats;
   $AttributesCopyWith<$Res> get modifiers;
@@ -82,6 +86,8 @@ class _$CharacterSheetCopyWithImpl<$Res, $Val extends CharacterSheet>
     Object? speed = null,
     Object? proficiencyBonus = null,
     Object? savingThrows = null,
+    Object? skills = null,
+    Object? passivePerception = null,
   }) {
     return _then(_value.copyWith(
       stats: null == stats
@@ -116,6 +122,14 @@ class _$CharacterSheetCopyWithImpl<$Res, $Val extends CharacterSheet>
           ? _value.savingThrows
           : savingThrows // ignore: cast_nullable_to_non_nullable
               as List<SavingThrow>,
+      skills: null == skills
+          ? _value.skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<SkillCheck>,
+      passivePerception: null == passivePerception
+          ? _value.passivePerception
+          : passivePerception // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -156,7 +170,9 @@ abstract class _$$CharacterSheetImplCopyWith<$Res>
       int initiative,
       int speed,
       int proficiencyBonus,
-      List<SavingThrow> savingThrows});
+      List<SavingThrow> savingThrows,
+      List<SkillCheck> skills,
+      int passivePerception});
 
   @override
   $AttributesCopyWith<$Res> get stats;
@@ -185,6 +201,8 @@ class __$$CharacterSheetImplCopyWithImpl<$Res>
     Object? speed = null,
     Object? proficiencyBonus = null,
     Object? savingThrows = null,
+    Object? skills = null,
+    Object? passivePerception = null,
   }) {
     return _then(_$CharacterSheetImpl(
       stats: null == stats
@@ -219,6 +237,14 @@ class __$$CharacterSheetImplCopyWithImpl<$Res>
           ? _value._savingThrows
           : savingThrows // ignore: cast_nullable_to_non_nullable
               as List<SavingThrow>,
+      skills: null == skills
+          ? _value._skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<SkillCheck>,
+      passivePerception: null == passivePerception
+          ? _value.passivePerception
+          : passivePerception // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -234,8 +260,11 @@ class _$CharacterSheetImpl implements _CharacterSheet {
       required this.initiative,
       required this.speed,
       required this.proficiencyBonus,
-      required final List<SavingThrow> savingThrows})
-      : _savingThrows = savingThrows;
+      required final List<SavingThrow> savingThrows,
+      final List<SkillCheck> skills = const [],
+      this.passivePerception = 10})
+      : _savingThrows = savingThrows,
+        _skills = skills;
 
   factory _$CharacterSheetImpl.fromJson(Map<String, dynamic> json) =>
       _$$CharacterSheetImplFromJson(json);
@@ -262,9 +291,22 @@ class _$CharacterSheetImpl implements _CharacterSheet {
     return EqualUnmodifiableListView(_savingThrows);
   }
 
+  final List<SkillCheck> _skills;
+  @override
+  @JsonKey()
+  List<SkillCheck> get skills {
+    if (_skills is EqualUnmodifiableListView) return _skills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_skills);
+  }
+
+  @override
+  @JsonKey()
+  final int passivePerception;
+
   @override
   String toString() {
-    return 'CharacterSheet(stats: $stats, modifiers: $modifiers, hitPoints: $hitPoints, armorClass: $armorClass, initiative: $initiative, speed: $speed, proficiencyBonus: $proficiencyBonus, savingThrows: $savingThrows)';
+    return 'CharacterSheet(stats: $stats, modifiers: $modifiers, hitPoints: $hitPoints, armorClass: $armorClass, initiative: $initiative, speed: $speed, proficiencyBonus: $proficiencyBonus, savingThrows: $savingThrows, skills: $skills, passivePerception: $passivePerception)';
   }
 
   @override
@@ -285,7 +327,10 @@ class _$CharacterSheetImpl implements _CharacterSheet {
             (identical(other.proficiencyBonus, proficiencyBonus) ||
                 other.proficiencyBonus == proficiencyBonus) &&
             const DeepCollectionEquality()
-                .equals(other._savingThrows, _savingThrows));
+                .equals(other._savingThrows, _savingThrows) &&
+            const DeepCollectionEquality().equals(other._skills, _skills) &&
+            (identical(other.passivePerception, passivePerception) ||
+                other.passivePerception == passivePerception));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -299,7 +344,9 @@ class _$CharacterSheetImpl implements _CharacterSheet {
       initiative,
       speed,
       proficiencyBonus,
-      const DeepCollectionEquality().hash(_savingThrows));
+      const DeepCollectionEquality().hash(_savingThrows),
+      const DeepCollectionEquality().hash(_skills),
+      passivePerception);
 
   /// Create a copy of CharacterSheet
   /// with the given fields replaced by the non-null parameter values.
@@ -327,7 +374,9 @@ abstract class _CharacterSheet implements CharacterSheet {
       required final int initiative,
       required final int speed,
       required final int proficiencyBonus,
-      required final List<SavingThrow> savingThrows}) = _$CharacterSheetImpl;
+      required final List<SavingThrow> savingThrows,
+      final List<SkillCheck> skills,
+      final int passivePerception}) = _$CharacterSheetImpl;
 
   factory _CharacterSheet.fromJson(Map<String, dynamic> json) =
       _$CharacterSheetImpl.fromJson;
@@ -348,6 +397,10 @@ abstract class _CharacterSheet implements CharacterSheet {
   int get proficiencyBonus;
   @override
   List<SavingThrow> get savingThrows;
+  @override
+  List<SkillCheck> get skills;
+  @override
+  int get passivePerception;
 
   /// Create a copy of CharacterSheet
   /// with the given fields replaced by the non-null parameter values.
@@ -540,5 +593,241 @@ abstract class _SavingThrow implements SavingThrow {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SavingThrowImplCopyWith<_$SavingThrowImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SkillCheck _$SkillCheckFromJson(Map<String, dynamic> json) {
+  return _SkillCheck.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SkillCheck {
+  Skill get skill => throw _privateConstructorUsedError;
+  Ability get ability => throw _privateConstructorUsedError;
+  int get bonus => throw _privateConstructorUsedError;
+  bool get proficient => throw _privateConstructorUsedError;
+  bool get expertise => throw _privateConstructorUsedError;
+
+  /// Serializes this SkillCheck to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SkillCheck
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SkillCheckCopyWith<SkillCheck> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SkillCheckCopyWith<$Res> {
+  factory $SkillCheckCopyWith(
+          SkillCheck value, $Res Function(SkillCheck) then) =
+      _$SkillCheckCopyWithImpl<$Res, SkillCheck>;
+  @useResult
+  $Res call(
+      {Skill skill,
+      Ability ability,
+      int bonus,
+      bool proficient,
+      bool expertise});
+}
+
+/// @nodoc
+class _$SkillCheckCopyWithImpl<$Res, $Val extends SkillCheck>
+    implements $SkillCheckCopyWith<$Res> {
+  _$SkillCheckCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SkillCheck
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? skill = null,
+    Object? ability = null,
+    Object? bonus = null,
+    Object? proficient = null,
+    Object? expertise = null,
+  }) {
+    return _then(_value.copyWith(
+      skill: null == skill
+          ? _value.skill
+          : skill // ignore: cast_nullable_to_non_nullable
+              as Skill,
+      ability: null == ability
+          ? _value.ability
+          : ability // ignore: cast_nullable_to_non_nullable
+              as Ability,
+      bonus: null == bonus
+          ? _value.bonus
+          : bonus // ignore: cast_nullable_to_non_nullable
+              as int,
+      proficient: null == proficient
+          ? _value.proficient
+          : proficient // ignore: cast_nullable_to_non_nullable
+              as bool,
+      expertise: null == expertise
+          ? _value.expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SkillCheckImplCopyWith<$Res>
+    implements $SkillCheckCopyWith<$Res> {
+  factory _$$SkillCheckImplCopyWith(
+          _$SkillCheckImpl value, $Res Function(_$SkillCheckImpl) then) =
+      __$$SkillCheckImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {Skill skill,
+      Ability ability,
+      int bonus,
+      bool proficient,
+      bool expertise});
+}
+
+/// @nodoc
+class __$$SkillCheckImplCopyWithImpl<$Res>
+    extends _$SkillCheckCopyWithImpl<$Res, _$SkillCheckImpl>
+    implements _$$SkillCheckImplCopyWith<$Res> {
+  __$$SkillCheckImplCopyWithImpl(
+      _$SkillCheckImpl _value, $Res Function(_$SkillCheckImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SkillCheck
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? skill = null,
+    Object? ability = null,
+    Object? bonus = null,
+    Object? proficient = null,
+    Object? expertise = null,
+  }) {
+    return _then(_$SkillCheckImpl(
+      skill: null == skill
+          ? _value.skill
+          : skill // ignore: cast_nullable_to_non_nullable
+              as Skill,
+      ability: null == ability
+          ? _value.ability
+          : ability // ignore: cast_nullable_to_non_nullable
+              as Ability,
+      bonus: null == bonus
+          ? _value.bonus
+          : bonus // ignore: cast_nullable_to_non_nullable
+              as int,
+      proficient: null == proficient
+          ? _value.proficient
+          : proficient // ignore: cast_nullable_to_non_nullable
+              as bool,
+      expertise: null == expertise
+          ? _value.expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SkillCheckImpl implements _SkillCheck {
+  const _$SkillCheckImpl(
+      {required this.skill,
+      required this.ability,
+      required this.bonus,
+      required this.proficient,
+      required this.expertise});
+
+  factory _$SkillCheckImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SkillCheckImplFromJson(json);
+
+  @override
+  final Skill skill;
+  @override
+  final Ability ability;
+  @override
+  final int bonus;
+  @override
+  final bool proficient;
+  @override
+  final bool expertise;
+
+  @override
+  String toString() {
+    return 'SkillCheck(skill: $skill, ability: $ability, bonus: $bonus, proficient: $proficient, expertise: $expertise)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SkillCheckImpl &&
+            (identical(other.skill, skill) || other.skill == skill) &&
+            (identical(other.ability, ability) || other.ability == ability) &&
+            (identical(other.bonus, bonus) || other.bonus == bonus) &&
+            (identical(other.proficient, proficient) ||
+                other.proficient == proficient) &&
+            (identical(other.expertise, expertise) ||
+                other.expertise == expertise));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, skill, ability, bonus, proficient, expertise);
+
+  /// Create a copy of SkillCheck
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SkillCheckImplCopyWith<_$SkillCheckImpl> get copyWith =>
+      __$$SkillCheckImplCopyWithImpl<_$SkillCheckImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SkillCheckImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SkillCheck implements SkillCheck {
+  const factory _SkillCheck(
+      {required final Skill skill,
+      required final Ability ability,
+      required final int bonus,
+      required final bool proficient,
+      required final bool expertise}) = _$SkillCheckImpl;
+
+  factory _SkillCheck.fromJson(Map<String, dynamic> json) =
+      _$SkillCheckImpl.fromJson;
+
+  @override
+  Skill get skill;
+  @override
+  Ability get ability;
+  @override
+  int get bonus;
+  @override
+  bool get proficient;
+  @override
+  bool get expertise;
+
+  /// Create a copy of SkillCheck
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SkillCheckImplCopyWith<_$SkillCheckImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

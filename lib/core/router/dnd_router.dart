@@ -7,6 +7,8 @@ import 'package:dnd_app/application/character/presentation/character_screen.dart
 import 'package:dnd_app/application/character/presentation/character_selection_screen.dart';
 import 'package:dnd_app/application/character/repositories/characters_repository.dart';
 import 'package:dnd_app/application/character_creating/bloc/assignment_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/background_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/skill_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/bonus_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
@@ -84,6 +86,8 @@ class AppRouter {
                         AssignmentCubit(di.get<CharactersRepository>()),
                   ),
                   BlocProvider(create: (context) => BonusChoiceCubit()),
+                  BlocProvider(create: (context) => BackgroundCubit()),
+                  BlocProvider(create: (context) => SkillChoiceCubit()),
                 ],
                 child: const CharacterCreationScreen(),
               ),

@@ -20,6 +20,11 @@ _$RaceImpl _$$RaceImplFromJson(Map<String, dynamic> json) => _$RaceImpl(
       language: json['language'] as String,
       vision: json['vision'] as String,
       traits: json['traits'] as String,
+      skills: (json['skills'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$SkillEnumMap, e))
+              .toList() ??
+          const [],
+      skillChoices: (json['skillChoices'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$RaceImplToJson(_$RaceImpl instance) =>
@@ -33,4 +38,27 @@ Map<String, dynamic> _$$RaceImplToJson(_$RaceImpl instance) =>
       'language': instance.language,
       'vision': instance.vision,
       'traits': instance.traits,
+      'skills': instance.skills.map((e) => _$SkillEnumMap[e]!).toList(),
+      'skillChoices': instance.skillChoices,
     };
+
+const _$SkillEnumMap = {
+  Skill.acrobatics: 1,
+  Skill.animalHandling: 2,
+  Skill.arcana: 3,
+  Skill.athletics: 4,
+  Skill.deception: 5,
+  Skill.history: 6,
+  Skill.insight: 7,
+  Skill.intimidation: 8,
+  Skill.investigation: 9,
+  Skill.medicine: 10,
+  Skill.nature: 11,
+  Skill.perception: 12,
+  Skill.performance: 13,
+  Skill.persuasion: 14,
+  Skill.religion: 15,
+  Skill.sleightOfHand: 16,
+  Skill.stealth: 17,
+  Skill.survival: 18,
+};

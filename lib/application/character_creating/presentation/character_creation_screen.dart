@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dnd_app/application/character/bloc/characters/characters_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/assignment_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/background_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/skill_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/bonus_choice_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
@@ -9,6 +11,8 @@ import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/assignment_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/backgrounds_list_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/skills_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/bonus_choice_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/method_select_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/classes_list_view.dart';
@@ -24,6 +28,10 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
     context.read<RaceCubit>().selectRace(null);
     context.read<ClassCubit>().selectClass(null);
     context.read<BonusChoiceCubit>().reset();
+    context.read<BackgroundCubit>().select(null);
+    if (state.step == CreationStep.skills) {
+      context.read<SkillChoiceCubit>().reset();
+    }
     if (state.step == CreationStep.assignment) {
       context.read<AssignmentCubit>().reset();
     }
@@ -38,6 +46,8 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
         const AssignmentView(),
       ),
     CreationStep.bonusChoice => ('Бонусы расы', const BonusChoiceView()),
+    CreationStep.background => ('Предыстория', const BackgroundsListView()),
+    CreationStep.skills => ('Навыки', const SkillsView()),
     CreationStep.summary => (
         'Создание персонажа',
         const CharacterCreatingPreview()

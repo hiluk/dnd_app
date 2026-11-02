@@ -30,6 +30,8 @@ void main() {
         .thenAnswer((_) async => racesJson);
     when(() => client.get<List<dynamic>>('/classes'))
         .thenAnswer((_) async => classesJson);
+    when(() => client.get<List<dynamic>>('/backgrounds'))
+        .thenAnswer((_) async => backgroundsJson);
     when(() => client.get<List<dynamic>>('/characters')).thenAnswer(
       (_) async =>
           [characterJson(), characterJson(name: 'Гимли', characterClass: 1)],
@@ -47,6 +49,9 @@ void main() {
     expect(characters.first.sheet.hitPoints, 12);
     expect(characters.first.sheet.savingThrows.first.ability, Ability.strength);
     expect(characters.first.sheet.savingThrows.first.proficient, isTrue);
+    expect(characters.first.background.name, 'Солдат');
+    expect(characters.first.classSkills, [Skill.perception, Skill.survival]);
+    expect(characters.first.sheet.skills.first.skill, Skill.athletics);
     expect(characters.last.characterClass.name, 'Воин');
   });
 
@@ -107,6 +112,10 @@ void main() {
       generationMethod: GenerationMethod.pointBuy,
       baseStats: const Attributes(dexterity: 15),
       bonusChoices: const [Ability.dexterity, Ability.wisdom],
+      background: catalog.backgrounds.last,
+      backgroundSkills: const [Skill.arcana, Skill.history],
+      raceSkills: const [Skill.medicine, Skill.nature],
+      classSkills: const [Skill.stealth, Skill.perception, Skill.survival],
     ));
 
     final body =
@@ -120,6 +129,11 @@ void main() {
     expect(body['bonusChoices'], [2, 5]);
     expect((body['baseStats'] as Map)['dexterity'], 15);
     expect(body.containsKey('rollToken'), isFalse);
+    expect(body['background'], 14);
+    expect(body['backgroundSkills'], [3, 6]);
+    expect(body['raceSkills'], [10, 11]);
+    expect(body['classSkills'], [17, 12, 18]);
+    expect(body['expertise'], isEmpty);
   });
 
   test('Превью возвращает лист с сервера', () async {
@@ -127,16 +141,21 @@ void main() {
     when(() => client.post<Map<String, dynamic>>('/characters/preview', any()))
         .thenAnswer((_) async => sheetJson());
 
-    final sheet = await repository.preview(CharacterDraft(
+    final draft = CharacterDraft(
       characterRace: catalog.races[2],
       characterClass: catalog.classes[0],
       generationMethod: GenerationMethod.standardArray,
       baseStats: const Attributes(),
-    ));
+    );
+    // До шага навыков предыстория не отправляется
+    expect(draft.toJson().containsKey('background'), isFalse);
+
+    final sheet = await repository.preview(draft);
 
     expect(sheet.hitPoints, 12);
     expect(sheet.stats.constitution, 15);
     expect(sheet.modifiers.charisma, -1);
+    expect(sheet.passivePerception, 10);
   });
 
   test('Броски возвращают значения и подпись', () async {

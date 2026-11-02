@@ -24,6 +24,12 @@ _$ClassImpl _$$ClassImplFromJson(Map<String, dynamic> json) => _$ClassImpl(
               ?.map((e) => $enumDecode(_$AbilityEnumMap, e))
               .toList() ??
           const [],
+      skillChoices: (json['skillChoices'] as num?)?.toInt() ?? 0,
+      skillOptions: (json['skillOptions'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$SkillEnumMap, e))
+              .toList() ??
+          const [],
+      expertiseChoices: (json['expertiseChoices'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$ClassImplToJson(_$ClassImpl instance) =>
@@ -43,6 +49,10 @@ Map<String, dynamic> _$$ClassImplToJson(_$ClassImpl instance) =>
       'hitDie': instance.hitDie,
       'savingThrows':
           instance.savingThrows.map((e) => _$AbilityEnumMap[e]!).toList(),
+      'skillChoices': instance.skillChoices,
+      'skillOptions':
+          instance.skillOptions.map((e) => _$SkillEnumMap[e]!).toList(),
+      'expertiseChoices': instance.expertiseChoices,
     };
 
 const _$AbilityEnumMap = {
@@ -52,4 +62,25 @@ const _$AbilityEnumMap = {
   Ability.intelligence: 4,
   Ability.wisdom: 5,
   Ability.charisma: 6,
+};
+
+const _$SkillEnumMap = {
+  Skill.acrobatics: 1,
+  Skill.animalHandling: 2,
+  Skill.arcana: 3,
+  Skill.athletics: 4,
+  Skill.deception: 5,
+  Skill.history: 6,
+  Skill.insight: 7,
+  Skill.intimidation: 8,
+  Skill.investigation: 9,
+  Skill.medicine: 10,
+  Skill.nature: 11,
+  Skill.perception: 12,
+  Skill.performance: 13,
+  Skill.persuasion: 14,
+  Skill.religion: 15,
+  Skill.sleightOfHand: 16,
+  Skill.stealth: 17,
+  Skill.survival: 18,
 };
