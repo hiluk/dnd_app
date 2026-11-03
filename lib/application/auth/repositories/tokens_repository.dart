@@ -1,6 +1,7 @@
 import 'package:dnd_app/application/auth/interfaces/i_token_repository.dart';
 import 'package:dnd_app/application/auth/models/login_request.dart';
 import 'package:dnd_app/application/auth/models/tokens.dart';
+import 'package:dnd_app/core/http_client/empty_response_exception.dart';
 import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
 import 'package:dnd_app/core/prefs/interfaces/i_tokens_database.dart';
 import 'package:injectable/injectable.dart';
@@ -22,7 +23,7 @@ class TokensRepository implements ITokensRepository {
       request.toJson(),
     );
 
-    return Tokens.fromJson(tokensRaw!);
+    return Tokens.fromJson(tokensRaw.requireBody('/login'));
   }
 
   @override

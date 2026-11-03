@@ -3,6 +3,7 @@ import 'package:dnd_app/application/character/models/character_sheet.dart';
 import 'package:dnd_app/application/character_creating/models/ability_roll.dart';
 import 'package:dnd_app/application/character_creating/models/character_draft.dart';
 import 'package:dnd_app/core/catalog/catalog_repository.dart';
+import 'package:dnd_app/core/http_client/empty_response_exception.dart';
 import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -39,7 +40,7 @@ class CharactersRepository {
       draft.toJson(),
     );
 
-    return CharacterSheet.fromJson(data!);
+    return CharacterSheet.fromJson(data.requireBody('/characters/preview'));
   }
 
   /// Бросить 4к6 для шести характеристик на сервере
@@ -47,7 +48,7 @@ class CharactersRepository {
     final data =
         await _httpClient.post<Map<String, dynamic>>('/abilities/roll', null);
 
-    return AbilityRoll.fromJson(data!);
+    return AbilityRoll.fromJson(data.requireBody('/abilities/roll'));
   }
 
   Future<void> saveCharacter(CharacterDraft draft) async {

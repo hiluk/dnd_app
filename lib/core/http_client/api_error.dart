@@ -1,10 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:dnd_app/core/http_client/empty_response_exception.dart';
 
 /// Превращает ошибку запроса в сообщение для пользователя.
 ///
 /// Бэкенд отвечает в формате ProblemDetails:
 /// `{ "detail": "..." }` или `{ "errors": { "Поле": ["..."] } }`.
 String apiErrorMessage(Object error) {
+  if (error is EmptyResponseException) {
+    return 'Сервер вернул пустой ответ, попробуйте ещё раз';
+  }
   if (error is! DioException) return 'Неизвестная ошибка';
 
   switch (error.type) {

@@ -6,6 +6,7 @@ import 'package:dnd_app/application/auth/bloc/auth_bloc.dart';
 import 'package:dnd_app/application/auth/interfaces/i_token_repository.dart';
 import 'package:dnd_app/application/auth/models/login_request.dart';
 import 'package:dnd_app/application/auth/models/tokens.dart';
+import 'package:dnd_app/core/http_client/empty_response_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -77,6 +78,18 @@ void main() {
     expect: () => [
       const AuthState.loading(),
       const AuthState.error('Неверный логин или пароль'),
+    ],
+  );
+
+  blocTest<AuthBloc, AuthState>(
+    'Пустой ответ на вход показывает понятную ошибку',
+    setUp: () => when(() => repository.login(any()))
+        .thenThrow(const EmptyResponseException('/login')),
+    build: () => AuthBloc(repository),
+    act: (bloc) => bloc.add(const AuthEvent.login(login)),
+    expect: () => [
+      const AuthState.loading(),
+      const AuthState.error('Сервер вернул пустой ответ, попробуйте ещё раз'),
     ],
   );
 

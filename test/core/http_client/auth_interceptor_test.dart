@@ -18,13 +18,14 @@ void main() {
           ? (status: 200, body: ['ok'])
           : (status: 401, body: null);
 
-  void setUpDio({required bool refreshSucceeds}) {
+  void setUpDio({required bool refreshSucceeds, bool emptyRefresh = false}) {
     refreshCalls = 0;
     adapter = FakeAdapter({
       '/characters': protected,
       '/races': protected,
       '/refresh': (options) {
         refreshCalls++;
+        if (emptyRefresh) return (status: 200, body: null);
         return refreshSucceeds
             ? (
                 status: 200,
@@ -110,5 +111,17 @@ void main() {
     await expectLater(dio.post('/login'), throwsA(isA<DioException>()));
     expect(refreshCalls, 0);
     expect(adapter.requests.single.headers['Authorization'], isNull);
+  });
+
+  test('Пустой ответ на refresh не подвешивает запрос и завершает сессию',
+      () async {
+    setUpDio(refreshSucceeds: true, emptyRefresh: true);
+
+    await expectLater(
+      dio.get('/characters').timeout(const Duration(seconds: 2)),
+      throwsA(isA<DioException>()
+          .having((e) => e.response?.statusCode, 'status', 401)),
+    );
+    expect(dataBase.getTokens().accessToken, isEmpty);
   });
 }

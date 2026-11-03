@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dnd_app/core/http_client/api_error.dart';
+import 'package:dnd_app/core/http_client/empty_response_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 DioException _response(int status, Object? data) {
@@ -42,6 +43,13 @@ void main() {
     );
 
     expect(apiErrorMessage(error), 'Сервер недоступен, проверьте подключение');
+  });
+
+  test('Пустой ответ сервера', () {
+    expect(
+      apiErrorMessage(const EmptyResponseException('/login')),
+      'Сервер вернул пустой ответ, попробуйте ещё раз',
+    );
   });
 
   test('Не сетевая ошибка', () {

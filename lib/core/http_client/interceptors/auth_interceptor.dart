@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dnd_app/application/auth/models/tokens.dart';
 import 'package:dnd_app/core/config/app_config.dart';
+import 'package:dnd_app/core/http_client/empty_response_exception.dart';
 import 'package:dnd_app/core/prefs/interfaces/i_tokens_database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -54,6 +55,11 @@ class AuthInterceptor extends QueuedInterceptor {
       }
 
       handler.resolve(await _retry(request));
+    } on EmptyResponseException {
+      // Без новой пары токенов продолжать сессию нельзя
+      _logger.w('Пустой ответ на /refresh, выходим из аккаунта');
+      await _dataBase.clearTokens();
+      handler.next(err);
     } on DioException catch (e) {
       final refreshFailed = e.requestOptions.path == '/refresh';
       if (refreshFailed && e.response?.statusCode == 401) {
@@ -71,7 +77,9 @@ class AuthInterceptor extends QueuedInterceptor {
       '/refresh',
       data: {'refreshToken': refreshToken},
     );
-    await _dataBase.cacheTokens(Tokens.fromJson(response.data!));
+    await _dataBase.cacheTokens(
+      Tokens.fromJson(response.data.requireBody('/refresh')),
+    );
   }
 
   Future<Response<dynamic>> _retry(RequestOptions request) {
