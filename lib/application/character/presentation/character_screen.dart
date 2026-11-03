@@ -4,6 +4,8 @@ import 'package:dnd_app/application/character/bloc/current_character/current_cha
 import 'package:dnd_app/application/character/bloc/current_character/current_character_state.dart';
 import 'package:dnd_app/application/character/repositories/characters_repository.dart';
 import 'package:dnd_app/application/character/presentation/widgets/sheet_view.dart';
+import 'package:dnd_app/application/character/presentation/widgets/character_hero.dart';
+import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
 import 'package:dnd_app/core/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +39,7 @@ class CharacterScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
+              title: const Text('Лист персонажа'),
               actions: [
                 if (state is CurrentCharacterBlocStateLoaded)
                   IconButton(
@@ -68,23 +71,20 @@ class CharacterScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   ),
                 CurrentCharacterBlocStateLoaded state => ListView(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
                     children: [
-                      Text(
-                        state.character.name,
-                        style: const TextStyle(fontSize: 30),
+                      CharacterHero(
+                        name: state.character.name,
+                        subtitle: '${state.character.characterRace.name}, '
+                            '${state.character.characterClass.name.toLowerCase()}',
+                        details:
+                            'Предыстория: ${state.character.background.name.toLowerCase()}',
+                        art: CharacterClassType.artByName(
+                          state.character.characterClass.name,
+                        ),
+                        level: state.character.level,
                       ),
-                      Text(
-                        '${state.character.characterRace.name}   '
-                        '${state.character.characterClass.name}',
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                      Text(
-                        'Уровень ${state.character.level} · '
-                        '${state.character.generationMethod.title}',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       SheetView(sheet: state.character.sheet),
                     ],
                   ),
@@ -102,7 +102,9 @@ class CharacterScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Удалить персонажа?'),
-        content: const Text('Это действие нельзя отменить.'),
+        content: const Text(
+          'Персонаж и его лист будут удалены. Это действие нельзя отменить.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -110,6 +112,9 @@ class CharacterScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Удалить'),
           ),
         ],

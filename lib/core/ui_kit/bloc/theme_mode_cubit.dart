@@ -7,7 +7,7 @@ import 'package:logger/logger.dart';
 @injectable
 class ModeTypeCubit extends Cubit<ModeType> {
   final Logger _logger;
-  ModeTypeCubit(this._logger) : super(ModeType.light);
+  ModeTypeCubit(this._logger) : super(ModeType.dark);
 
   bool get isDark => state == ModeType.dark;
 

@@ -3,6 +3,7 @@ import 'package:dnd_app/application/character_creating/bloc/character_creation_b
 import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
 import 'package:dnd_app/application/character_creating/bloc/skill_choice_cubit.dart';
 import 'package:dnd_app/core/api/abilities/ability.dart';
+import 'package:dnd_app/core/ui_kit/dnd_palette.dart';
 import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,45 +36,81 @@ class SkillsView extends StatelessWidget {
         final complete = sections.isComplete(selection);
         final sheet = complete ? creation.sheet : null;
 
-        return DefaultTextStyle.merge(
-          style: DndTheme.readableText,
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              for (final section in sections.sections)
-                _SectionChips(
-                  section: section,
-                  sections: sections,
-                  selection: selection,
-                ),
-              // Сводка под разделами: растёт при выборе и не сдвигает чипы
-              const _Title('Владение навыками'),
-              Text(
-                known.isEmpty
-                    ? 'Пока ни одного навыка'
-                    : known.entries
-                        .map((e) => '${e.key.title} — ${e.value}')
-                        .join('\n'),
+        final p = DndPalette.of(context);
+
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
+          children: [
+            for (final section in sections.sections)
+              _SectionChips(
+                section: section,
+                sections: sections,
+                selection: selection,
               ),
-              if (sheet != null) ...[
-                const _Title('Итог'),
-                Text(
-                  sheet.skills
-                      .where((s) => s.proficient)
-                      .map((s) => '${s.skill.title} ${formatBonus(s.bonus)}'
-                          '${s.expertise ? ' ◆' : ''}')
-                      .join(' · '),
-                ),
-                Text('Пассивная внимательность: ${sheet.passivePerception}'),
-              ],
-              if (complete && creation.previewError != null)
-                Text(
+            // Сводка под разделами: растёт при выборе и не сдвигает чипы
+            const _Title('Владение навыками'),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: p.surface,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: p.line),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (known.isEmpty)
+                    Text(
+                      'Пока ни одного навыка',
+                      style: TextStyle(fontSize: 16, color: p.muted),
+                    ),
+                  for (final entry in known.entries)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Text(
+                        '${entry.key.title} — ${entry.value}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  if (sheet != null) ...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Divider(color: p.line),
+                    ),
+                    Wrap(
+                      spacing: 14,
+                      runSpacing: 6,
+                      children: [
+                        for (final skill in sheet.skills.where((s) => s.proficient))
+                          Text(
+                            '${skill.skill.title} ${formatBonus(skill.bonus)}'
+                            '${skill.expertise ? ' ◆' : ''}',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: p.ink,
+                              fontFeatures: DndTheme.numbers,
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Пассивная внимательность: ${sheet.passivePerception}',
+                      style: TextStyle(fontSize: 15, color: p.muted),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            if (complete && creation.previewError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Text(
                   creation.previewError!,
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
-              const SizedBox(height: 80),
-            ],
-          ),
+              ),
+          ],
         );
       },
     );
@@ -83,15 +120,31 @@ class SkillsView extends StatelessWidget {
 class _Title extends StatelessWidget {
   final String text;
 
-  const _Title(this.text);
+  /// Счётчик «0 из 2» — текстовым шрифтом: в декоративном «з» похожа на «в»
+  final String? counter;
+
+  const _Title(this.text, {this.counter});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 6),
-      child: Text(
-        text,
-        style: const TextStyle(fontFamily: DndTheme.decorativeFont, fontSize: 20),
+      padding: const EdgeInsets.only(top: 22, bottom: 10),
+      child: Text.rich(
+        TextSpan(
+          text: text,
+          children: [
+            if (counter != null)
+              TextSpan(
+                text: counter,
+                style: const TextStyle(
+                  fontFamily: DndTheme.textFont,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+          ],
+        ),
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     );
   }
@@ -129,13 +182,19 @@ class _SectionChips extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _Title('$title: ${chosen.length} из $limit'),
+        _Title('$title: ', counter: '${chosen.length} из $limit'),
         if (section == SkillSection.expertise)
-          const Text('Бонус мастерства удваивается для выбранных навыков'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              'Бонус мастерства удваивается для выбранных навыков',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
         const SizedBox(height: 4),
         Wrap(
-          spacing: 6,
-          runSpacing: 6,
+          spacing: 8,
+          runSpacing: 4,
           children: [
             for (final skill in candidates)
               FilterChip(

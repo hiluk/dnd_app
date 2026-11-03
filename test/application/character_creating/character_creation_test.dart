@@ -26,6 +26,7 @@ import 'package:dnd_app/core/api/abilities/ability.dart';
 import 'package:dnd_app/core/api/backgrounds/models/background_model.dart';
 import 'package:dnd_app/core/catalog/catalog_repository.dart';
 import 'package:dnd_app/core/di/di.dart';
+import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
 import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -366,6 +367,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
+          theme: DndTheme().dark,
           home: MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -419,6 +421,10 @@ void main() {
 
     testWidgets('Покупка очков показывает остаток и итог с сервера',
         (tester) async {
+      // Высокий экран: итог под характеристиками должен попасть в кадр
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
       await pumpScreen(tester, [
         ...dwarfSteps,
         CharacterCreationBlocEventSelect(
@@ -426,9 +432,11 @@ void main() {
         ),
       ]);
 
+      final semantics = tester.ensureSemantics();
       expect(find.byType(AssignmentView), findsOneWidget);
-      expect(find.text('Осталось очков: 27 из 27'), findsOneWidget);
-      expect(find.textContaining('Хиты 12'), findsOneWidget);
+      expect(find.bySemanticsLabel('Осталось очков: 27 из 27'), findsOneWidget);
+      expect(find.bySemanticsLabel('Хиты 12'), findsOneWidget);
+      semantics.dispose();
     });
 
     testWidgets('Полуэльф выбирает бонусы', (tester) async {

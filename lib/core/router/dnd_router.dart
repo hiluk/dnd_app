@@ -14,7 +14,6 @@ import 'package:dnd_app/application/character_creating/bloc/character_creation_b
 import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
 import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
 import 'package:dnd_app/application/character_creating/presentation/character_creation_screen.dart';
-import 'package:dnd_app/application/main_screen.dart';
 import 'package:dnd_app/application/splash_screen.dart';
 import 'package:dnd_app/core/di/di.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +28,11 @@ class AppRouter {
       navigatorKey: navigatorKey,
       debugLogDiagnostics: true,
       routes: [
+        // Главный экран — список персонажей
+        GoRoute(
+          path: '/',
+          redirect: (context, state) => CharacterSelectionScreen.path,
+        ),
         GoRoute(
           path: SplashScreen.routeLocation,
           name: SplashScreen.routeName,
@@ -57,11 +61,6 @@ class AppRouter {
             );
           },
           routes: [
-            GoRoute(
-              path: MainScreen.routeLocation,
-              name: MainScreen.routeName,
-              builder: (context, state) => const MainScreen(),
-            ),
             GoRoute(
               path: CharacterSelectionScreen.path,
               name: CharacterSelectionScreen.routeName,
@@ -106,11 +105,13 @@ class AppRouter {
         final authState = context.read<AuthBloc>().state;
         final inAuthScreens =
             state.matchedLocation.startsWith(LoginScreen.routeLocation);
+        final atRoot = state.matchedLocation == '/';
 
         return switch (authState) {
           AuthLoading _ => null,
           AuthError _ => null,
-          AuthLogged _ => inAuthScreens ? MainScreen.routeLocation : null,
+          AuthLogged _ =>
+            inAuthScreens || atRoot ? CharacterSelectionScreen.path : null,
           AuthNotLogged _ => inAuthScreens ? null : LoginScreen.routeLocation,
           _ => null,
         };
