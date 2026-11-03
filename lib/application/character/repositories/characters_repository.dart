@@ -35,22 +35,23 @@ class CharactersRepository {
   /// Проверить черновик по правилам и получить лист, ничего не сохраняя.
   /// Нарушение правил приходит как DioException с кодом 400.
   Future<CharacterSheet> preview(CharacterDraft draft) async {
+    const path = '/characters/preview';
     final data = await _httpClient.post<Map<String, dynamic>>(
-      '/characters/preview',
+      path,
       draft.toJson(),
     );
 
-    if (data == null) throw const EmptyResponseException('/characters/preview');
+    if (data == null) throw const EmptyResponseException(path);
 
     return CharacterSheet.fromJson(data);
   }
 
   /// Бросить 4к6 для шести характеристик на сервере
   Future<AbilityRoll> rollAbilities() async {
-    final data =
-        await _httpClient.post<Map<String, dynamic>>('/abilities/roll', null);
+    const path = '/abilities/roll';
+    final data = await _httpClient.post<Map<String, dynamic>>(path, null);
 
-    if (data == null) throw const EmptyResponseException('/abilities/roll');
+    if (data == null) throw const EmptyResponseException(path);
 
     return AbilityRoll.fromJson(data);
   }

@@ -18,12 +18,13 @@ class TokensRepository implements ITokensRepository {
 
   @override
   Future<Tokens> login(LoginRequest request) async {
+    const path = '/login';
     final tokensRaw = await _httpClient.post<Map<String, dynamic>>(
-      '/login',
+      path,
       request.toJson(),
     );
 
-    if (tokensRaw == null) throw const EmptyResponseException('/login');
+    if (tokensRaw == null) throw const EmptyResponseException(path);
 
     return Tokens.fromJson(tokensRaw);
   }
