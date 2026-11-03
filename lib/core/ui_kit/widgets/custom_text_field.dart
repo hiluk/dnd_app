@@ -5,11 +5,17 @@ class CustomTextField extends StatefulWidget {
   final String? label;
   final bool autoFocus;
   final bool alwaysInFocus;
+  final bool obscureText;
+  final TextInputType? keyboardType;
+  final Iterable<String>? autofillHints;
   const CustomTextField({
     this.onChanged,
     this.label,
     this.autoFocus = false,
     this.alwaysInFocus = false,
+    this.obscureText = false,
+    this.keyboardType,
+    this.autofillHints,
     super.key,
   });
 
@@ -27,6 +33,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     return TextField(
       focusNode: focusNode,
+      obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
+      autofillHints: widget.autofillHints,
+      autocorrect: !widget.obscureText,
+      enableSuggestions: !widget.obscureText,
       autofocus: widget.autoFocus,
       onSubmitted: widget.alwaysInFocus
           ? (value) {

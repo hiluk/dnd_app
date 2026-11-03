@@ -1,17 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/di/di.dart';
+import 'package:dnd_app/core/api/classes/models/class_model.dart';
 
+/// Класс, выбранный в списке (повторное нажатие снимает выбор)
 class ClassCubit extends Cubit<Class?> {
   ClassCubit() : super(null);
 
-  void selectClass(Class? newClass) {
-    if (state == newClass || newClass == null) {
-      emit(null);
-    } else {
-      for (final characterClass in di.get<List<Class>>()) {
-        characterClass == newClass ? emit(newClass) : null;
-      }
-    }
-  }
+  void selectClass(Class? newClass) =>
+      emit(state == newClass ? null : newClass);
 }

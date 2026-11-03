@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/class_widget.dart';
-import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/expandable_widget.dart';
+import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/class_widget.dart';
+import 'package:dnd_app/core/api/classes/models/class_model.dart';
+import 'package:dnd_app/core/catalog/catalog_repository.dart';
+import 'package:dnd_app/core/di/di.dart';
+import 'package:dnd_app/core/ui_kit/widgets/expandable_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClassesListView extends StatelessWidget {
@@ -13,7 +14,7 @@ class ClassesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final classes = di.get<List<Class>>();
+    final classes = di.get<CatalogRepository>().classes;
 
     return ListView.custom(
       childrenDelegate: SliverChildBuilderDelegate(

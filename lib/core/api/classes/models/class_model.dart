@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:dnd_app/core/api/abilities/ability.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'class_model.freezed.dart';
@@ -20,6 +21,15 @@ class Class with _$Class {
     required String profSkills,
     required String equipment,
     required String spellCastingAbility,
+    @Default(0) int hitDie,
+    @Default([]) List<Ability> savingThrows,
+
+    /// Сколько навыков выбирается из [skillOptions]
+    @Default(0) int skillChoices,
+    @Default([]) List<Skill> skillOptions,
+
+    /// Сколько навыков получают компетентность на 1 уровне (плут — 2)
+    @Default(0) int expertiseChoices,
   }) = _Class;
 
   factory Class.fromJson(Map<String, dynamic> json) => _$ClassFromJson(json);

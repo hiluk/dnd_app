@@ -1,33 +1,50 @@
-import 'package:flutter_application_1/application/character/models/attributes_model.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
-import 'package:flutter_application_1/application/character_creating/models/character_dto.dart';
-import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/api/races/models/race_model.dart';
+import 'package:dnd_app/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character_creating/models/character_draft.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/core/api/abilities/ability.dart';
+import 'package:dnd_app/core/api/backgrounds/models/background_model.dart';
+import 'package:dnd_app/core/api/classes/models/class_model.dart';
+import 'package:dnd_app/core/api/races/models/race_model.dart';
 
 sealed class CharacterCreationBlocEvent {}
 
+/// Создать персонажа из текущего черновика
 class CharacterCreationBlocEventCreate extends CharacterCreationBlocEvent {
-  final CharacterDto character;
+  final String name;
 
-  CharacterCreationBlocEventCreate(this.character);
+  CharacterCreationBlocEventCreate(this.name);
 }
 
 class CharacterCreationBlocEventReturn extends CharacterCreationBlocEvent {
   CharacterCreationBlocEventReturn();
 }
 
+/// Зафиксировать выбор на текущем шаге и перейти к следующему
 class CharacterCreationBlocEventSelect extends CharacterCreationBlocEvent {
-  final Class? characterClass;
-  final CharacterCreationBlocState? previousState;
-  final String? characterName;
   final Race? characterRace;
-  final Attributes? characterStats;
+  final Class? characterClass;
+  final GenerationMethod? generationMethod;
+  final Attributes? baseStats;
+  final String? rollToken;
+  final List<Ability>? bonusChoices;
+  final Background? background;
+  final SkillSelection? skills;
 
   CharacterCreationBlocEventSelect({
-    this.characterClass,
-    this.characterName,
-    this.previousState,
+    this.background,
+    this.skills,
     this.characterRace,
-    this.characterStats,
+    this.characterClass,
+    this.generationMethod,
+    this.baseStats,
+    this.rollToken,
+    this.bonusChoices,
   });
+}
+
+/// Посчитать лист для черновика (живой предпросмотр)
+class CharacterCreationBlocEventPreview extends CharacterCreationBlocEvent {
+  final CharacterDraft draft;
+
+  CharacterCreationBlocEventPreview(this.draft);
 }

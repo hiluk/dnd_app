@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/auth/models/login_request.dart';
-import 'package:flutter_application_1/application/auth/presentation/register_screen.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/custom_button.dart';
+import 'package:dnd_app/application/auth/bloc/auth_bloc.dart';
+import 'package:dnd_app/application/auth/models/login_request.dart';
+import 'package:dnd_app/application/auth/presentation/register_screen.dart';
+import 'package:dnd_app/core/ui_kit/widgets/custom_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -46,13 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomTextField(
-                      label: "Логин",
+                      label: "Логин или эмейл",
+                      autofillHints: const [AutofillHints.username],
                       onChanged: (text) => setState(() {
                         loginRequest = loginRequest.copyWith(login: text);
                       }),
                     ),
                     CustomTextField(
                       label: "Пароль",
+                      obscureText: true,
+                      autofillHints: const [AutofillHints.password],
                       onChanged: (text) => setState(() {
                         loginRequest = loginRequest.copyWith(password: text);
                       }),
@@ -65,9 +68,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextButton(
                       onPressed: () =>
                           context.pushNamed(RegisterScreen.routeName),
-                      child: const Text(
+                      child: Text(
                         "Зарегистрироваться",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
                     ),
                   ],

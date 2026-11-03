@@ -4,9 +4,10 @@ targets:
       injectable_generator:injectable_builder:
         options:
           auto_register: true
-          # auto registers any class with a name matches the given pattern
-          class_name_pattern:
-            "Service$|Repository$|Bloc$"
-            # auto registers any class inside a file with a
-          # name matches the given pattern
-          file_name_pattern: "_service$|_repository$|_bloc$"  
+          # Автоматически регистрируются репозитории и сервисы.
+          # Блоки с параметрами создаются вручную там, где нужны.
+          class_name_pattern: "Service$|Repository$"
+          file_name_pattern: "_service$|_repository$"
+      json_serializable:
+        options:
+          explicit_to_json: true

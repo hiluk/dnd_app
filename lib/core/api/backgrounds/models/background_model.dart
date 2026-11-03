@@ -1,22 +1,27 @@
+import 'package:dnd_app/core/api/abilities/ability.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'background_model.freezed.dart';
 part 'background_model.g.dart';
 
+/// Предыстория персонажа
 @freezed
 class Background with _$Background {
-  factory Background({
+  const factory Background({
+    /// Код предыстории на сервере
+    required int type,
     required String name,
-    required String slug,
-    required String desc,
-    @JsonKey(name: 'skill_proficiencies') String? skillProficiencies,
-    @JsonKey(name: 'tool_proficiencies') String? toolProficiencies,
-    String? languages,
-    required String equipment,
-    required String feature,
-    @JsonKey(name: 'feature_desc') required String featureDesc,
-    @JsonKey(name: 'suggested_characteristics')
-    required String suggestedCharacteristics,
+    required String description,
+
+    /// Навыки, которые даёт предыстория
+    @Default([]) List<Skill> skills,
+
+    /// Сколько навыков игрок выбирает сам (своя предыстория)
+    @Default(0) int skillChoices,
+    @Default('') String tools,
+    @Default('') String languages,
+    @Default('') String equipment,
+    @Default('') String feature,
   }) = _Background;
 
   factory Background.fromJson(Map<String, dynamic> json) =>

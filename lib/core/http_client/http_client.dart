@@ -1,69 +1,39 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/core/http_client/interfaces/i_http_client.dart';
+import 'package:dnd_app/core/http_client/interfaces/i_http_client.dart';
 import 'package:injectable/injectable.dart';
 
-@Order(-1)
-@Injectable(as: IHttpClient)
+@LazySingleton(as: IHttpClient)
 class AppHttpClient implements IHttpClient {
-  @override
-  final Dio client;
+  final Dio _client;
 
-  AppHttpClient(this.client);
+  AppHttpClient(this._client);
 
   @override
-  void addInterceptor(Interceptor interceptor) {
-    client.interceptors.add(interceptor);
+  Future<T> get<T>(String url, [Map<String, dynamic>? queryParams]) async {
+    final response = await _client.get<T>(url, queryParameters: queryParams);
+
+    return response.data as T;
   }
 
   @override
-  Future<T> delete<T>(
-    String url, [
-    Map<String, dynamic>? queryParams,
-  ]) async {
-    try {
-      final response = await client.delete(
-        url,
-        queryParameters: queryParams,
-      );
-
-      return null is T ? response.data : response.data!;
-    } on Exception {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<T> get<T>(
-    String url, [
-    Map<String, dynamic>? queryParams,
-  ]) async {
-    try {
-      final response = await client.get(
-        url,
-        queryParameters: queryParams,
-      );
-
-      return null is T ? response.data : response.data!;
-    } on DioException {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<T> post<T>(
+  Future<T?> post<T>(
     String url,
-    data, [
+    dynamic data, [
     Map<String, dynamic>? queryParams,
   ]) async {
-    try {
-      final response = await client.post(
-        url,
-        data: data,
-        queryParameters: queryParams,
-      );
-      return null is T ? response.data : response.data!;
-    } on DioException {
-      rethrow;
-    }
+    final response = await _client.post<T>(
+      url,
+      data: data,
+      queryParameters: queryParams,
+    );
+
+    return response.data;
+  }
+
+  @override
+  Future<T?> delete<T>(String url, [Map<String, dynamic>? queryParams]) async {
+    final response = await _client.delete<T>(url, queryParameters: queryParams);
+
+    return response.data;
   }
 }

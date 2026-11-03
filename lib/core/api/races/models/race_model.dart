@@ -1,7 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:flutter_application_1/core/api/races/models/asi_model.dart';
-import 'package:flutter_application_1/core/api/races/models/speed_model.dart';
+import 'package:dnd_app/core/api/abilities/ability.dart';
+import 'package:dnd_app/core/api/races/models/asi_model.dart';
+import 'package:dnd_app/core/api/races/models/speed_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'race_model.freezed.dart';
@@ -19,6 +20,12 @@ class Race with _$Race {
     required String language,
     required String vision,
     required String traits,
+
+    /// Навыки, которыми раса владеет всегда
+    @Default([]) List<Skill> skills,
+
+    /// Сколько любых навыков раса даёт выбрать
+    @Default(0) int skillChoices,
   }) = _Race;
 
   factory Race.fromJson(Map<String, dynamic> json) => _$RaceFromJson(json);

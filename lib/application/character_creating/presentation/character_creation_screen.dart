@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/bloc/characters/characters_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/attributes_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_event.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/character_creation_bloc_state.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/class_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/bloc/race_cubit.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/character_stats_create_view.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/classes_list_view.dart';
-import 'package:flutter_application_1/application/character_creating/presentation/widgets/races_list_view.dart';
+import 'package:dnd_app/application/character/bloc/characters/characters_bloc.dart';
+import 'package:dnd_app/application/character_creating/bloc/assignment_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/background_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/skill_choice_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/bonus_choice_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_event.dart';
+import 'package:dnd_app/application/character_creating/bloc/character_creation_bloc_state.dart';
+import 'package:dnd_app/application/character_creating/bloc/class_cubit.dart';
+import 'package:dnd_app/application/character_creating/bloc/race_cubit.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/bloc_listener_fab.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/assignment_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/backgrounds_list_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/skills_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/bonus_choice_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/method_select_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/classes_list_view.dart';
+import 'package:dnd_app/application/character_creating/presentation/widgets/races_list_view.dart';
+import 'package:dnd_app/core/catalog/catalog_loader.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,26 +27,32 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
   void clearVariables() {
     context.read<RaceCubit>().selectRace(null);
     context.read<ClassCubit>().selectClass(null);
-    context.read<StatsCubit>().dispose();
+    context.read<BonusChoiceCubit>().reset();
+    context.read<BackgroundCubit>().select(null);
+    if (state.step == CreationStep.skills) {
+      context.read<SkillChoiceCubit>().reset();
+    }
+    if (state.step == CreationStep.assignment) {
+      context.read<AssignmentCubit>().reset();
+    }
   }
 
-  String title = 'Создание персонажа';
-  Widget body = const CharacterCreatingPreview();
-
-  if (state.characterAttributes == null) {
-    title = 'Выбор характеристик';
-    body = const CharacterStatsCreateView();
-  }
-
-  if (state.characterClass == null) {
-    body = const ClassesListView();
-    title = 'Выбор класса';
-  }
-
-  if (state.characterRace == null) {
-    body = const RacesListView();
-    title = 'Выбор расы';
-  }
+  final (title, body) = switch (state.step) {
+    CreationStep.race => ('Выбор расы', const RacesListView()),
+    CreationStep.characterClass => ('Выбор класса', const ClassesListView()),
+    CreationStep.method => ('Способ генерации', const MethodSelectView()),
+    CreationStep.assignment => (
+        state.generationMethod!.title,
+        const AssignmentView(),
+      ),
+    CreationStep.bonusChoice => ('Бонусы расы', const BonusChoiceView()),
+    CreationStep.background => ('Предыстория', const BackgroundsListView()),
+    CreationStep.skills => ('Навыки', const SkillsView()),
+    CreationStep.summary => (
+        'Создание персонажа',
+        const CharacterCreatingPreview()
+      ),
+  };
 
   return CustomScrollView(
     slivers: [
@@ -46,10 +60,10 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
         leading: IconButton(
           onPressed: state.previousState != null
               ? () {
+                  clearVariables();
                   context.read<CharacterCreationBloc>().add(
                         CharacterCreationBlocEventReturn(),
                       );
-                  clearVariables();
                 }
               : () => context.pop(),
           icon: const Icon(Icons.arrow_back),
@@ -75,14 +89,21 @@ class CharacterCreationScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: const BlocListenerFAB(),
       body: SafeArea(
-        child: BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
-          listener: (context, state) {
-            if (state.isCreated) {
-              context.read<CharactersBloc>().add(const CharactersRefresh());
-              context.pop();
-            }
-          },
-          builder: _getBody,
+        child: CatalogLoader(
+          child:
+              BlocConsumer<CharacterCreationBloc, CharacterCreationBlocState>(
+            listener: (context, state) {
+              if (state.isCreated) {
+                context.read<CharactersBloc>().add(const CharactersRefresh());
+                context.pop();
+              } else if (state.errorMessage != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.errorMessage!)),
+                );
+              }
+            },
+            builder: _getBody,
+          ),
         ),
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
-import 'package:flutter_application_1/core/api/classes/models/class_model.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
+import 'package:dnd_app/core/api/classes/models/class_model.dart';
+import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
+import 'package:dnd_app/core/ui_kit/widgets/info_line.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 
 class ClassWidget extends StatelessWidget {
   final Class characterClass;
@@ -56,22 +58,65 @@ class ClassWidget extends StatelessWidget {
                       : const SizedBox.shrink(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: PageView(
-                      children: [
-                        Text(characterClass.description),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Экипировка: ${characterClass.equipment}'),
-                            Text(
-                                'HP на первом уровне: ${characterClass.hpAt1stLevel}'),
-                            Text(
-                                'HP при повышении уровня: ${characterClass.hpAtHigherLevels}'),
-                            Text('Броня: ${characterClass.profArmor}'),
-                          ],
-                        ),
-                      ],
+                    child: DefaultTextStyle.merge(
+                      style: DndTheme.readableText,
+                      child: PageView(
+                        children: [
+                          SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(characterClass.description),
+                                const SizedBox(height: 12),
+                                InfoLine('Кость хитов', characterClass.hitDice),
+                                InfoLine(
+                                  'Хиты на 1 уровне',
+                                  characterClass.hpAt1stLevel,
+                                ),
+                                InfoLine(
+                                  'Заклинательная характеристика',
+                                  characterClass.spellCastingAbility,
+                                ),
+                                const Text(
+                                  'Листайте вправо, чтобы узнать больше →',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InfoLine(
+                                  'Спасброски',
+                                  characterClass.profSavingThrows,
+                                ),
+                                InfoLine('Доспехи', characterClass.profArmor),
+                                InfoLine('Оружие', characterClass.profWeapon),
+                                InfoLine(
+                                    'Инструменты', characterClass.profTool),
+                                InfoLine('Навыки', characterClass.profSkills),
+                              ],
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InfoLine(
+                                  'Хиты на следующих уровнях',
+                                  characterClass.hpAtHigherLevels,
+                                ),
+                                InfoLine(
+                                  'Снаряжение',
+                                  characterClass.equipment,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

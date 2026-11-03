@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/models/character_model.dart';
-import 'package:flutter_application_1/application/character/presentation/character_screen.dart';
-import 'package:flutter_application_1/core/api/classes/enums/character_class_type.dart';
-import 'package:flutter_application_1/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
-import 'package:flutter_application_1/core/ui_kit/widgets/scale_listener.dart';
-import 'package:flutter_application_1/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/application/character/models/character_model.dart';
+import 'package:dnd_app/application/character/presentation/character_screen.dart';
+import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
+import 'package:dnd_app/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
+import 'package:dnd_app/core/ui_kit/widgets/scale_listener.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/ui_kit/widgets/avatar_box.dart';
@@ -77,32 +77,49 @@ class _CharacterCardState extends State<CharacterCard> {
                   ),
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.character.name,
-                    style: themeExtension.titleTextStyle,
+              // Плашка под текстом: картинки бывают и прозрачными, и с фоном
+              Center(
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 40),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
                   ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.45),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        widget.character.characterRace.name,
-                        style: themeExtension.bodyTextStyle,
+                        widget.character.name,
+                        style: themeExtension.titleTextStyle,
+                      ),
+                      const SizedBox(height: 20),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 16,
+                        children: [
+                          Text(
+                            widget.character.characterRace.name,
+                            style: themeExtension.bodyTextStyle,
+                          ),
+                          Text(
+                            widget.character.characterClass.name,
+                            style: themeExtension.bodyTextStyle,
+                          ),
+                        ],
                       ),
                       Text(
-                        widget.character.characterClass.name,
+                        'Уровень: ${widget.character.level.toString()}',
                         style: themeExtension.bodyTextStyle,
                       ),
                     ],
                   ),
-                  Text(
-                    'Уровень: ${widget.character.level.toString()}',
-                    style: themeExtension.bodyTextStyle,
-                  ),
-                ],
+                ),
               ),
             ],
           );
@@ -122,6 +139,8 @@ class _CharacterCardState extends State<CharacterCard> {
   @override
   void initState() {
     super.initState();
-    assetPath = CharacterClassType.getRandomAsset();
+    assetPath = CharacterClassType.getAssetByName(
+      widget.character.characterClass.name,
+    );
   }
 }

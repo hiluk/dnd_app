@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/character/models/character_model.dart';
-import 'package:flutter_application_1/application/character/presentation/widgets/character_card.dart';
+import 'package:dnd_app/application/character/models/character_model.dart';
+import 'package:dnd_app/application/character/presentation/widgets/character_card.dart';
 
 class SnappingCharactersList extends StatefulWidget {
   final List<Character> characters;

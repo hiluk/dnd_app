@@ -7,3 +7,7 @@ class CurrentCharacterBlocEventFetch extends CurrentCharacterBlocEvent {
 class CurrentCharacterBlocEventRefresh extends CurrentCharacterBlocEvent {
   CurrentCharacterBlocEventRefresh();
 }
+
+class CurrentCharacterBlocEventDelete extends CurrentCharacterBlocEvent {
+  CurrentCharacterBlocEventDelete();
+}

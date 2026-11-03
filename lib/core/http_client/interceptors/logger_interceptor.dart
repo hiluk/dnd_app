@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
-@Injectable(order: -1)
+@lazySingleton
 class LoggerInterceptor extends Interceptor {
   final Logger _logger;
 

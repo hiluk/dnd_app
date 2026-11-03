@@ -20,20 +20,20 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Background {
+  /// Код предыстории на сервере
+  int get type => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get slug => throw _privateConstructorUsedError;
-  String get desc => throw _privateConstructorUsedError;
-  @JsonKey(name: 'skill_proficiencies')
-  String? get skillProficiencies => throw _privateConstructorUsedError;
-  @JsonKey(name: 'tool_proficiencies')
-  String? get toolProficiencies => throw _privateConstructorUsedError;
-  String? get languages => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+
+  /// Навыки, которые даёт предыстория
+  List<Skill> get skills => throw _privateConstructorUsedError;
+
+  /// Сколько навыков игрок выбирает сам (своя предыстория)
+  int get skillChoices => throw _privateConstructorUsedError;
+  String get tools => throw _privateConstructorUsedError;
+  String get languages => throw _privateConstructorUsedError;
   String get equipment => throw _privateConstructorUsedError;
   String get feature => throw _privateConstructorUsedError;
-  @JsonKey(name: 'feature_desc')
-  String get featureDesc => throw _privateConstructorUsedError;
-  @JsonKey(name: 'suggested_characteristics')
-  String get suggestedCharacteristics => throw _privateConstructorUsedError;
 
   /// Serializes this Background to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,17 +52,15 @@ abstract class $BackgroundCopyWith<$Res> {
       _$BackgroundCopyWithImpl<$Res, Background>;
   @useResult
   $Res call(
-      {String name,
-      String slug,
-      String desc,
-      @JsonKey(name: 'skill_proficiencies') String? skillProficiencies,
-      @JsonKey(name: 'tool_proficiencies') String? toolProficiencies,
-      String? languages,
+      {int type,
+      String name,
+      String description,
+      List<Skill> skills,
+      int skillChoices,
+      String tools,
+      String languages,
       String equipment,
-      String feature,
-      @JsonKey(name: 'feature_desc') String featureDesc,
-      @JsonKey(name: 'suggested_characteristics')
-      String suggestedCharacteristics});
+      String feature});
 }
 
 /// @nodoc
@@ -80,42 +78,45 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? type = null,
     Object? name = null,
-    Object? slug = null,
-    Object? desc = null,
-    Object? skillProficiencies = freezed,
-    Object? toolProficiencies = freezed,
-    Object? languages = freezed,
+    Object? description = null,
+    Object? skills = null,
+    Object? skillChoices = null,
+    Object? tools = null,
+    Object? languages = null,
     Object? equipment = null,
     Object? feature = null,
-    Object? featureDesc = null,
-    Object? suggestedCharacteristics = null,
   }) {
     return _then(_value.copyWith(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
-      desc: null == desc
-          ? _value.desc
-          : desc // ignore: cast_nullable_to_non_nullable
+      skills: null == skills
+          ? _value.skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      skillChoices: null == skillChoices
+          ? _value.skillChoices
+          : skillChoices // ignore: cast_nullable_to_non_nullable
+              as int,
+      tools: null == tools
+          ? _value.tools
+          : tools // ignore: cast_nullable_to_non_nullable
               as String,
-      skillProficiencies: freezed == skillProficiencies
-          ? _value.skillProficiencies
-          : skillProficiencies // ignore: cast_nullable_to_non_nullable
-              as String?,
-      toolProficiencies: freezed == toolProficiencies
-          ? _value.toolProficiencies
-          : toolProficiencies // ignore: cast_nullable_to_non_nullable
-              as String?,
-      languages: freezed == languages
+      languages: null == languages
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       equipment: null == equipment
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
@@ -123,14 +124,6 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
       feature: null == feature
           ? _value.feature
           : feature // ignore: cast_nullable_to_non_nullable
-              as String,
-      featureDesc: null == featureDesc
-          ? _value.featureDesc
-          : featureDesc // ignore: cast_nullable_to_non_nullable
-              as String,
-      suggestedCharacteristics: null == suggestedCharacteristics
-          ? _value.suggestedCharacteristics
-          : suggestedCharacteristics // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -145,17 +138,15 @@ abstract class _$$BackgroundImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
-      String slug,
-      String desc,
-      @JsonKey(name: 'skill_proficiencies') String? skillProficiencies,
-      @JsonKey(name: 'tool_proficiencies') String? toolProficiencies,
-      String? languages,
+      {int type,
+      String name,
+      String description,
+      List<Skill> skills,
+      int skillChoices,
+      String tools,
+      String languages,
       String equipment,
-      String feature,
-      @JsonKey(name: 'feature_desc') String featureDesc,
-      @JsonKey(name: 'suggested_characteristics')
-      String suggestedCharacteristics});
+      String feature});
 }
 
 /// @nodoc
@@ -171,42 +162,45 @@ class __$$BackgroundImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? type = null,
     Object? name = null,
-    Object? slug = null,
-    Object? desc = null,
-    Object? skillProficiencies = freezed,
-    Object? toolProficiencies = freezed,
-    Object? languages = freezed,
+    Object? description = null,
+    Object? skills = null,
+    Object? skillChoices = null,
+    Object? tools = null,
+    Object? languages = null,
     Object? equipment = null,
     Object? feature = null,
-    Object? featureDesc = null,
-    Object? suggestedCharacteristics = null,
   }) {
     return _then(_$BackgroundImpl(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
-      desc: null == desc
-          ? _value.desc
-          : desc // ignore: cast_nullable_to_non_nullable
+      skills: null == skills
+          ? _value._skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      skillChoices: null == skillChoices
+          ? _value.skillChoices
+          : skillChoices // ignore: cast_nullable_to_non_nullable
+              as int,
+      tools: null == tools
+          ? _value.tools
+          : tools // ignore: cast_nullable_to_non_nullable
               as String,
-      skillProficiencies: freezed == skillProficiencies
-          ? _value.skillProficiencies
-          : skillProficiencies // ignore: cast_nullable_to_non_nullable
-              as String?,
-      toolProficiencies: freezed == toolProficiencies
-          ? _value.toolProficiencies
-          : toolProficiencies // ignore: cast_nullable_to_non_nullable
-              as String?,
-      languages: freezed == languages
+      languages: null == languages
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       equipment: null == equipment
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
@@ -215,14 +209,6 @@ class __$$BackgroundImplCopyWithImpl<$Res>
           ? _value.feature
           : feature // ignore: cast_nullable_to_non_nullable
               as String,
-      featureDesc: null == featureDesc
-          ? _value.featureDesc
-          : featureDesc // ignore: cast_nullable_to_non_nullable
-              as String,
-      suggestedCharacteristics: null == suggestedCharacteristics
-          ? _value.suggestedCharacteristics
-          : suggestedCharacteristics // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -230,50 +216,61 @@ class __$$BackgroundImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BackgroundImpl implements _Background {
-  _$BackgroundImpl(
-      {required this.name,
-      required this.slug,
-      required this.desc,
-      @JsonKey(name: 'skill_proficiencies') this.skillProficiencies,
-      @JsonKey(name: 'tool_proficiencies') this.toolProficiencies,
-      this.languages,
-      required this.equipment,
-      required this.feature,
-      @JsonKey(name: 'feature_desc') required this.featureDesc,
-      @JsonKey(name: 'suggested_characteristics')
-      required this.suggestedCharacteristics});
+  const _$BackgroundImpl(
+      {required this.type,
+      required this.name,
+      required this.description,
+      final List<Skill> skills = const [],
+      this.skillChoices = 0,
+      this.tools = '',
+      this.languages = '',
+      this.equipment = '',
+      this.feature = ''})
+      : _skills = skills;
 
   factory _$BackgroundImpl.fromJson(Map<String, dynamic> json) =>
       _$$BackgroundImplFromJson(json);
 
+  /// Код предыстории на сервере
+  @override
+  final int type;
   @override
   final String name;
   @override
-  final String slug;
+  final String description;
+
+  /// Навыки, которые даёт предыстория
+  final List<Skill> _skills;
+
+  /// Навыки, которые даёт предыстория
   @override
-  final String desc;
+  @JsonKey()
+  List<Skill> get skills {
+    if (_skills is EqualUnmodifiableListView) return _skills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_skills);
+  }
+
+  /// Сколько навыков игрок выбирает сам (своя предыстория)
   @override
-  @JsonKey(name: 'skill_proficiencies')
-  final String? skillProficiencies;
+  @JsonKey()
+  final int skillChoices;
   @override
-  @JsonKey(name: 'tool_proficiencies')
-  final String? toolProficiencies;
+  @JsonKey()
+  final String tools;
   @override
-  final String? languages;
+  @JsonKey()
+  final String languages;
   @override
+  @JsonKey()
   final String equipment;
   @override
+  @JsonKey()
   final String feature;
-  @override
-  @JsonKey(name: 'feature_desc')
-  final String featureDesc;
-  @override
-  @JsonKey(name: 'suggested_characteristics')
-  final String suggestedCharacteristics;
 
   @override
   String toString() {
-    return 'Background(name: $name, slug: $slug, desc: $desc, skillProficiencies: $skillProficiencies, toolProficiencies: $toolProficiencies, languages: $languages, equipment: $equipment, feature: $feature, featureDesc: $featureDesc, suggestedCharacteristics: $suggestedCharacteristics)';
+    return 'Background(type: $type, name: $name, description: $description, skills: $skills, skillChoices: $skillChoices, tools: $tools, languages: $languages, equipment: $equipment, feature: $feature)';
   }
 
   @override
@@ -281,39 +278,34 @@ class _$BackgroundImpl implements _Background {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BackgroundImpl &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.slug, slug) || other.slug == slug) &&
-            (identical(other.desc, desc) || other.desc == desc) &&
-            (identical(other.skillProficiencies, skillProficiencies) ||
-                other.skillProficiencies == skillProficiencies) &&
-            (identical(other.toolProficiencies, toolProficiencies) ||
-                other.toolProficiencies == toolProficiencies) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other._skills, _skills) &&
+            (identical(other.skillChoices, skillChoices) ||
+                other.skillChoices == skillChoices) &&
+            (identical(other.tools, tools) || other.tools == tools) &&
             (identical(other.languages, languages) ||
                 other.languages == languages) &&
             (identical(other.equipment, equipment) ||
                 other.equipment == equipment) &&
-            (identical(other.feature, feature) || other.feature == feature) &&
-            (identical(other.featureDesc, featureDesc) ||
-                other.featureDesc == featureDesc) &&
-            (identical(
-                    other.suggestedCharacteristics, suggestedCharacteristics) ||
-                other.suggestedCharacteristics == suggestedCharacteristics));
+            (identical(other.feature, feature) || other.feature == feature));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      type,
       name,
-      slug,
-      desc,
-      skillProficiencies,
-      toolProficiencies,
+      description,
+      const DeepCollectionEquality().hash(_skills),
+      skillChoices,
+      tools,
       languages,
       equipment,
-      feature,
-      featureDesc,
-      suggestedCharacteristics);
+      feature);
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.
@@ -332,46 +324,43 @@ class _$BackgroundImpl implements _Background {
 }
 
 abstract class _Background implements Background {
-  factory _Background(
-      {required final String name,
-      required final String slug,
-      required final String desc,
-      @JsonKey(name: 'skill_proficiencies') final String? skillProficiencies,
-      @JsonKey(name: 'tool_proficiencies') final String? toolProficiencies,
-      final String? languages,
-      required final String equipment,
-      required final String feature,
-      @JsonKey(name: 'feature_desc') required final String featureDesc,
-      @JsonKey(name: 'suggested_characteristics')
-      required final String suggestedCharacteristics}) = _$BackgroundImpl;
+  const factory _Background(
+      {required final int type,
+      required final String name,
+      required final String description,
+      final List<Skill> skills,
+      final int skillChoices,
+      final String tools,
+      final String languages,
+      final String equipment,
+      final String feature}) = _$BackgroundImpl;
 
   factory _Background.fromJson(Map<String, dynamic> json) =
       _$BackgroundImpl.fromJson;
 
+  /// Код предыстории на сервере
+  @override
+  int get type;
   @override
   String get name;
   @override
-  String get slug;
+  String get description;
+
+  /// Навыки, которые даёт предыстория
   @override
-  String get desc;
+  List<Skill> get skills;
+
+  /// Сколько навыков игрок выбирает сам (своя предыстория)
   @override
-  @JsonKey(name: 'skill_proficiencies')
-  String? get skillProficiencies;
+  int get skillChoices;
   @override
-  @JsonKey(name: 'tool_proficiencies')
-  String? get toolProficiencies;
+  String get tools;
   @override
-  String? get languages;
+  String get languages;
   @override
   String get equipment;
   @override
   String get feature;
-  @override
-  @JsonKey(name: 'feature_desc')
-  String get featureDesc;
-  @override
-  @JsonKey(name: 'suggested_characteristics')
-  String get suggestedCharacteristics;
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.

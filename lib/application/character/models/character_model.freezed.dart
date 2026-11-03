@@ -27,7 +27,28 @@ mixin _$Character {
   Race get characterRace => throw _privateConstructorUsedError;
   @CharacterClassTypeConverter()
   Class get characterClass => throw _privateConstructorUsedError;
-  Attributes get characterStats => throw _privateConstructorUsedError;
+  GenerationMethod get generationMethod => throw _privateConstructorUsedError;
+
+  /// Базовые характеристики (до бонусов расы)
+  Attributes get baseStats => throw _privateConstructorUsedError;
+  List<Ability> get bonusChoices => throw _privateConstructorUsedError;
+  @BackgroundConverter()
+  Background get background => throw _privateConstructorUsedError;
+
+  /// Навыки, выбранные для своей предыстории
+  List<Skill> get backgroundSkills => throw _privateConstructorUsedError;
+
+  /// Навыки, выбранные от расы (полуэльф)
+  List<Skill> get raceSkills => throw _privateConstructorUsedError;
+
+  /// Навыки, выбранные из списка класса
+  List<Skill> get classSkills => throw _privateConstructorUsedError;
+
+  /// Навыки с компетентностью (плут)
+  List<Skill> get expertise => throw _privateConstructorUsedError;
+
+  /// Итоговые и производные значения, посчитанные сервером
+  CharacterSheet get sheet => throw _privateConstructorUsedError;
 
   /// Serializes this Character to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,11 +71,21 @@ abstract class $CharacterCopyWith<$Res> {
       int level,
       @CharacterRaceTypeConverter() Race characterRace,
       @CharacterClassTypeConverter() Class characterClass,
-      Attributes characterStats});
+      GenerationMethod generationMethod,
+      Attributes baseStats,
+      List<Ability> bonusChoices,
+      @BackgroundConverter() Background background,
+      List<Skill> backgroundSkills,
+      List<Skill> raceSkills,
+      List<Skill> classSkills,
+      List<Skill> expertise,
+      CharacterSheet sheet});
 
   $RaceCopyWith<$Res> get characterRace;
   $ClassCopyWith<$Res> get characterClass;
-  $AttributesCopyWith<$Res> get characterStats;
+  $AttributesCopyWith<$Res> get baseStats;
+  $BackgroundCopyWith<$Res> get background;
+  $CharacterSheetCopyWith<$Res> get sheet;
 }
 
 /// @nodoc
@@ -77,7 +108,15 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? level = null,
     Object? characterRace = null,
     Object? characterClass = null,
-    Object? characterStats = null,
+    Object? generationMethod = null,
+    Object? baseStats = null,
+    Object? bonusChoices = null,
+    Object? background = null,
+    Object? backgroundSkills = null,
+    Object? raceSkills = null,
+    Object? classSkills = null,
+    Object? expertise = null,
+    Object? sheet = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -100,10 +139,42 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.characterClass
           : characterClass // ignore: cast_nullable_to_non_nullable
               as Class,
-      characterStats: null == characterStats
-          ? _value.characterStats
-          : characterStats // ignore: cast_nullable_to_non_nullable
+      generationMethod: null == generationMethod
+          ? _value.generationMethod
+          : generationMethod // ignore: cast_nullable_to_non_nullable
+              as GenerationMethod,
+      baseStats: null == baseStats
+          ? _value.baseStats
+          : baseStats // ignore: cast_nullable_to_non_nullable
               as Attributes,
+      bonusChoices: null == bonusChoices
+          ? _value.bonusChoices
+          : bonusChoices // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
+      background: null == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background,
+      backgroundSkills: null == backgroundSkills
+          ? _value.backgroundSkills
+          : backgroundSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      raceSkills: null == raceSkills
+          ? _value.raceSkills
+          : raceSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      classSkills: null == classSkills
+          ? _value.classSkills
+          : classSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertise: null == expertise
+          ? _value.expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      sheet: null == sheet
+          ? _value.sheet
+          : sheet // ignore: cast_nullable_to_non_nullable
+              as CharacterSheet,
     ) as $Val);
   }
 
@@ -131,9 +202,29 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $AttributesCopyWith<$Res> get characterStats {
-    return $AttributesCopyWith<$Res>(_value.characterStats, (value) {
-      return _then(_value.copyWith(characterStats: value) as $Val);
+  $AttributesCopyWith<$Res> get baseStats {
+    return $AttributesCopyWith<$Res>(_value.baseStats, (value) {
+      return _then(_value.copyWith(baseStats: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Character
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BackgroundCopyWith<$Res> get background {
+    return $BackgroundCopyWith<$Res>(_value.background, (value) {
+      return _then(_value.copyWith(background: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Character
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CharacterSheetCopyWith<$Res> get sheet {
+    return $CharacterSheetCopyWith<$Res>(_value.sheet, (value) {
+      return _then(_value.copyWith(sheet: value) as $Val);
     });
   }
 }
@@ -152,14 +243,26 @@ abstract class _$$CharacterImplCopyWith<$Res>
       int level,
       @CharacterRaceTypeConverter() Race characterRace,
       @CharacterClassTypeConverter() Class characterClass,
-      Attributes characterStats});
+      GenerationMethod generationMethod,
+      Attributes baseStats,
+      List<Ability> bonusChoices,
+      @BackgroundConverter() Background background,
+      List<Skill> backgroundSkills,
+      List<Skill> raceSkills,
+      List<Skill> classSkills,
+      List<Skill> expertise,
+      CharacterSheet sheet});
 
   @override
   $RaceCopyWith<$Res> get characterRace;
   @override
   $ClassCopyWith<$Res> get characterClass;
   @override
-  $AttributesCopyWith<$Res> get characterStats;
+  $AttributesCopyWith<$Res> get baseStats;
+  @override
+  $BackgroundCopyWith<$Res> get background;
+  @override
+  $CharacterSheetCopyWith<$Res> get sheet;
 }
 
 /// @nodoc
@@ -180,7 +283,15 @@ class __$$CharacterImplCopyWithImpl<$Res>
     Object? level = null,
     Object? characterRace = null,
     Object? characterClass = null,
-    Object? characterStats = null,
+    Object? generationMethod = null,
+    Object? baseStats = null,
+    Object? bonusChoices = null,
+    Object? background = null,
+    Object? backgroundSkills = null,
+    Object? raceSkills = null,
+    Object? classSkills = null,
+    Object? expertise = null,
+    Object? sheet = null,
   }) {
     return _then(_$CharacterImpl(
       name: null == name
@@ -203,10 +314,42 @@ class __$$CharacterImplCopyWithImpl<$Res>
           ? _value.characterClass
           : characterClass // ignore: cast_nullable_to_non_nullable
               as Class,
-      characterStats: null == characterStats
-          ? _value.characterStats
-          : characterStats // ignore: cast_nullable_to_non_nullable
+      generationMethod: null == generationMethod
+          ? _value.generationMethod
+          : generationMethod // ignore: cast_nullable_to_non_nullable
+              as GenerationMethod,
+      baseStats: null == baseStats
+          ? _value.baseStats
+          : baseStats // ignore: cast_nullable_to_non_nullable
               as Attributes,
+      bonusChoices: null == bonusChoices
+          ? _value._bonusChoices
+          : bonusChoices // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
+      background: null == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background,
+      backgroundSkills: null == backgroundSkills
+          ? _value._backgroundSkills
+          : backgroundSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      raceSkills: null == raceSkills
+          ? _value._raceSkills
+          : raceSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      classSkills: null == classSkills
+          ? _value._classSkills
+          : classSkills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertise: null == expertise
+          ? _value._expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      sheet: null == sheet
+          ? _value.sheet
+          : sheet // ignore: cast_nullable_to_non_nullable
+              as CharacterSheet,
     ));
   }
 }
@@ -220,7 +363,20 @@ class _$CharacterImpl implements _Character {
       required this.level,
       @CharacterRaceTypeConverter() required this.characterRace,
       @CharacterClassTypeConverter() required this.characterClass,
-      required this.characterStats});
+      required this.generationMethod,
+      required this.baseStats,
+      final List<Ability> bonusChoices = const [],
+      @BackgroundConverter() required this.background,
+      final List<Skill> backgroundSkills = const [],
+      final List<Skill> raceSkills = const [],
+      final List<Skill> classSkills = const [],
+      final List<Skill> expertise = const [],
+      required this.sheet})
+      : _bonusChoices = bonusChoices,
+        _backgroundSkills = backgroundSkills,
+        _raceSkills = raceSkills,
+        _classSkills = classSkills,
+        _expertise = expertise;
 
   factory _$CharacterImpl.fromJson(Map<String, dynamic> json) =>
       _$$CharacterImplFromJson(json);
@@ -238,11 +394,80 @@ class _$CharacterImpl implements _Character {
   @CharacterClassTypeConverter()
   final Class characterClass;
   @override
-  final Attributes characterStats;
+  final GenerationMethod generationMethod;
+
+  /// Базовые характеристики (до бонусов расы)
+  @override
+  final Attributes baseStats;
+  final List<Ability> _bonusChoices;
+  @override
+  @JsonKey()
+  List<Ability> get bonusChoices {
+    if (_bonusChoices is EqualUnmodifiableListView) return _bonusChoices;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_bonusChoices);
+  }
+
+  @override
+  @BackgroundConverter()
+  final Background background;
+
+  /// Навыки, выбранные для своей предыстории
+  final List<Skill> _backgroundSkills;
+
+  /// Навыки, выбранные для своей предыстории
+  @override
+  @JsonKey()
+  List<Skill> get backgroundSkills {
+    if (_backgroundSkills is EqualUnmodifiableListView)
+      return _backgroundSkills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_backgroundSkills);
+  }
+
+  /// Навыки, выбранные от расы (полуэльф)
+  final List<Skill> _raceSkills;
+
+  /// Навыки, выбранные от расы (полуэльф)
+  @override
+  @JsonKey()
+  List<Skill> get raceSkills {
+    if (_raceSkills is EqualUnmodifiableListView) return _raceSkills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_raceSkills);
+  }
+
+  /// Навыки, выбранные из списка класса
+  final List<Skill> _classSkills;
+
+  /// Навыки, выбранные из списка класса
+  @override
+  @JsonKey()
+  List<Skill> get classSkills {
+    if (_classSkills is EqualUnmodifiableListView) return _classSkills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_classSkills);
+  }
+
+  /// Навыки с компетентностью (плут)
+  final List<Skill> _expertise;
+
+  /// Навыки с компетентностью (плут)
+  @override
+  @JsonKey()
+  List<Skill> get expertise {
+    if (_expertise is EqualUnmodifiableListView) return _expertise;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_expertise);
+  }
+
+  /// Итоговые и производные значения, посчитанные сервером
+  @override
+  final CharacterSheet sheet;
 
   @override
   String toString() {
-    return 'Character(name: $name, id: $id, level: $level, characterRace: $characterRace, characterClass: $characterClass, characterStats: $characterStats)';
+    return 'Character(name: $name, id: $id, level: $level, characterRace: $characterRace, characterClass: $characterClass, generationMethod: $generationMethod, baseStats: $baseStats, bonusChoices: $bonusChoices, background: $background, backgroundSkills: $backgroundSkills, raceSkills: $raceSkills, classSkills: $classSkills, expertise: $expertise, sheet: $sheet)';
   }
 
   @override
@@ -257,14 +482,43 @@ class _$CharacterImpl implements _Character {
                 other.characterRace == characterRace) &&
             (identical(other.characterClass, characterClass) ||
                 other.characterClass == characterClass) &&
-            (identical(other.characterStats, characterStats) ||
-                other.characterStats == characterStats));
+            (identical(other.generationMethod, generationMethod) ||
+                other.generationMethod == generationMethod) &&
+            (identical(other.baseStats, baseStats) ||
+                other.baseStats == baseStats) &&
+            const DeepCollectionEquality()
+                .equals(other._bonusChoices, _bonusChoices) &&
+            (identical(other.background, background) ||
+                other.background == background) &&
+            const DeepCollectionEquality()
+                .equals(other._backgroundSkills, _backgroundSkills) &&
+            const DeepCollectionEquality()
+                .equals(other._raceSkills, _raceSkills) &&
+            const DeepCollectionEquality()
+                .equals(other._classSkills, _classSkills) &&
+            const DeepCollectionEquality()
+                .equals(other._expertise, _expertise) &&
+            (identical(other.sheet, sheet) || other.sheet == sheet));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, id, level, characterRace,
-      characterClass, characterStats);
+  int get hashCode => Object.hash(
+      runtimeType,
+      name,
+      id,
+      level,
+      characterRace,
+      characterClass,
+      generationMethod,
+      baseStats,
+      const DeepCollectionEquality().hash(_bonusChoices),
+      background,
+      const DeepCollectionEquality().hash(_backgroundSkills),
+      const DeepCollectionEquality().hash(_raceSkills),
+      const DeepCollectionEquality().hash(_classSkills),
+      const DeepCollectionEquality().hash(_expertise),
+      sheet);
 
   /// Create a copy of Character
   /// with the given fields replaced by the non-null parameter values.
@@ -289,7 +543,15 @@ abstract class _Character implements Character {
       required final int level,
       @CharacterRaceTypeConverter() required final Race characterRace,
       @CharacterClassTypeConverter() required final Class characterClass,
-      required final Attributes characterStats}) = _$CharacterImpl;
+      required final GenerationMethod generationMethod,
+      required final Attributes baseStats,
+      final List<Ability> bonusChoices,
+      @BackgroundConverter() required final Background background,
+      final List<Skill> backgroundSkills,
+      final List<Skill> raceSkills,
+      final List<Skill> classSkills,
+      final List<Skill> expertise,
+      required final CharacterSheet sheet}) = _$CharacterImpl;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$CharacterImpl.fromJson;
@@ -307,7 +569,36 @@ abstract class _Character implements Character {
   @CharacterClassTypeConverter()
   Class get characterClass;
   @override
-  Attributes get characterStats;
+  GenerationMethod get generationMethod;
+
+  /// Базовые характеристики (до бонусов расы)
+  @override
+  Attributes get baseStats;
+  @override
+  List<Ability> get bonusChoices;
+  @override
+  @BackgroundConverter()
+  Background get background;
+
+  /// Навыки, выбранные для своей предыстории
+  @override
+  List<Skill> get backgroundSkills;
+
+  /// Навыки, выбранные от расы (полуэльф)
+  @override
+  List<Skill> get raceSkills;
+
+  /// Навыки, выбранные из списка класса
+  @override
+  List<Skill> get classSkills;
+
+  /// Навыки с компетентностью (плут)
+  @override
+  List<Skill> get expertise;
+
+  /// Итоговые и производные значения, посчитанные сервером
+  @override
+  CharacterSheet get sheet;
 
   /// Create a copy of Character
   /// with the given fields replaced by the non-null parameter values.

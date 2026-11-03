@@ -30,6 +30,12 @@ mixin _$Race {
   String get vision => throw _privateConstructorUsedError;
   String get traits => throw _privateConstructorUsedError;
 
+  /// Навыки, которыми раса владеет всегда
+  List<Skill> get skills => throw _privateConstructorUsedError;
+
+  /// Сколько любых навыков раса даёт выбрать
+  int get skillChoices => throw _privateConstructorUsedError;
+
   /// Serializes this Race to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -53,7 +59,9 @@ abstract class $RaceCopyWith<$Res> {
       List<Speed> speed,
       String language,
       String vision,
-      String traits});
+      String traits,
+      List<Skill> skills,
+      int skillChoices});
 }
 
 /// @nodoc
@@ -80,6 +88,8 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
     Object? language = null,
     Object? vision = null,
     Object? traits = null,
+    Object? skills = null,
+    Object? skillChoices = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -118,6 +128,14 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
           ? _value.traits
           : traits // ignore: cast_nullable_to_non_nullable
               as String,
+      skills: null == skills
+          ? _value.skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      skillChoices: null == skillChoices
+          ? _value.skillChoices
+          : skillChoices // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -138,7 +156,9 @@ abstract class _$$RaceImplCopyWith<$Res> implements $RaceCopyWith<$Res> {
       List<Speed> speed,
       String language,
       String vision,
-      String traits});
+      String traits,
+      List<Skill> skills,
+      int skillChoices});
 }
 
 /// @nodoc
@@ -162,6 +182,8 @@ class __$$RaceImplCopyWithImpl<$Res>
     Object? language = null,
     Object? vision = null,
     Object? traits = null,
+    Object? skills = null,
+    Object? skillChoices = null,
   }) {
     return _then(_$RaceImpl(
       name: null == name
@@ -200,6 +222,14 @@ class __$$RaceImplCopyWithImpl<$Res>
           ? _value.traits
           : traits // ignore: cast_nullable_to_non_nullable
               as String,
+      skills: null == skills
+          ? _value._skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      skillChoices: null == skillChoices
+          ? _value.skillChoices
+          : skillChoices // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -216,9 +246,12 @@ class _$RaceImpl implements _Race {
       required final List<Speed> speed,
       required this.language,
       required this.vision,
-      required this.traits})
+      required this.traits,
+      final List<Skill> skills = const [],
+      this.skillChoices = 0})
       : _asi = asi,
-        _speed = speed;
+        _speed = speed,
+        _skills = skills;
 
   factory _$RaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$RaceImplFromJson(json);
@@ -254,9 +287,26 @@ class _$RaceImpl implements _Race {
   @override
   final String traits;
 
+  /// Навыки, которыми раса владеет всегда
+  final List<Skill> _skills;
+
+  /// Навыки, которыми раса владеет всегда
+  @override
+  @JsonKey()
+  List<Skill> get skills {
+    if (_skills is EqualUnmodifiableListView) return _skills;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_skills);
+  }
+
+  /// Сколько любых навыков раса даёт выбрать
+  @override
+  @JsonKey()
+  final int skillChoices;
+
   @override
   String toString() {
-    return 'Race(name: $name, description: $description, asi: $asi, age: $age, size: $size, speed: $speed, language: $language, vision: $vision, traits: $traits)';
+    return 'Race(name: $name, description: $description, asi: $asi, age: $age, size: $size, speed: $speed, language: $language, vision: $vision, traits: $traits, skills: $skills, skillChoices: $skillChoices)';
   }
 
   @override
@@ -274,7 +324,10 @@ class _$RaceImpl implements _Race {
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.vision, vision) || other.vision == vision) &&
-            (identical(other.traits, traits) || other.traits == traits));
+            (identical(other.traits, traits) || other.traits == traits) &&
+            const DeepCollectionEquality().equals(other._skills, _skills) &&
+            (identical(other.skillChoices, skillChoices) ||
+                other.skillChoices == skillChoices));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -289,7 +342,9 @@ class _$RaceImpl implements _Race {
       const DeepCollectionEquality().hash(_speed),
       language,
       vision,
-      traits);
+      traits,
+      const DeepCollectionEquality().hash(_skills),
+      skillChoices);
 
   /// Create a copy of Race
   /// with the given fields replaced by the non-null parameter values.
@@ -317,7 +372,9 @@ abstract class _Race implements Race {
       required final List<Speed> speed,
       required final String language,
       required final String vision,
-      required final String traits}) = _$RaceImpl;
+      required final String traits,
+      final List<Skill> skills,
+      final int skillChoices}) = _$RaceImpl;
 
   factory _Race.fromJson(Map<String, dynamic> json) = _$RaceImpl.fromJson;
 
@@ -339,6 +396,14 @@ abstract class _Race implements Race {
   String get vision;
   @override
   String get traits;
+
+  /// Навыки, которыми раса владеет всегда
+  @override
+  List<Skill> get skills;
+
+  /// Сколько любых навыков раса даёт выбрать
+  @override
+  int get skillChoices;
 
   /// Create a copy of Race
   /// with the given fields replaced by the non-null parameter values.

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/application/auth/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/application/character/presentation/character_selection_screen.dart';
+import 'package:dnd_app/application/auth/bloc/auth_bloc.dart';
+import 'package:dnd_app/application/character/presentation/character_selection_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

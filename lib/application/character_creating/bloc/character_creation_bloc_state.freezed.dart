@@ -16,15 +16,30 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CharacterCreationBlocState {
-  String get characterName => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isCreated => throw _privateConstructorUsedError;
-  bool get isError => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
   CharacterCreationBlocState? get previousState =>
       throw _privateConstructorUsedError;
-  Attributes? get characterAttributes => throw _privateConstructorUsedError;
   Race? get characterRace => throw _privateConstructorUsedError;
   Class? get characterClass => throw _privateConstructorUsedError;
+  GenerationMethod? get generationMethod => throw _privateConstructorUsedError;
+
+  /// Базовые характеристики (до бонусов расы)
+  Attributes? get baseStats => throw _privateConstructorUsedError;
+  String? get rollToken => throw _privateConstructorUsedError;
+
+  /// Выбор бонусов расы; null — ещё не выбраны
+  List<Ability>? get bonusChoices => throw _privateConstructorUsedError;
+  Background? get background => throw _privateConstructorUsedError;
+
+  /// Выбор навыков; null — шаг навыков ещё не пройден
+  SkillSelection? get skills => throw _privateConstructorUsedError;
+
+  /// Лист, посчитанный сервером для текущего черновика
+  CharacterSheet? get sheet => throw _privateConstructorUsedError;
+  bool get isPreviewLoading => throw _privateConstructorUsedError;
+  String? get previewError => throw _privateConstructorUsedError;
 
   /// Create a copy of CharacterCreationBlocState
   /// with the given fields replaced by the non-null parameter values.
@@ -41,19 +56,29 @@ abstract class $CharacterCreationBlocStateCopyWith<$Res> {
           CharacterCreationBlocState>;
   @useResult
   $Res call(
-      {String characterName,
-      bool isLoading,
+      {bool isLoading,
       bool isCreated,
-      bool isError,
+      String? errorMessage,
       CharacterCreationBlocState? previousState,
-      Attributes? characterAttributes,
       Race? characterRace,
-      Class? characterClass});
+      Class? characterClass,
+      GenerationMethod? generationMethod,
+      Attributes? baseStats,
+      String? rollToken,
+      List<Ability>? bonusChoices,
+      Background? background,
+      SkillSelection? skills,
+      CharacterSheet? sheet,
+      bool isPreviewLoading,
+      String? previewError});
 
   $CharacterCreationBlocStateCopyWith<$Res>? get previousState;
-  $AttributesCopyWith<$Res>? get characterAttributes;
   $RaceCopyWith<$Res>? get characterRace;
   $ClassCopyWith<$Res>? get characterClass;
+  $AttributesCopyWith<$Res>? get baseStats;
+  $BackgroundCopyWith<$Res>? get background;
+  $SkillSelectionCopyWith<$Res>? get skills;
+  $CharacterSheetCopyWith<$Res>? get sheet;
 }
 
 /// @nodoc
@@ -72,20 +97,23 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? characterName = null,
     Object? isLoading = null,
     Object? isCreated = null,
-    Object? isError = null,
+    Object? errorMessage = freezed,
     Object? previousState = freezed,
-    Object? characterAttributes = freezed,
     Object? characterRace = freezed,
     Object? characterClass = freezed,
+    Object? generationMethod = freezed,
+    Object? baseStats = freezed,
+    Object? rollToken = freezed,
+    Object? bonusChoices = freezed,
+    Object? background = freezed,
+    Object? skills = freezed,
+    Object? sheet = freezed,
+    Object? isPreviewLoading = null,
+    Object? previewError = freezed,
   }) {
     return _then(_value.copyWith(
-      characterName: null == characterName
-          ? _value.characterName
-          : characterName // ignore: cast_nullable_to_non_nullable
-              as String,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -94,18 +122,14 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
           ? _value.isCreated
           : isCreated // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: null == isError
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
-              as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       previousState: freezed == previousState
           ? _value.previousState
           : previousState // ignore: cast_nullable_to_non_nullable
               as CharacterCreationBlocState?,
-      characterAttributes: freezed == characterAttributes
-          ? _value.characterAttributes
-          : characterAttributes // ignore: cast_nullable_to_non_nullable
-              as Attributes?,
       characterRace: freezed == characterRace
           ? _value.characterRace
           : characterRace // ignore: cast_nullable_to_non_nullable
@@ -114,6 +138,42 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
           ? _value.characterClass
           : characterClass // ignore: cast_nullable_to_non_nullable
               as Class?,
+      generationMethod: freezed == generationMethod
+          ? _value.generationMethod
+          : generationMethod // ignore: cast_nullable_to_non_nullable
+              as GenerationMethod?,
+      baseStats: freezed == baseStats
+          ? _value.baseStats
+          : baseStats // ignore: cast_nullable_to_non_nullable
+              as Attributes?,
+      rollToken: freezed == rollToken
+          ? _value.rollToken
+          : rollToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bonusChoices: freezed == bonusChoices
+          ? _value.bonusChoices
+          : bonusChoices // ignore: cast_nullable_to_non_nullable
+              as List<Ability>?,
+      background: freezed == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background?,
+      skills: freezed == skills
+          ? _value.skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as SkillSelection?,
+      sheet: freezed == sheet
+          ? _value.sheet
+          : sheet // ignore: cast_nullable_to_non_nullable
+              as CharacterSheet?,
+      isPreviewLoading: null == isPreviewLoading
+          ? _value.isPreviewLoading
+          : isPreviewLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      previewError: freezed == previewError
+          ? _value.previewError
+          : previewError // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -129,20 +189,6 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
     return $CharacterCreationBlocStateCopyWith<$Res>(_value.previousState!,
         (value) {
       return _then(_value.copyWith(previousState: value) as $Val);
-    });
-  }
-
-  /// Create a copy of CharacterCreationBlocState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AttributesCopyWith<$Res>? get characterAttributes {
-    if (_value.characterAttributes == null) {
-      return null;
-    }
-
-    return $AttributesCopyWith<$Res>(_value.characterAttributes!, (value) {
-      return _then(_value.copyWith(characterAttributes: value) as $Val);
     });
   }
 
@@ -173,6 +219,62 @@ class _$CharacterCreationBlocStateCopyWithImpl<$Res,
       return _then(_value.copyWith(characterClass: value) as $Val);
     });
   }
+
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AttributesCopyWith<$Res>? get baseStats {
+    if (_value.baseStats == null) {
+      return null;
+    }
+
+    return $AttributesCopyWith<$Res>(_value.baseStats!, (value) {
+      return _then(_value.copyWith(baseStats: value) as $Val);
+    });
+  }
+
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BackgroundCopyWith<$Res>? get background {
+    if (_value.background == null) {
+      return null;
+    }
+
+    return $BackgroundCopyWith<$Res>(_value.background!, (value) {
+      return _then(_value.copyWith(background: value) as $Val);
+    });
+  }
+
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SkillSelectionCopyWith<$Res>? get skills {
+    if (_value.skills == null) {
+      return null;
+    }
+
+    return $SkillSelectionCopyWith<$Res>(_value.skills!, (value) {
+      return _then(_value.copyWith(skills: value) as $Val);
+    });
+  }
+
+  /// Create a copy of CharacterCreationBlocState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CharacterSheetCopyWith<$Res>? get sheet {
+    if (_value.sheet == null) {
+      return null;
+    }
+
+    return $CharacterSheetCopyWith<$Res>(_value.sheet!, (value) {
+      return _then(_value.copyWith(sheet: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -185,23 +287,36 @@ abstract class _$$CharacterCreationBlocStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String characterName,
-      bool isLoading,
+      {bool isLoading,
       bool isCreated,
-      bool isError,
+      String? errorMessage,
       CharacterCreationBlocState? previousState,
-      Attributes? characterAttributes,
       Race? characterRace,
-      Class? characterClass});
+      Class? characterClass,
+      GenerationMethod? generationMethod,
+      Attributes? baseStats,
+      String? rollToken,
+      List<Ability>? bonusChoices,
+      Background? background,
+      SkillSelection? skills,
+      CharacterSheet? sheet,
+      bool isPreviewLoading,
+      String? previewError});
 
   @override
   $CharacterCreationBlocStateCopyWith<$Res>? get previousState;
   @override
-  $AttributesCopyWith<$Res>? get characterAttributes;
-  @override
   $RaceCopyWith<$Res>? get characterRace;
   @override
   $ClassCopyWith<$Res>? get characterClass;
+  @override
+  $AttributesCopyWith<$Res>? get baseStats;
+  @override
+  $BackgroundCopyWith<$Res>? get background;
+  @override
+  $SkillSelectionCopyWith<$Res>? get skills;
+  @override
+  $CharacterSheetCopyWith<$Res>? get sheet;
 }
 
 /// @nodoc
@@ -219,20 +334,23 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? characterName = null,
     Object? isLoading = null,
     Object? isCreated = null,
-    Object? isError = null,
+    Object? errorMessage = freezed,
     Object? previousState = freezed,
-    Object? characterAttributes = freezed,
     Object? characterRace = freezed,
     Object? characterClass = freezed,
+    Object? generationMethod = freezed,
+    Object? baseStats = freezed,
+    Object? rollToken = freezed,
+    Object? bonusChoices = freezed,
+    Object? background = freezed,
+    Object? skills = freezed,
+    Object? sheet = freezed,
+    Object? isPreviewLoading = null,
+    Object? previewError = freezed,
   }) {
     return _then(_$CharacterCreationBlocStateImpl(
-      characterName: null == characterName
-          ? _value.characterName
-          : characterName // ignore: cast_nullable_to_non_nullable
-              as String,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -241,18 +359,14 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
           ? _value.isCreated
           : isCreated // ignore: cast_nullable_to_non_nullable
               as bool,
-      isError: null == isError
-          ? _value.isError
-          : isError // ignore: cast_nullable_to_non_nullable
-              as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       previousState: freezed == previousState
           ? _value.previousState
           : previousState // ignore: cast_nullable_to_non_nullable
               as CharacterCreationBlocState?,
-      characterAttributes: freezed == characterAttributes
-          ? _value.characterAttributes
-          : characterAttributes // ignore: cast_nullable_to_non_nullable
-              as Attributes?,
       characterRace: freezed == characterRace
           ? _value.characterRace
           : characterRace // ignore: cast_nullable_to_non_nullable
@@ -261,26 +375,68 @@ class __$$CharacterCreationBlocStateImplCopyWithImpl<$Res>
           ? _value.characterClass
           : characterClass // ignore: cast_nullable_to_non_nullable
               as Class?,
+      generationMethod: freezed == generationMethod
+          ? _value.generationMethod
+          : generationMethod // ignore: cast_nullable_to_non_nullable
+              as GenerationMethod?,
+      baseStats: freezed == baseStats
+          ? _value.baseStats
+          : baseStats // ignore: cast_nullable_to_non_nullable
+              as Attributes?,
+      rollToken: freezed == rollToken
+          ? _value.rollToken
+          : rollToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bonusChoices: freezed == bonusChoices
+          ? _value._bonusChoices
+          : bonusChoices // ignore: cast_nullable_to_non_nullable
+              as List<Ability>?,
+      background: freezed == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Background?,
+      skills: freezed == skills
+          ? _value.skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as SkillSelection?,
+      sheet: freezed == sheet
+          ? _value.sheet
+          : sheet // ignore: cast_nullable_to_non_nullable
+              as CharacterSheet?,
+      isPreviewLoading: null == isPreviewLoading
+          ? _value.isPreviewLoading
+          : isPreviewLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      previewError: freezed == previewError
+          ? _value.previewError
+          : previewError // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
+class _$CharacterCreationBlocStateImpl extends _CharacterCreationBlocState {
   _$CharacterCreationBlocStateImpl(
-      {this.characterName = '',
-      this.isLoading = false,
+      {this.isLoading = false,
       this.isCreated = false,
-      this.isError = false,
+      this.errorMessage,
       this.previousState,
-      this.characterAttributes,
       this.characterRace,
-      this.characterClass});
+      this.characterClass,
+      this.generationMethod,
+      this.baseStats,
+      this.rollToken,
+      final List<Ability>? bonusChoices,
+      this.background,
+      this.skills,
+      this.sheet,
+      this.isPreviewLoading = false,
+      this.previewError})
+      : _bonusChoices = bonusChoices,
+        super._();
 
-  @override
-  @JsonKey()
-  final String characterName;
   @override
   @JsonKey()
   final bool isLoading;
@@ -288,20 +444,54 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
   @JsonKey()
   final bool isCreated;
   @override
-  @JsonKey()
-  final bool isError;
+  final String? errorMessage;
   @override
   final CharacterCreationBlocState? previousState;
-  @override
-  final Attributes? characterAttributes;
   @override
   final Race? characterRace;
   @override
   final Class? characterClass;
+  @override
+  final GenerationMethod? generationMethod;
+
+  /// Базовые характеристики (до бонусов расы)
+  @override
+  final Attributes? baseStats;
+  @override
+  final String? rollToken;
+
+  /// Выбор бонусов расы; null — ещё не выбраны
+  final List<Ability>? _bonusChoices;
+
+  /// Выбор бонусов расы; null — ещё не выбраны
+  @override
+  List<Ability>? get bonusChoices {
+    final value = _bonusChoices;
+    if (value == null) return null;
+    if (_bonusChoices is EqualUnmodifiableListView) return _bonusChoices;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final Background? background;
+
+  /// Выбор навыков; null — шаг навыков ещё не пройден
+  @override
+  final SkillSelection? skills;
+
+  /// Лист, посчитанный сервером для текущего черновика
+  @override
+  final CharacterSheet? sheet;
+  @override
+  @JsonKey()
+  final bool isPreviewLoading;
+  @override
+  final String? previewError;
 
   @override
   String toString() {
-    return 'CharacterCreationBlocState(characterName: $characterName, isLoading: $isLoading, isCreated: $isCreated, isError: $isError, previousState: $previousState, characterAttributes: $characterAttributes, characterRace: $characterRace, characterClass: $characterClass)';
+    return 'CharacterCreationBlocState(isLoading: $isLoading, isCreated: $isCreated, errorMessage: $errorMessage, previousState: $previousState, characterRace: $characterRace, characterClass: $characterClass, generationMethod: $generationMethod, baseStats: $baseStats, rollToken: $rollToken, bonusChoices: $bonusChoices, background: $background, skills: $skills, sheet: $sheet, isPreviewLoading: $isPreviewLoading, previewError: $previewError)';
   }
 
   @override
@@ -309,34 +499,54 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CharacterCreationBlocStateImpl &&
-            (identical(other.characterName, characterName) ||
-                other.characterName == characterName) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isCreated, isCreated) ||
                 other.isCreated == isCreated) &&
-            (identical(other.isError, isError) || other.isError == isError) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
             (identical(other.previousState, previousState) ||
                 other.previousState == previousState) &&
-            (identical(other.characterAttributes, characterAttributes) ||
-                other.characterAttributes == characterAttributes) &&
             (identical(other.characterRace, characterRace) ||
                 other.characterRace == characterRace) &&
             (identical(other.characterClass, characterClass) ||
-                other.characterClass == characterClass));
+                other.characterClass == characterClass) &&
+            (identical(other.generationMethod, generationMethod) ||
+                other.generationMethod == generationMethod) &&
+            (identical(other.baseStats, baseStats) ||
+                other.baseStats == baseStats) &&
+            (identical(other.rollToken, rollToken) ||
+                other.rollToken == rollToken) &&
+            const DeepCollectionEquality()
+                .equals(other._bonusChoices, _bonusChoices) &&
+            (identical(other.background, background) ||
+                other.background == background) &&
+            (identical(other.skills, skills) || other.skills == skills) &&
+            (identical(other.sheet, sheet) || other.sheet == sheet) &&
+            (identical(other.isPreviewLoading, isPreviewLoading) ||
+                other.isPreviewLoading == isPreviewLoading) &&
+            (identical(other.previewError, previewError) ||
+                other.previewError == previewError));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      characterName,
       isLoading,
       isCreated,
-      isError,
+      errorMessage,
       previousState,
-      characterAttributes,
       characterRace,
-      characterClass);
+      characterClass,
+      generationMethod,
+      baseStats,
+      rollToken,
+      const DeepCollectionEquality().hash(_bonusChoices),
+      background,
+      skills,
+      sheet,
+      isPreviewLoading,
+      previewError);
 
   /// Create a copy of CharacterCreationBlocState
   /// with the given fields replaced by the non-null parameter values.
@@ -348,34 +558,63 @@ class _$CharacterCreationBlocStateImpl implements _CharacterCreationBlocState {
           _$CharacterCreationBlocStateImpl>(this, _$identity);
 }
 
-abstract class _CharacterCreationBlocState
-    implements CharacterCreationBlocState {
+abstract class _CharacterCreationBlocState extends CharacterCreationBlocState {
   factory _CharacterCreationBlocState(
-      {final String characterName,
-      final bool isLoading,
+      {final bool isLoading,
       final bool isCreated,
-      final bool isError,
+      final String? errorMessage,
       final CharacterCreationBlocState? previousState,
-      final Attributes? characterAttributes,
       final Race? characterRace,
-      final Class? characterClass}) = _$CharacterCreationBlocStateImpl;
+      final Class? characterClass,
+      final GenerationMethod? generationMethod,
+      final Attributes? baseStats,
+      final String? rollToken,
+      final List<Ability>? bonusChoices,
+      final Background? background,
+      final SkillSelection? skills,
+      final CharacterSheet? sheet,
+      final bool isPreviewLoading,
+      final String? previewError}) = _$CharacterCreationBlocStateImpl;
+  _CharacterCreationBlocState._() : super._();
 
-  @override
-  String get characterName;
   @override
   bool get isLoading;
   @override
   bool get isCreated;
   @override
-  bool get isError;
+  String? get errorMessage;
   @override
   CharacterCreationBlocState? get previousState;
-  @override
-  Attributes? get characterAttributes;
   @override
   Race? get characterRace;
   @override
   Class? get characterClass;
+  @override
+  GenerationMethod? get generationMethod;
+
+  /// Базовые характеристики (до бонусов расы)
+  @override
+  Attributes? get baseStats;
+  @override
+  String? get rollToken;
+
+  /// Выбор бонусов расы; null — ещё не выбраны
+  @override
+  List<Ability>? get bonusChoices;
+  @override
+  Background? get background;
+
+  /// Выбор навыков; null — шаг навыков ещё не пройден
+  @override
+  SkillSelection? get skills;
+
+  /// Лист, посчитанный сервером для текущего черновика
+  @override
+  CharacterSheet? get sheet;
+  @override
+  bool get isPreviewLoading;
+  @override
+  String? get previewError;
 
   /// Create a copy of CharacterCreationBlocState
   /// with the given fields replaced by the non-null parameter values.
@@ -383,4 +622,257 @@ abstract class _CharacterCreationBlocState
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharacterCreationBlocStateImplCopyWith<_$CharacterCreationBlocStateImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SkillSelection {
+  /// Навыки своей предыстории
+  List<Skill> get background => throw _privateConstructorUsedError;
+
+  /// Навыки расы на выбор (полуэльф)
+  List<Skill> get race => throw _privateConstructorUsedError;
+  List<Skill> get characterClass => throw _privateConstructorUsedError;
+
+  /// Компетентность (плут)
+  List<Skill> get expertise => throw _privateConstructorUsedError;
+
+  /// Create a copy of SkillSelection
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SkillSelectionCopyWith<SkillSelection> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SkillSelectionCopyWith<$Res> {
+  factory $SkillSelectionCopyWith(
+          SkillSelection value, $Res Function(SkillSelection) then) =
+      _$SkillSelectionCopyWithImpl<$Res, SkillSelection>;
+  @useResult
+  $Res call(
+      {List<Skill> background,
+      List<Skill> race,
+      List<Skill> characterClass,
+      List<Skill> expertise});
+}
+
+/// @nodoc
+class _$SkillSelectionCopyWithImpl<$Res, $Val extends SkillSelection>
+    implements $SkillSelectionCopyWith<$Res> {
+  _$SkillSelectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SkillSelection
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? background = null,
+    Object? race = null,
+    Object? characterClass = null,
+    Object? expertise = null,
+  }) {
+    return _then(_value.copyWith(
+      background: null == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      race: null == race
+          ? _value.race
+          : race // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      characterClass: null == characterClass
+          ? _value.characterClass
+          : characterClass // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertise: null == expertise
+          ? _value.expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SkillSelectionImplCopyWith<$Res>
+    implements $SkillSelectionCopyWith<$Res> {
+  factory _$$SkillSelectionImplCopyWith(_$SkillSelectionImpl value,
+          $Res Function(_$SkillSelectionImpl) then) =
+      __$$SkillSelectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<Skill> background,
+      List<Skill> race,
+      List<Skill> characterClass,
+      List<Skill> expertise});
+}
+
+/// @nodoc
+class __$$SkillSelectionImplCopyWithImpl<$Res>
+    extends _$SkillSelectionCopyWithImpl<$Res, _$SkillSelectionImpl>
+    implements _$$SkillSelectionImplCopyWith<$Res> {
+  __$$SkillSelectionImplCopyWithImpl(
+      _$SkillSelectionImpl _value, $Res Function(_$SkillSelectionImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SkillSelection
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? background = null,
+    Object? race = null,
+    Object? characterClass = null,
+    Object? expertise = null,
+  }) {
+    return _then(_$SkillSelectionImpl(
+      background: null == background
+          ? _value._background
+          : background // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      race: null == race
+          ? _value._race
+          : race // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      characterClass: null == characterClass
+          ? _value._characterClass
+          : characterClass // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+      expertise: null == expertise
+          ? _value._expertise
+          : expertise // ignore: cast_nullable_to_non_nullable
+              as List<Skill>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SkillSelectionImpl extends _SkillSelection {
+  const _$SkillSelectionImpl(
+      {final List<Skill> background = const [],
+      final List<Skill> race = const [],
+      final List<Skill> characterClass = const [],
+      final List<Skill> expertise = const []})
+      : _background = background,
+        _race = race,
+        _characterClass = characterClass,
+        _expertise = expertise,
+        super._();
+
+  /// Навыки своей предыстории
+  final List<Skill> _background;
+
+  /// Навыки своей предыстории
+  @override
+  @JsonKey()
+  List<Skill> get background {
+    if (_background is EqualUnmodifiableListView) return _background;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_background);
+  }
+
+  /// Навыки расы на выбор (полуэльф)
+  final List<Skill> _race;
+
+  /// Навыки расы на выбор (полуэльф)
+  @override
+  @JsonKey()
+  List<Skill> get race {
+    if (_race is EqualUnmodifiableListView) return _race;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_race);
+  }
+
+  final List<Skill> _characterClass;
+  @override
+  @JsonKey()
+  List<Skill> get characterClass {
+    if (_characterClass is EqualUnmodifiableListView) return _characterClass;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_characterClass);
+  }
+
+  /// Компетентность (плут)
+  final List<Skill> _expertise;
+
+  /// Компетентность (плут)
+  @override
+  @JsonKey()
+  List<Skill> get expertise {
+    if (_expertise is EqualUnmodifiableListView) return _expertise;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_expertise);
+  }
+
+  @override
+  String toString() {
+    return 'SkillSelection(background: $background, race: $race, characterClass: $characterClass, expertise: $expertise)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SkillSelectionImpl &&
+            const DeepCollectionEquality()
+                .equals(other._background, _background) &&
+            const DeepCollectionEquality().equals(other._race, _race) &&
+            const DeepCollectionEquality()
+                .equals(other._characterClass, _characterClass) &&
+            const DeepCollectionEquality()
+                .equals(other._expertise, _expertise));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_background),
+      const DeepCollectionEquality().hash(_race),
+      const DeepCollectionEquality().hash(_characterClass),
+      const DeepCollectionEquality().hash(_expertise));
+
+  /// Create a copy of SkillSelection
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SkillSelectionImplCopyWith<_$SkillSelectionImpl> get copyWith =>
+      __$$SkillSelectionImplCopyWithImpl<_$SkillSelectionImpl>(
+          this, _$identity);
+}
+
+abstract class _SkillSelection extends SkillSelection {
+  const factory _SkillSelection(
+      {final List<Skill> background,
+      final List<Skill> race,
+      final List<Skill> characterClass,
+      final List<Skill> expertise}) = _$SkillSelectionImpl;
+  const _SkillSelection._() : super._();
+
+  /// Навыки своей предыстории
+  @override
+  List<Skill> get background;
+
+  /// Навыки расы на выбор (полуэльф)
+  @override
+  List<Skill> get race;
+  @override
+  List<Skill> get characterClass;
+
+  /// Компетентность (плут)
+  @override
+  List<Skill> get expertise;
+
+  /// Create a copy of SkillSelection
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SkillSelectionImplCopyWith<_$SkillSelectionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
