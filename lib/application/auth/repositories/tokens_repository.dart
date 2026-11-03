@@ -23,7 +23,9 @@ class TokensRepository implements ITokensRepository {
       request.toJson(),
     );
 
-    return Tokens.fromJson(tokensRaw.requireBody('/login'));
+    if (tokensRaw == null) throw const EmptyResponseException('/login');
+
+    return Tokens.fromJson(tokensRaw);
   }
 
   @override

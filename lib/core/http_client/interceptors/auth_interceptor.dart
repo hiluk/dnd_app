@@ -77,9 +77,10 @@ class AuthInterceptor extends QueuedInterceptor {
       '/refresh',
       data: {'refreshToken': refreshToken},
     );
-    await _dataBase.cacheTokens(
-      Tokens.fromJson(response.data.requireBody('/refresh')),
-    );
+    final tokensRaw = response.data;
+    if (tokensRaw == null) throw const EmptyResponseException('/refresh');
+
+    await _dataBase.cacheTokens(Tokens.fromJson(tokensRaw));
   }
 
   Future<Response<dynamic>> _retry(RequestOptions request) {

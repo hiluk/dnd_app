@@ -40,7 +40,9 @@ class CharactersRepository {
       draft.toJson(),
     );
 
-    return CharacterSheet.fromJson(data.requireBody('/characters/preview'));
+    if (data == null) throw const EmptyResponseException('/characters/preview');
+
+    return CharacterSheet.fromJson(data);
   }
 
   /// Бросить 4к6 для шести характеристик на сервере
@@ -48,7 +50,9 @@ class CharactersRepository {
     final data =
         await _httpClient.post<Map<String, dynamic>>('/abilities/roll', null);
 
-    return AbilityRoll.fromJson(data.requireBody('/abilities/roll'));
+    if (data == null) throw const EmptyResponseException('/abilities/roll');
+
+    return AbilityRoll.fromJson(data);
   }
 
   Future<void> saveCharacter(CharacterDraft draft) async {
