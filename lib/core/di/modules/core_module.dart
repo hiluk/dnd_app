@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @module
 abstract class CoreModule {
@@ -27,4 +28,9 @@ abstract class CoreModule {
 
   @singleton
   GoRouter get router => AppRouter.router;
+
+  /// Настройки приложения (тема). Загружаются один раз при старте.
+  @preResolve
+  @lazySingleton
+  Future<SharedPreferences> get preferences => SharedPreferences.getInstance();
 }
