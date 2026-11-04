@@ -5,7 +5,8 @@ import 'package:dnd_app/application/character/bloc/current_character/current_cha
 import 'package:dnd_app/application/character/repositories/characters_repository.dart';
 import 'package:dnd_app/application/character/presentation/widgets/sheet_view.dart';
 import 'package:dnd_app/application/character/presentation/widgets/character_hero.dart';
-import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
+import 'package:dnd_app/application/character/avatar/avatar_sheet.dart';
+import 'package:dnd_app/application/character/avatar/character_art.dart';
 import 'package:dnd_app/core/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,16 +74,18 @@ class CharacterScreen extends StatelessWidget {
                 CurrentCharacterBlocStateLoaded state => ListView(
                     padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
                     children: [
-                      CharacterHero(
-                        name: state.character.name,
-                        subtitle: '${state.character.characterRace.name}, '
-                            '${state.character.characterClass.name.toLowerCase()}',
-                        details:
-                            'Предыстория: ${state.character.background.name.toLowerCase()}',
-                        art: CharacterClassType.artByName(
-                          state.character.characterClass.name,
+                      CharacterArt(
+                        character: state.character,
+                        builder: (context, art) => CharacterHero(
+                          name: state.character.name,
+                          subtitle: '${state.character.characterRace.name}, '
+                              '${state.character.characterClass.name.toLowerCase()}',
+                          details: 'Предыстория: '
+                              '${state.character.background.name.toLowerCase()}',
+                          art: art,
+                          level: state.character.level,
+                          onEditArt: () => showAvatarSheet(context, state.character),
                         ),
-                        level: state.character.level,
                       ),
                       const SizedBox(height: 20),
                       SheetView(sheet: state.character.sheet),

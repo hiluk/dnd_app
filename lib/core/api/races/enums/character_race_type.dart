@@ -26,9 +26,9 @@ enum CharacterRaceType {
   final CardArt art;
   const CharacterRaceType(this.name, this.jsonValue, [this.art = fallback]);
 
-  String get assetPath => art.path;
+  String get assetPath => art.path!;
 
-  static String findRaceAsset(Race race) => artOf(race).path;
+  static String findRaceAsset(Race race) => artOf(race).path!;
 
   static CardArt artOf(Race race) {
     for (final type in CharacterRaceType.values) {

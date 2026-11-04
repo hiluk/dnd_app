@@ -1,4 +1,5 @@
 import 'package:dnd_app/application/character/models/attributes_model.dart';
+import 'package:dnd_app/application/character/models/character_avatar.dart';
 import 'package:dnd_app/application/character/models/character_sheet.dart';
 import 'package:dnd_app/core/api/abilities/ability.dart';
 import 'package:dnd_app/core/api/backgrounds/converters/background_converter.dart';
@@ -42,6 +43,9 @@ class Character with _$Character {
 
     /// Итоговые и производные значения, посчитанные сервером
     required CharacterSheet sheet,
+
+    /// Своя картинка; null — стандартная картинка класса
+    CharacterAvatar? avatar,
   }) = _Character;
 
   factory Character.fromJson(Map<String, dynamic> json) =>

@@ -12,6 +12,9 @@ class CharacterHero extends StatelessWidget {
   final CardArt art;
   final int? level;
 
+  /// Открыть выбор своей картинки; null — кнопки нет
+  final VoidCallback? onEditArt;
+
   const CharacterHero({
     super.key,
     required this.name,
@@ -19,6 +22,7 @@ class CharacterHero extends StatelessWidget {
     required this.art,
     this.details,
     this.level,
+    this.onEditArt,
   });
 
   @override
@@ -109,6 +113,36 @@ class CharacterHero extends StatelessWidget {
                 ],
               ),
             ),
+            if (onEditArt != null)
+              Positioned(
+                right: 6,
+                bottom: 6,
+                child: Tooltip(
+                  message: 'Изменить изображение',
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: onEditArt,
+                      customBorder: const CircleBorder(),
+                      child: SizedBox.square(
+                        dimension: 44,
+                        child: Center(
+                          child: Container(
+                            width: 34,
+                            height: 34,
+                            decoration: BoxDecoration(
+                              color: p.raised,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: p.control),
+                            ),
+                            child: Icon(Icons.edit_outlined, size: 17, color: p.ink),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ],
         );
       }),

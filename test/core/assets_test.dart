@@ -42,7 +42,7 @@ void main() {
   test('Фигуры лежат в папке фигур, гравюры — в папке картинок', () {
     for (final (name, art) in arts) {
       expect(
-        art.path.startsWith(art.isFigure ? figuresDir : platesDir),
+        art.path!.startsWith(art.isFigure ? figuresDir : platesDir),
         isTrue,
         reason: '$name: ${art.path}',
       );
@@ -54,7 +54,7 @@ void main() {
   for (final (name, art) in arts.where((e) => e.$2.isFigure)) {
     testWidgets('Фон фигуры «$name» прозрачный', (tester) async {
       final transparent = await tester.runAsync(() async {
-        final bytes = File(art.path).readAsBytesSync();
+        final bytes = File(art.path!).readAsBytesSync();
         final image = await decodeImageFromList(bytes);
         final data =
             (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!;

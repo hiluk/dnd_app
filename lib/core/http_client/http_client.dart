@@ -36,4 +36,28 @@ class AppHttpClient implements IHttpClient {
 
     return response.data;
   }
+
+  @override
+  Future<T?> put<T>(String url, dynamic data) async {
+    final response = await _client.put<T>(url, data: data);
+
+    return response.data;
+  }
+
+  @override
+  Future<T?> patch<T>(String url, dynamic data) async {
+    final response = await _client.patch<T>(url, data: data);
+
+    return response.data;
+  }
+
+  @override
+  Future<List<int>> getBytes(String url) async {
+    final response = await _client.get<List<int>>(
+      url,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    return response.data ?? const [];
+  }
 }

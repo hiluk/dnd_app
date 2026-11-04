@@ -10,8 +10,15 @@ abstract interface class IHttpClient {
     Map<String, dynamic>? queryParams,
   ]);
 
+  Future<T?> put<T>(String url, dynamic data);
+
+  Future<T?> patch<T>(String url, dynamic data);
+
   Future<T?> delete<T>(
     String url, [
     Map<String, dynamic>? queryParams,
   ]);
+
+  /// Скачать файл целиком (с авторизацией и обновлением токена)
+  Future<List<int>> getBytes(String url);
 }

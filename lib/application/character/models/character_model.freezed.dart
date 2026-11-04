@@ -50,6 +50,9 @@ mixin _$Character {
   /// Итоговые и производные значения, посчитанные сервером
   CharacterSheet get sheet => throw _privateConstructorUsedError;
 
+  /// Своя картинка; null — стандартная картинка класса
+  CharacterAvatar? get avatar => throw _privateConstructorUsedError;
+
   /// Serializes this Character to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -79,13 +82,15 @@ abstract class $CharacterCopyWith<$Res> {
       List<Skill> raceSkills,
       List<Skill> classSkills,
       List<Skill> expertise,
-      CharacterSheet sheet});
+      CharacterSheet sheet,
+      CharacterAvatar? avatar});
 
   $RaceCopyWith<$Res> get characterRace;
   $ClassCopyWith<$Res> get characterClass;
   $AttributesCopyWith<$Res> get baseStats;
   $BackgroundCopyWith<$Res> get background;
   $CharacterSheetCopyWith<$Res> get sheet;
+  $CharacterAvatarCopyWith<$Res>? get avatar;
 }
 
 /// @nodoc
@@ -117,6 +122,7 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? classSkills = null,
     Object? expertise = null,
     Object? sheet = null,
+    Object? avatar = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -175,6 +181,10 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.sheet
           : sheet // ignore: cast_nullable_to_non_nullable
               as CharacterSheet,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as CharacterAvatar?,
     ) as $Val);
   }
 
@@ -227,6 +237,20 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
       return _then(_value.copyWith(sheet: value) as $Val);
     });
   }
+
+  /// Create a copy of Character
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CharacterAvatarCopyWith<$Res>? get avatar {
+    if (_value.avatar == null) {
+      return null;
+    }
+
+    return $CharacterAvatarCopyWith<$Res>(_value.avatar!, (value) {
+      return _then(_value.copyWith(avatar: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -251,7 +275,8 @@ abstract class _$$CharacterImplCopyWith<$Res>
       List<Skill> raceSkills,
       List<Skill> classSkills,
       List<Skill> expertise,
-      CharacterSheet sheet});
+      CharacterSheet sheet,
+      CharacterAvatar? avatar});
 
   @override
   $RaceCopyWith<$Res> get characterRace;
@@ -263,6 +288,8 @@ abstract class _$$CharacterImplCopyWith<$Res>
   $BackgroundCopyWith<$Res> get background;
   @override
   $CharacterSheetCopyWith<$Res> get sheet;
+  @override
+  $CharacterAvatarCopyWith<$Res>? get avatar;
 }
 
 /// @nodoc
@@ -292,6 +319,7 @@ class __$$CharacterImplCopyWithImpl<$Res>
     Object? classSkills = null,
     Object? expertise = null,
     Object? sheet = null,
+    Object? avatar = freezed,
   }) {
     return _then(_$CharacterImpl(
       name: null == name
@@ -350,6 +378,10 @@ class __$$CharacterImplCopyWithImpl<$Res>
           ? _value.sheet
           : sheet // ignore: cast_nullable_to_non_nullable
               as CharacterSheet,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as CharacterAvatar?,
     ));
   }
 }
@@ -371,7 +403,8 @@ class _$CharacterImpl implements _Character {
       final List<Skill> raceSkills = const [],
       final List<Skill> classSkills = const [],
       final List<Skill> expertise = const [],
-      required this.sheet})
+      required this.sheet,
+      this.avatar})
       : _bonusChoices = bonusChoices,
         _backgroundSkills = backgroundSkills,
         _raceSkills = raceSkills,
@@ -465,9 +498,13 @@ class _$CharacterImpl implements _Character {
   @override
   final CharacterSheet sheet;
 
+  /// Своя картинка; null — стандартная картинка класса
+  @override
+  final CharacterAvatar? avatar;
+
   @override
   String toString() {
-    return 'Character(name: $name, id: $id, level: $level, characterRace: $characterRace, characterClass: $characterClass, generationMethod: $generationMethod, baseStats: $baseStats, bonusChoices: $bonusChoices, background: $background, backgroundSkills: $backgroundSkills, raceSkills: $raceSkills, classSkills: $classSkills, expertise: $expertise, sheet: $sheet)';
+    return 'Character(name: $name, id: $id, level: $level, characterRace: $characterRace, characterClass: $characterClass, generationMethod: $generationMethod, baseStats: $baseStats, bonusChoices: $bonusChoices, background: $background, backgroundSkills: $backgroundSkills, raceSkills: $raceSkills, classSkills: $classSkills, expertise: $expertise, sheet: $sheet, avatar: $avatar)';
   }
 
   @override
@@ -498,7 +535,8 @@ class _$CharacterImpl implements _Character {
                 .equals(other._classSkills, _classSkills) &&
             const DeepCollectionEquality()
                 .equals(other._expertise, _expertise) &&
-            (identical(other.sheet, sheet) || other.sheet == sheet));
+            (identical(other.sheet, sheet) || other.sheet == sheet) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -518,7 +556,8 @@ class _$CharacterImpl implements _Character {
       const DeepCollectionEquality().hash(_raceSkills),
       const DeepCollectionEquality().hash(_classSkills),
       const DeepCollectionEquality().hash(_expertise),
-      sheet);
+      sheet,
+      avatar);
 
   /// Create a copy of Character
   /// with the given fields replaced by the non-null parameter values.
@@ -551,7 +590,8 @@ abstract class _Character implements Character {
       final List<Skill> raceSkills,
       final List<Skill> classSkills,
       final List<Skill> expertise,
-      required final CharacterSheet sheet}) = _$CharacterImpl;
+      required final CharacterSheet sheet,
+      final CharacterAvatar? avatar}) = _$CharacterImpl;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$CharacterImpl.fromJson;
@@ -599,6 +639,10 @@ abstract class _Character implements Character {
   /// Итоговые и производные значения, посчитанные сервером
   @override
   CharacterSheet get sheet;
+
+  /// Своя картинка; null — стандартная картинка класса
+  @override
+  CharacterAvatar? get avatar;
 
   /// Create a copy of Character
   /// with the given fields replaced by the non-null parameter values.
