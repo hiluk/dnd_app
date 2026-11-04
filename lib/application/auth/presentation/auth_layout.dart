@@ -29,10 +29,13 @@ class AuthLayout extends StatelessWidget {
       appBar: showBack ? AppBar() : null,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          state.whenOrNull(
-            error: (message) => ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(message))),
-          );
+          switch (state) {
+            case AuthError(:final message):
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(message)));
+            case AuthLoading() || AuthLogged() || AuthNotLogged():
+              break;
+          }
         },
         child: SafeArea(
           child: Center(
