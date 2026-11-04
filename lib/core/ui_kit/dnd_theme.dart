@@ -4,10 +4,9 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class DndTheme {
-  /// Декоративный шрифт: имена, заголовки экранов и разделов.
-  /// В нём нет части символов (например, «+» и ёлочек),
-  /// поэтому всё остальное набирается [textFont].
-  static const decorativeFont = 'Orpheus';
+  /// Шрифт заголовков: имена, заголовки экранов и разделов.
+  /// Alegreya SC (капитель) из той же семьи, что и текстовый [textFont].
+  static const decorativeFont = 'AlegreyaSC';
 
   /// Шрифт текста и чисел
   static const textFont = 'AlegreyaSans';
@@ -25,6 +24,7 @@ class DndTheme {
   static TextStyle display(Color color, {double size = 32}) => TextStyle(
         fontFamily: decorativeFont,
         fontSize: size,
+        fontWeight: FontWeight.w500,
         height: 1.1,
         color: color,
       );

@@ -39,9 +39,12 @@ flutter:
     - assets/figures/
   uses-material-design: true
   fonts:
-    - family: Orpheus
+    - family: AlegreyaSC
       fonts:
-        - asset: assets/fonts/Orpheus.ttf
+        - asset: assets/fonts/AlegreyaSC-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/AlegreyaSC-Bold.ttf
+          weight: 700
     - family: AlegreyaSans
       fonts:
         - asset: assets/fonts/AlegreyaSans-Regular.ttf
