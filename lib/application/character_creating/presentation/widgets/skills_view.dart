@@ -120,7 +120,7 @@ class SkillsView extends StatelessWidget {
 class _Title extends StatelessWidget {
   final String text;
 
-  /// Счётчик «0 из 2» — текстовым шрифтом: в декоративном «з» похожа на «в»
+  /// Счётчик «0 из 2» — текстовым шрифтом с табличными цифрами
   final String? counter;
 
   const _Title(this.text, {this.counter});

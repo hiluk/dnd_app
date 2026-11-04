@@ -41,17 +41,23 @@ isnet-general-use и birefnet-general), картинка обрезана по �
 | `images/sorcerer.jpg` | Чародей | [Arthur-Pyle The Enchantress Vivien.JPG](https://commons.wikimedia.org/wiki/File:Arthur-Pyle_The_Enchantress_Vivien.JPG) | Howard Pyle | Public domain |
 | `images/wizard.jpg` | Волшебник | [Arthur-Pyle The Enchanter Merlin.JPG](https://commons.wikimedia.org/wiki/File:Arthur-Pyle_The_Enchanter_Merlin.JPG) | Howard Pyle | Public domain |
 
-## Без записанного источника
+## Без записанного источника — заменить до публикации
 
 `figures/human.png`, `figures/half_elf.png`, `figures/elf.png`, `figures/dragon.png`,
 `figures/warrior.png`, `figures/barbarian.png`, `figures/ranger.png`, `figures/thief.png`
 и `images/human_plug.jpeg` были в проекте раньше; их источник и лицензия не записаны.
-У варвара, следопыта и плута фон дочищен нейросетью. Перед публикацией приложения
-эти картинки стоит проверить или заменить.
+Метаданных об авторе в файлах нет, по стилю это арт из коммерческих игр, поэтому
+считаем, что использовать их в опубликованном приложении нельзя. Решение: оставить
+на время разработки и заменить своими иллюстрациями (Midjourney) до публикации.
+У варвара, следопыта и плута фон дочищен нейросетью.
+
+Шрифт Orpheus, который раньше был в заголовках, удалён: в его файле указано
+«Copyright (c) Gophmann A.L., 2006. All rights reserved», то есть свободной
+лицензии у него нет. Вместо него — Alegreya SC (OFL).
 
 ## Шрифты
 
 | Файл | Назначение | Лицензия |
 |---|---|---|
-| `fonts/Orpheus.ttf` | Имена и заголовки | был в проекте раньше, лицензия не записана |
-| `fonts/AlegreyaSans-*.ttf` | Текст и числа | SIL Open Font License 1.1, Juan Pablo del Peral (Huerta Tipográfica); текст лицензии — `fonts/AlegreyaSans-OFL.txt` |
+| `fonts/AlegreyaSC-*.ttf` | Имена и заголовки | SIL Open Font License 1.1, The Alegreya Project Authors; текст лицензии — `fonts/AlegreyaSC-OFL.txt` |
+| `fonts/AlegreyaSans-*.ttf` | Текст и числа | SIL Open Font License 1.1, The Alegreya Project Authors (Huerta Tipográfica); текст лицензии — `fonts/AlegreyaSans-OFL.txt` |
