@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:dnd_app/application/character/models/character_avatar.dart';
 import 'package:dnd_app/application/character/models/character_model.dart';
 import 'package:dnd_app/application/character/models/character_sheet.dart';
 import 'package:dnd_app/application/character_creating/models/ability_roll.dart';
@@ -63,4 +65,46 @@ class CharactersRepository {
   Future<void> deleteCharacter(String id) async {
     await _httpClient.delete<void>('/characters/$id');
   }
+
+  /// Загрузить свою картинку персонажа. Сервер уменьшает её, поворачивает
+  /// по EXIF и сам определяет, прозрачен ли фон.
+  Future<CharacterAvatar> uploadAvatar(
+    String characterId,
+    List<int> bytes, {
+    String fileName = 'avatar',
+  }) async {
+    final path = '/characters/$characterId/avatar';
+    final data = await _httpClient.put<Map<String, dynamic>>(
+      path,
+      FormData.fromMap({
+        'file': MultipartFile.fromBytes(bytes, filename: fileName),
+      }),
+    );
+
+    if (data == null) throw EmptyResponseException(path);
+
+    return CharacterAvatar.fromJson(data);
+  }
+
+  /// Изменить вид и кадр своей картинки
+  Future<CharacterAvatar> updateAvatar(
+    String characterId,
+    AvatarLayout layout,
+  ) async {
+    final path = '/characters/$characterId/avatar';
+    final data =
+        await _httpClient.patch<Map<String, dynamic>>(path, layout.toJson());
+
+    if (data == null) throw EmptyResponseException(path);
+
+    return CharacterAvatar.fromJson(data);
+  }
+
+  /// Вернуть стандартную картинку класса
+  Future<void> deleteAvatar(String characterId) async {
+    await _httpClient.delete<void>('/characters/$characterId/avatar');
+  }
+
+  /// Скачать файл своей картинки
+  Future<List<int>> fetchAvatarBytes(String url) => _httpClient.getBytes(url);
 }

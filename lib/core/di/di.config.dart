@@ -19,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import '../../application/auth/bloc/auth_bloc.dart' as _i459;
 import '../../application/auth/interfaces/i_token_repository.dart' as _i246;
 import '../../application/auth/repositories/tokens_repository.dart' as _i498;
+import '../../application/character/avatar/avatar_cache.dart' as _i605;
 import '../../application/character/repositories/characters_repository.dart'
     as _i485;
 import '../catalog/catalog_repository.dart' as _i906;
@@ -89,6 +90,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i906.CatalogRepository>(),
           gh<_i974.Logger>(),
         ));
+    gh.lazySingleton<_i605.AvatarCache>(
+        () => _i605.AvatarCache(gh<_i485.CharactersRepository>()));
     return this;
   }
 }

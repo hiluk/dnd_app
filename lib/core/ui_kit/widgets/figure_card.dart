@@ -1,5 +1,7 @@
 import 'package:dnd_app/core/ui_kit/dnd_palette.dart';
 import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 /// Папка вырезанных фигур на прозрачном фоне
@@ -8,30 +10,57 @@ const figuresDir = 'assets/figures/';
 /// Папка картинок со сценой (гравюр)
 const platesDir = 'assets/images/';
 
-/// Картинка для карточки.
+/// Картинка для карточки: из ассетов или загруженная пользователем.
 /// Фигура ([isFigure]) вырезана на прозрачном фоне и выходит за верх карточки.
-/// Гравюра со сценой лежит внутри рамки и кадрируется по [alignment].
+/// Гравюра или фото лежит внутри рамки и кадрируется по [alignment] и [scale].
 class CardArt {
-  final String path;
+  /// Путь к ассету; null — картинка из [bytes]
+  final String? path;
+
+  /// Загруженная картинка
+  final Uint8List? bytes;
+
   final bool isFigure;
 
-  /// Какую часть гравюры показывать, если она не помещается в рамку
+  /// Какую часть картинки показывать, если она не помещается в рамку
   final Alignment alignment;
+
+  /// Увеличение кадра внутри рамки, от 1
+  final double scale;
 
   /// Линейный рисунок (чёрные линии): тонируется в цвет текста,
   /// иначе пропадает на тёмной теме
   final bool isLineArt;
 
-  const CardArt.figure(this.path, {this.isLineArt = false})
-      : isFigure = true,
-        alignment = Alignment.bottomCenter;
+  const CardArt.figure(String this.path, {this.isLineArt = false})
+      : bytes = null,
+        isFigure = true,
+        alignment = Alignment.bottomCenter,
+        scale = 1;
 
-  const CardArt.plate(this.path, {this.alignment = Alignment.topCenter})
-      : isFigure = false,
+  const CardArt.plate(String this.path, {this.alignment = Alignment.topCenter})
+      : bytes = null,
+        isFigure = false,
+        isLineArt = false,
+        scale = 1;
+
+  /// Своя картинка персонажа
+  const CardArt.memory(
+    Uint8List this.bytes, {
+    required this.isFigure,
+    this.alignment = Alignment.center,
+    this.scale = 1,
+  })  : path = null,
         isLineArt = false;
+
+  ImageProvider get provider {
+    final asset = path;
+    if (asset != null) return AssetImage(asset);
+    return MemoryImage(bytes!);
+  }
 }
 
-/// Изображение из [CardArt] с нужным вписыванием и тонированием
+/// Изображение из [CardArt] с нужным вписыванием, кадром и тонированием
 class ArtImage extends StatelessWidget {
   final CardArt art;
   final double opacity;
@@ -40,12 +69,29 @@ class ArtImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget image = Image.asset(
-      art.path,
+    Widget image = Image(
+      image: art.provider,
       fit: art.isFigure ? BoxFit.contain : BoxFit.cover,
-      alignment: art.alignment,
+      alignment: art.isFigure ? Alignment.bottomCenter : art.alignment,
       excludeFromSemantics: true,
+      gaplessPlayback: true,
+      // Повреждённый файл не роняет экран: показываем значок вместо картинки
+      errorBuilder: (context, _, __) => Center(
+        child: Icon(
+          Icons.broken_image_outlined,
+          size: 40,
+          color: DndPalette.of(context).muted,
+        ),
+      ),
     );
+
+    if (!art.isFigure && art.scale > 1) {
+      image = Transform.scale(
+        scale: art.scale,
+        alignment: art.alignment,
+        child: image,
+      );
+    }
 
     if (art.isLineArt) {
       image = ColorFiltered(

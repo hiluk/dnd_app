@@ -1,6 +1,6 @@
 import 'package:dnd_app/application/character/models/character_model.dart';
 import 'package:dnd_app/application/character/presentation/character_screen.dart';
-import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
+import 'package:dnd_app/application/character/avatar/character_art.dart';
 import 'package:dnd_app/core/ui_kit/dnd_palette.dart';
 import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
 import 'package:dnd_app/core/ui_kit/widgets/figure_card.dart';
@@ -24,8 +24,21 @@ class CharacterCard extends StatelessWidget {
     final race = character.characterRace.name;
     final characterClass = character.characterClass.name.toLowerCase();
 
+    return CharacterArt(
+      character: character,
+      builder: (context, art) => _card(context, art, p, race, characterClass),
+    );
+  }
+
+  Widget _card(
+    BuildContext context,
+    CardArt art,
+    DndPalette p,
+    String race,
+    String characterClass,
+  ) {
     return FigureCard(
-      art: CharacterClassType.artByName(character.characterClass.name),
+      art: art,
       inFocus: inFocus,
       plaqueHeight: 112,
       rise: 0.2,

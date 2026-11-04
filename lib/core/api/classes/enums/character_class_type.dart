@@ -27,9 +27,9 @@ enum CharacterClassType {
   final CardArt art;
   const CharacterClassType(this.name, this.jsonValue, [this.art = fallback]);
 
-  String get assetPath => art.path;
+  String get assetPath => art.path!;
 
-  static String getAssetByName(String? name) => artByName(name).path;
+  static String getAssetByName(String? name) => artByName(name).path!;
 
   static CardArt artByName(String? name) {
     for (final type in CharacterClassType.values) {

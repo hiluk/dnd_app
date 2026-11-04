@@ -8,6 +8,9 @@ class ChoiceTile extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Widget? trailing;
+
+  /// Значок слева (вместо отметки выбора)
+  final Widget? leading;
   final bool selected;
   final VoidCallback? onTap;
 
@@ -22,6 +25,7 @@ class ChoiceTile extends StatelessWidget {
     required this.title,
     this.subtitle,
     this.trailing,
+    this.leading,
     this.selected = false,
     this.onTap,
     this.showMark = false,
@@ -59,6 +63,9 @@ class ChoiceTile extends StatelessWidget {
                 children: [
                   if (showMark) ...[
                     _Mark(selected: selected),
+                    const SizedBox(width: 14),
+                  ] else if (leading != null) ...[
+                    leading!,
                     const SizedBox(width: 14),
                   ],
                   Expanded(

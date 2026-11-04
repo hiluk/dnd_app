@@ -246,9 +246,17 @@ class DndTheme {
       ),
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: SegmentedButton.styleFrom(
+          foregroundColor: p.muted,
           selectedBackgroundColor: p.gold.withOpacity(0.18),
           selectedForegroundColor: p.ink,
+          disabledForegroundColor: p.line,
           side: BorderSide(color: p.line),
+          minimumSize: const Size(0, 48),
+          textStyle: const TextStyle(
+            fontFamily: textFont,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );

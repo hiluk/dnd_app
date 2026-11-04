@@ -41,6 +41,9 @@ _$CharacterImpl _$$CharacterImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       sheet: CharacterSheet.fromJson(json['sheet'] as Map<String, dynamic>),
+      avatar: json['avatar'] == null
+          ? null
+          : CharacterAvatar.fromJson(json['avatar'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CharacterImplToJson(_$CharacterImpl instance) =>
@@ -64,6 +67,7 @@ Map<String, dynamic> _$$CharacterImplToJson(_$CharacterImpl instance) =>
           instance.classSkills.map((e) => _$SkillEnumMap[e]!).toList(),
       'expertise': instance.expertise.map((e) => _$SkillEnumMap[e]!).toList(),
       'sheet': instance.sheet.toJson(),
+      'avatar': instance.avatar?.toJson(),
     };
 
 const _$GenerationMethodEnumMap = {
