@@ -22,6 +22,10 @@ import '../../application/auth/repositories/tokens_repository.dart' as _i498;
 import '../../application/character/avatar/avatar_cache.dart' as _i605;
 import '../../application/character/repositories/characters_repository.dart'
     as _i485;
+import '../../application/session/repositories/session_queue_store.dart'
+    as _i1063;
+import '../../application/session/repositories/session_repository.dart'
+    as _i150;
 import '../catalog/catalog_repository.dart' as _i906;
 import '../http_client/http_client.dart' as _i747;
 import '../http_client/interceptors/auth_interceptor.dart' as _i960;
@@ -73,6 +77,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i747.AppHttpClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i564.ThemePreferences>(
         () => _i564.ThemePreferences(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i1063.SessionQueueStore>(() => _i1063.SessionQueueStore(
+          gh<_i460.SharedPreferences>(),
+          gh<_i974.Logger>(),
+        ));
+    gh.factory<_i150.SessionRepository>(
+        () => _i150.SessionRepository(gh<_i101.IHttpClient>()));
     gh.lazySingleton<_i906.CatalogRepository>(
         () => _i906.CatalogRepository(gh<_i101.IHttpClient>()));
     gh.factory<_i246.ITokensRepository>(() => _i498.TokensRepository(

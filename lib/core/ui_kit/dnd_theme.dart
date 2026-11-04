@@ -244,6 +244,19 @@ class DndTheme {
         surfaceTintColor: Colors.transparent,
         textStyle: TextStyle(fontFamily: textFont, fontSize: 16, color: p.ink),
       ),
+      tabBarTheme: TabBarTheme(
+        labelColor: p.ink,
+        unselectedLabelColor: p.muted,
+        indicatorColor: p.gold,
+        dividerColor: p.line,
+        overlayColor: WidgetStatePropertyAll(p.gold.withOpacity(0.08)),
+        labelStyle: const TextStyle(
+          fontFamily: textFont,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+        unselectedLabelStyle: const TextStyle(fontFamily: textFont, fontSize: 16),
+      ),
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: SegmentedButton.styleFrom(
           foregroundColor: p.muted,
