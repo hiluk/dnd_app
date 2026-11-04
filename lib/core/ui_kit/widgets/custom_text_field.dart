@@ -3,19 +3,25 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final String? label;
+  final String? hint;
   final bool autoFocus;
   final bool alwaysInFocus;
   final bool obscureText;
   final TextInputType? keyboardType;
   final Iterable<String>? autofillHints;
+  final TextInputAction? textInputAction;
+  final ValueChanged<String>? onSubmitted;
   const CustomTextField({
     this.onChanged,
     this.label,
+    this.hint,
     this.autoFocus = false,
     this.alwaysInFocus = false,
     this.obscureText = false,
     this.keyboardType,
     this.autofillHints,
+    this.textInputAction,
+    this.onSubmitted,
     super.key,
   });
 
@@ -31,40 +37,35 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return TextField(
-      focusNode: focusNode,
-      obscureText: widget.obscureText,
-      keyboardType: widget.keyboardType,
-      autofillHints: widget.autofillHints,
-      autocorrect: !widget.obscureText,
-      enableSuggestions: !widget.obscureText,
-      autofocus: widget.autoFocus,
-      onSubmitted: widget.alwaysInFocus
-          ? (value) {
-              focusNode.requestFocus();
-            }
-          : null,
-      style: const TextStyle(color: Colors.black),
-      controller: controller,
-      onChanged: widget.onChanged,
-      cursorColor: theme.primaryColor,
-      decoration: InputDecoration(
-        focusColor: theme.primaryColor,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: theme.primaryColor,
-        )),
-        filled: true,
-        fillColor: Colors.white,
-        labelStyle: const TextStyle(color: Colors.black),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        label: Text(widget.label ?? ""),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.label != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 2, bottom: 6),
+            child: Text(widget.label!, style: theme.textTheme.titleSmall),
           ),
+        TextField(
+          focusNode: focusNode,
+          obscureText: widget.obscureText,
+          keyboardType: widget.keyboardType,
+          autofillHints: widget.autofillHints,
+          autocorrect: !widget.obscureText,
+          enableSuggestions: !widget.obscureText,
+          autofocus: widget.autoFocus,
+          textInputAction: widget.textInputAction,
+          onSubmitted: widget.alwaysInFocus
+              ? (value) {
+                  focusNode.requestFocus();
+                  widget.onSubmitted?.call(value);
+                }
+              : widget.onSubmitted,
+          style: theme.textTheme.bodyLarge,
+          controller: controller,
+          onChanged: widget.onChanged,
+          decoration: InputDecoration(hintText: widget.hint),
         ),
-      ),
+      ],
     );
   }
 

@@ -1,35 +1,40 @@
+import 'package:dnd_app/core/ui_kit/widgets/figure_card.dart';
+import 'package:flutter/widgets.dart';
+
 /// Классы из «Книги игрока». [jsonValue] совпадает с enum на сервере,
 /// [name] — с названием в справочнике сервера.
 enum CharacterClassType {
-  fighter('Воин', 1, 'assets/images/warrior.png'),
-  barbarian('Варвар', 2, 'assets/images/barbarian.png'),
-  ranger('Следопыт', 3, 'assets/images/ranger.png'),
-  rogue('Плут', 4, 'assets/images/thief.png'),
-  bard('Бард', 5, 'assets/images/bard.jpg'),
-  cleric('Жрец', 6, 'assets/images/cleric.jpg'),
-  druid('Друид', 7, 'assets/images/druid.jpg'),
-  monk('Монах', 8, 'assets/images/monk.jpg'),
-  paladin('Паладин', 9, 'assets/images/paladin.jpg'),
-  sorcerer('Чародей', 10, 'assets/images/sorcerer.jpg'),
-  warlock('Колдун', 11, 'assets/images/warlock.png'),
-  wizard('Волшебник', 12, 'assets/images/wizard.jpg');
+  fighter('Воин', 1, CardArt.figure('${figuresDir}warrior.png')),
+  barbarian('Варвар', 2, CardArt.figure('${figuresDir}barbarian.png')),
+  ranger('Следопыт', 3, CardArt.figure('${figuresDir}ranger.png')),
+  rogue('Плут', 4, CardArt.figure('${figuresDir}thief.png')),
+  bard('Бард', 5, CardArt.figure('${figuresDir}bard.png')),
+  cleric('Жрец', 6, CardArt.plate('${platesDir}cleric.jpg')),
+  druid('Друид', 7, CardArt.figure('${figuresDir}druid.png')),
+  monk('Монах', 8, CardArt.plate('${platesDir}monk.jpg',
+      alignment: Alignment(0.2, -0.6))),
+  paladin('Паладин', 9, CardArt.plate('${platesDir}paladin.jpg')),
+  sorcerer('Чародей', 10, CardArt.plate('${platesDir}sorcerer.jpg')),
+  warlock('Колдун', 11, CardArt.figure('${figuresDir}warlock.png')),
+  wizard('Волшебник', 12, CardArt.plate('${platesDir}wizard.jpg'));
 
   /// Картинка для классов, у которых пока нет своей
-  static const fallbackAsset = 'assets/images/dragon.png';
+  static const fallback = CardArt.figure('${figuresDir}dragon.png');
+  static const fallbackAsset = '${figuresDir}dragon.png';
 
   final String name;
   final int jsonValue;
-  final String assetPath;
-  const CharacterClassType(
-    this.name,
-    this.jsonValue, [
-    this.assetPath = fallbackAsset,
-  ]);
+  final CardArt art;
+  const CharacterClassType(this.name, this.jsonValue, [this.art = fallback]);
 
-  static String getAssetByName(String? name) {
+  String get assetPath => art.path;
+
+  static String getAssetByName(String? name) => artByName(name).path;
+
+  static CardArt artByName(String? name) {
     for (final type in CharacterClassType.values) {
-      if (type.name == name) return type.assetPath;
+      if (type.name == name) return type.art;
     }
-    return fallbackAsset;
+    return fallback;
   }
 }

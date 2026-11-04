@@ -6,7 +6,8 @@ import 'package:dnd_app/core/ui_kit/widgets/custom_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/ui_kit/widgets/custom_text_field.dart';
+import 'package:dnd_app/application/auth/presentation/auth_layout.dart';
+import 'package:dnd_app/core/ui_kit/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = 'login';
@@ -25,63 +26,41 @@ class _LoginScreenState extends State<LoginScreen> {
     final authBloc = context.watch<AuthBloc>();
     final isLoading = authBloc.state is AuthLoading;
 
-    return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          state.whenOrNull(
-            error: (message) => ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(message),
-              ),
-            ),
-          );
-        },
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Center(
-              child: SizedBox(
-                height: 250,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomTextField(
-                      label: "Логин или эмейл",
-                      autofillHints: const [AutofillHints.username],
-                      onChanged: (text) => setState(() {
-                        loginRequest = loginRequest.copyWith(login: text);
-                      }),
-                    ),
-                    CustomTextField(
-                      label: "Пароль",
-                      obscureText: true,
-                      autofillHints: const [AutofillHints.password],
-                      onChanged: (text) => setState(() {
-                        loginRequest = loginRequest.copyWith(password: text);
-                      }),
-                    ),
-                    CustomButton(
-                      title: "Войти",
-                      onTap: () => authBloc.add(AuthEvent.login(loginRequest)),
-                      isLoading: isLoading,
-                    ),
-                    TextButton(
-                      onPressed: () =>
-                          context.pushNamed(RegisterScreen.routeName),
-                      child: Text(
-                        "Зарегистрироваться",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+    return AuthLayout(
+      title: 'Вход',
+      subtitle: 'Ваши герои ждут',
+      children: [
+        CustomTextField(
+          label: 'Логин или эмейл',
+          autofillHints: const [AutofillHints.username],
+          textInputAction: TextInputAction.next,
+          onChanged: (text) => setState(() {
+            loginRequest = loginRequest.copyWith(login: text);
+          }),
         ),
-      ),
+        const SizedBox(height: 16),
+        CustomTextField(
+          label: 'Пароль',
+          obscureText: true,
+          autofillHints: const [AutofillHints.password],
+          textInputAction: TextInputAction.done,
+          onSubmitted: (_) => authBloc.add(AuthEvent.login(loginRequest)),
+          onChanged: (text) => setState(() {
+            loginRequest = loginRequest.copyWith(password: text);
+          }),
+        ),
+        const SizedBox(height: 28),
+        CustomButton(
+          title: 'Войти',
+          onTap: () => authBloc.add(AuthEvent.login(loginRequest)),
+          isLoading: isLoading,
+        ),
+        const SizedBox(height: 8),
+        TextButton(
+          onPressed: () => context.pushNamed(RegisterScreen.routeName),
+          child: const Text('Создать аккаунт'),
+        ),
+      ],
     );
   }
 

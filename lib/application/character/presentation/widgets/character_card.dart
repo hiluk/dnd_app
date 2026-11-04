@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:dnd_app/application/character/models/character_model.dart';
 import 'package:dnd_app/application/character/presentation/character_screen.dart';
 import 'package:dnd_app/core/api/classes/enums/character_class_type.dart';
-import 'package:dnd_app/core/ui_kit/theme_extensions/character_card_theme_extension.dart';
-import 'package:dnd_app/core/ui_kit/widgets/scale_listener.dart';
-import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
+import 'package:dnd_app/core/ui_kit/dnd_palette.dart';
+import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
+import 'package:dnd_app/core/ui_kit/widgets/figure_card.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/ui_kit/widgets/avatar_box.dart';
-
-class CharacterCard extends StatefulWidget {
+/// Карточка персонажа в карусели выбора
+class CharacterCard extends StatelessWidget {
   final Character character;
   final bool inFocus;
+
   const CharacterCard({
     required this.character,
     required this.inFocus,
@@ -19,128 +19,91 @@ class CharacterCard extends StatefulWidget {
   });
 
   @override
-  State<CharacterCard> createState() => _CharacterCardState();
-}
-
-class _CharacterCardState extends State<CharacterCard> {
-  late String assetPath;
-  late ThemeData theme;
-  late CharacterCardThemeExtension themeExtension;
-
-  @override
   Widget build(BuildContext context) {
-    return ScaleListener(
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          context.pushNamed(
-            CharacterScreen.routeName,
-            extra: widget.character.id,
-          );
-        },
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: AnimatedScale(
-                  curve: Curves.easeOut,
-                  duration: DndDurations.regular,
-                  scale: widget.inFocus ? 0.9 : 0.8,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: constraints.maxHeight * 0.25),
-                    child: Material(
-                      elevation: 8,
-                      borderRadius: themeExtension.cardStyle.borderRadius,
-                      child: AnimatedContainer(
-                        duration: DndDurations.fast,
-                        width: constraints.maxWidth,
-                        height: constraints.maxHeight,
-                        decoration: themeExtension.cardStyle,
-                      ),
-                    ),
-                  ),
+    final p = DndPalette.of(context);
+    final race = character.characterRace.name;
+    final characterClass = character.characterClass.name.toLowerCase();
+
+    return FigureCard(
+      art: CharacterClassType.artByName(character.characterClass.name),
+      inFocus: inFocus,
+      plaqueHeight: 112,
+      rise: 0.2,
+      semanticLabel: '${character.name}, $race, $characterClass, '
+          '${character.level} уровень',
+      onTap: () => context.pushNamed(
+        CharacterScreen.routeName,
+        extra: character.id,
+      ),
+      plaque: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  character.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: DndTheme.display(p.ink, size: 30),
                 ),
-              ),
-              AnimatedOpacity(
-                duration: DndDurations.regular,
-                curve: Curves.easeOut,
-                opacity: widget.inFocus ? 1 : 0,
-                child: Transform.translate(
-                  offset: Offset(constraints.maxWidth * 0.2, 0),
-                  child: OverflowBox(
-                    maxHeight: constraints.maxHeight * 0.9,
-                    maxWidth: constraints.maxWidth * 2,
-                    child: CharacterAvatar(
-                      assetPath: assetPath,
-                    ),
-                  ),
+                const SizedBox(height: 6),
+                Text(
+                  '$race, $characterClass',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 16, color: p.muted),
                 ),
-              ),
-              // Плашка под текстом: картинки бывают и прозрачными, и с фоном
-              Center(
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.45),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.character.name,
-                        style: themeExtension.titleTextStyle,
-                      ),
-                      const SizedBox(height: 20),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 16,
-                        children: [
-                          Text(
-                            widget.character.characterRace.name,
-                            style: themeExtension.bodyTextStyle,
-                          ),
-                          Text(
-                            widget.character.characterClass.name,
-                            style: themeExtension.bodyTextStyle,
-                          ),
-                        ],
-                      ),
-                      Text(
-                        'Уровень: ${widget.character.level.toString()}',
-                        style: themeExtension.bodyTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        }),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          LevelSeal(level: character.level),
+        ],
       ),
     );
   }
+}
+
+/// Печать с уровнем персонажа
+class LevelSeal extends StatelessWidget {
+  final int level;
+  final double size;
+
+  const LevelSeal({super.key, required this.level, this.size = 52});
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    theme = Theme.of(context);
-    themeExtension = theme.extension<CharacterCardThemeExtension>() ??
-        CharacterCardThemeExtension.dark;
-  }
+  Widget build(BuildContext context) {
+    final p = DndPalette.of(context);
 
-  @override
-  void initState() {
-    super.initState();
-    assetPath = CharacterClassType.getAssetByName(
-      widget.character.characterClass.name,
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: p.gold, width: 1.5),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$level',
+            style: TextStyle(
+              fontSize: size * 0.4,
+              height: 1,
+              fontWeight: FontWeight.w700,
+              color: p.gold,
+              fontFeatures: DndTheme.numbers,
+            ),
+          ),
+          Text(
+            'ур.',
+            style: TextStyle(fontSize: size * 0.22, height: 1, color: p.gold),
+          ),
+        ],
+      ),
     );
   }
 }

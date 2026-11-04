@@ -18,6 +18,10 @@ import 'package:dnd_app/application/character_creating/presentation/widgets/meth
 import 'package:dnd_app/application/character_creating/presentation/widgets/classes_list_view.dart';
 import 'package:dnd_app/application/character_creating/presentation/widgets/races_list_view.dart';
 import 'package:dnd_app/core/catalog/catalog_loader.dart';
+import 'package:dnd_app/core/ui_kit/dnd_palette.dart';
+import 'package:dnd_app/core/ui_kit/dnd_theme.dart';
+import 'package:dnd_app/core/ui_kit/widgets/step_progress.dart';
+import 'package:dnd_app/core/utils/constants/dnd_durations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,8 +42,8 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
   }
 
   final (title, body) = switch (state.step) {
-    CreationStep.race => ('Выбор расы', const RacesListView()),
-    CreationStep.characterClass => ('Выбор класса', const ClassesListView()),
+    CreationStep.race => ('Раса', const RacesListView()),
+    CreationStep.characterClass => ('Класс', const ClassesListView()),
     CreationStep.method => ('Способ генерации', const MethodSelectView()),
     CreationStep.assignment => (
         state.generationMethod!.title,
@@ -49,31 +53,73 @@ Widget _getBody(BuildContext context, CharacterCreationBlocState state) {
     CreationStep.background => ('Предыстория', const BackgroundsListView()),
     CreationStep.skills => ('Навыки', const SkillsView()),
     CreationStep.summary => (
-        'Создание персонажа',
+        'Итог',
         const CharacterCreatingPreview()
       ),
   };
 
-  return CustomScrollView(
-    slivers: [
-      SliverAppBar(
-        leading: IconButton(
-          onPressed: state.previousState != null
-              ? () {
-                  clearVariables();
-                  context.read<CharacterCreationBloc>().add(
-                        CharacterCreationBlocEventReturn(),
-                      );
-                }
-              : () => context.pop(),
-          icon: const Icon(Icons.arrow_back),
+  // Шаг бонусов есть не у всех рас
+  final steps = [
+    for (final step in CreationStep.values)
+      if (step != CreationStep.bonusChoice ||
+          state.characterRace == null ||
+          state.requiredBonusChoices > 0)
+        step,
+  ];
+  final p = DndPalette.of(context);
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(8, 8, 20, 0),
+        child: Row(
+          children: [
+            IconButton(
+              tooltip: 'Назад',
+              onPressed: state.previousState != null
+                  ? () {
+                      clearVariables();
+                      context.read<CharacterCreationBloc>().add(
+                            CharacterCreationBlocEventReturn(),
+                          );
+                    }
+                  : () => context.pop(),
+              icon: const Icon(Icons.arrow_back),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: DndTheme.display(p.ink, size: 26),
+                  ),
+                  Text(
+                    'Шаг ${steps.indexOf(state.step) + 1} из ${steps.length}',
+                    style: TextStyle(fontSize: 14, color: p.muted),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        title: Text(title),
-        centerTitle: true,
       ),
-      SliverFillRemaining(
-        fillOverscroll: true,
-        child: body,
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
+        child: StepProgress(
+          current: steps.indexOf(state.step),
+          total: steps.length,
+        ),
+      ),
+      Expanded(
+        child: AnimatedSwitcher(
+          duration: DndDurations.fast,
+          child: KeyedSubtree(key: ValueKey(state.step), child: body),
+        ),
       ),
     ],
   );
@@ -87,7 +133,7 @@ class CharacterCreationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const BlocListenerFAB(),
+      bottomNavigationBar: const BlocListenerFAB(),
       body: SafeArea(
         child: CatalogLoader(
           child:
