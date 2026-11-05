@@ -13,7 +13,7 @@ enum CharacterClassType {
   druid('Друид', 7, CardArt.figure('${figuresDir}druid.png')),
   monk('Монах', 8, CardArt.plate('${platesDir}monk.jpg',
       alignment: Alignment(0.2, -0.6))),
-  paladin('Паладин', 9, CardArt.plate('${platesDir}paladin.jpg')),
+  paladin('Паладин', 9, CardArt.figure('${figuresDir}paladin.png')),
   sorcerer('Чародей', 10, CardArt.plate('${platesDir}sorcerer.jpg')),
   warlock('Колдун', 11, CardArt.figure('${figuresDir}warlock.png')),
   wizard('Волшебник', 12, CardArt.plate('${platesDir}wizard.jpg'));
