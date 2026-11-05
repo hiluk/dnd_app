@@ -68,24 +68,34 @@ class SessionViewState {
   int get maxHp => SessionRules.maxHp(
       context!, state?.exhaustion ?? serverState!.exhaustion);
 
-  ({SessionState? state, List<SessionEvent> events}) get _replay {
+  /// Действия из очереди, которые после ответа сервера стали недоступны
+  /// по правилам: показываем состояние без них, а сервер их отклонит
+  List<({PendingAction action, String reason})> get skipped => _replay.skipped;
+
+  ({
+    SessionState? state,
+    List<SessionEvent> events,
+    List<({PendingAction action, String reason})> skipped,
+  }) get _replay {
     final context = this.context;
     var state = serverState;
     final events = <SessionEvent>[];
-    if (context == null || state == null) return (state: state, events: events);
+    final skipped = <({PendingAction action, String reason})>[];
+    if (context == null || state == null) {
+      return (state: state, events: events, skipped: skipped);
+    }
 
     for (final action in pending) {
       try {
         final result = SessionRules.apply(context, state!, action.action);
         state = result.state;
         events.add(SessionEvent.local(action, result));
-      } on SessionRulesException {
-        // Сервер успел изменить состояние, и действие стало недоступно:
-        // сервер его отклонит, а показываем без него
+      } on SessionRulesException catch (e) {
+        skipped.add((action: action, reason: e.message));
       }
     }
 
-    return (state: state, events: events);
+    return (state: state, events: events, skipped: skipped);
   }
 
   SessionViewState copyWith({
@@ -130,6 +140,9 @@ class SessionCubit extends Cubit<SessionViewState> {
   /// Идущая отправка очереди: повторный вызов ждёт её, а не запускает вторую
   Future<void>? _flushing;
 
+  /// Пропущенные действия, о которых уже написали в лог
+  final _loggedSkips = <String>{};
+
   SessionCubit(
     this.characterId,
     this._repository,
@@ -144,8 +157,11 @@ class SessionCubit extends Cubit<SessionViewState> {
     ));
 
     try {
-      final session = await _repository.fetch(characterId);
-      final events = await _repository.events(characterId, limit: eventsPage);
+      final sessionRequest = _repository.fetch(characterId);
+      final eventsRequest = _repository.events(characterId, limit: eventsPage);
+      await Future.wait([sessionRequest, eventsRequest]);
+      final session = await sessionRequest;
+      final events = await eventsRequest;
       emit(state.copyWith(
         isLoading: false,
         context: session.context,
@@ -153,6 +169,7 @@ class SessionCubit extends Cubit<SessionViewState> {
         serverEvents: events,
         hasMoreEvents: events.length == eventsPage,
       ));
+      _logSkipped();
       await flush();
     } catch (e) {
       _logger.w('Не удалось загрузить сессию: $e');
@@ -274,6 +291,16 @@ class SessionCubit extends Cubit<SessionViewState> {
       serverEvents: events,
       message: message,
     ));
+    _logSkipped();
+  }
+
+  void _logSkipped() {
+    for (final (:action, :reason) in state.skipped) {
+      if (_loggedSkips.add(action.id)) {
+        _logger.w('Действие ${action.action.type} из очереди стало недоступно '
+            'после ответа сервера, показываем состояние без него: $reason');
+      }
+    }
   }
 
   @override

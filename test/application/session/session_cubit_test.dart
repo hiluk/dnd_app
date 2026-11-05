@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MockSessionRepository extends Mock implements SessionRepository {}
 
+class MockLogger extends Mock implements Logger {}
+
 const characterId = 'c1';
 const context =
     SessionContext(baseMaxHp: 55, hitDie: 12, level: 5, conModifier: 3);
@@ -166,6 +168,47 @@ void main() {
     expect(result, isNull);
     expect(cubit.state.pending, isEmpty);
     verifyNever(() => repository.act(characterId, any()));
+    await cubit.close();
+  });
+
+  test('Действие из очереди, ставшее недоступным, пишется в лог один раз',
+      () async {
+    // Спасбросок лёг в очередь, пока персонаж лежал без сознания,
+    // а на сервере его уже вылечили
+    await store
+        .write(characterId, [PendingAction.create(const DeathSaveAction(12))]);
+    when(() => repository.act(characterId, any())).thenThrow(offline());
+    final log = MockLogger();
+    final cubit = SessionCubit(characterId, repository, store, log);
+
+    await cubit.load();
+    await cubit.flush();
+
+    expect(cubit.state.state!.currentHp, 38);
+    expect(cubit.state.skipped.single.action.action.type, 'deathSave');
+    verify(() => log.w(any(that: contains('deathSave')))).called(1);
+    await cubit.close();
+  });
+
+  test('Сессия и журнал загружаются параллельно', () async {
+    final cubit = SessionCubit(characterId, repository, store, logger);
+    var fetching = false, eventsWhileFetching = false;
+    when(() => repository.fetch(characterId)).thenAnswer((_) async {
+      fetching = true;
+      await Future<void>.delayed(Duration.zero);
+      fetching = false;
+      return (context: context, state: server.state);
+    });
+    when(() => repository.events(characterId, limit: any(named: 'limit')))
+        .thenAnswer((_) async {
+      eventsWhileFetching = fetching;
+      return [];
+    });
+
+    await cubit.load();
+
+    expect(eventsWhileFetching, isTrue);
+    expect(cubit.state.serverState!.currentHp, 38);
     await cubit.close();
   });
 }
