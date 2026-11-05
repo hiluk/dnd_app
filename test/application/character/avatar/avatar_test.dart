@@ -139,7 +139,7 @@ void main() {
     testWidgets('Вырезанная фигура — прозрачная, гравюра — нет', (tester) async {
       final result = await tester.runAsync(() async => (
             await hasTransparentBorder(File('assets/figures/human.png').readAsBytesSync()),
-            await hasTransparentBorder(File('assets/images/wizard.jpg').readAsBytesSync()),
+            await hasTransparentBorder(File('assets/images/dwarf.jpg').readAsBytesSync()),
           ));
 
       expect(result!.$1, isTrue);
@@ -168,7 +168,7 @@ void main() {
 
     testWidgets('Гравюру нельзя показать фигурой', (tester) async {
       final hero = await tester.runAsync(() => character());
-      final bytes = File('assets/images/wizard.jpg').readAsBytesSync();
+      final bytes = File('assets/images/dwarf.jpg').readAsBytesSync();
 
       await pumpEditor(tester, hero!, AvatarSource.newImage(bytes, fileName: 'w.jpg'));
 
