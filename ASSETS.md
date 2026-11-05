@@ -34,17 +34,17 @@ isnet-general-use и birefnet-general), картинка обрезана по �
 
 | Файл | Для | Как сделано |
 |---|---|---|
-| `figures/paladin.png` | Паладин | Kling AI (модель kling-image-o1) по образцу `figures/warrior.png`, фон удалён rembg (isnet-general-use) |
+| `figures/paladin.png` | Паладин | Kling AI (kling-image-o1) по образцу `figures/warrior.png`, фон удалён rembg (isnet-general-use) |
+| `figures/cleric.png` | Жрец | Kling AI (kling-image-o1), образцы стиля `figures/warrior.png`, `ranger.png`, `half_elf.png`; фон удалён rembg (isnet-general-use) |
+| `figures/monk.png` | Монах | То же; лицо перерисовано отдельным запросом |
+| `figures/sorcerer.png` | Чародей | То же |
+| `figures/wizard.png` | Волшебник | То же; фон удалён rembg (birefnet-general), чтобы сохранить парящую книгу |
 
 ### Гравюры в рамке
 
 | Файл | Для | Источник | Автор | Лицензия |
 |---|---|---|---|---|
 | `images/dwarf.jpg` | Дварф | [Illustration to Richard Wagner's "Das Rheingold".jpg](https://commons.wikimedia.org/wiki/File:Illustration_to_Richard_Wagner%27s_%22Das_Rheingold%22.jpg) | Arthur Rackham | Public domain |
-| `images/cleric.jpg` | Жрец | [Paul in Ephesus (89485605).jpg](https://commons.wikimedia.org/wiki/File:Paul_in_Ephesus_(89485605).jpg) | Gustave Doré | Public domain |
-| `images/monk.jpg` | Монах | [Benkei 辨慶 (BM 2008,3037.02001).jpg](https://commons.wikimedia.org/wiki/File:Benkei_%E8%BE%A8%E6%85%B6_(BM_2008,3037.02001).jpg) | Print artist:Utagawa Kuniyoshi (歌川国芳) | Public domain |
-| `images/sorcerer.jpg` | Чародей | [Arthur-Pyle The Enchantress Vivien.JPG](https://commons.wikimedia.org/wiki/File:Arthur-Pyle_The_Enchantress_Vivien.JPG) | Howard Pyle | Public domain |
-| `images/wizard.jpg` | Волшебник | [Arthur-Pyle The Enchanter Merlin.JPG](https://commons.wikimedia.org/wiki/File:Arthur-Pyle_The_Enchanter_Merlin.JPG) | Howard Pyle | Public domain |
 
 ## Без записанного источника — заменить до публикации
 
